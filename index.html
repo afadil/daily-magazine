@@ -4,57 +4,318 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Daily Magazine</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,700;1,9..144,900&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
     <style>
       :root {
-        color-scheme: light dark;
-        --fg: #111;
-        --muted: #666;
-        --bg: #fafaf7;
-        --accent: #c0392b;
+        --bg: #ece3d0;
+        --fg: #14140f;
+        --muted: #7a7465;
+        --rule: #14140f;
+        --accent: #e24b4b;
+        --card-bg: #ebe2cf;
+        --featured-bg: #111110;
+        --featured-fg: #ece3d0;
+        --featured-muted: rgba(236, 227, 208, 0.45);
       }
-      @media (prefers-color-scheme: dark) {
-        :root { --fg: #eee; --muted: #999; --bg: #15151a; --accent: #ff6b5b; }
-      }
+
       * { box-sizing: border-box; }
+      html, body { margin: 0; padding: 0; }
+
       body {
-        margin: 0;
-        font: 16px/1.55 Georgia, "Times New Roman", serif;
-        color: var(--fg);
         background: var(--bg);
+        color: var(--fg);
+        font-family: "Fraunces", Georgia, "Times New Roman", serif;
+        font-optical-sizing: auto;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
       }
-      main { max-width: 640px; margin: 0 auto; padding: 4rem 1.25rem 6rem; }
-      header { border-bottom: 2px solid var(--fg); padding-bottom: 1rem; margin-bottom: 2rem; }
-      h1 { font-size: 2.2rem; margin: 0; letter-spacing: -0.02em; }
-      .tagline { color: var(--muted); font-style: italic; margin-top: 0.25rem; }
-      ul.issues { list-style: none; padding: 0; margin: 0; }
-      ul.issues li {
+
+      .page {
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: 3rem 2rem 6rem;
+      }
+
+      /* ── Masthead ─────────────────────────────────────────── */
+      .pretitle {
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 0.72rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.9rem;
+        margin-bottom: 1.4rem;
+      }
+      .pretitle .dotsep { color: var(--accent); }
+
+      .title {
+        font-family: "Fraunces", serif;
+        font-weight: 900;
+        font-size: clamp(3.25rem, 9.5vw, 7.5rem);
+        line-height: 0.92;
+        letter-spacing: -0.035em;
+        margin: 0;
+      }
+      .title .line { display: block; }
+      .title .edition {
+        color: var(--accent);
+        font-style: italic;
+        font-weight: 900;
+      }
+      .title .edition .dot { color: var(--fg); font-style: normal; }
+
+      .masthead {
+        border-bottom: 1.5px solid var(--rule);
+        padding-bottom: 1.25rem;
+      }
+
+      /* ── Meta stats row ───────────────────────────────────── */
+      .meta {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2.25rem;
+        padding: 2rem 0;
+      }
+      .meta-item .label {
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 0.7rem;
+        letter-spacing: 0.18em;
+        color: var(--muted);
+        text-transform: uppercase;
+        margin-bottom: 0.6rem;
+      }
+      .meta-item .value {
+        font-family: "Fraunces", serif;
+        font-size: clamp(1.1rem, 1.9vw, 1.55rem);
+        font-weight: 700;
+        letter-spacing: -0.01em;
+      }
+      .meta-item .value.italic { font-style: italic; font-weight: 400; }
+      .meta-item .value.numeral {
+        font-weight: 900;
+        font-size: clamp(1.4rem, 2.4vw, 2rem);
+      }
+
+      /* ── Double rule ──────────────────────────────────────── */
+      .double-rule {
+        border-top: 1.5px solid var(--rule);
+        border-bottom: 1.5px solid var(--rule);
+        height: 4px;
+        margin: 1rem 0 3rem;
+      }
+
+      /* ── Section header ───────────────────────────────────── */
+      .section-head {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        margin-bottom: 1.75rem;
+      }
+      .section-head .title-sm {
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 0.8rem;
+        letter-spacing: 0.2em;
+        font-weight: 500;
+      }
+      .section-head .subtitle {
+        font-family: "Fraunces", serif;
+        font-style: italic;
+        color: var(--muted);
+        font-size: 1rem;
+      }
+
+      /* ── Featured card ────────────────────────────────────── */
+      .featured {
+        background: var(--featured-bg);
+        color: var(--featured-fg);
+        border-radius: 10px;
+        padding: clamp(1.75rem, 3.5vw, 3rem);
+        text-decoration: none;
+        display: block;
+        position: relative;
+        overflow: hidden;
+        transition: transform 0.2s ease;
+      }
+      .featured:hover { transform: translateY(-2px); }
+
+      .featured-tag {
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 0.72rem;
+        letter-spacing: 0.18em;
+        color: var(--accent);
+        margin-bottom: 0.4rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      .featured-tag::before {
+        content: "";
+        display: inline-block;
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--accent);
+      }
+      .featured-vol {
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 0.72rem;
+        letter-spacing: 0.18em;
+        color: var(--featured-muted);
+        margin-bottom: 2.25rem;
+      }
+      .featured-title {
+        font-family: "Fraunces", serif;
+        font-weight: 700;
+        font-size: clamp(2.25rem, 5.5vw, 3.75rem);
+        line-height: 1.02;
+        letter-spacing: -0.02em;
+        margin: 0 0 1rem;
+      }
+      .featured-title .dot { color: var(--accent); }
+      .featured-sub {
+        font-family: "Fraunces", serif;
+        font-style: italic;
+        font-size: clamp(1.05rem, 1.7vw, 1.4rem);
+        color: rgba(236, 227, 208, 0.78);
+        max-width: 42ch;
+        margin: 0 0 1.5rem;
+        line-height: 1.45;
+      }
+      .featured-number {
+        font-family: "Fraunces", serif;
+        font-weight: 900;
+        font-style: italic;
+        color: var(--accent);
+        font-size: clamp(5.5rem, 11vw, 9rem);
+        line-height: 0.9;
+        letter-spacing: -0.04em;
+        margin: 0.75rem 0 1.75rem;
+      }
+      .featured-foot {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-top: 1.25rem;
+        border-top: 1px solid rgba(236, 227, 208, 0.15);
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 0.78rem;
+        letter-spacing: 0.16em;
+      }
+      .featured-foot .read { color: var(--accent); }
+
+      /* ── Empty-state for future issues ────────────────────── */
+      .soon {
+        margin-top: 3rem;
+        padding: 2.5rem;
+        border: 1.5px dashed rgba(20, 20, 15, 0.25);
+        border-radius: 10px;
+        text-align: center;
+        color: var(--muted);
+      }
+      .soon .eyebrow {
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 0.72rem;
+        letter-spacing: 0.2em;
+        margin-bottom: 0.6rem;
+      }
+      .soon .copy {
+        font-family: "Fraunces", serif;
+        font-style: italic;
+        font-size: 1.15rem;
+      }
+
+      /* ── Footer ───────────────────────────────────────────── */
+      footer {
+        margin-top: 5rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid rgba(20, 20, 15, 0.15);
         display: flex;
         justify-content: space-between;
-        gap: 1rem;
-        padding: 0.9rem 0;
-        border-bottom: 1px solid rgba(128,128,128,0.2);
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 0.72rem;
+        letter-spacing: 0.14em;
+        color: var(--muted);
       }
-      ul.issues a { color: var(--fg); text-decoration: none; font-weight: 600; }
-      ul.issues a:hover { color: var(--accent); text-decoration: underline; }
-      .date { color: var(--muted); font-variant-numeric: tabular-nums; font-size: 0.9rem; }
-      footer { margin-top: 3rem; color: var(--muted); font-size: 0.85rem; text-align: center; }
+      footer a { color: inherit; }
+
+      @media (max-width: 640px) {
+        .page { padding: 2rem 1.25rem 4rem; }
+        .meta { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+        .pretitle { gap: 0.6rem; font-size: 0.65rem; }
+      }
     </style>
   </head>
   <body>
-    <main>
-      <header>
-        <h1>Daily Magazine</h1>
-        <div class="tagline">An archive of daily issues</div>
+    <div class="page">
+      <header class="masthead">
+        <div class="pretitle">
+          <span>The archive</span>
+          <span class="dotsep">●</span>
+          <span>Curated daily</span>
+          <span class="dotsep">●</span>
+          <span>For Aziz</span>
+        </div>
+        <h1 class="title">
+          <span class="line">Daily</span>
+          <span class="line edition">Magazine<span class="dot">.</span></span>
+        </h1>
       </header>
 
-      <ul class="issues">
-        <li>
-          <a href="issues/2026-04-21.html">Issue &mdash; April 21, 2026</a>
-          <span class="date">2026-04-21</span>
-        </li>
-      </ul>
+      <section class="meta">
+        <div class="meta-item">
+          <div class="label">Archive</div>
+          <div class="value">Every Issue</div>
+        </div>
+        <div class="meta-item">
+          <div class="label">Published</div>
+          <div class="value italic">Every morning</div>
+        </div>
+        <div class="meta-item">
+          <div class="label">Volume</div>
+          <div class="value numeral">I</div>
+        </div>
+      </section>
 
-      <footer>Published via GitHub Pages</footer>
-    </main>
+      <div class="double-rule"></div>
+
+      <div class="section-head">
+        <div class="title-sm">The Newsstand</div>
+        <div class="subtitle">latest issues</div>
+      </div>
+
+      <a class="featured" href="issues/2026-04-21.html">
+        <div class="featured-tag">Today · Latest issue</div>
+        <div class="featured-vol">Vol. I · No. 1</div>
+        <h2 class="featured-title">
+          First Edition<span class="dot">.</span>
+        </h2>
+        <p class="featured-sub">
+          The opening issue &mdash; a quiet beginning to the archive.
+        </p>
+        <div class="featured-number">01</div>
+        <div class="featured-foot">
+          <span>Tuesday · April 21, 2026</span>
+          <span class="read">Read &rarr;</span>
+        </div>
+      </a>
+
+      <div class="soon">
+        <div class="eyebrow">Past Issues</div>
+        <div class="copy">
+          Tomorrow&rsquo;s edition takes its place here, and the shelf grows.
+        </div>
+      </div>
+
+      <footer>
+        <span>Published via GitHub Pages</span>
+        <a href="https://github.com/afadil/daily-magazine">Source</a>
+      </footer>
+    </div>
   </body>
 </html>
