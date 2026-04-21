@@ -1,0 +1,1129 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Daily Magazine · Vol. I · No. 3 · The Orchestration Bench</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,700;1,9..144,900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --fg: #14140f;
+        --muted: #7a7465;
+        --accent: #e24b4b;
+        --cream: #ece3d0;
+      }
+      * { box-sizing: border-box; }
+      html, body { margin: 0; padding: 0; }
+      body {
+        background: #ece3d0;
+        color: #14140f;
+        font-family: "Fraunces", Georgia, serif;
+        font-optical-sizing: auto;
+        -webkit-font-smoothing: antialiased;
+      }
+      a { color: inherit; }
+
+      /* ── Masthead ────────────────────────────────────────────── */
+      .masthead {
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: 3rem 2rem 2rem;
+        border-bottom: 1.5px solid #14140f;
+      }
+      .crumb {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.8rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.9rem;
+        margin-bottom: 1.5rem;
+      }
+      .crumb .dot { color: var(--accent); }
+      .masthead-title {
+        font-family: "Fraunces", serif;
+        font-weight: 900;
+        font-size: clamp(3rem, 9vw, 7rem);
+        line-height: 0.9;
+        letter-spacing: -0.035em;
+        margin: 0;
+      }
+      .masthead-title .em {
+        font-style: italic;
+        color: var(--accent);
+      }
+      .masthead-sub {
+        font-family: "Fraunces", serif;
+        font-style: italic;
+        font-size: clamp(1.25rem, 2.4vw, 1.85rem);
+        color: var(--muted);
+        margin: 1.5rem 0 0;
+        max-width: 64ch;
+        line-height: 1.4;
+      }
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 2rem;
+        padding: 2.5rem 0 1.5rem;
+      }
+      .stats .label {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.72rem;
+        letter-spacing: 0.18em;
+        color: var(--muted);
+        text-transform: uppercase;
+        margin-bottom: 0.5rem;
+      }
+      .stats .value {
+        font-family: "Fraunces", serif;
+        font-weight: 700;
+        font-size: clamp(1.1rem, 1.8vw, 1.5rem);
+        letter-spacing: -0.01em;
+      }
+      .stats .value.num { font-weight: 900; font-size: clamp(1.5rem, 2.6vw, 2.2rem); }
+      .stats .value.it { font-style: italic; font-weight: 400; }
+
+      /* ── Spread shell ────────────────────────────────────────── */
+      .spread {
+        position: relative;
+        padding: 6rem 2rem;
+      }
+      .spread-inner {
+        max-width: 1180px;
+        margin: 0 auto;
+      }
+      .ordinal {
+        font-family: "Fraunces", serif;
+        font-weight: 900;
+        font-style: italic;
+        line-height: 0.85;
+        letter-spacing: -0.04em;
+      }
+      .kicker {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.82rem;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        margin-bottom: 1.25rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+      .kicker .bullet {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: currentColor;
+      }
+      .headline {
+        font-family: "Fraunces", serif;
+        font-weight: 900;
+        letter-spacing: -0.03em;
+        margin: 0;
+      }
+      .lede {
+        font-family: "Fraunces", serif;
+        font-size: clamp(1.2rem, 1.9vw, 1.55rem);
+        line-height: 1.5;
+        margin-top: 1.5rem;
+        max-width: 62ch;
+      }
+      .meta-line {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.78rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
+      .source-row {
+        margin-top: 2.25rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem 2rem;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.78rem;
+        letter-spacing: 0.14em;
+      }
+      .source-row a { text-decoration: underline; text-underline-offset: 4px; }
+      .applies {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.45rem 0.85rem;
+        border: 1.5px solid currentColor;
+        border-radius: 999px;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.72rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+      }
+      .applies::before {
+        content: "";
+        width: 8px; height: 8px; border-radius: 50%;
+        background: var(--accent);
+      }
+
+      /* ── 01 · Hero (Opus 4.7) ─────────────────────────────── */
+      .s01 {
+        background: #ece3d0;
+        color: #14140f;
+        border-bottom: 1.5px solid #14140f;
+      }
+      .s01 .ordinal {
+        font-size: clamp(7rem, 18vw, 15rem);
+        color: var(--accent);
+      }
+      .s01 .headline {
+        font-size: clamp(3rem, 7.8vw, 6rem);
+        line-height: 0.95;
+        max-width: 18ch;
+        margin-top: 1rem;
+      }
+      .s01 .headline .dot { color: var(--accent); }
+      .s01 .grid {
+        display: grid;
+        grid-template-columns: 1.2fr 1fr;
+        gap: 3rem;
+        align-items: end;
+      }
+
+      /* ── 02 · Midnight (Amazon $25B) ─────────────────────── */
+      .s02 {
+        background: #0f1518;
+        color: #e9dfca;
+      }
+      .s02 .kicker { color: #d5b26a; }
+      .s02 .ordinal {
+        font-size: clamp(6rem, 14vw, 11rem);
+        color: #d5b26a;
+      }
+      .s02 .headline {
+        font-size: clamp(2.5rem, 6vw, 4.75rem);
+        line-height: 1;
+        max-width: 20ch;
+      }
+      .s02 .headline em { color: #d5b26a; font-style: italic; }
+      .s02 .lede { color: rgba(233, 223, 202, 0.82); }
+      .s02 .big {
+        font-family: "Fraunces", serif;
+        font-weight: 900;
+        font-size: clamp(6rem, 15vw, 12rem);
+        letter-spacing: -0.04em;
+        line-height: 0.9;
+        color: #d5b26a;
+        margin: 2rem 0 0;
+      }
+      .s02 .big small {
+        font-size: 0.25em;
+        font-weight: 500;
+        letter-spacing: 0.18em;
+        font-family: "JetBrains Mono", monospace;
+        color: rgba(233, 223, 202, 0.6);
+        text-transform: uppercase;
+        display: block;
+        margin-top: 1rem;
+      }
+
+      /* ── 03 · Rose Alert Stamp (Vercel) ─────────────────── */
+      .s03 {
+        background: #f2dcd5;
+        color: #421c1c;
+        position: relative;
+        overflow: hidden;
+      }
+      .s03 .kicker { color: #b93636; }
+      .s03 .ordinal {
+        font-size: clamp(6rem, 15vw, 12rem);
+        color: #b93636;
+      }
+      .s03 .headline {
+        font-size: clamp(2.6rem, 6.2vw, 5rem);
+        line-height: 0.98;
+        max-width: 18ch;
+      }
+      .s03 .stamp {
+        position: absolute;
+        top: 3rem;
+        right: 2.5rem;
+        border: 2.5px solid #b93636;
+        color: #b93636;
+        padding: 0.75rem 1.25rem;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.78rem;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        transform: rotate(-7deg);
+        border-radius: 4px;
+        box-shadow: inset 0 0 0 4px #f2dcd5, inset 0 0 0 6px #b93636;
+      }
+      .s03 .stamp span { display: block; font-weight: 700; font-size: 1rem; letter-spacing: 0.12em; margin-top: 0.25rem; }
+
+      /* ── 04 · Terminal (Cursor 3) ────────────────────────── */
+      .s04 {
+        background: #0a0c0b;
+        color: #c3e8c9;
+        font-family: "JetBrains Mono", monospace;
+      }
+      .s04 .kicker { color: #7ae38b; }
+      .s04 .ordinal {
+        font-family: "JetBrains Mono", monospace;
+        font-weight: 600;
+        font-style: normal;
+        font-size: clamp(5rem, 11vw, 8.5rem);
+        color: #7ae38b;
+      }
+      .s04 .headline {
+        font-family: "JetBrains Mono", monospace;
+        font-weight: 500;
+        font-size: clamp(2rem, 4.4vw, 3.4rem);
+        line-height: 1.05;
+        letter-spacing: -0.01em;
+        color: #e8f5ea;
+        max-width: 24ch;
+      }
+      .s04 .lede {
+        font-family: "JetBrains Mono", monospace;
+        font-size: clamp(1rem, 1.5vw, 1.2rem);
+        line-height: 1.55;
+        color: #9dc6a4;
+      }
+      .s04 .prompt::before {
+        content: "$ ";
+        color: #7ae38b;
+      }
+      .s04 .box {
+        border: 1px solid rgba(122, 227, 139, 0.3);
+        padding: 1.5rem 1.75rem;
+        margin-top: 2rem;
+        background: rgba(122, 227, 139, 0.04);
+        max-width: 52ch;
+      }
+      .s04 .box div { margin: 0.35rem 0; }
+      .s04 .box .k { color: #7ae38b; }
+
+      /* ── 05 · Academic drop-cap (Codex desktop) ─────────── */
+      .s05 {
+        background: #f4eedc;
+        color: #2a2010;
+      }
+      .s05 .ordinal {
+        font-size: clamp(6rem, 14vw, 11rem);
+        color: #2a2010;
+      }
+      .s05 .kicker { color: #6e5427; }
+      .s05 .headline {
+        font-family: "Fraunces", serif;
+        font-weight: 400;
+        font-style: italic;
+        font-size: clamp(2.5rem, 5.8vw, 4.5rem);
+        line-height: 1.05;
+        max-width: 22ch;
+      }
+      .s05 .article {
+        column-count: 2;
+        column-gap: 3rem;
+        margin-top: 2.5rem;
+        font-family: "Fraunces", serif;
+        font-size: 1.2rem;
+        line-height: 1.6;
+        max-width: 72ch;
+      }
+      .s05 .article::first-letter {
+        font-family: "Fraunces", serif;
+        font-weight: 900;
+        font-style: italic;
+        float: left;
+        font-size: 7rem;
+        line-height: 0.85;
+        margin: 0.5rem 0.8rem -0.5rem 0;
+        color: var(--accent);
+      }
+      @media (max-width: 720px) { .s05 .article { column-count: 1; } }
+
+      /* ── 06 · Newsprint (Figma Weave) ───────────────────── */
+      .s06 {
+        background: #f8f3e6;
+        color: #1a1714;
+      }
+      .s06 .kicker { color: #8a5a00; }
+      .s06 .ordinal {
+        font-size: clamp(6rem, 14vw, 10.5rem);
+        color: #8a5a00;
+      }
+      .s06 .headline {
+        font-family: "Fraunces", serif;
+        font-weight: 900;
+        font-size: clamp(2.6rem, 6vw, 4.6rem);
+        line-height: 1;
+        max-width: 19ch;
+        border-top: 3px solid #1a1714;
+        border-bottom: 1px solid #1a1714;
+        padding: 1.5rem 0;
+      }
+      .s06 .columns {
+        margin-top: 2rem;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2.5rem;
+        font-family: "Fraunces", serif;
+        font-size: 1.1rem;
+        line-height: 1.55;
+      }
+      @media (max-width: 800px) { .s06 .columns { grid-template-columns: 1fr; } }
+
+      /* ── 07 · Big stat (Claude Design) ──────────────────── */
+      .s07 {
+        background: #181414;
+        color: #f3ead3;
+      }
+      .s07 .kicker { color: #e24b4b; }
+      .s07 .ordinal {
+        font-size: clamp(4rem, 8vw, 6rem);
+        color: #7a7465;
+        font-style: normal;
+        font-weight: 500;
+        font-family: "JetBrains Mono", monospace;
+      }
+      .s07 .stat {
+        font-family: "Fraunces", serif;
+        font-weight: 900;
+        font-style: italic;
+        font-size: clamp(8rem, 22vw, 18rem);
+        line-height: 0.82;
+        letter-spacing: -0.05em;
+        color: #e24b4b;
+        margin: 1.5rem 0;
+      }
+      .s07 .headline {
+        font-size: clamp(2rem, 4vw, 3rem);
+        line-height: 1.1;
+        max-width: 22ch;
+        font-weight: 500;
+        font-style: italic;
+      }
+      .s07 .lede { color: rgba(243, 234, 211, 0.75); }
+
+      /* ── 08 · Industrial green (Discord tracing) ────────── */
+      .s08 {
+        background: #1c2a22;
+        color: #d2e6d4;
+      }
+      .s08 .kicker { color: #9ec7a3; }
+      .s08 .ordinal {
+        font-size: clamp(6rem, 14vw, 11rem);
+        color: #8fbf96;
+      }
+      .s08 .headline {
+        font-size: clamp(2.4rem, 5.5vw, 4.2rem);
+        line-height: 1;
+        max-width: 20ch;
+      }
+      .s08 .headline em { color: #8fbf96; font-style: italic; }
+      .s08 .twocol {
+        display: grid;
+        grid-template-columns: 1.1fr 1fr;
+        gap: 3rem;
+        align-items: start;
+        margin-top: 2rem;
+      }
+      @media (max-width: 760px) { .s08 .twocol { grid-template-columns: 1fr; } }
+      .s08 .trace {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.88rem;
+        line-height: 1.7;
+        border-left: 2px solid #8fbf96;
+        padding-left: 1.25rem;
+        color: #d2e6d4;
+      }
+      .s08 .trace .muted { color: rgba(210, 230, 212, 0.55); }
+
+      /* ── 09 · Science journal (Moringa) ─────────────────── */
+      .s09 {
+        background: #eceadc;
+        color: #1e2418;
+      }
+      .s09 .kicker { color: #416632; }
+      .s09 .ordinal {
+        font-size: clamp(5rem, 11vw, 8.5rem);
+        color: #416632;
+      }
+      .s09 .headline {
+        font-size: clamp(2.4rem, 5.4vw, 4rem);
+        line-height: 1.02;
+        max-width: 22ch;
+      }
+      .s09 .figurebox {
+        margin-top: 2.5rem;
+        display: grid;
+        grid-template-columns: 1.3fr 1fr;
+        gap: 3rem;
+        align-items: start;
+      }
+      @media (max-width: 760px) { .s09 .figurebox { grid-template-columns: 1fr; } }
+      .s09 .figure {
+        border: 1.5px solid #1e2418;
+        padding: 2rem 1.75rem;
+        background: rgba(65, 102, 50, 0.06);
+      }
+      .s09 .figure .cap {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.72rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: #416632;
+        margin-bottom: 1rem;
+      }
+      .s09 .figure .pct {
+        font-family: "Fraunces", serif;
+        font-weight: 900;
+        font-size: clamp(3rem, 7vw, 5.5rem);
+        color: #416632;
+        line-height: 0.95;
+      }
+      .s09 .figure .row {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.75rem 0;
+        border-top: 1px dashed rgba(30, 36, 24, 0.3);
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.85rem;
+      }
+
+      /* ── 10 · Blueprint (MCP) ───────────────────────────── */
+      .s10 {
+        background: #0e2236;
+        color: #c9d8ea;
+        background-image:
+          linear-gradient(rgba(201, 216, 234, 0.06) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(201, 216, 234, 0.06) 1px, transparent 1px);
+        background-size: 48px 48px;
+      }
+      .s10 .kicker { color: #7fb6e4; }
+      .s10 .ordinal {
+        font-family: "JetBrains Mono", monospace;
+        font-style: normal;
+        font-weight: 500;
+        font-size: clamp(5rem, 11vw, 8rem);
+        color: #7fb6e4;
+      }
+      .s10 .headline {
+        font-size: clamp(2.6rem, 6vw, 4.8rem);
+        line-height: 0.98;
+        max-width: 20ch;
+        color: #f0f6fc;
+      }
+      .s10 .headline em { color: #7fb6e4; font-style: italic; }
+      .s10 .schema {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+        margin-top: 2.5rem;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.88rem;
+      }
+      @media (max-width: 720px) { .s10 .schema { grid-template-columns: 1fr; } }
+      .s10 .node {
+        border: 1.5px solid #7fb6e4;
+        padding: 1rem 1.2rem;
+        background: rgba(127, 182, 228, 0.06);
+      }
+      .s10 .node .n {
+        color: #7fb6e4;
+        letter-spacing: 0.18em;
+        font-size: 0.72rem;
+      }
+      .s10 .node .v {
+        color: #f0f6fc;
+        font-size: 1.1rem;
+        margin-top: 0.4rem;
+        font-weight: 600;
+      }
+
+      /* ── HN Spread (warm newsprint) ─────────────────────── */
+      .hn {
+        background: #f5ecd9;
+        color: #1a1611;
+        border-top: 1.5px solid #14140f;
+      }
+      .hn .inner {
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: 5.5rem 2rem 6rem;
+      }
+      .hn .flag {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.8rem;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: #a6602a;
+        margin-bottom: 1.25rem;
+      }
+      .hn .masthead-h {
+        font-family: "Fraunces", serif;
+        font-weight: 900;
+        font-size: clamp(3.25rem, 8vw, 6.25rem);
+        line-height: 0.95;
+        letter-spacing: -0.035em;
+        margin: 0;
+        border-bottom: 3px solid #1a1611;
+        padding-bottom: 1rem;
+      }
+      .hn .masthead-h em {
+        font-style: italic;
+        color: #a6602a;
+      }
+      .hn .lead {
+        font-family: "Fraunces", serif;
+        font-style: italic;
+        font-size: clamp(1.1rem, 1.9vw, 1.4rem);
+        color: #5b4a2e;
+        max-width: 62ch;
+        margin: 1.25rem 0 3.5rem;
+        line-height: 1.45;
+      }
+      .hn-item {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 2.5rem;
+        padding: 2.5rem 0;
+        border-top: 1px solid rgba(26, 22, 17, 0.2);
+        align-items: start;
+      }
+      .hn-item:last-child { border-bottom: 1px solid rgba(26, 22, 17, 0.2); }
+      @media (max-width: 720px) {
+        .hn-item { grid-template-columns: 1fr; gap: 1rem; }
+      }
+      .hn-item .ord {
+        font-family: "Fraunces", serif;
+        font-weight: 900;
+        font-style: italic;
+        font-size: clamp(4.5rem, 8vw, 7rem);
+        line-height: 0.85;
+        color: #a6602a;
+        min-width: 3ch;
+      }
+      .hn-item .title {
+        font-family: "Fraunces", serif;
+        font-weight: 700;
+        font-size: clamp(1.85rem, 3.6vw, 2.75rem);
+        line-height: 1.05;
+        letter-spacing: -0.015em;
+        margin: 0 0 0.75rem;
+      }
+      .hn-item .stats {
+        display: flex;
+        gap: 1.5rem;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.85rem;
+        letter-spacing: 0.1em;
+        color: #5b4a2e;
+        padding: 0;
+      }
+      .hn-item .stats .n { color: #a6602a; font-weight: 600; }
+      .hn-item .summary {
+        font-family: "Fraunces", serif;
+        font-size: 1.15rem;
+        line-height: 1.55;
+        margin-top: 1.25rem;
+        max-width: 62ch;
+      }
+      .hn-item .links {
+        margin-top: 1.1rem;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.78rem;
+        letter-spacing: 0.12em;
+        display: flex;
+        gap: 1.5rem;
+        flex-wrap: wrap;
+      }
+      .hn-item .links a { text-decoration: underline; text-underline-offset: 4px; }
+
+      /* ── Footer / Colophon ─────────────────────────────── */
+      .colophon {
+        background: #14140f;
+        color: #ece3d0;
+        padding: 4rem 2rem 3rem;
+        border-top: 1.5px solid #14140f;
+      }
+      .colophon .inner {
+        max-width: 1180px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr;
+        gap: 3rem;
+      }
+      @media (max-width: 720px) {
+        .colophon .inner { grid-template-columns: 1fr; }
+      }
+      .colophon h3 {
+        font-family: "Fraunces", serif;
+        font-weight: 900;
+        font-size: 2rem;
+        margin: 0 0 0.5rem;
+        letter-spacing: -0.02em;
+      }
+      .colophon h3 em { color: var(--accent); font-style: italic; }
+      .colophon .label {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.72rem;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: rgba(236, 227, 208, 0.5);
+        margin-bottom: 0.7rem;
+      }
+      .colophon .body {
+        font-family: "Fraunces", serif;
+        font-size: 1rem;
+        line-height: 1.55;
+        color: rgba(236, 227, 208, 0.82);
+      }
+      .colophon .foot {
+        max-width: 1180px;
+        margin: 3rem auto 0;
+        padding-top: 1.5rem;
+        border-top: 1px solid rgba(236, 227, 208, 0.15);
+        display: flex;
+        justify-content: space-between;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.72rem;
+        letter-spacing: 0.14em;
+        color: rgba(236, 227, 208, 0.55);
+      }
+
+      @media (max-width: 760px) {
+        .spread { padding: 4rem 1.25rem; }
+        .s01 .grid { grid-template-columns: 1fr; gap: 1.5rem; }
+        .stats { grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ──────────────── MASTHEAD ──────────────── -->
+    <header class="masthead">
+      <div class="crumb">
+        <span>The Daily Magazine</span>
+        <span class="dot">●</span>
+        <span>Vol. I · No. 3</span>
+        <span class="dot">●</span>
+        <span>Morning Edition</span>
+        <span class="dot">●</span>
+        <span>For Aziz</span>
+      </div>
+      <h1 class="masthead-title">
+        The <span class="em">Orchestration</span><br/>Bench.
+      </h1>
+      <p class="masthead-sub">
+        Ten dispatches from a morning when agents are parallel, the cursor clicks itself, a $25B handshake rewires the inference layer, and every OAuth token is a supply-chain blast radius waiting to be measured.
+      </p>
+
+      <section class="stats">
+        <div>
+          <div class="label">Date</div>
+          <div class="value">Tuesday · April 21, 2026</div>
+        </div>
+        <div>
+          <div class="label">Curated for</div>
+          <div class="value it">Software architect / builder</div>
+        </div>
+        <div>
+          <div class="label">Stories</div>
+          <div class="value num">10 + 5</div>
+        </div>
+        <div>
+          <div class="label">Beats</div>
+          <div class="value it">AI · Dev tools · Security · Weird science</div>
+        </div>
+      </section>
+    </header>
+
+    <!-- ──────────────── 01 · HERO — OPUS 4.7 ──────────────── -->
+    <section class="spread s01">
+      <div class="spread-inner">
+        <div class="ordinal">01</div>
+        <div class="kicker"><span class="bullet"></span>Model drop · Generally available</div>
+        <h2 class="headline">
+          Opus 4.7 walks in, looks around, and starts refactoring your repo<span class="dot">.</span>
+        </h2>
+        <div class="grid">
+          <p class="lede">
+            Anthropic moved Claude Opus 4.7 to general availability this week — a step up on software-engineering benchmarks, long-running coding, instruction-following, and higher-resolution vision. The subtext, if you're building on Claude, is that the new ceiling for "autonomous edit over a real codebase" just raised again, and anything you benchmarked on Opus 4.6 last month is probably already on the wrong side of the curve.
+          </p>
+          <div>
+            <div class="meta-line" style="margin-bottom:1rem;color:var(--muted)">
+              Anthropic · April 16, 2026
+            </div>
+            <span class="applies">Applies directly to you</span>
+          </div>
+        </div>
+        <div class="source-row">
+          <a href="https://www.cnbc.com/2026/04/16/anthropic-claude-opus-4-7-model-mythos.html">CNBC → Opus 4.7 announcement</a>
+          <a href="https://www.anthropic.com/news">Anthropic News</a>
+          <a href="https://llm-stats.com/llm-updates">LLM Stats · April releases</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ──────────────── 02 · MIDNIGHT — $25B ──────────────── -->
+    <section class="spread s02">
+      <div class="spread-inner">
+        <div class="ordinal">02</div>
+        <div class="kicker"><span class="bullet"></span>Infrastructure · Capital</div>
+        <h2 class="headline">
+          Amazon commits another <em>twenty-five billion</em> to Anthropic — and a decade of AWS spend in return.
+        </h2>
+        <p class="lede">
+          Stacked on top of the $8B already in, the new tranche is a pure infrastructure play: Anthropic has pledged north of $100 billion in AWS purchases over ten years. Treat it as the cleanest signal yet that training-and-inference economics are being financed inside a single vendor envelope. For architects, that means the "cheap multi-cloud switch" for frontier models is narrowing, not widening.
+        </p>
+        <div class="big">
+          $25B<small>up from $8B — AWS as the substrate, not the bystander</small>
+        </div>
+        <div class="source-row">
+          <a href="https://www.cnbc.com/2026/04/20/amazon-invest-up-to-25-billion-in-anthropic-part-of-ai-infrastructure.html">CNBC · Amazon + Anthropic $25B</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ──────────────── 03 · ROSE ALERT — Vercel OAuth ──────────────── -->
+    <section class="spread s03">
+      <div class="stamp">Incident<span>OAuth · Supply chain</span></div>
+      <div class="spread-inner">
+        <div class="ordinal">03</div>
+        <div class="kicker"><span class="bullet"></span>Security · Actionable</div>
+        <h2 class="headline">
+          The Vercel breach turns platform env vars into the new blast-radius unit.
+        </h2>
+        <p class="lede">
+          Trend Micro's post-mortem on the April Vercel incident lands on a boring, dangerous conclusion: an OAuth supply-chain path gave attackers enough to reach environment variables across tenant projects — the things you actually keep your secrets in. If you ship on Vercel, Netlify, Cloudflare, or any platform with a third-party Git integration: audit OAuth scopes, rotate what touches prod, and treat "platform env var" as a trust boundary, not a vault.
+        </p>
+        <p class="lede" style="margin-top:1rem;">
+          It also reframes last week's LiteLLM supply-chain hit — the GoModel author on HN cites it explicitly as motivation for a smaller-surface gateway. Gateways, Git integrations, plugin marketplaces: same class of risk.
+        </p>
+        <div style="margin-top:1.5rem"><span class="applies">Applies directly to you</span></div>
+        <div class="source-row">
+          <a href="https://www.trendmicro.com/en_us/research/26/d/vercel-breach-oauth-supply-chain.html">Trend Micro · OAuth attack analysis</a>
+          <a href="https://news.ycombinator.com/item?id=47824463">HN · 485-comment incident thread</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ──────────────── 04 · TERMINAL — Cursor 3 ──────────────── -->
+    <section class="spread s04">
+      <div class="spread-inner">
+        <div class="ordinal">&gt; 04_</div>
+        <div class="kicker"><span class="bullet"></span>Dev tools · IDE</div>
+        <h2 class="headline">
+          <span class="prompt">cursor 3 --orchestrate --parallel-agents</span>
+        </h2>
+        <p class="lede">
+          Anysphere rebuilt Cursor from scratch around running many coding agents at once — local-to-cloud handoff, multi-repo parallelism, a plugin marketplace. Composer 2 benchmarks 61.3 on CursorBench and 73.7 on SWE-bench Multilingual at $0.50/M input tokens. This is no longer an IDE with a chat; it's an orchestrator with a file view.
+        </p>
+        <div class="box">
+          <div><span class="k">stack:</span> Cursor 3 + Claude Code + Codex plugin</div>
+          <div><span class="k">pattern:</span> one planner, many runners, one human reviewer</div>
+          <div><span class="k">composer-2:</span> 61.3 CursorBench · 73.7 SWE-bench ML</div>
+          <div><span class="k">priced:</span> $0.50 per 1M input tokens</div>
+        </div>
+        <div style="margin-top:1.5rem"><span class="applies" style="color:#7ae38b">Applies directly to you</span></div>
+        <div class="source-row" style="color:#9dc6a4">
+          <a href="https://thenewstack.io/ai-coding-tool-stack/">TNS · Cursor/Claude Code/Codex merging</a>
+          <a href="https://www.infoq.com/news/2026/04/cursor-3-agent-first-interface/">InfoQ · Cursor 3 agent-first</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ──────────────── 05 · ACADEMIC — Codex desktop ──────────────── -->
+    <section class="spread s05">
+      <div class="spread-inner">
+        <div class="ordinal">05</div>
+        <div class="kicker"><span class="bullet"></span>Agents · Desktop operation</div>
+        <h2 class="headline">
+          OpenAI lets Codex take the mouse — a cursor that clicks and types, without asking.
+        </h2>
+        <p class="article">
+          Codex's new background mode can open any app on your machine and drive it with a literal cursor — click, drag, type — while you work in another window. Combined with the Agents SDK's native sandbox execution, configurable memory, and built-in snapshotting, the product posture is unmistakable: OpenAI wants parity with Claude Code at the "agent runs for an hour while you drink coffee" tier. Ninety-plus new plugins, including Atlassian Rovo, CircleCI, CodeRabbit, now ship alongside. The architectural question this forces is no longer <em>can</em> we delegate multi-step work, but <em>what does my cold-start recovery look like when a clicking agent crashes halfway through a ticket?</em> Snapshots, replayable traces, and explicit commit boundaries start looking less like nice-to-haves and more like the new baseline of an agentic CI.
+        </p>
+        <div class="source-row" style="color:#6e5427">
+          <a href="https://techcrunch.com/2026/04/16/openai-takes-aim-at-anthropic-with-beefed-up-codex-that-gives-it-more-power-over-your-desktop/">TechCrunch · Codex goes desktop</a>
+          <a href="https://siliconangle.com/2026/04/16/openai-ratchets-codexs-agentic-capabilities-rival-claude-code/">SiliconAngle</a>
+          <a href="https://releasebot.io/updates/openai">OpenAI release notes</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ──────────────── 06 · NEWSPRINT — Figma Weave ──────────────── -->
+    <section class="spread s06">
+      <div class="spread-inner">
+        <div class="ordinal">06</div>
+        <div class="kicker"><span class="bullet"></span>Creative software · AI canvases</div>
+        <h2 class="headline">
+          Figma turns design system into a programmable generative surface.
+        </h2>
+        <div class="columns">
+          <p>
+            Figma shipped three things in April that read, taken together, as one thesis: <em>Weave workflows</em> make generative pipelines a sharable community resource, <em>Make kits</em> let design-system teams bind prompts to real tokens and components, and <em>Make attachments</em> finally let PRDs, SVGs, brand guidelines and code flow into prompts as first-class context.
+          </p>
+          <p>
+            For product teams, the interesting bit isn't the image output — it's the governance layer. When a prompt can consume your design tokens and your PRD and your approved component library, "what does AI produce in our brand" becomes a config problem, not a prayer. That's a workflow you can review in a PR.
+          </p>
+          <p>
+            Parallel release: Claude Design — Anthropic's new experimental tool for prototypes, slides and one-pagers. Two bets, same direction: the canvas is getting eaten by the prompt. Make kits mean you bring policy to the eat-ing.
+          </p>
+        </div>
+        <div class="source-row" style="color:#8a5a00">
+          <a href="https://www.figma.com/release-notes/">Figma · release notes</a>
+          <a href="https://fig-events.figma.com/feb-rn-2026/">Figma · Weave + Make kits</a>
+          <a href="https://techcrunch.com/2026/04/17/anthropic-launches-claude-design-a-new-product-for-creating-quick-visuals/">TechCrunch · Claude Design</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ──────────────── 07 · BIG STAT — Ecosystem ──────────────── -->
+    <section class="spread s07">
+      <div class="spread-inner">
+        <div class="ordinal">— 07 —</div>
+        <div class="kicker"><span class="bullet"></span>Ecosystem · MCP</div>
+        <div class="stat">1,000<sup style="font-size:0.3em;vertical-align:super;color:#f3ead3;">+</sup></div>
+        <h2 class="headline">
+          Community MCP servers in the wild — from Slack to Postgres to niche enterprise rigs. The protocol stopped being novelty.
+        </h2>
+        <p class="lede">
+          Model Context Protocol — Anthropic's open spec for how models talk to tools — is now past a thousand community servers. That's the ecosystem inflection. For architects: MCP is where "tool use" becomes a capability plane you can version, sandbox, and audit like any other integration layer. Stop writing bespoke agent glue. Start treating MCP servers as first-class dependencies with SBOMs and scope contracts.
+        </p>
+        <div style="margin-top:1.5rem"><span class="applies">Applies directly to you</span></div>
+        <div class="source-row">
+          <a href="https://dev.to/blackgirlbytes/my-predictions-for-mcp-and-ai-assisted-coding-in-2026-16bm">DEV · MCP in 2026</a>
+          <a href="https://mcpmarket.com/server/x-api">MCP Market · example server</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ──────────────── 08 · INDUSTRIAL GREEN — Discord tracing ──────────────── -->
+    <section class="spread s08">
+      <div class="spread-inner">
+        <div class="ordinal">08</div>
+        <div class="kicker"><span class="bullet"></span>Engineering deep dive · Actor model</div>
+        <h2 class="headline">
+          Discord wired distributed tracing into <em>Elixir's actor model</em> without paying for it.
+        </h2>
+        <div class="twocol">
+          <p class="lede">
+            Discord's team built a custom "Transport" library that wraps Elixir's raw message-passing so trace context rides on every actor hop — across millions of concurrent sessions — without measurable overhead. The paper-worthy bit is the benchmark: a trace framework that doesn't tax the hot path, on a language whose defining move is cheap messages.
+          </p>
+          <div class="trace">
+            <div><span class="muted">span</span> session.join   <span class="muted">2.1ms</span></div>
+            <div><span class="muted">  └─</span> presence.pub  <span class="muted">0.4ms</span></div>
+            <div><span class="muted">  └─</span> fanout.route  <span class="muted">0.8ms</span></div>
+            <div><span class="muted">  └─</span> gateway.push  <span class="muted">0.2ms</span></div>
+            <div class="muted" style="margin-top:1rem">trace_id inherited across BEAM actors</div>
+            <div class="muted">no TCP/protocol tax · no schema change</div>
+          </div>
+        </div>
+        <div class="source-row" style="color:#9ec7a3">
+          <a href="https://www.infoq.com/news/2026/03/discord-elixir-actor-tracing/">InfoQ · Discord Elixir actor tracing</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ──────────────── 09 · SCIENCE JOURNAL — Moringa ──────────────── -->
+    <section class="spread s09">
+      <div class="spread-inner">
+        <div class="ordinal">09</div>
+        <div class="kicker"><span class="bullet"></span>Weird science · Materials</div>
+        <h2 class="headline">
+          Moringa seeds quietly beat a chemical coagulant at pulling microplastics out of water.
+        </h2>
+        <div class="figurebox">
+          <p class="lede">
+            A new study shows a plant-based extract from moringa seeds clumps microplastic particles together well enough to rival standard chemical treatments — the kind of unshowy, field-deployable win that tends to end up in municipal pilots three years later. Filed under: quiet infrastructure beats loud chemistry. And under: keep watching the "boring" water stack, it's where the next decade of real-world ML-sensor deployments live.
+          </p>
+          <div class="figure">
+            <div class="cap">Fig. 1 · Aggregation efficiency</div>
+            <div class="pct">≈ parity</div>
+            <div class="row"><span>Moringa extract</span><span>rival class</span></div>
+            <div class="row"><span>Std. coagulant</span><span>baseline</span></div>
+            <div class="row"><span>Cost</span><span>plant-derived</span></div>
+            <div class="row"><span>Deployability</span><span>off-grid capable</span></div>
+          </div>
+        </div>
+        <div class="source-row" style="color:#416632">
+          <a href="https://www.sciencedaily.com/news/strange_offbeat/">ScienceDaily · strange & offbeat</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ──────────────── 10 · BLUEPRINT — Backend 2026 ──────────────── -->
+    <section class="spread s10">
+      <div class="spread-inner">
+        <div class="ordinal">// 10</div>
+        <div class="kicker"><span class="bullet"></span>Architecture · The reassessment</div>
+        <h2 class="headline">
+          The microservices boom is settling into <em>one style among many</em>.
+        </h2>
+        <p class="lede" style="color:#c9d8ea">
+          The April 2026 roundup of architecture commentary lands on a thesis that would have been contrarian in 2019: microservices were a style, not a destiny. Architects are justifying simpler designs again. Lightweight Kubernetes for edge, Rust for memory safety at the core, Go for the high-concurrency middle, and observability is eating AI/ML to predict failure before the page fires. If you're mid-migration: this is permission to stop splitting.
+        </p>
+        <div class="schema">
+          <div class="node"><div class="n">LAYER · CORE</div><div class="v">Rust · memory-safe</div></div>
+          <div class="node"><div class="n">LAYER · MESH</div><div class="v">Go · high-concurrency</div></div>
+          <div class="node"><div class="n">LAYER · EDGE</div><div class="v">Lightweight K8s</div></div>
+          <div class="node"><div class="n">OBSERVE</div><div class="v">AI-augmented anomaly</div></div>
+          <div class="node"><div class="n">PATTERN</div><div class="v">Justified simplicity</div></div>
+          <div class="node"><div class="n">ANTIPATTERN</div><div class="v">Default distribution</div></div>
+        </div>
+        <div style="margin-top:1.5rem"><span class="applies" style="color:#7fb6e4">Applies directly to you</span></div>
+        <div class="source-row" style="color:#7fb6e4">
+          <a href="https://www.theprotec.com/blog/2026/microservices-architecture-advanced-insights-best-practices/">Protec · microservices reassessed</a>
+          <a href="https://earezki.com/ai-news/2026-04-17-backend-developer-roadmap-2026-the-technologies-you-need-to-master/">Backend roadmap 2026</a>
+          <a href="https://leobit.com/blog/top-10-trends-in-software-development/">Leobit · 2026 trends</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ──────────────── HN SPREAD ──────────────── -->
+    <section class="hn">
+      <div class="inner">
+        <div class="flag">From the Hacker News front page · last 24 hours</div>
+        <h2 class="masthead-h">The <em>Y Combinator</em> column.</h2>
+        <p class="lead">Five editor's notes on what the HN front page was arguing about this morning — read beyond the titles so you don't have to. Stories already covered above have been skipped; these are the next ones down.</p>
+
+        <!-- HN 01 -->
+        <article class="hn-item">
+          <div class="ord">01</div>
+          <div>
+            <h3 class="title">Laws of Software Engineering.</h3>
+            <div class="stats">
+              <span class="n">▲ 547 points</span>
+              <span>281 comments</span>
+              <span>by milanm081</span>
+            </div>
+            <p class="summary">
+              A single-page catalogue of the "laws" the field keeps rediscovering — Brooks, Conway, Hyrum, Gall, plus a dozen you forgot had names. The HN thread is half nostalgia, half argument over which laws are load-bearing vs. merely quotable; the most interesting debate is whether Conway's Law has been quietly subsumed by the new "your org chart ships as your agent topology" reality.
+            </p>
+            <div class="links">
+              <a href="https://lawsofsoftwareengineering.com">lawsofsoftwareengineering.com</a>
+              <a href="https://news.ycombinator.com/item?id=47847179">HN discussion →</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- HN 02 -->
+        <article class="hn-item">
+          <div class="ord">02</div>
+          <div>
+            <h3 class="title">Show HN: VidStudio — a browser video editor that never uploads.</h3>
+            <div class="stats">
+              <span class="n">▲ 186 points</span>
+              <span>67 comments</span>
+              <span>by kolx</span>
+            </div>
+            <p class="summary">
+              Multi-track timeline, frame-accurate scrub, MP4 export — all in the browser, nothing leaves the machine. WebCodecs drives playback on the hardware decoder where possible, ffmpeg-wasm handles final encode, Pixi/WebGL renders, IndexedDB persists. It's a clean case study in what the modern browser stack can actually do when you commit to client-side as a feature.
+            </p>
+            <div class="links">
+              <a href="https://vidstudio.app/video-editor">vidstudio.app</a>
+              <a href="https://news.ycombinator.com/item?id=47847558">HN discussion →</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- HN 03 -->
+        <article class="hn-item">
+          <div class="ord">03</div>
+          <div>
+            <h3 class="title">GrapheneOS publishes its original responses to the WIRED fact checker.</h3>
+            <div class="stats">
+              <span class="n">▲ 177 points</span>
+              <span>97 comments</span>
+              <span>by ChrisArchitect</span>
+            </div>
+            <p class="summary">
+              GrapheneOS dropped its unedited replies to WIRED's fact-checking on a recent story, and the thread is a live-fire exercise in how a privacy project narrates itself versus how mainstream tech press renders it. For anyone running hardened mobile as part of a threat model, the posted clarifications on Pixel hardware choices and update cadence are the meat worth reading.
+            </p>
+            <div class="links">
+              <a href="https://discuss.grapheneos.org/d/34369-original-grapheneos-responses-to-wired-fact-checker">discuss.grapheneos.org</a>
+              <a href="https://news.ycombinator.com/item?id=47849854">HN discussion →</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- HN 04 -->
+        <article class="hn-item">
+          <div class="ord">04</div>
+          <div>
+            <h3 class="title">A type-safe, realtime collaborative graph database — on a CRDT.</h3>
+            <div class="stats">
+              <span class="n">▲ 106 points</span>
+              <span>31 comments</span>
+              <span>by phpnode</span>
+            </div>
+            <p class="summary">
+              CodeMix's Graph pitches a local-first graph DB where the sync layer is a CRDT and the schema is typed end-to-end. The interesting claim for application builders is that you can write multiplayer features without a server-authoritative boundary and still keep refactor-safety in TypeScript. The HN thread is a sharp conversation about CRDT cost at graph depth.
+            </p>
+            <div class="links">
+              <a href="https://codemix.com/graph">codemix.com/graph</a>
+              <a href="https://news.ycombinator.com/item?id=47846946">HN discussion →</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- HN 05 -->
+        <article class="hn-item">
+          <div class="ord">05</div>
+          <div>
+            <h3 class="title">Show HN: GoModel — an open-source AI gateway in Go.</h3>
+            <div class="stats">
+              <span class="n">▲ 83 points</span>
+              <span>22 comments</span>
+              <span>by santiago-pl</span>
+            </div>
+            <p class="summary">
+              A small-surface alternative to LiteLLM from a Warsaw solo founder: a 17MB image (vs. ~746MB), env-var-first config, visible request flow, and exact plus semantic caching. He's blunt about why he's posting now — the recent LiteLLM supply-chain hit has teams shopping for something with less attack surface. Fits the Vercel-breach theme above; gateways are infrastructure now.
+            </p>
+            <div class="links">
+              <a href="https://gomodel.enterpilot.io">gomodel.enterpilot.io</a>
+              <a href="https://github.com/ENTERPILOT/GOModel/">github.com/ENTERPILOT/GOModel</a>
+              <a href="https://news.ycombinator.com/item?id=47849097">HN discussion →</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ──────────────── COLOPHON ──────────────── -->
+    <footer class="colophon">
+      <div class="inner">
+        <div>
+          <h3>Daily <em>Magazine</em>.</h3>
+          <div class="body">
+            An editorial dispatch for a software architect who reads the HN front page at 7am and wants the signal by 7:15. Curated by hand, every morning.
+          </div>
+        </div>
+        <div>
+          <div class="label">Issue</div>
+          <div class="body">
+            Vol. I · No. 3<br/>
+            The Orchestration Bench<br/>
+            Tuesday · April 21, 2026
+          </div>
+        </div>
+        <div>
+          <div class="label">Desk</div>
+          <div class="body">
+            <a href="../index.html">← Return to the shelf</a><br/>
+            <a href="https://github.com/afadil/daily-magazine">Source · GitHub</a>
+          </div>
+        </div>
+      </div>
+      <div class="foot">
+        <span>Published via GitHub Pages</span>
+        <span>Set in Fraunces, Inter &amp; JetBrains Mono</span>
+      </div>
+    </footer>
+  </body>
+</html>
