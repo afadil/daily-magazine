@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Daily Magazine</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+        --fg: #111;
+        --muted: #666;
+        --bg: #fafaf7;
+        --accent: #c0392b;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root { --fg: #eee; --muted: #999; --bg: #15151a; --accent: #ff6b5b; }
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font: 16px/1.55 Georgia, "Times New Roman", serif;
+        color: var(--fg);
+        background: var(--bg);
+      }
+      main { max-width: 640px; margin: 0 auto; padding: 4rem 1.25rem 6rem; }
+      header { border-bottom: 2px solid var(--fg); padding-bottom: 1rem; margin-bottom: 2rem; }
+      h1 { font-size: 2.2rem; margin: 0; letter-spacing: -0.02em; }
+      .tagline { color: var(--muted); font-style: italic; margin-top: 0.25rem; }
+      ul.issues { list-style: none; padding: 0; margin: 0; }
+      ul.issues li {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        padding: 0.9rem 0;
+        border-bottom: 1px solid rgba(128,128,128,0.2);
+      }
+      ul.issues a { color: var(--fg); text-decoration: none; font-weight: 600; }
+      ul.issues a:hover { color: var(--accent); text-decoration: underline; }
+      .date { color: var(--muted); font-variant-numeric: tabular-nums; font-size: 0.9rem; }
+      footer { margin-top: 3rem; color: var(--muted); font-size: 0.85rem; text-align: center; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header>
+        <h1>Daily Magazine</h1>
+        <div class="tagline">An archive of daily issues</div>
+      </header>
+
+      <ul class="issues">
+        <li>
+          <a href="issues/2026-04-21.html">Issue &mdash; April 21, 2026</a>
+          <span class="date">2026-04-21</span>
+        </li>
+      </ul>
+
+      <footer>Published via GitHub Pages</footer>
+    </main>
+  </body>
+</html>
