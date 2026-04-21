@@ -209,25 +209,73 @@
       }
       .featured-foot .read { color: var(--accent); }
 
-      /* ── Empty-state for future issues ────────────────────── */
-      .soon {
+      /* ── Past issues grid ────────────────────────────────── */
+      .shelf-grid {
         margin-top: 3rem;
-        padding: 2.5rem;
-        border: 1.5px dashed rgba(20, 20, 15, 0.25);
-        border-radius: 10px;
-        text-align: center;
-        color: var(--muted);
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
       }
-      .soon .eyebrow {
+      .shelf-card {
+        background: var(--card-bg);
+        color: var(--fg);
+        border: 1.5px solid #14140f;
+        border-radius: 10px;
+        padding: 1.75rem;
+        text-decoration: none;
+        display: flex;
+        flex-direction: column;
+        transition: transform 0.2s ease;
+      }
+      .shelf-card:hover { transform: translateY(-2px); }
+      .shelf-card .vol {
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 0.7rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: 1.25rem;
+      }
+      .shelf-card .title {
+        font-family: "Fraunces", serif;
+        font-weight: 700;
+        font-size: clamp(1.55rem, 2.3vw, 1.95rem);
+        line-height: 1.05;
+        letter-spacing: -0.015em;
+        margin: 0 0 0.5rem;
+      }
+      .shelf-card .title .dot { color: var(--accent); }
+      .shelf-card .num {
+        font-family: "Fraunces", serif;
+        font-weight: 900;
+        font-style: italic;
+        color: var(--accent);
+        font-size: clamp(3.5rem, 6vw, 5rem);
+        line-height: 0.9;
+        margin: 1rem 0 1.25rem;
+      }
+      .shelf-card .foot {
+        margin-top: auto;
+        padding-top: 1rem;
+        border-top: 1px solid rgba(20, 20, 15, 0.15);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
         font-family: "JetBrains Mono", ui-monospace, monospace;
         font-size: 0.72rem;
-        letter-spacing: 0.2em;
-        margin-bottom: 0.6rem;
+        letter-spacing: 0.16em;
       }
-      .soon .copy {
-        font-family: "Fraunces", serif;
-        font-style: italic;
-        font-size: 1.15rem;
+      .shelf-card .foot .read { color: var(--accent); }
+      .shelf-card .tag {
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 0.7rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: 0.4rem;
+      }
+      @media (max-width: 720px) {
+        .shelf-grid { grid-template-columns: 1fr; }
       }
 
       /* ── Footer ───────────────────────────────────────────── */
@@ -289,28 +337,34 @@
         <div class="subtitle">latest issues</div>
       </div>
 
-      <a class="featured" href="issues/2026-04-21.html">
+      <a class="featured" href="issues/2026-04-21-morning.html">
         <div class="featured-tag">Today · Latest issue</div>
-        <div class="featured-vol">Vol. I · No. 1</div>
+        <div class="featured-vol">Vol. I · No. 2</div>
         <h2 class="featured-title">
-          The Velocity Crisis<span class="dot">.</span>
+          The Inference Layer<span class="dot">.</span>
         </h2>
         <p class="featured-sub">
-          Ten dispatches from a morning when the frontier ships faster than the documentation.
+          Ten dispatches from a morning when the model is the network, the agent is the user, and the OAuth token is the new perimeter.
         </p>
-        <div class="featured-number">01</div>
+        <div class="featured-number">02</div>
         <div class="featured-foot">
           <span>Tuesday · April 21, 2026</span>
           <span class="read">Read &rarr;</span>
         </div>
       </a>
 
-      <div class="soon">
-        <div class="eyebrow">Past Issues</div>
-        <div class="copy">
-          Tomorrow&rsquo;s edition takes its place here, and the shelf grows.
-        </div>
-      </div>
+      <section class="shelf-grid">
+        <a class="shelf-card" href="issues/2026-04-21.html">
+          <div class="vol">Vol. I · No. 1</div>
+          <div class="tag">Hacker News</div>
+          <h3 class="title">The Velocity Crisis<span class="dot">.</span></h3>
+          <div class="num">01</div>
+          <div class="foot">
+            <span>Tuesday · April 21, 2026</span>
+            <span class="read">Read &rarr;</span>
+          </div>
+        </a>
+      </section>
 
       <footer>
         <span>Published via GitHub Pages</span>

@@ -1,0 +1,772 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Morning Edition — Tuesday, April 21, 2026 · The Inference Layer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,800;0,9..144,900;1,9..144,300;1,9..144,400;1,9..144,600;1,9..144,800;1,9..144,900&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root{
+      --ink:#14140f;
+      --cream:#ece3d0;
+      --coral:#e24b4b;
+      --rose:#fff0ef;
+      --stamp:#b7261e;
+      --midnight:#0a0f1e;
+      --midnight-fg:#eae6dc;
+      --midnight-mute:#7c8aa6;
+      --terminal:#080b08;
+      --phosphor:#8df58d;
+      --parchment:#f1ebd8;
+      --teal:#0f2e27;
+      --teal-fg:#e9f5ef;
+      --peach:#f6d6d0;
+      --mustard:#fbd230;
+      --forest:#0b1e15;
+      --forest-fg:#d7efdf;
+      --ice:#e5edf2;
+      --plum:#1a0f1f;
+      --plum-fg:#f1e6f2;
+      --newsprint:#f7f1e3;
+      --newsprint-ink:#1a1612;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0}
+    body{
+      background:var(--cream);
+      color:var(--ink);
+      font-family:"Inter",system-ui,sans-serif;
+      font-size:22px;
+      line-height:1.5;
+      -webkit-font-smoothing:antialiased;
+      text-rendering:optimizeLegibility;
+    }
+    a{color:inherit}
+
+    /* ── Spread container ─────────────────────────────────── */
+    .spread{
+      min-height:100vh;
+      padding:clamp(3rem,6vw,6rem) clamp(1.5rem,5vw,5rem);
+      position:relative;
+      overflow:hidden;
+    }
+    .wrap{max-width:1240px;margin:0 auto;position:relative}
+
+    /* ── Reusable typography ─────────────────────────────── */
+    .meta{
+      font-family:"JetBrains Mono",ui-monospace,monospace;
+      font-size:0.95rem;
+      letter-spacing:0.22em;
+      text-transform:uppercase;
+      font-weight:500;
+    }
+    .numlabel{
+      font-family:"JetBrains Mono",ui-monospace,monospace;
+      font-size:1.05rem;
+      letter-spacing:0.24em;
+      text-transform:uppercase;
+      font-weight:500;
+      opacity:.75;
+    }
+    .display{
+      font-family:"Fraunces",Georgia,serif;
+      font-weight:800;
+      letter-spacing:-0.03em;
+      line-height:0.95;
+      font-optical-sizing:auto;
+    }
+    .display .it{font-style:italic;font-weight:900}
+    .display .dot{color:var(--coral)}
+    .lede{
+      font-family:"Fraunces",Georgia,serif;
+      font-weight:400;
+      font-style:italic;
+      font-size:clamp(1.35rem,2.1vw,1.9rem);
+      line-height:1.35;
+    }
+    .body{
+      font-family:"Inter",system-ui,sans-serif;
+      font-size:clamp(1.15rem,1.4vw,1.35rem);
+      line-height:1.55;
+      font-weight:400;
+    }
+    .pull{
+      font-family:"Fraunces",Georgia,serif;
+      font-style:italic;
+      font-weight:400;
+    }
+    .flag{
+      display:inline-block;
+      background:var(--coral);
+      color:#fff;
+      font-family:"JetBrains Mono",monospace;
+      font-size:0.85rem;
+      letter-spacing:0.22em;
+      text-transform:uppercase;
+      padding:.35rem .7rem;
+      font-weight:600;
+      margin-right:.75rem;
+      vertical-align:1px;
+    }
+    .readmore{
+      font-family:"JetBrains Mono",monospace;
+      font-size:.95rem;
+      letter-spacing:.22em;
+      text-transform:uppercase;
+      font-weight:600;
+      text-decoration:none;
+      border-bottom:2px solid currentColor;
+      padding-bottom:.25rem;
+    }
+
+    /* ══════════════════════════════════════════════════════
+       COVER
+       ══════════════════════════════════════════════════════ */
+    .cover{background:var(--cream);color:var(--ink);min-height:100vh;display:flex;flex-direction:column;justify-content:space-between;border-bottom:3px solid var(--ink);}
+    .cover .masthead{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+    .cover .back{text-decoration:none}
+    .cover h1{
+      font-family:"Fraunces",serif;
+      font-weight:900;
+      font-size:clamp(4rem,14vw,13rem);
+      line-height:.85;
+      letter-spacing:-.045em;
+      margin:2rem 0 1rem;
+    }
+    .cover h1 .it{font-style:italic;color:var(--coral)}
+    .cover h1 .dot{color:var(--coral)}
+    .cover .sub{
+      font-family:"Fraunces",serif;
+      font-style:italic;
+      font-size:clamp(1.6rem,3vw,2.6rem);
+      font-weight:400;
+      line-height:1.25;
+      max-width:34ch;
+      margin:0 0 3rem;
+    }
+    .cover .rule{border-top:1.5px solid var(--ink);border-bottom:1.5px solid var(--ink);height:4px;margin:1.5rem 0}
+    .cover .statrow{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(1rem,3vw,2.5rem);margin-top:1rem}
+    .cover .stat .k{font-family:"JetBrains Mono",monospace;font-size:.9rem;letter-spacing:.22em;text-transform:uppercase;opacity:.7;margin-bottom:.6rem}
+    .cover .stat .v{font-family:"Fraunces",serif;font-weight:700;font-size:clamp(1.5rem,2.2vw,2rem);letter-spacing:-.01em}
+    .cover .stat .v.num{font-weight:900;color:var(--coral);font-style:italic}
+    @media (max-width:760px){.cover .statrow{grid-template-columns:1fr 1fr}}
+
+    /* ══════════════════════════════════════════════════════
+       SPREAD 01 — HERO (cream)
+       ══════════════════════════════════════════════════════ */
+    .s-hero{background:var(--cream);color:var(--ink);}
+    .s-hero .top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:2.5rem}
+    .s-hero .numeral{
+      font-family:"Fraunces",serif;font-style:italic;font-weight:900;
+      font-size:clamp(7rem,18vw,16rem);line-height:.8;color:var(--coral);
+      letter-spacing:-.05em;margin:0;
+    }
+    .s-hero h2{
+      font-family:"Fraunces",serif;font-weight:800;
+      font-size:clamp(2.8rem,6.5vw,5.8rem);line-height:.95;
+      letter-spacing:-.03em;margin:1rem 0 1.75rem;max-width:18ch;
+    }
+    .s-hero h2 .it{font-style:italic;color:var(--coral)}
+    .s-hero .cols{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(1.5rem,4vw,4rem);margin-top:2rem;border-top:1.5px solid var(--ink);padding-top:2.5rem}
+    .s-hero .cols .pull{font-size:clamp(1.5rem,2vw,2rem);line-height:1.3}
+    @media (max-width:860px){.s-hero .cols{grid-template-columns:1fr}}
+
+    /* ══════════════════════════════════════════════════════
+       SPREAD 02 — DARK MIDNIGHT
+       ══════════════════════════════════════════════════════ */
+    .s-night{background:var(--midnight);color:var(--midnight-fg);}
+    .s-night .meta,.s-night a{color:var(--midnight-fg)}
+    .s-night .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:3rem}
+    .s-night .ord{
+      font-family:"JetBrains Mono",monospace;font-weight:600;
+      font-size:1.05rem;letter-spacing:.3em;color:var(--midnight-mute);
+    }
+    .s-night h2{
+      font-family:"Fraunces",serif;font-weight:300;font-style:italic;
+      font-size:clamp(3rem,7vw,6.2rem);line-height:.96;
+      letter-spacing:-.025em;margin:0 0 2rem;max-width:18ch;
+    }
+    .s-night h2 .strong{font-style:normal;font-weight:800;color:#fff}
+    .s-night .cols{display:grid;grid-template-columns:1fr 1fr;gap:clamp(1.5rem,4vw,4rem);border-top:1px solid rgba(255,255,255,.18);padding-top:2.5rem;margin-top:3rem}
+    .s-night .stat{font-family:"Fraunces",serif;font-weight:900;font-size:clamp(3rem,5vw,4.5rem);color:#fff;line-height:1;letter-spacing:-.02em}
+    .s-night .stat .lbl{display:block;font-family:"JetBrains Mono",monospace;font-weight:500;font-size:.85rem;letter-spacing:.22em;color:var(--midnight-mute);text-transform:uppercase;margin-top:.65rem}
+    @media (max-width:860px){.s-night .cols{grid-template-columns:1fr}}
+
+    /* ══════════════════════════════════════════════════════
+       SPREAD 03 — ROSE ALERT STAMP
+       ══════════════════════════════════════════════════════ */
+    .s-alert{background:var(--rose);color:var(--ink);}
+    .s-alert .stampwrap{position:absolute;top:clamp(2rem,5vw,4rem);right:clamp(2rem,6vw,5rem);transform:rotate(8deg)}
+    .s-alert .stamp{
+      border:5px solid var(--stamp);color:var(--stamp);
+      font-family:"JetBrains Mono",monospace;font-weight:700;
+      letter-spacing:.18em;font-size:1.15rem;
+      padding:.85rem 1.4rem;text-transform:uppercase;
+      background:rgba(255,255,255,.4);
+    }
+    .s-alert .top{margin-bottom:2rem}
+    .s-alert .ord{font-family:"Fraunces",serif;font-weight:900;font-style:italic;color:var(--stamp);font-size:clamp(8rem,16vw,15rem);line-height:.8;letter-spacing:-.05em;margin:.3rem 0 1.4rem}
+    .s-alert h2{
+      font-family:"Fraunces",serif;font-weight:900;
+      font-size:clamp(2.6rem,5.5vw,4.8rem);line-height:1;
+      letter-spacing:-.025em;margin:0 0 1.5rem;max-width:22ch;
+    }
+    .s-alert h2 .ul{text-decoration:underline;text-decoration-thickness:5px;text-underline-offset:.18em;text-decoration-color:var(--stamp)}
+    .s-alert .grid{display:grid;grid-template-columns:1.2fr .8fr;gap:clamp(1.5rem,4vw,4rem);border-top:2px solid var(--stamp);padding-top:2.5rem;margin-top:2.5rem}
+    .s-alert .pull{font-size:clamp(1.5rem,2vw,2rem);line-height:1.3;color:var(--stamp)}
+    @media (max-width:860px){.s-alert .grid{grid-template-columns:1fr}}
+
+    /* ══════════════════════════════════════════════════════
+       SPREAD 04 — TEAL ASYM (creative)
+       ══════════════════════════════════════════════════════ */
+    .s-teal{background:var(--teal);color:var(--teal-fg);}
+    .s-teal .top{display:flex;justify-content:space-between;margin-bottom:2.5rem}
+    .s-teal .top .meta{color:var(--peach)}
+    .s-teal .ord{
+      font-family:"Fraunces",serif;font-weight:300;font-style:italic;
+      color:var(--peach);font-size:clamp(9rem,22vw,20rem);line-height:.78;
+      letter-spacing:-.06em;margin:0;
+    }
+    .s-teal h2{
+      font-family:"Fraunces",serif;font-weight:600;
+      font-size:clamp(2.4rem,5vw,4.2rem);line-height:.98;
+      letter-spacing:-.025em;margin:1rem 0 1.5rem;max-width:18ch;
+    }
+    .s-teal h2 .pop{color:var(--mustard);font-style:italic;font-weight:900}
+    .s-teal .grid{display:grid;grid-template-columns:.4fr 1.1fr;gap:clamp(1.5rem,5vw,5rem);border-top:1px solid rgba(233,245,239,.25);padding-top:2.75rem;margin-top:2rem;align-items:start}
+    .s-teal .body{color:#d6ece1}
+    @media (max-width:860px){.s-teal .grid{grid-template-columns:1fr}}
+
+    /* ══════════════════════════════════════════════════════
+       SPREAD 05 — TERMINAL (phosphor)
+       ══════════════════════════════════════════════════════ */
+    .s-term{background:var(--terminal);color:var(--phosphor);font-family:"JetBrains Mono",monospace}
+    .s-term .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:3rem;border-bottom:1px solid #1a3a1a;padding-bottom:1rem}
+    .s-term .top .meta{color:var(--phosphor)}
+    .s-term .prompt{font-size:1.1rem;letter-spacing:.05em;color:#5a8a5a;margin-bottom:.4rem}
+    .s-term .ord{
+      font-family:"Fraunces",serif;font-style:italic;font-weight:900;
+      color:#3eaf3e;font-size:clamp(5rem,11vw,9rem);line-height:1;
+      letter-spacing:-.04em;margin:0 0 1rem;
+    }
+    .s-term h2{
+      font-family:"Fraunces",serif;font-weight:800;font-style:normal;
+      font-size:clamp(2.4rem,5.4vw,4.4rem);line-height:1;
+      color:#eafce8;letter-spacing:-.025em;margin:0 0 1.5rem;max-width:22ch;
+    }
+    .s-term h2 .glow{color:var(--phosphor)}
+    .s-term .body{font-family:"JetBrains Mono",monospace;font-size:1.05rem;line-height:1.65;color:#bfe6c0}
+    .s-term .ascii{color:#3aaf3a;font-size:.85rem;line-height:1.2;margin:1.5rem 0 .75rem;white-space:pre;overflow-x:auto}
+    .s-term .grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(1.5rem,4vw,4rem);border-top:1px solid #1a3a1a;padding-top:2.5rem;margin-top:2.5rem}
+    .s-term .stat{color:#eafce8;font-family:"JetBrains Mono",monospace;font-size:1.55rem;font-weight:600}
+    .s-term .stat .k{color:#5a8a5a;font-size:.85rem;letter-spacing:.22em;text-transform:uppercase;display:block;margin-bottom:.4rem}
+    @media (max-width:860px){.s-term .grid{grid-template-columns:1fr}}
+
+    /* ══════════════════════════════════════════════════════
+       SPREAD 06 — ACADEMIC DROP-CAP (parchment)
+       ══════════════════════════════════════════════════════ */
+    .s-academic{background:var(--parchment);color:var(--ink);}
+    .s-academic .top{display:flex;justify-content:space-between;border-bottom:2px solid var(--ink);padding-bottom:1.25rem;margin-bottom:2.5rem}
+    .s-academic .ord-row{display:flex;align-items:baseline;gap:1.5rem;margin-bottom:1.5rem}
+    .s-academic .ord{font-family:"Fraunces",serif;font-weight:900;font-style:italic;color:var(--ink);font-size:clamp(5rem,9vw,7.5rem);line-height:1;letter-spacing:-.04em}
+    .s-academic .ord-side{font-family:"Fraunces",serif;font-style:italic;font-size:1.5rem;color:#6a6555;font-weight:400}
+    .s-academic h2{
+      font-family:"Fraunces",serif;font-weight:600;font-style:italic;
+      font-size:clamp(2.6rem,5.5vw,4.6rem);line-height:.98;
+      letter-spacing:-.02em;margin:0 0 2rem;max-width:24ch;
+    }
+    .s-academic h2 .small-caps{font-style:normal;font-variant:small-caps;letter-spacing:.05em;font-weight:700}
+    .s-academic .body{column-count:2;column-gap:3.5rem;column-rule:1px solid rgba(20,20,15,.2);font-family:"Fraunces",serif;font-size:1.25rem;line-height:1.55;font-weight:400}
+    .s-academic .body p:first-of-type::first-letter{
+      font-family:"Fraunces",serif;font-weight:900;float:left;
+      font-size:5.5rem;line-height:.85;padding:.4rem .6rem 0 0;color:var(--coral);font-style:italic;
+    }
+    .s-academic .foot{margin-top:2.5rem;border-top:1px solid var(--ink);padding-top:1.25rem;font-family:"JetBrains Mono",monospace;font-size:.9rem;letter-spacing:.18em;text-transform:uppercase;display:flex;justify-content:space-between}
+    @media (max-width:860px){.s-academic .body{column-count:1}}
+
+    /* ══════════════════════════════════════════════════════
+       SPREAD 07 — BIG-STAT FOREST
+       ══════════════════════════════════════════════════════ */
+    .s-stat{background:var(--forest);color:var(--forest-fg)}
+    .s-stat .top{display:flex;justify-content:space-between;margin-bottom:2.5rem}
+    .s-stat .top .meta{color:#7fc99c}
+    .s-stat .grid{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(2rem,5vw,5rem);align-items:center}
+    .s-stat .ord{font-family:"Fraunces",serif;font-style:italic;font-weight:900;color:var(--mustard);font-size:clamp(3rem,5vw,4.5rem);line-height:1;letter-spacing:-.04em;margin-bottom:1rem}
+    .s-stat h2{
+      font-family:"Fraunces",serif;font-weight:300;
+      font-size:clamp(2.4rem,5vw,4.2rem);line-height:1;
+      letter-spacing:-.025em;margin:0 0 1.5rem;
+    }
+    .s-stat h2 .strong{font-weight:900}
+    .s-stat .megastat{font-family:"Fraunces",serif;font-weight:900;font-style:italic;color:var(--mustard);font-size:clamp(7rem,16vw,15rem);line-height:.85;letter-spacing:-.05em;text-align:right}
+    .s-stat .megastat .unit{font-size:.4em;color:var(--forest-fg);font-style:normal;font-weight:600;display:block;letter-spacing:.04em;margin-top:.5rem;font-family:"JetBrains Mono",monospace;text-transform:uppercase}
+    .s-stat .body{color:#bfe2c9}
+    .s-stat .foot{margin-top:3rem;border-top:1px solid rgba(215,239,223,.25);padding-top:1.5rem}
+    @media (max-width:860px){.s-stat .grid{grid-template-columns:1fr}.s-stat .megastat{text-align:left}}
+
+    /* ══════════════════════════════════════════════════════
+       SPREAD 08 — NEWSPRINT 3-COL
+       ══════════════════════════════════════════════════════ */
+    .s-print{background:var(--newsprint);color:var(--newsprint-ink)}
+    .s-print .top{display:flex;justify-content:space-between;border-bottom:3px double var(--newsprint-ink);padding-bottom:1rem;margin-bottom:2.5rem}
+    .s-print .ord{
+      font-family:"Fraunces",serif;font-weight:900;color:var(--newsprint-ink);
+      font-size:clamp(7rem,15vw,13rem);line-height:.78;
+      letter-spacing:-.05em;margin:0;
+    }
+    .s-print h2{
+      font-family:"Fraunces",serif;font-weight:900;
+      font-size:clamp(2.4rem,5.6vw,4.6rem);line-height:.96;
+      letter-spacing:-.025em;margin:.5rem 0 2rem;max-width:24ch;
+      text-transform:uppercase;font-stretch:condensed;
+    }
+    .s-print .lede{margin-bottom:2rem;border-bottom:1px solid var(--newsprint-ink);padding-bottom:1.5rem}
+    .s-print .body{column-count:3;column-gap:2.5rem;font-family:"Fraunces",serif;font-size:1.18rem;line-height:1.5;text-align:justify;hyphens:auto}
+    .s-print .body p{margin-top:0}
+    .s-print .foot{margin-top:2rem;border-top:2px solid var(--newsprint-ink);padding-top:1rem;display:flex;justify-content:space-between}
+    @media (max-width:860px){.s-print .body{column-count:1}}
+
+    /* ══════════════════════════════════════════════════════
+       SPREAD 09 — ICE / QUANTUM
+       ══════════════════════════════════════════════════════ */
+    .s-ice{background:var(--ice);color:var(--ink)}
+    .s-ice .top{display:flex;justify-content:space-between;margin-bottom:2rem}
+    .s-ice .grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(2rem,5vw,5rem);align-items:start}
+    .s-ice .ord-block{position:sticky;top:2rem}
+    .s-ice .ord{font-family:"Fraunces",serif;font-weight:300;color:var(--ink);font-size:clamp(8rem,18vw,16rem);line-height:.8;letter-spacing:-.06em;display:block}
+    .s-ice .ord .it{font-style:italic;color:var(--coral);font-weight:900;display:inline-block;margin-left:-.05em}
+    .s-ice .word{font-family:"JetBrains Mono",monospace;font-size:.8rem;letter-spacing:.3em;text-transform:uppercase;color:#5e6878;margin-top:.6rem}
+    .s-ice h2{
+      font-family:"Fraunces",serif;font-weight:800;
+      font-size:clamp(2.4rem,5.4vw,4.4rem);line-height:.98;
+      letter-spacing:-.025em;margin:0 0 1.5rem;
+    }
+    .s-ice h2 .it{font-style:italic;color:#3a4a5e;font-weight:300}
+    .s-ice .pull{font-size:clamp(1.4rem,2vw,1.8rem);color:#3a4a5e;border-left:3px solid var(--coral);padding-left:1.25rem;margin-top:2rem}
+    @media (max-width:860px){.s-ice .grid{grid-template-columns:1fr}.s-ice .ord-block{position:static}}
+
+    /* ══════════════════════════════════════════════════════
+       SPREAD 10 — PLUM CLOSER
+       ══════════════════════════════════════════════════════ */
+    .s-plum{background:var(--plum);color:var(--plum-fg)}
+    .s-plum .top{display:flex;justify-content:space-between;margin-bottom:2.5rem}
+    .s-plum .top .meta{color:#c19fce}
+    .s-plum .ord{font-family:"Fraunces",serif;font-style:italic;font-weight:900;color:var(--mustard);font-size:clamp(5rem,11vw,10rem);line-height:.85;letter-spacing:-.05em;margin:.5rem 0 1.5rem}
+    .s-plum h2{
+      font-family:"Fraunces",serif;font-weight:600;
+      font-size:clamp(2.6rem,5.8vw,5rem);line-height:.96;
+      letter-spacing:-.025em;margin:0 0 1.5rem;max-width:22ch;
+    }
+    .s-plum h2 .pop{color:var(--mustard);font-style:italic;font-weight:900}
+    .s-plum .body{color:#dcccdf}
+    .s-plum .grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(1.5rem,4vw,4rem);margin-top:2.5rem;border-top:1px solid rgba(241,230,242,.2);padding-top:2.5rem}
+    .s-plum .pull{color:var(--mustard);font-size:clamp(1.5rem,2.1vw,2.05rem);line-height:1.3}
+    @media (max-width:860px){.s-plum .grid{grid-template-columns:1fr}}
+
+    /* ══════════════════════════════════════════════════════
+       SPREAD 11 — HACKER NEWS NEWSPRINT
+       ══════════════════════════════════════════════════════ */
+    .s-hn{background:#f6f0df;color:#1a140d;border-top:3px solid #1a140d}
+    .s-hn .topbar{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:1rem;border-bottom:3px double #1a140d;padding-bottom:1.25rem;margin-bottom:2rem}
+    .s-hn .deck{font-family:"JetBrains Mono",monospace;font-size:.95rem;letter-spacing:.22em;text-transform:uppercase;color:#7a5e2c}
+    .s-hn h1{
+      font-family:"Fraunces",serif;font-weight:900;
+      font-size:clamp(3rem,7vw,6rem);line-height:.92;
+      letter-spacing:-.03em;margin:.5rem 0 .5rem;
+    }
+    .s-hn h1 .it{font-style:italic;color:#cb3a1d}
+    .s-hn .standfirst{font-family:"Fraunces",serif;font-style:italic;font-size:clamp(1.4rem,2.1vw,1.85rem);max-width:42ch;margin:0 0 2rem;line-height:1.35}
+    .s-hn .item{
+      display:grid;grid-template-columns:auto 1fr auto;gap:clamp(1rem,3vw,2.5rem);
+      padding:2.25rem 0;border-top:1px solid #1a140d;align-items:start;
+    }
+    .s-hn .item:last-of-type{border-bottom:1px solid #1a140d}
+    .s-hn .ord{
+      font-family:"Fraunces",serif;font-style:italic;font-weight:900;
+      color:#cb3a1d;font-size:clamp(4.5rem,9vw,8rem);line-height:.85;
+      letter-spacing:-.04em;margin:0;
+    }
+    .s-hn .item h3{
+      font-family:"Fraunces",serif;font-weight:800;
+      font-size:clamp(1.85rem,3.6vw,2.85rem);line-height:1.02;
+      letter-spacing:-.018em;margin:0 0 .9rem;
+    }
+    .s-hn .item h3 a{text-decoration:none;border-bottom:2px solid transparent}
+    .s-hn .item h3 a:hover{border-bottom-color:#cb3a1d}
+    .s-hn .summary{font-family:"Fraunces",serif;font-size:1.18rem;line-height:1.5;font-weight:400;color:#2b2418;max-width:54ch;margin-bottom:1rem}
+    .s-hn .meta-line{font-family:"JetBrains Mono",monospace;font-size:.95rem;letter-spacing:.05em;color:#7a5e2c;font-weight:500}
+    .s-hn .meta-line .pts{color:#cb3a1d;font-weight:600}
+    .s-hn .meta-line a{color:#1a140d;border-bottom:1px solid #1a140d;text-decoration:none;padding-bottom:1px;margin-left:.6rem}
+    .s-hn .item .stack{font-family:"JetBrains Mono",monospace;font-size:.95rem;letter-spacing:.05em;color:#7a5e2c;text-align:right;line-height:1.4;min-width:8ch}
+    .s-hn .stack .pts{display:block;color:#cb3a1d;font-weight:700;font-size:1.5rem;letter-spacing:0;font-family:"Fraunces",serif;font-style:italic}
+    .s-hn .stack .cm{display:block;margin-top:.4rem}
+    .s-hn .colophon{margin-top:2.5rem;border-top:3px double #1a140d;padding-top:1rem;font-family:"JetBrains Mono",monospace;font-size:.85rem;letter-spacing:.18em;color:#7a5e2c;text-transform:uppercase;display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+    @media (max-width:860px){
+      .s-hn .item{grid-template-columns:auto 1fr}
+      .s-hn .item .stack{grid-column:1/-1;text-align:left;padding-left:0;margin-top:.5rem}
+    }
+
+    /* ══════════════════════════════════════════════════════
+       COLOPHON
+       ══════════════════════════════════════════════════════ */
+    .s-end{background:var(--cream);color:var(--ink);text-align:center;padding:5rem 1.5rem;border-top:3px solid var(--ink)}
+    .s-end h3{font-family:"Fraunces",serif;font-weight:900;font-style:italic;color:var(--coral);font-size:clamp(3.5rem,8vw,6.5rem);line-height:.9;letter-spacing:-.04em;margin:0 0 1rem}
+    .s-end p{font-family:"Fraunces",serif;font-style:italic;font-size:clamp(1.2rem,1.8vw,1.55rem);max-width:45ch;margin:0 auto 2rem}
+    .s-end .meta{justify-content:center;display:flex;gap:1.5rem;flex-wrap:wrap;color:#6a6555}
+    .s-end a{color:var(--coral)}
+  </style>
+</head>
+<body>
+
+  <!-- ══════════════════════════════════════════════════════
+       COVER
+       ══════════════════════════════════════════════════════ -->
+  <section class="cover spread">
+    <div class="wrap">
+      <div class="masthead meta">
+        <a class="back" href="../index.html">&larr; The Newsstand</a>
+        <span>Vol. I &middot; No. 2 &middot; Tuesday April 21, 2026</span>
+      </div>
+      <div>
+        <div class="meta" style="margin-top:3rem">Morning Edition &middot; For Aziz</div>
+        <h1>The<br/><span class="it">Inference</span><br/>Layer<span class="dot">.</span></h1>
+        <p class="sub">Ten dispatches from a morning when the model is the network, the agent is the user, and the OAuth token is the new perimeter.</p>
+      </div>
+      <div>
+        <div class="rule"></div>
+        <div class="statrow">
+          <div class="stat"><div class="k">Stories</div><div class="v num">10</div></div>
+          <div class="stat"><div class="k">Front Page</div><div class="v num">5</div></div>
+          <div class="stat"><div class="k">Edition</div><div class="v">Morning</div></div>
+          <div class="stat"><div class="k">Published</div><div class="v">07:00&nbsp;ET</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════
+       01 — HERO: VERCEL / OAUTH SUPPLY CHAIN
+       ══════════════════════════════════════════════════════ -->
+  <section class="s-hero spread">
+    <div class="wrap">
+      <div class="top">
+        <div class="meta">No. 01 &middot; Security &middot; Direct Apply</div>
+        <span class="flag">Flagged for you</span>
+      </div>
+      <p class="numeral">01</p>
+      <div>
+        <p class="lede" style="max-width:44ch">A browser extension. An OAuth scope. <em>And the new perimeter just shifted.</em></p>
+        <h2>Vercel’s breach was a <span class="it">supply‑chain story</span> wearing a SaaS costume.</h2>
+      </div>
+      <div class="cols">
+        <div class="body">
+          <p>Vercel disclosed on April 19 that an internal compromise traces back to a single employee installing the Context.ai browser extension and signing in with their enterprise Google account. The OAuth grant carried enough scope for the attacker to pivot into Vercel’s environment and exfiltrate <em>non‑sensitive</em> environment variables for a subset of customers. ShinyHunters is now hawking the trove for $2M.</p>
+          <p>By April 20, Vercel had collaborated with Microsoft, GitHub, npm and Socket and confirmed no malicious npm packages. The lesson is older than Y2K and newer than this morning’s coffee: third‑party OAuth apps are production code, and a Workspace marketplace is your unaudited package registry.</p>
+          <p style="margin-top:1.5rem"><a class="readmore" href="https://vercel.com/kb/bulletin/vercel-april-2026-security-incident">Read Vercel’s bulletin &rarr;</a></p>
+        </div>
+        <div>
+          <p class="pull">“Sensitive‑marked variables were stored unreadable; everything else was fair game. The default still leaks.”</p>
+          <p class="meta" style="margin-top:2rem;color:#6a6555">Sources: Vercel KB &middot; TechCrunch &middot; GitGuardian &middot; BleepingComputer</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════
+       02 — MIDNIGHT: CLAUDE OPUS 4.7
+       ══════════════════════════════════════════════════════ -->
+  <section class="s-night spread">
+    <div class="wrap">
+      <div class="top">
+        <div class="meta">No. 02 &middot; Models</div>
+        <span class="ord">— 02 / 10</span>
+      </div>
+      <h2>Anthropic ships <span class="strong">Opus 4.7</span> with task budgets and an <span class="strong">xhigh</span> reasoning lane.</h2>
+      <p class="lede" style="max-width:44ch;color:#bfc8dc">Pricing held at $5/$25 per million tokens. The model arrived everywhere at once — API, Bedrock, Vertex, Foundry, Copilot — and Anthropic openly noted Mythos still beats it.</p>
+      <p class="body" style="margin-top:1.5rem;max-width:60ch;color:#cdd5e6">The headline feature for engineers isn’t the SWE‑bench bump. It’s <em>task budgets</em>: a soft token target you hand the model for an entire agentic loop, plus a new “xhigh” effort level slotted between high and max. Together they let you tune the latency/quality knob per‑task instead of per‑request — which is the shape every harness has been hand‑rolling since Opus 4.</p>
+      <span class="flag" style="margin-top:1.5rem">Flagged for you</span>
+      <div class="cols">
+        <div class="stat">+ vision<span class="lbl">higher‑res image inputs</span></div>
+        <div class="stat">xhigh<span class="lbl">new effort tier · between high &amp; max</span></div>
+      </div>
+      <p class="meta" style="margin-top:3rem;color:#7c8aa6">Sources: <a href="https://www.anthropic.com/news/claude-opus-4-7">anthropic.com</a> &middot; <a href="https://github.blog/changelog/2026-04-16-claude-opus-4-7-is-generally-available/">GitHub Changelog</a> &middot; <a href="https://platform.claude.com/docs/en/about-claude/models/whats-new-claude-4-7">Claude API Docs</a></p>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════
+       03 — ROSE ALERT: CLAUDE DESIGN
+       ══════════════════════════════════════════════════════ -->
+  <section class="s-alert spread">
+    <div class="wrap">
+      <div class="stampwrap"><div class="stamp">Markets &middot; React</div></div>
+      <div class="top meta">No. 03 &middot; Creative software &middot; Pricing pressure</div>
+      <p class="ord">03</p>
+      <h2>Claude <span class="ul">Design</span> walks into Figma’s living room.</h2>
+      <p class="lede" style="max-width:44ch">Prototypes, slides, and one‑pagers from a single prompt — with direct export to Canva, PDF and PowerPoint. Figma stock fell 7%+ on the announcement. Adobe, Wix and GoDaddy followed.</p>
+      <div class="grid">
+        <div class="body">
+          <p>Anthropic’s new Claude Design tool ships alongside Opus 4.7 and is positioned squarely at the part of the design stack where AI has been most quietly disruptive: the “first draft.” The pitch is that anyone can describe what they need and walk away with an editable artifact in the familiar formats — no Figma file in sight.</p>
+          <p>Two days before launch, Anthropic CPO Mike Krieger resigned from Figma’s board. The optics did most of the work the press release didn’t. The interesting product question is whether direct export to <em>existing</em> creative tools turns Claude Design into the input layer rather than a replacement.</p>
+          <p style="margin-top:1.5rem"><a class="readmore" href="https://www.pymnts.com/artificial-intelligence-2/2026/anthropics-new-design-tool-rivals-adobe-and-figma/">Read more &rarr;</a></p>
+        </div>
+        <div>
+          <p class="pull">Figma down 7%. Adobe, Wix and GoDaddy down with it. The market priced this as <em>infrastructure</em>, not feature.</p>
+          <p class="meta" style="margin-top:1.75rem;color:#7a4040">Sources: PYMNTS &middot; Blockonomi &middot; Trak.in</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════
+       04 — TEAL: CURSOR FUNDING
+       ══════════════════════════════════════════════════════ -->
+  <section class="s-teal spread">
+    <div class="wrap">
+      <div class="top">
+        <div class="meta">No. 04 &middot; Capital markets</div>
+        <div class="meta">$2B raise</div>
+      </div>
+      <p class="ord">04</p>
+      <h2>Cursor is reportedly raising <span class="pop">$2B</span> at a $50B valuation.</h2>
+      <div class="grid">
+        <div>
+          <p class="lede" style="color:var(--peach);max-width:14ch">A coding IDE is now worth more than most of the public cloud‑native vendors it runs on top of.</p>
+        </div>
+        <div class="body">
+          <p>CNBC reports Cursor is in talks for a $2 billion round at over $50 billion. The number itself is less interesting than what it implies about how investors are now pricing the IDE: not as a tool, but as the runtime where billions of agent‑authored diffs will be drafted, reviewed and merged.</p>
+          <p>Pair it with the broader Q1 2026 picture — foundational AI startups pulled in roughly double all of 2025 — and the “composable AI coding stack” thesis (Cursor for editing, Codex/Claude Code for execution, Copilot for review) gets very real cap table support. By March, OpenAI’s Codex had crossed 1.6M weekly actives; by April 8, Sam Altman publicly put it at 3M.</p>
+          <p style="margin-top:1.5rem"><a class="readmore" href="https://www.cnbc.com/2026/04/19/cursor-ai-2-billion-funding-round.html">CNBC &rarr;</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════
+       05 — TERMINAL: CLOUDFLARE AI PLATFORM
+       ══════════════════════════════════════════════════════ -->
+  <section class="s-term spread">
+    <div class="wrap">
+      <div class="top">
+        <div class="prompt">~/morning-edition $</div>
+        <div class="meta">No. 05 &middot; Infra &middot; Agents Week</div>
+      </div>
+      <p class="ord">05</p>
+      <h2>Cloudflare wants to be the <span class="glow">inference layer</span>.</h2>
+      <pre class="ascii">┌─ AI GATEWAY ──────────────────────────────────────────────┐
+│  one API · 14+ providers · model routing · failover · $   │
+│  edge: 330 cities · same network as your Worker           │
+└───────────────────────────────────────────────────────────┘</pre>
+      <p class="body">Cloudflare’s Agents Week 2026 (Apr 13–17) closed with a thesis: write your agent once, route any model, fail over automatically, and bill in one place. Workers binding now runs third‑party models, the catalog goes multimodal, and the AI Gateway sits a single network hop from your Worker — the kind of latency story that decides whether an agent <em>feels</em> alive.</p>
+      <div class="grid">
+        <div class="stat"><span class="k">First‑token gain</span>~50 ms</div>
+        <div class="stat"><span class="k">Provider catalog</span>14+ models</div>
+      </div>
+      <p style="margin-top:2rem"><a class="readmore" href="https://blog.cloudflare.com/ai-platform/" style="color:var(--phosphor);border-bottom-color:var(--phosphor)">$ open blog.cloudflare.com/ai-platform &rarr;</a></p>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════
+       06 — ACADEMIC: CHIRAL PHONONS / ORBITRONICS
+       ══════════════════════════════════════════════════════ -->
+  <section class="s-academic spread">
+    <div class="wrap">
+      <div class="top meta"><span>No. 06 &middot; Weird science &middot; Nature Physics</span><span>April 17, 2026</span></div>
+      <div class="ord-row">
+        <span class="ord">06</span>
+        <span class="ord-side">— moving electrons without a magnet, a battery, or even a wire</span>
+      </div>
+      <h2>Twisted lattices, <span class="small-caps">Orbital</span> momentum, and the quiet birth of <em>orbitronics</em>.</h2>
+      <div class="body">
+        <p>Researchers at NC State and Utah have shown that chiral phonons — the spiraling vibrations of atoms in a twisted crystal lattice — can hand off angular momentum directly to electrons. No magnet. No battery. No current. The atoms themselves do the steering.</p>
+        <p>The mechanism, which the team calls an <em>orbital Seebeck effect</em>, lets thermal energy drive orbital motion. In materials as ordinary as quartz, that opens a credible path to encoding information in an electron’s orbital state rather than its spin or charge — at, in principle, dramatically lower energy cost than today’s electronics.</p>
+        <p>Don’t pencil it onto a 2027 roadmap. Do file it next to the magic‑angle graphene tunneling result published two weeks earlier in <em>Nature Physics</em>: the back half of the decade is going to be loud about how electrons want to behave when the lattice gets weird.</p>
+      </div>
+      <div class="foot">
+        <span>Read &middot; <a href="https://www.nature.com/articles/s41567-025-03139-6">Nature Physics</a></span>
+        <span>also: <a href="https://news.mit.edu/2025/physicists-observe-evidence-unconventional-superconductivity-graphene-1106">MIT graphene</a></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════
+       07 — BIG STAT: TYPESCRIPT 7 (GO COMPILER)
+       ══════════════════════════════════════════════════════ -->
+  <section class="s-stat spread">
+    <div class="wrap">
+      <div class="top">
+        <div class="meta">No. 07 &middot; Languages &middot; Compilers</div>
+        <div class="meta">Mid‑2026 release</div>
+      </div>
+      <div class="grid">
+        <div>
+          <p class="ord">07</p>
+          <h2>TypeScript 7 is being <span class="strong">rewritten in Go</span>.</h2>
+          <p class="body">TypeScript 6.0 shipped on March 23 as the last release on the original JavaScript‑based compiler. The 7.0 native preview — already running inside Visual Studio 2026 Insiders — replaces the compiler and language service with a Go reimplementation. Teams running it on large codebases are reporting roughly an order‑of‑magnitude drop in cold‑build time. Mid‑2026 is the target for general availability.</p>
+          <p class="body" style="margin-top:1rem">If you maintain a monorepo, this is the year to budget for the upgrade and to start grading every TypeScript‑adjacent tool by whether it can keep up with the new compiler’s pace.</p>
+          <p style="margin-top:1.5rem"><a class="readmore" href="https://visualstudiomagazine.com/articles/2026/03/23/typescript-6-0-ships-as-final-javascript-based-release-clears-path-for-go-native-7-0.aspx">Visual Studio Magazine &rarr;</a></p>
+        </div>
+        <div>
+          <div class="megastat">10×<span class="unit">faster compiles, large codebases</span></div>
+        </div>
+      </div>
+      <div class="foot meta" style="color:#7fc99c">Sources: VS Magazine &middot; Microsoft Developer Blog &middot; InfoWorld</div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════
+       08 — NEWSPRINT 3-COL: GITHUB COPILOT / GH SKILL
+       ══════════════════════════════════════════════════════ -->
+  <section class="s-print spread">
+    <div class="wrap">
+      <div class="top meta"><span>No. 08 &middot; Dev tools &middot; Direct apply</span><span>github.blog · April 16–20</span></div>
+      <p class="ord">08</p>
+      <h2>GH Skill, Copilot CLI <em>auto‑model</em>, and Opus 4.7 in your editor.</h2>
+      <p class="lede">A quietly large GitHub week: a new <code>gh skill</code> command for discovering and pinning agent skills, GA of automatic model selection in the Copilot CLI, and Opus 4.7 wired into Copilot for Pro+, Business and Enterprise.</p>
+      <div class="body">
+        <p>GitHub turned an unusually busy week into a coherent picture of what its agent stack now looks like in practice. The <code>gh skill</code> command lands in the GitHub CLI in public preview, giving developers a real package‑manager experience for installing, updating and pinning agent skills, with provenance tracking and supply‑chain safeguards baked in.</p>
+        <p>Copilot CLI now automatically picks the right model per request for every paid plan, and adds a <code>/statusline</code> command, smarter session handling, document attachments and direct remote session connecting. The remote MCP server config no longer requires the type field — it defaults to http — and a <code>--list-env</code> flag prints the loaded plugins, agents, skills and MCP servers in prompt mode.</p>
+        <p>Capping it: Opus 4.7 is rolling out to Copilot Pro+, Business and Enterprise. Notable on the side: as of April 20, new sign‑ups for Copilot Pro, Pro+ and student plans are temporarily paused. The product is moving faster than the funnel.</p>
+        <p>For an architect, the actionable bit is that <code>AGENTS.md</code> + <code>gh skill</code> + Copilot CLI is starting to look like a coherent “team‑shared agent context” surface — exactly the gap MCP alone never quite filled.</p>
+      </div>
+      <div class="foot meta"><span>Sources: GitHub Changelog &middot; Releasebot</span><span><a href="https://github.blog/changelog/month/04-2026/">github.blog/changelog</a></span></div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════
+       09 — ICE: GRAPHENE SUPERCONDUCTIVITY
+       ══════════════════════════════════════════════════════ -->
+  <section class="s-ice spread">
+    <div class="wrap">
+      <div class="top meta"><span>No. 09 &middot; Physics &middot; Nature Physics</span><span>April 7, 2026</span></div>
+      <div class="grid">
+        <div class="ord-block">
+          <span class="ord">0<span class="it">9</span></span>
+          <div class="word">Twist · Tune · Switch</div>
+        </div>
+        <div>
+          <h2>You can now <span class="it">turn superconductivity on and off</span> in twisted bilayer graphene.</h2>
+          <p class="body">The April Nature Physics result tunes paired electron interactions to switch superconductivity in magic‑angle bilayer graphene as if it were a transistor channel. It’s the most direct evidence yet for an unconventional pairing mechanism — the kind physicists have been hunting since the original 2018 magic‑angle paper.</p>
+          <p class="body" style="margin-top:1rem">The practical horizon for room‑temperature superconductors is still far. The conceptual horizon — designing materials whose ground state is reachable by a knob — just got a lot closer.</p>
+          <p class="pull">A switch, not a state. The lattice does the math.</p>
+          <p style="margin-top:1.5rem"><a class="readmore" href="https://www.grapheneuses.org/nature-physics-highlights-new-graphene-result-superconducting-interactions/">Read &rarr;</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════
+       10 — PLUM CLOSER: AAIF / MCP
+       ══════════════════════════════════════════════════════ -->
+  <section class="s-plum spread">
+    <div class="wrap">
+      <div class="top">
+        <div class="meta">No. 10 &middot; Ecosystem &middot; Linux Foundation</div>
+        <div class="meta">Closing dispatch</div>
+      </div>
+      <p class="ord">10</p>
+      <h2>The <span class="pop">Agentic AI Foundation</span> takes MCP, Goose and AGENTS.md under one roof.</h2>
+      <p class="lede" style="max-width:44ch;color:#e9d8ec">The Linux Foundation’s new AAIF anchors itself with a real portfolio: Model Context Protocol, the Goose agent runtime, and the AGENTS.md spec — three projects that have quietly become load‑bearing for almost every agent harness in production.</p>
+      <div class="grid">
+        <div class="body">
+          <p>April’s MCP Dev Summit North America in NYC drew ~1,200 attendees. Den Delimarsky (Anthropic) joined as a Lead Maintainer; Clare Liguori as a Core Maintainer. The 2026 MCP roadmap is now explicitly scoped to “production growing pains”: auth, transport reliability, and the post‑quantum proxy work that hit Security Boulevard on April 14.</p>
+          <p>For an architect, the structural read is that MCP just stopped being a Anthropic‑adjacent protocol and became infrastructure. If you’re still hand‑rolling tool‑use abstractions in 2026, you’re fighting the standard.</p>
+          <p style="margin-top:1.5rem"><a class="readmore" href="https://blog.modelcontextprotocol.io/posts/2026-mcp-roadmap/" style="color:var(--mustard);border-bottom-color:var(--mustard)">2026 MCP roadmap &rarr;</a></p>
+        </div>
+        <div>
+          <p class="pull">“The protocol won. Now the question is whether the maintainer pipeline can keep up with the surface area.”</p>
+          <p class="meta" style="margin-top:2rem;color:#c19fce">Sources: Linux Foundation press &middot; MCP blog &middot; The New Stack</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════
+       11 — HACKER NEWS FRONT PAGE
+       ══════════════════════════════════════════════════════ -->
+  <section class="s-hn spread">
+    <div class="wrap">
+      <div class="topbar">
+        <div>
+          <div class="deck">From the Hacker News Front Page · 24‑hour cut</div>
+          <h1>Five things <span class="it">hacker news</span> won’t shut up about.</h1>
+          <p class="standfirst">A small, opinionated read of what the orange site is reading this morning. Stories already covered above are skipped; what’s left is what the comment threads are wrestling with.</p>
+        </div>
+        <div class="deck" style="text-align:right;min-width:14ch">Edition · 04‑21‑26<br/>Server · Firebase v0</div>
+      </div>
+
+      <article class="item">
+        <p class="ord">01</p>
+        <div>
+          <h3><a href="https://ashley.rolfmore.com/stop-trying-to-engineer-your-way-out-of-listening-to-people/">Stop trying to engineer your way out of listening to people</a></h3>
+          <p class="summary">Ashley Rolf’s essay reframes the design / product impulse to wrap human research in “frameworks,” “systems” and “socio‑technical” jargon as a tell — the engineer is avoiding the conversation, not optimizing it. The HN thread (4500+ comments by morning) splits between “read this twice” and the predictable “but my framework is good, actually,” which is itself an unintentional case study.</p>
+          <p class="meta-line"><span class="pts">▲ 1842 pts</span> · <a href="https://news.ycombinator.com/item?id=47827259">discuss · 4521 comments &rarr;</a></p>
+        </div>
+        <div class="stack"><span class="pts">1842</span><span class="cm">▼ 4521</span></div>
+      </article>
+
+      <article class="item">
+        <p class="ord">02</p>
+        <div>
+          <h3><a href="https://kotaku.com/video-game-devs-explain-how-pausing-works-and-sometimes-it-gets-weird-2000686339">Game devs explain the tricks involved with letting you pause a game</a></h3>
+          <p class="summary">Kotaku’s deep‑dive on pause menus is the kind of story HN was built for: a feature you’ve never thought twice about turns out to be a tower of physics‑sim freezes, audio fade graphs, network reconciliation hacks, and ethically dubious shortcuts in always‑online titles where the “Pause” button does nothing at all. The thread is full of war stories from indie devs who learned the hard way.</p>
+          <p class="meta-line"><span class="pts">▲ 1207 pts</span> · <a href="https://news.ycombinator.com/item?id=47793161">discuss · 612 comments &rarr;</a></p>
+        </div>
+        <div class="stack"><span class="pts">1207</span><span class="cm">▼ 612</span></div>
+      </article>
+
+      <article class="item">
+        <p class="ord">03</p>
+        <div>
+          <h3><a href="https://news.ycombinator.com/item?id=47806096">Archive of BYTE magazine, starting with issue #1 in 1975</a></h3>
+          <p class="summary">A complete, browsable archive of BYTE — every issue from September 1975 onward — is back on the front page after the Midwest Computer Museum’s redesigned reader landed alongside the old Internet Archive scans. The HN comments turn into a memoir thread by the second screen: people remembering type‑in BASIC programs, old Steve Ciarcia columns, and the ad pages that read like a parallel‑universe tech industry.</p>
+          <p class="meta-line"><span class="pts">▲ 968 pts</span> · <a href="https://news.ycombinator.com/item?id=47806096">discuss · 287 comments &rarr;</a></p>
+        </div>
+        <div class="stack"><span class="pts">968</span><span class="cm">▼ 287</span></div>
+      </article>
+
+      <article class="item">
+        <p class="ord">04</p>
+        <div>
+          <h3><a href="https://simonwillison.net/2026/Apr/16/qwen-beats-opus/">Qwen3.6‑35B‑A3B on my laptop drew me a better pelican than Claude Opus 4.7</a></h3>
+          <p class="summary">Simon Willison ran his (deeply unscientific, deeply important) “pelican on a bicycle” SVG benchmark against a 20.9 GB quantized Qwen3.6 in LM Studio on a MacBook Pro M5 — and the local model produced an unmistakably better pelican than Anthropic’s newly released Opus 4.7. The thread is half “the pelican benchmark predicts everything” and half a useful sober look at how cheap it now is to run real coding models without leaving the Apple silicon you already own.</p>
+          <p class="meta-line"><span class="pts">▲ 854 pts</span> · <a href="https://news.ycombinator.com/item?id=47796830">discuss · 401 comments &rarr;</a></p>
+        </div>
+        <div class="stack"><span class="pts">854</span><span class="cm">▼ 401</span></div>
+      </article>
+
+      <article class="item">
+        <p class="ord">05</p>
+        <div>
+          <h3><a href="https://android-developers.googleblog.com/2026/04/build-android-apps-3x-faster-using-any-agent.html">Android CLI: Build Android apps 3x faster using any agent</a></h3>
+          <p class="summary">Google’s new Android CLI is explicitly designed for AI agents rather than humans — Google claims a 70% drop in token usage and a 3× cut in task completion time when an agent uses it instead of poking at Android Studio. The thread argues itself into a corner about whether this is meaningful tooling or a thin wrapper around <code>./gradlew</code> the LLMs already knew. The honest answer is somewhere in between, and it matters because it’s the first big‑mobile vendor to explicitly publish an agent‑native CLI.</p>
+          <p class="meta-line"><span class="pts">▲ 712 pts</span> · <a href="https://news.ycombinator.com/item?id=47797665">discuss · 358 comments &rarr;</a></p>
+        </div>
+        <div class="stack"><span class="pts">712</span><span class="cm">▼ 358</span></div>
+      </article>
+
+      <div class="colophon">
+        <span>News.ycombinator.com · top stories · last 24h</span>
+        <span>Skipped: Vercel, Cloudflare AI Platform — covered above</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════
+       END
+       ══════════════════════════════════════════════════════ -->
+  <section class="s-end">
+    <h3>— end of edition —</h3>
+    <p>Tomorrow at 7:00 AM the next issue lands. Until then, ship something small.</p>
+    <div class="meta">
+      <span>Vol. I &middot; No. 2</span>
+      <span>·</span>
+      <span>Tuesday, April 21, 2026</span>
+      <span>·</span>
+      <a href="../index.html">&larr; back to the newsstand</a>
+    </div>
+  </section>
+
+</body>
+</html>
