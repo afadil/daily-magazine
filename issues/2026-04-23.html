@@ -1,0 +1,1509 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>The Long-Term Support · Daily Magazine · No. 5 · April 23, 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,700;1,9..144,900&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --ink: #14140f;
+        --cream: #ece3d0;
+        --cream-soft: #efe6d3;
+        --paper: #f4ecd9;
+        --newsprint: #f7f1e1;
+        --accent: #e24b4b;
+        --rose: #e88a8a;
+        --gold: #c89b3c;
+        --terminal-bg: #0d1411;
+        --terminal-fg: #b8e1c4;
+        --terminal-dim: #6b8b76;
+        --terminal-accent: #62e08d;
+        --midnight-bg: #0f0f17;
+        --midnight-fg: #ece3d0;
+        --midnight-accent: #ffb547;
+        --mute: #7a7465;
+        --rule: #14140f;
+      }
+
+      * { box-sizing: border-box; }
+      html, body { margin: 0; padding: 0; }
+      body {
+        background: var(--cream);
+        color: var(--ink);
+        font-family: "Fraunces", Georgia, serif;
+        font-optical-sizing: auto;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+        line-height: 1.4;
+      }
+      a { color: inherit; }
+
+      /* ── Layout shell ──────────────────────────────────── */
+      .spread {
+        padding: clamp(3rem, 6vw, 6rem) clamp(1.25rem, 5vw, 4rem);
+        position: relative;
+        overflow: hidden;
+      }
+      .spread-inner { max-width: 1180px; margin: 0 auto; }
+      .ord {
+        font-family: "Fraunces", serif;
+        font-style: italic;
+        font-weight: 900;
+        line-height: 0.85;
+        letter-spacing: -0.04em;
+      }
+      .label {
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 0.78rem;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        font-weight: 500;
+      }
+      .meta-line {
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 0.78rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--mute);
+      }
+      .body-text {
+        font-family: "Fraunces", serif;
+        font-size: clamp(1.2rem, 1.55vw, 1.45rem);
+        line-height: 1.55;
+        max-width: 62ch;
+      }
+      .flag {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: var(--accent);
+        color: var(--cream);
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 0.72rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        padding: 0.45rem 0.9rem;
+        border-radius: 999px;
+        font-weight: 600;
+      }
+      .flag::before {
+        content: "";
+        width: 6px;
+        height: 6px;
+        background: var(--cream);
+        border-radius: 50%;
+      }
+      .source {
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 0.78rem;
+        letter-spacing: 0.14em;
+        color: var(--mute);
+        text-transform: uppercase;
+      }
+      .source a { border-bottom: 1px solid currentColor; padding-bottom: 1px; text-decoration: none; }
+
+      /* ── Masthead ─────────────────────────────────────── */
+      .masthead {
+        padding: 2.5rem clamp(1.25rem, 5vw, 4rem) 2rem;
+        border-bottom: 1.5px solid var(--ink);
+      }
+      .mast-inner { max-width: 1180px; margin: 0 auto; }
+      .pretitle {
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 0.74rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        display: flex; flex-wrap: wrap; gap: 1rem;
+        margin-bottom: 1.5rem;
+      }
+      .pretitle .dot { color: var(--accent); }
+      .mast-title {
+        font-family: "Fraunces", serif;
+        font-weight: 900;
+        font-size: clamp(2.8rem, 9vw, 7rem);
+        line-height: 0.92;
+        letter-spacing: -0.04em;
+        margin: 0 0 1.25rem;
+      }
+      .mast-title .em {
+        color: var(--accent);
+        font-style: italic;
+      }
+      .mast-sub {
+        font-family: "Fraunces", serif;
+        font-style: italic;
+        font-weight: 400;
+        font-size: clamp(1.1rem, 1.7vw, 1.55rem);
+        line-height: 1.45;
+        color: #2a2a22;
+        max-width: 70ch;
+        margin: 0 0 1.5rem;
+      }
+      .mast-row {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1.5rem;
+        padding-top: 1.25rem;
+        border-top: 1.5px solid var(--ink);
+      }
+      .mast-cell .l {
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 0.7rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--mute);
+        margin-bottom: 0.4rem;
+      }
+      .mast-cell .v {
+        font-family: "Fraunces", serif;
+        font-size: 1.15rem;
+        font-weight: 700;
+      }
+      .mast-cell .v.it { font-style: italic; font-weight: 400; }
+      @media (max-width: 720px) {
+        .mast-row { grid-template-columns: 1fr 1fr; }
+      }
+
+      /* ── 01 Hero (cream, Ubuntu) ───────────────────────── */
+      .s-hero {
+        background: var(--cream);
+        position: relative;
+        padding-bottom: clamp(4rem, 7vw, 7rem);
+      }
+      .s-hero .grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 320px;
+        gap: clamp(2rem, 5vw, 5rem);
+        align-items: end;
+      }
+      .s-hero .ord {
+        font-size: clamp(8rem, 19vw, 16rem);
+        color: var(--accent);
+      }
+      .s-hero .title {
+        font-family: "Fraunces", serif;
+        font-weight: 900;
+        font-size: clamp(2.6rem, 6vw, 5rem);
+        line-height: 0.96;
+        letter-spacing: -0.03em;
+        margin: 1.25rem 0 1.5rem;
+      }
+      .s-hero .title .dot { color: var(--accent); }
+      .s-hero .deck {
+        font-family: "Fraunces", serif;
+        font-style: italic;
+        font-size: clamp(1.25rem, 2vw, 1.7rem);
+        max-width: 38ch;
+        color: #34342a;
+        margin: 0 0 1.75rem;
+        line-height: 1.4;
+      }
+      .s-hero .right {
+        align-self: end;
+        text-align: right;
+      }
+      .s-hero .right .stamp {
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 0.72rem;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 0.75rem;
+      }
+      .s-hero .right .codename {
+        font-family: "Fraunces", serif;
+        font-style: italic;
+        font-weight: 700;
+        font-size: 1.5rem;
+        line-height: 1.1;
+        margin-bottom: 1rem;
+      }
+      .s-hero .right .stat {
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 0.85rem;
+        letter-spacing: 0.04em;
+        line-height: 1.6;
+        text-align: right;
+        color: #34342a;
+      }
+      .s-hero .footline {
+        margin-top: 2.5rem;
+        padding-top: 1.5rem;
+        border-top: 1.5px solid var(--ink);
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+      @media (max-width: 820px) {
+        .s-hero .grid { grid-template-columns: 1fr; }
+        .s-hero .right { text-align: left; }
+        .s-hero .right .stat { text-align: left; }
+      }
+
+      /* ── 02 Midnight (Cursor / SpaceX) ─────────────────── */
+      .s-midnight {
+        background: var(--midnight-bg);
+        color: var(--midnight-fg);
+      }
+      .s-midnight .ord {
+        font-size: clamp(7rem, 17vw, 14rem);
+        color: var(--midnight-accent);
+        opacity: 0.95;
+      }
+      .s-midnight .grid {
+        display: grid;
+        grid-template-columns: 0.85fr 1.15fr;
+        gap: clamp(2rem, 5vw, 5rem);
+        align-items: start;
+      }
+      .s-midnight .title {
+        font-family: "Fraunces", serif;
+        font-weight: 700;
+        font-size: clamp(2.4rem, 5.2vw, 4.4rem);
+        line-height: 0.98;
+        letter-spacing: -0.025em;
+        margin: 1.25rem 0 1.5rem;
+      }
+      .s-midnight .title em { color: var(--midnight-accent); font-style: italic; }
+      .s-midnight .body-text { color: rgba(236, 227, 208, 0.82); }
+      .s-midnight .pull {
+        margin-top: 2rem;
+        padding: 1.25rem 1.5rem;
+        border-left: 3px solid var(--midnight-accent);
+        font-family: "Fraunces", serif;
+        font-style: italic;
+        font-size: 1.5rem;
+        line-height: 1.45;
+        color: rgba(236, 227, 208, 0.95);
+      }
+      .s-midnight .footline {
+        grid-column: 1 / -1;
+        margin-top: 3rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid rgba(236,227,208,0.18);
+        display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 0.78rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: rgba(236,227,208,0.6);
+      }
+      .s-midnight .footline a { color: var(--midnight-accent); border-bottom: 1px solid currentColor; text-decoration: none; padding-bottom: 1px; }
+      @media (max-width: 820px) {
+        .s-midnight .grid { grid-template-columns: 1fr; }
+      }
+
+      /* ── 03 Terminal (Anthropic Managed Agents) ────────── */
+      .s-terminal {
+        background: var(--terminal-bg);
+        color: var(--terminal-fg);
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+      }
+      .s-terminal .row {
+        display: grid;
+        grid-template-columns: 100px 1fr;
+        gap: clamp(1.25rem, 3vw, 3rem);
+        align-items: start;
+      }
+      .s-terminal .ord {
+        font-family: "JetBrains Mono", monospace;
+        font-style: normal;
+        font-weight: 700;
+        font-size: clamp(3.5rem, 7vw, 6rem);
+        color: var(--terminal-accent);
+        line-height: 1;
+      }
+      .s-terminal .promptline {
+        font-size: 0.95rem;
+        letter-spacing: 0.04em;
+        color: var(--terminal-dim);
+        margin-bottom: 1rem;
+      }
+      .s-terminal .promptline span { color: var(--terminal-accent); }
+      .s-terminal h2 {
+        font-family: "Fraunces", serif;
+        font-weight: 700;
+        font-size: clamp(2.3rem, 4.8vw, 4rem);
+        line-height: 1.02;
+        letter-spacing: -0.02em;
+        color: var(--cream-soft);
+        margin: 0.5rem 0 1.5rem;
+      }
+      .s-terminal h2 em { color: var(--terminal-accent); font-style: italic; }
+      .s-terminal p {
+        font-family: "Fraunces", serif;
+        font-size: clamp(1.2rem, 1.55vw, 1.45rem);
+        line-height: 1.55;
+        color: rgba(184, 225, 196, 0.92);
+        max-width: 62ch;
+        margin: 0 0 1.25rem;
+      }
+      .s-terminal .codeblock {
+        margin: 1.5rem 0 0;
+        padding: 1.25rem 1.5rem;
+        background: rgba(98, 224, 141, 0.07);
+        border: 1px solid rgba(98, 224, 141, 0.25);
+        border-radius: 6px;
+        font-size: 0.95rem;
+        line-height: 1.7;
+        color: var(--terminal-fg);
+        white-space: pre;
+        overflow-x: auto;
+      }
+      .s-terminal .codeblock .c { color: var(--terminal-dim); }
+      .s-terminal .codeblock .k { color: var(--terminal-accent); }
+      .s-terminal .footline {
+        margin-top: 2.25rem;
+        padding-top: 1.25rem;
+        border-top: 1px solid rgba(98,224,141,0.18);
+        display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+        font-size: 0.78rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--terminal-dim);
+      }
+      .s-terminal .footline a { color: var(--terminal-accent); border-bottom: 1px solid currentColor; text-decoration: none; padding-bottom: 1px; }
+      @media (max-width: 720px) {
+        .s-terminal .row { grid-template-columns: 1fr; }
+      }
+
+      /* ── 04 Rose alert stamp (Project Glasswing) ───────── */
+      .s-stamp {
+        background: var(--paper);
+        position: relative;
+      }
+      .s-stamp .header {
+        display: flex; align-items: center; gap: 1rem;
+        margin-bottom: 1.75rem;
+      }
+      .s-stamp .stamp-mark {
+        font-family: "JetBrains Mono", monospace;
+        background: var(--accent);
+        color: var(--cream);
+        padding: 0.55rem 1rem;
+        font-size: 0.8rem;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        font-weight: 700;
+        transform: rotate(-2deg);
+        border-radius: 4px;
+        box-shadow: 0 2px 0 rgba(0,0,0,0.1);
+      }
+      .s-stamp .grid {
+        display: grid;
+        grid-template-columns: 0.4fr 1.6fr;
+        gap: clamp(1.5rem, 4vw, 4rem);
+        align-items: end;
+      }
+      .s-stamp .ord {
+        font-size: clamp(8rem, 16vw, 13rem);
+        color: var(--rose);
+      }
+      .s-stamp h2 {
+        font-family: "Fraunces", serif;
+        font-weight: 800;
+        font-size: clamp(2.2rem, 5vw, 4.2rem);
+        line-height: 1;
+        letter-spacing: -0.025em;
+        margin: 0.5rem 0 1.25rem;
+        color: #1a1a14;
+      }
+      .s-stamp h2 em { color: var(--accent); font-style: italic; }
+      .s-stamp .body-text { color: #2a2a22; max-width: 60ch; }
+      .s-stamp .partners {
+        margin-top: 1.5rem;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.82rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--mute);
+        line-height: 1.9;
+      }
+      .s-stamp .partners span {
+        background: rgba(226,75,75,0.08);
+        padding: 0.2rem 0.55rem;
+        border-radius: 3px;
+        margin-right: 0.4rem;
+        color: var(--ink);
+      }
+      .s-stamp .footline {
+        grid-column: 1 / -1;
+        margin-top: 2.25rem;
+        padding-top: 1.25rem;
+        border-top: 1.5px solid var(--ink);
+        display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+      }
+      @media (max-width: 820px) {
+        .s-stamp .grid { grid-template-columns: 1fr; }
+      }
+
+      /* ── 05 Academic drop-cap (Graphene) ────────────────── */
+      .s-academic {
+        background: var(--paper);
+        border-top: 1.5px solid var(--ink);
+        border-bottom: 1.5px solid var(--ink);
+      }
+      .s-academic .topbar {
+        display: flex; justify-content: space-between; align-items: baseline;
+        margin-bottom: 2rem;
+      }
+      .s-academic h2 {
+        font-family: "Fraunces", serif;
+        font-style: italic;
+        font-weight: 400;
+        font-size: clamp(2.5rem, 5.8vw, 4.8rem);
+        line-height: 1.02;
+        letter-spacing: -0.015em;
+        margin: 0 0 1.25rem;
+        max-width: 16ch;
+      }
+      .s-academic .ord {
+        font-size: clamp(6rem, 12vw, 9.5rem);
+        color: var(--accent);
+        margin-bottom: 0.5rem;
+      }
+      .s-academic .columns {
+        column-count: 2;
+        column-gap: clamp(2rem, 4vw, 3.5rem);
+        column-rule: 1px solid rgba(20,20,15,0.12);
+        font-family: "Fraunces", serif;
+        font-size: 1.18rem;
+        line-height: 1.6;
+        margin-top: 1.5rem;
+      }
+      .s-academic .columns p { margin: 0 0 1rem; orphans: 3; widows: 3; }
+      .s-academic .columns p:first-child::first-letter {
+        font-family: "Fraunces", serif;
+        font-weight: 900;
+        font-style: italic;
+        color: var(--accent);
+        font-size: 5.2rem;
+        line-height: 0.85;
+        float: left;
+        margin: 0.3rem 0.6rem 0 0;
+      }
+      .s-academic .footline {
+        margin-top: 2rem;
+        padding-top: 1.25rem;
+        border-top: 1px solid rgba(20,20,15,0.18);
+        display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+      }
+      @media (max-width: 720px) {
+        .s-academic .columns { column-count: 1; }
+      }
+
+      /* ── 06 Newsprint columns (Anthropic $30B) ─────────── */
+      .s-newsprint {
+        background: var(--newsprint);
+        position: relative;
+      }
+      .s-newsprint .topbar {
+        display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 1rem;
+        border-bottom: 4px double var(--ink);
+        padding-bottom: 1rem;
+        margin-bottom: 2rem;
+      }
+      .s-newsprint .ord {
+        font-family: "Fraunces", serif;
+        font-weight: 900;
+        font-style: italic;
+        font-size: clamp(3.5rem, 7vw, 5.5rem);
+        color: var(--accent);
+      }
+      .s-newsprint h2 {
+        font-family: "Fraunces", serif;
+        font-weight: 900;
+        font-size: clamp(2.5rem, 6vw, 5.2rem);
+        line-height: 0.95;
+        letter-spacing: -0.03em;
+        margin: 0 0 1.25rem;
+        max-width: 18ch;
+      }
+      .s-newsprint h2 em { font-style: italic; color: var(--accent); }
+      .s-newsprint .grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: clamp(2rem, 4vw, 3.5rem);
+        margin-top: 1.5rem;
+      }
+      .s-newsprint .col p {
+        font-family: "Fraunces", serif;
+        font-size: 1.2rem;
+        line-height: 1.6;
+        margin: 0 0 1rem;
+      }
+      .s-newsprint .col p:first-child {
+        font-style: italic;
+        font-size: 1.35rem;
+        color: #2a2a22;
+      }
+      .s-newsprint .stat-strip {
+        margin-top: 2rem;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.25rem;
+        padding: 1.5rem 0;
+        border-top: 1.5px solid var(--ink);
+        border-bottom: 1.5px solid var(--ink);
+      }
+      .s-newsprint .stat-strip .n {
+        font-family: "Fraunces", serif;
+        font-weight: 900;
+        font-style: italic;
+        font-size: clamp(2.2rem, 4vw, 3rem);
+        color: var(--accent);
+        line-height: 0.95;
+      }
+      .s-newsprint .stat-strip .l {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.72rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--mute);
+        margin-top: 0.4rem;
+      }
+      .s-newsprint .footline {
+        margin-top: 1.5rem;
+        display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+      }
+      @media (max-width: 720px) {
+        .s-newsprint .grid { grid-template-columns: 1fr; }
+        .s-newsprint .stat-strip { grid-template-columns: 1fr; gap: 1.5rem; }
+      }
+
+      /* ── 07 Big stat finish (Google 75%) ─────────────────── */
+      .s-bigstat {
+        background: #1a1a14;
+        color: var(--cream);
+      }
+      .s-bigstat .row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: clamp(2rem, 5vw, 5rem);
+        align-items: center;
+      }
+      .s-bigstat .ord {
+        font-size: clamp(6rem, 12vw, 9rem);
+        color: var(--accent);
+        margin-bottom: 1.5rem;
+      }
+      .s-bigstat h2 {
+        font-family: "Fraunces", serif;
+        font-weight: 700;
+        font-size: clamp(2rem, 4.6vw, 3.5rem);
+        line-height: 1;
+        letter-spacing: -0.02em;
+        margin: 0 0 1.25rem;
+      }
+      .s-bigstat .body-text { color: rgba(236,227,208,0.82); }
+      .s-bigstat .megastat {
+        font-family: "Fraunces", serif;
+        font-weight: 900;
+        font-style: italic;
+        font-size: clamp(8rem, 22vw, 18rem);
+        line-height: 0.85;
+        letter-spacing: -0.06em;
+        color: var(--accent);
+        text-align: center;
+      }
+      .s-bigstat .megastat sup {
+        font-size: 0.4em;
+        font-style: normal;
+        font-weight: 700;
+        color: var(--cream);
+        vertical-align: super;
+        margin-left: 0.1em;
+      }
+      .s-bigstat .megastat-cap {
+        font-family: "JetBrains Mono", monospace;
+        text-align: center;
+        font-size: 0.85rem;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: rgba(236,227,208,0.5);
+        margin-top: 1rem;
+      }
+      .s-bigstat .footline {
+        grid-column: 1 / -1;
+        margin-top: 3rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid rgba(236,227,208,0.15);
+        display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.78rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: rgba(236,227,208,0.6);
+      }
+      .s-bigstat .footline a { color: var(--accent); border-bottom: 1px solid currentColor; text-decoration: none; padding-bottom: 1px; }
+      @media (max-width: 820px) {
+        .s-bigstat .row { grid-template-columns: 1fr; }
+      }
+
+      /* ── 08 Award strip (Muon g-2) ─────────────────────── */
+      .s-award {
+        background: linear-gradient(180deg, var(--paper) 0%, var(--cream-soft) 100%);
+        position: relative;
+      }
+      .s-award .ribbon {
+        display: inline-block;
+        background: var(--gold);
+        color: #1a1a14;
+        font-family: "JetBrains Mono", monospace;
+        font-weight: 700;
+        font-size: 0.78rem;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        padding: 0.6rem 1.2rem;
+        margin-bottom: 1.75rem;
+      }
+      .s-award .grid {
+        display: grid;
+        grid-template-columns: 1.3fr 0.7fr;
+        gap: clamp(2rem, 5vw, 4rem);
+        align-items: end;
+      }
+      .s-award h2 {
+        font-family: "Fraunces", serif;
+        font-weight: 800;
+        font-size: clamp(2.4rem, 5.6vw, 4.6rem);
+        line-height: 0.98;
+        letter-spacing: -0.025em;
+        margin: 0 0 1.5rem;
+        max-width: 17ch;
+      }
+      .s-award h2 em { font-style: italic; color: var(--accent); }
+      .s-award .ord {
+        font-family: "Fraunces", serif;
+        font-weight: 900;
+        font-style: italic;
+        font-size: clamp(8rem, 18vw, 14rem);
+        color: var(--accent);
+        line-height: 0.85;
+        text-align: right;
+      }
+      .s-award .body-text { max-width: 56ch; color: #2a2a22; }
+      .s-award .footline {
+        grid-column: 1 / -1;
+        margin-top: 2.25rem;
+        padding-top: 1.25rem;
+        border-top: 1.5px solid var(--ink);
+        display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+      }
+      @media (max-width: 820px) {
+        .s-award .grid { grid-template-columns: 1fr; }
+        .s-award .ord { text-align: left; }
+      }
+
+      /* ── 09 Construction notebook (Crawshaw) ───────────── */
+      .s-build {
+        background: #f8f3e2;
+        background-image:
+          repeating-linear-gradient(0deg, rgba(20,20,15,0.06) 0 1px, transparent 1px 2.4rem);
+        position: relative;
+      }
+      .s-build .corner {
+        position: absolute;
+        top: 0; left: 0;
+        width: 0; height: 0;
+        border-style: solid;
+        border-width: 90px 90px 0 0;
+        border-color: var(--accent) transparent transparent transparent;
+      }
+      .s-build .row {
+        display: grid;
+        grid-template-columns: 0.4fr 1.6fr;
+        gap: clamp(2rem, 4vw, 3.5rem);
+        align-items: start;
+      }
+      .s-build .ord {
+        font-size: clamp(7rem, 14vw, 12rem);
+        color: var(--ink);
+      }
+      .s-build h2 {
+        font-family: "Fraunces", serif;
+        font-weight: 800;
+        font-size: clamp(2.4rem, 5.4vw, 4.5rem);
+        line-height: 1;
+        letter-spacing: -0.025em;
+        margin: 0.5rem 0 1.25rem;
+      }
+      .s-build h2 em { font-style: italic; color: var(--accent); }
+      .s-build .body-text { color: #2a2a22; }
+      .s-build .annot {
+        margin-top: 1.5rem;
+        padding-left: 1rem;
+        border-left: 3px solid var(--accent);
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.95rem;
+        line-height: 1.7;
+        color: #34342a;
+      }
+      .s-build .footline {
+        grid-column: 1 / -1;
+        margin-top: 2rem;
+        padding-top: 1.25rem;
+        border-top: 1.5px solid var(--ink);
+        display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+      }
+      @media (max-width: 720px) {
+        .s-build .row { grid-template-columns: 1fr; }
+      }
+
+      /* ── 10 Warning terminal (Over-editing) ────────────── */
+      .s-warning {
+        background: #1c0f0e;
+        color: var(--cream);
+        font-family: "JetBrains Mono", monospace;
+        position: relative;
+      }
+      .s-warning::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: repeating-linear-gradient(
+          45deg,
+          transparent 0 28px,
+          rgba(226,75,75,0.05) 28px 56px
+        );
+        pointer-events: none;
+      }
+      .s-warning .inner { position: relative; }
+      .s-warning .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6rem;
+        font-size: 0.78rem;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        font-weight: 700;
+        color: var(--accent);
+        margin-bottom: 1.5rem;
+      }
+      .s-warning .badge::before {
+        content: "▲";
+        font-size: 0.9rem;
+      }
+      .s-warning .row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: clamp(2rem, 5vw, 4rem);
+        align-items: start;
+      }
+      .s-warning .ord {
+        font-family: "JetBrains Mono", monospace;
+        font-style: normal;
+        font-weight: 700;
+        font-size: clamp(8rem, 16vw, 12rem);
+        color: var(--accent);
+        line-height: 0.9;
+      }
+      .s-warning h2 {
+        font-family: "Fraunces", serif;
+        font-weight: 700;
+        font-size: clamp(2.4rem, 5.4vw, 4.5rem);
+        line-height: 1;
+        letter-spacing: -0.025em;
+        margin: 0.5rem 0 1.25rem;
+        color: var(--cream);
+      }
+      .s-warning h2 em { color: var(--accent); font-style: italic; }
+      .s-warning p {
+        font-family: "Fraunces", serif;
+        font-size: 1.3rem;
+        line-height: 1.55;
+        color: rgba(236,227,208,0.85);
+        margin: 0 0 1.25rem;
+      }
+      .s-warning .diff {
+        margin-top: 1.5rem;
+        background: rgba(226,75,75,0.08);
+        border: 1px solid rgba(226,75,75,0.3);
+        border-radius: 4px;
+        padding: 1rem 1.25rem;
+        font-size: 0.9rem;
+        line-height: 1.7;
+        white-space: pre;
+        overflow-x: auto;
+      }
+      .s-warning .diff .add { color: #62e08d; }
+      .s-warning .diff .del { color: #e88a8a; }
+      .s-warning .diff .ctx { color: rgba(236,227,208,0.5); }
+      .s-warning .footline {
+        grid-column: 1 / -1;
+        margin-top: 2.5rem;
+        padding-top: 1.25rem;
+        border-top: 1px solid rgba(226,75,75,0.25);
+        display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap;
+        font-size: 0.78rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: rgba(236,227,208,0.6);
+      }
+      .s-warning .footline a { color: var(--accent); border-bottom: 1px solid currentColor; text-decoration: none; padding-bottom: 1px; }
+      @media (max-width: 820px) {
+        .s-warning .row { grid-template-columns: 1fr; }
+      }
+
+      /* ── HN front page spread ──────────────────────────── */
+      .s-hn {
+        background: var(--newsprint);
+        position: relative;
+      }
+      .s-hn .head {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 2rem;
+        align-items: end;
+        margin-bottom: 2.5rem;
+        padding-bottom: 1.5rem;
+        border-bottom: 4px double var(--ink);
+      }
+      .s-hn h2.section-title {
+        font-family: "Fraunces", serif;
+        font-weight: 900;
+        font-style: italic;
+        font-size: clamp(2.6rem, 6.4vw, 5.5rem);
+        line-height: 0.95;
+        letter-spacing: -0.03em;
+        margin: 0;
+      }
+      .s-hn h2.section-title .accent { color: var(--accent); font-style: normal; font-weight: 900; }
+      .s-hn .head .meta {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.78rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--mute);
+        text-align: right;
+        line-height: 1.7;
+      }
+      .s-hn .item {
+        display: grid;
+        grid-template-columns: 90px 1fr 220px;
+        gap: clamp(1.25rem, 3vw, 2.5rem);
+        padding: 2.25rem 0;
+        border-bottom: 1.5px solid rgba(20,20,15,0.18);
+        align-items: start;
+      }
+      .s-hn .item:last-child { border-bottom: none; }
+      .s-hn .item .ordinal {
+        font-family: "Fraunces", serif;
+        font-style: italic;
+        font-weight: 900;
+        font-size: clamp(3.5rem, 6vw, 5.5rem);
+        color: var(--accent);
+        line-height: 0.85;
+      }
+      .s-hn .item .body h3 {
+        font-family: "Fraunces", serif;
+        font-weight: 700;
+        font-size: clamp(1.7rem, 3.2vw, 2.7rem);
+        line-height: 1.05;
+        letter-spacing: -0.02em;
+        margin: 0 0 0.75rem;
+        color: #1a1a14;
+      }
+      .s-hn .item .body h3 a { text-decoration: none; }
+      .s-hn .item .body h3 a:hover { color: var(--accent); }
+      .s-hn .item .body p {
+        font-family: "Fraunces", serif;
+        font-size: 1.18rem;
+        line-height: 1.55;
+        color: #2a2a22;
+        margin: 0 0 0.85rem;
+        max-width: 60ch;
+      }
+      .s-hn .item .stats {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.85rem;
+        letter-spacing: 0.06em;
+        line-height: 1.8;
+        text-align: right;
+        color: var(--mute);
+      }
+      .s-hn .item .stats .pts {
+        display: block;
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: var(--accent);
+        letter-spacing: 0.02em;
+        line-height: 1;
+        margin-bottom: 0.4rem;
+      }
+      .s-hn .item .stats .com {
+        display: block;
+        font-weight: 500;
+        color: var(--ink);
+      }
+      .s-hn .item .stats .by {
+        display: block;
+        margin-top: 0.6rem;
+        font-size: 0.72rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--mute);
+      }
+      .s-hn .item .stats .links {
+        margin-top: 0.85rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.35rem;
+        font-size: 0.78rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+      .s-hn .item .stats .links a {
+        color: var(--accent);
+        text-decoration: none;
+        border-bottom: 1px solid currentColor;
+        padding-bottom: 1px;
+      }
+      @media (max-width: 820px) {
+        .s-hn .item {
+          grid-template-columns: 70px 1fr;
+          grid-template-rows: auto auto;
+          gap: 0.75rem 1.25rem;
+        }
+        .s-hn .item .stats {
+          grid-column: 1 / -1;
+          text-align: left;
+        }
+        .s-hn .item .stats .links { flex-direction: row; flex-wrap: wrap; gap: 1rem; }
+      }
+
+      /* ── Colophon ───────────────────────────────────────── */
+      .colophon {
+        background: var(--ink);
+        color: var(--cream);
+        padding: 4rem clamp(1.25rem, 5vw, 4rem);
+      }
+      .colophon-inner { max-width: 1180px; margin: 0 auto; }
+      .colophon h3 {
+        font-family: "Fraunces", serif;
+        font-weight: 900;
+        font-style: italic;
+        font-size: clamp(2.2rem, 4.5vw, 3.5rem);
+        line-height: 1;
+        margin: 0 0 1.5rem;
+        color: var(--accent);
+      }
+      .colophon p {
+        font-family: "Fraunces", serif;
+        font-size: 1.2rem;
+        line-height: 1.55;
+        color: rgba(236,227,208,0.78);
+        max-width: 60ch;
+        margin: 0 0 1rem;
+      }
+      .colophon .kvs {
+        margin-top: 2rem;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid rgba(236,227,208,0.18);
+      }
+      .colophon .kv .l {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.7rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: rgba(236,227,208,0.5);
+        margin-bottom: 0.4rem;
+      }
+      .colophon .kv .v {
+        font-family: "Fraunces", serif;
+        font-style: italic;
+        font-size: 1.15rem;
+        color: var(--cream);
+      }
+      .colophon a { color: var(--accent); }
+      @media (max-width: 720px) {
+        .colophon .kvs { grid-template-columns: 1fr; }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ── Masthead ────────────────────────────────────── -->
+    <header class="masthead">
+      <div class="mast-inner">
+        <div class="pretitle">
+          <span>Daily Magazine</span>
+          <span class="dot">●</span>
+          <span>Morning Edition</span>
+          <span class="dot">●</span>
+          <span>For Aziz</span>
+          <span class="dot">●</span>
+          <span>Vol. I &nbsp;·&nbsp; No. 5</span>
+        </div>
+        <h1 class="mast-title">
+          The Long-Term <span class="em">Support<span style="color:var(--ink)">.</span></span>
+        </h1>
+        <p class="mast-sub">
+          Ten dispatches from the morning Ubuntu 26.04 LTS shipped, Rust got tenure inside the Linux kernel, Anthropic crossed thirty billion in ARR, electrons in graphene tossed out a textbook law by two hundred times, and Microsoft confirmed it tried to outbid SpaceX for Cursor.
+        </p>
+        <div class="mast-row">
+          <div class="mast-cell">
+            <div class="l">Published</div>
+            <div class="v">Thursday · April 23, 2026</div>
+          </div>
+          <div class="mast-cell">
+            <div class="l">Curation</div>
+            <div class="v it">Ten spreads + HN top five</div>
+          </div>
+          <div class="mast-cell">
+            <div class="l">Sources</div>
+            <div class="v it">Web · X · Hacker News</div>
+          </div>
+          <div class="mast-cell">
+            <div class="l">Window</div>
+            <div class="v it">Last 72 hours</div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ── 01 — Hero (Ubuntu) ────────────────────────────── -->
+    <section class="spread s-hero">
+      <div class="spread-inner">
+        <div class="grid">
+          <div>
+            <span class="flag">Direct hit · You run Ubuntu</span>
+            <h2 class="title">Resolute Raccoon lands<span class="dot">.</span></h2>
+            <p class="deck">
+              Ubuntu 26.04 LTS ships today on Linux 7.0, with Rust promoted from "experiment" to first-class kernel citizen and ten years of paid support behind it.
+            </p>
+            <p class="body-text">
+              Canonical's third-of-the-decade LTS arrives with GNOME 50 on a Wayland-only session, memory-safe Rust core utilities, systemd 259 with mandatory cgroup v2, Dracut as the default initramfs generator, APT 3 (with <code>apt-key</code> finally gone), and TPM-backed encryption with post-quantum defaults. Direct in-place upgrades from 24.04 LTS won't open until point release 26.04.1 in August — patient updaters win again.
+            </p>
+            <div class="ord">01</div>
+          </div>
+          <aside class="right">
+            <div class="stamp">Codename</div>
+            <div class="codename">"Resolute Raccoon"</div>
+            <div class="stat">
+              kernel  · Linux 7.0<br/>
+              desktop · GNOME 50<br/>
+              session · Wayland-only<br/>
+              support · 10 years (Pro)<br/>
+              hardware · Nova Lake / Zen 6 / X2
+            </div>
+          </aside>
+        </div>
+        <div class="footline">
+          <span class="meta-line">No. 01 · Released today, world over</span>
+          <span class="source">Source: <a href="https://documentation.ubuntu.com/release-notes/26.04/">Canonical release notes</a></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 02 — Midnight (Cursor backstory) ──────────────── -->
+    <section class="spread s-midnight">
+      <div class="spread-inner">
+        <div class="grid">
+          <div>
+            <div class="ord">02</div>
+            <span class="meta-line" style="color:var(--midnight-accent);">Tuesday · The boardroom side</span>
+          </div>
+          <div>
+            <h2>Microsoft tried to buy Cursor first <em>— SpaceX bid sixty.</em></h2>
+            <p class="body-text">
+              CNBC reports Satya Nadella's team had real conversations with Anysphere about acquiring Cursor before Elon Musk's combined SpaceX-xAI structure put a $10B "collaboration fee" and a path to a $60B buyout on the table. Cursor was hours from closing a $2B funding round when the offer landed; talks paused immediately.
+            </p>
+            <div class="pull">
+              The bid that ate a $2B round — and the editor your team uses every day suddenly belongs to a launch company.
+            </div>
+          </div>
+          <div class="footline">
+            <span>Vol. I · No. 5 · 02 of 10</span>
+            <span><a href="https://www.cnbc.com/2026/04/21/spacex-says-it-can-buy-cursor-later-this-year-for-60-billion-or-pay-10-billion-for-our-work-together.html">cnbc.com</a> · <a href="https://techcrunch.com/2026/04/22/how-spacex-preempted-a-2b-fundraise-with-a-60b-buyout-offer/">techcrunch.com</a></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 03 — Terminal (Anthropic Managed Agents) ─────── -->
+    <section class="spread s-terminal">
+      <div class="spread-inner">
+        <div class="row">
+          <div class="ord">03</div>
+          <div>
+            <div class="promptline"><span>~/anthropic</span> $ ant agents create --runtime managed</div>
+            <span class="flag">Direct hit · You build agents</span>
+            <h2><em>Managed Agents</em> opens public beta — and a CLI you'll actually keep aliased.</h2>
+            <p>
+              Anthropic's managed harness, in beta since April 8, removes the boring half of building production agents: sandboxing, session state, credential handling, persistence, and SSE streaming all happen on Anthropic's side. You define behavior, tools, constraints; the platform runs it. Notion, Rakuten and Sentry are already shipping on it.
+            </p>
+            <p>
+              The new <code>ant</code> CLI is the under-discussed half: a real command-line client for the Claude API with native Claude Code integration and YAML-versioned API resources. Sessions cost $0.08/hr on top of token pricing; access is open via the <code>managed-agents-2026-04-01</code> header.
+            </p>
+            <div class="codeblock"><span class="c"># a 60-second smoke test</span>
+$ <span class="k">brew install anthropic/tap/ant</span>
+$ <span class="k">ant agents init</span> --name pr-reviewer --tools git,bash
+$ <span class="k">ant agents deploy</span> --watch
+<span class="c">→ deployed: agt_01HZK5...   sandbox: warm   stream: ready</span></div>
+            <div class="footline">
+              <span>03 / 10 · Anthropic Platform</span>
+              <span><a href="https://www.infoq.com/news/2026/04/anthropic-managed-agents/">infoq.com</a> · <a href="https://platform.claude.com/docs/en/release-notes/overview">platform.claude.com</a></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 04 — Rose alert stamp (Glasswing) ──────────────── -->
+    <section class="spread s-stamp">
+      <div class="spread-inner">
+        <div class="header">
+          <div class="stamp-mark">Cyber-defense alliance</div>
+          <span class="meta-line">Filed earlier this month, still spreading</span>
+        </div>
+        <div class="grid">
+          <div class="ord">04</div>
+          <div>
+            <h2>Project <em>Glasswing</em> rallies eleven giants around Claude Mythos.</h2>
+            <p class="body-text">
+              Anthropic's frontier "Mythos Preview" is no longer just a model — it's the spine of a coordinated defensive effort across Apple, NVIDIA, Microsoft, AWS, Google and the Linux Foundation. The remit: shared red-team telemetry, joint vulnerability triage, and a common interface for AI systems that hunt patches before adversaries hunt CVEs.
+            </p>
+            <div class="partners">
+              Members:
+              <span>Apple</span><span>NVIDIA</span><span>Microsoft</span><span>AWS</span><span>Google</span><span>Linux Foundation</span><span>+5</span>
+            </div>
+          </div>
+          <div class="footline">
+            <span class="meta-line">04 · Industry coalition</span>
+            <span class="source">Source: <a href="https://www.anthropic.com/news">anthropic.com/news</a></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 05 — Academic drop-cap (Graphene) ─────────────── -->
+    <section class="spread s-academic">
+      <div class="spread-inner">
+        <div class="topbar">
+          <span class="meta-line">Department · Physics · Indian Inst. of Science</span>
+          <span class="meta-line">Filed · April 15</span>
+        </div>
+        <div class="ord">05</div>
+        <h2>Electrons in graphene flow like a frictionless liquid — and break a 173-year-old law.</h2>
+        <div class="columns">
+          <p>
+            Researchers at the IISc, in collaboration with the National Institute for Materials Science in Japan, reported deviations from the Wiedemann–Franz law of more than 200 times at low temperatures. The rule, which has tied heat and electrical conduction together since 1853, simply no longer holds for the Dirac fluid they observed inside ultraclean graphene.
+          </p>
+          <p>
+            What the team measured behaves less like a metal and more like a hydrodynamic plasma: minimal viscosity, conductance set by a universal quantum constant, and momentum that propagates without scattering off lattice defects.
+          </p>
+          <p>
+            For builders of quantum sensors, this is not a curiosity. A material whose carriers behave as a near-perfect fluid at low temperature is exactly the kind of substrate you want for ultra-sensitive thermometry, current sensing, and the long line of mid-2020s graphene devices waiting for a cleaner electron bath.
+          </p>
+        </div>
+        <div class="footline">
+          <span class="meta-line">05 · Department of Physics</span>
+          <span class="source">Source: <a href="https://www.sciencedaily.com/releases/2026/04/260415042152.htm">sciencedaily.com</a></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 06 — Newsprint columns (Anthropic ARR) ────────── -->
+    <section class="spread s-newsprint">
+      <div class="spread-inner">
+        <div class="topbar">
+          <span class="meta-line">Section · Money & Markets</span>
+          <span class="ord">06</span>
+        </div>
+        <h2>Anthropic crosses <em>$30B</em> ARR — and passes OpenAI for the first time.</h2>
+        <div class="grid">
+          <div class="col">
+            <p>
+              Anthropic disclosed earlier this month that its annualized revenue run rate has crossed thirty billion dollars, up from roughly nine billion at the close of 2025. The figure puts it above OpenAI's reported ~$25B for the first time in either company's history.
+            </p>
+            <p>
+              The shape of the growth is what matters more than the trophy: enterprise spend on agents and managed runtimes — not consumer subscriptions — drives the curve. Claude Code, the API, and the Managed Agents harness are the three line items doing the lifting.
+            </p>
+          </div>
+          <div class="col">
+            <p>
+              Pricing has stayed flat through the move. Opus 4.7 launched on April 16 at the same price as Opus 4.6, and the brief test that pulled Claude Code from the $20 Pro plan was reversed within hours after public uproar.
+            </p>
+            <p>
+              The signal for architects: Anthropic is funding multi-year roadmaps from operating revenue, not just venture rounds. The procurement story is now plausible at every scale.
+            </p>
+          </div>
+        </div>
+        <div class="stat-strip">
+          <div>
+            <div class="n">$30B+</div>
+            <div class="l">Annualized revenue (Apr 7)</div>
+          </div>
+          <div>
+            <div class="n">3.3×</div>
+            <div class="l">Growth since end of 2025</div>
+          </div>
+          <div>
+            <div class="n">~$25B</div>
+            <div class="l">OpenAI's reported ARR</div>
+          </div>
+        </div>
+        <div class="footline">
+          <span class="meta-line">06 · Money & Markets</span>
+          <span class="source">Source: <a href="https://nerdleveltech.com/anthropic-30-billion-arr-surpasses-openai">nerdleveltech.com</a></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 07 — Big stat finish (Google 75%) ─────────────── -->
+    <section class="spread s-bigstat">
+      <div class="spread-inner">
+        <div class="row">
+          <div>
+            <div class="ord">07</div>
+            <h2>The percentage you can no longer dismiss.</h2>
+            <p class="body-text">
+              Google's leadership confirmed that 75% of new code created inside the company is now generated by AI and reviewed by human engineers, up from 50% last fall. JetBrains' latest survey echoes the trend industry-wide: 84% of developers either actively use or plan to adopt AI coding tools, with the market valued at $12.8B for 2026.
+            </p>
+            <p class="body-text">
+              For an architect, the implication is no longer "will my team adopt this." It's "what does code review look like when humans review more than they author."
+            </p>
+          </div>
+          <div>
+            <div class="megastat">75<sup>%</sup></div>
+            <div class="megastat-cap">of new code at Google · AI-generated · 2026</div>
+          </div>
+        </div>
+        <div class="footline">
+          <span>07 / 10 · State of Engineering</span>
+          <span><a href="https://blog.jetbrains.com/research/2026/04/which-ai-coding-tools-do-developers-actually-use-at-work/">jetbrains.com</a> · <a href="https://tech-insider.org/ai-coding-tools-2026-transforming-software-development/">tech-insider.org</a></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 08 — Award (Muon g-2) ──────────────────────────── -->
+    <section class="spread s-award">
+      <div class="spread-inner">
+        <span class="ribbon">Breakthrough Prize · 2026</span>
+        <div class="grid">
+          <div>
+            <h2>Muon <em>g-2</em> takes the Breakthrough Prize in Fundamental Physics.</h2>
+            <p class="body-text">
+              The Fermilab-led collaboration that measured the muon's anomalous magnetic moment to nine-significant-figure precision was honored on April 22 — capping a decade of measurements that quietly redrew the boundaries of where the Standard Model still holds. Liverpool, UCSB and Fermilab teams share the citation; David Gross took a Special Breakthrough Prize alongside.
+            </p>
+          </div>
+          <div class="ord">g-2</div>
+        </div>
+        <div class="footline">
+          <span class="meta-line">08 · Science prize</span>
+          <span class="source">Source: <a href="https://news.fnal.gov/2026/04/fermilab-experiment-receives-prestigious-breakthrough-prize-in-fundamental-physics/">news.fnal.gov</a></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 09 — Build notebook (Crawshaw cloud) ──────────── -->
+    <section class="spread s-build">
+      <div class="corner"></div>
+      <div class="spread-inner">
+        <div class="row">
+          <div class="ord">09</div>
+          <div>
+            <span class="flag">Direct hit · Architect's read of the day</span>
+            <h2>"I am building <em>a cloud</em>" — Crawshaw on what's really under the abstraction.</h2>
+            <p class="body-text">
+              David Crawshaw (Tailscale, Go team alumnus) published a 4,000-word working note on building a cloud from primitives, and it shot to the top of Hacker News. The piece is less a manifesto than a field log: where the leaks in EC2-shaped abstractions actually are, what a v0.1 control plane looks like when you write it yourself, and which dependencies stop being dependencies once you own the substrate.
+            </p>
+            <div class="annot">
+              read time · 22 min<br/>
+              save for · Saturday morning, with coffee<br/>
+              also of interest · <a href="https://news.ycombinator.com/item?id=47872324" style="color:var(--accent);">HN discussion (202 comments)</a>
+            </div>
+          </div>
+          <div class="footline">
+            <span class="meta-line">09 · Field notes</span>
+            <span class="source">Source: <a href="https://crawshaw.io/blog/building-a-cloud">crawshaw.io</a></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 10 — Warning terminal (Over-editing) ───────────── -->
+    <section class="spread s-warning">
+      <div class="spread-inner inner">
+        <div class="row">
+          <div>
+            <div class="ord">10</div>
+            <div class="badge">Direct hit · You drive Claude Code daily</div>
+            <h2>"<em>Over-editing</em>" — the failure mode no benchmark catches.</h2>
+            <p>
+              A new note circulating the front page coins the term: when a model edits more code than the task requires — moving an import here, "fixing" an unrelated whitespace there, refactoring the surrounding function for taste. It looks like initiative; in review it's noise that makes diffs unreviewable and regressions hard to bisect.
+            </p>
+            <p>
+              The author argues for an explicit "minimal-edit" objective in prompts and harnesses: change only what the task names, leave the rest byte-identical. Worth a re-read of your own CLAUDE.md before next sprint.
+            </p>
+            <div class="diff"><span class="ctx">--- before/handler.ts</span>
+<span class="ctx">+++ after/handler.ts</span>
+<span class="ctx">@@ -12,6 +12,6 @@</span>
+<span class="del">-  const result = computeTotal(items)</span>
+<span class="add">+  const result = computeTotal(items, { rounding: 'half-even' })</span>
+<span class="del">-import { foo } from './foo'</span>
+<span class="add">+import { foo, bar, baz } from './foo'   // ← over-edit</span></div>
+          </div>
+          <div>
+            <div style="font-family:'Fraunces',serif;font-style:italic;font-size:clamp(1.6rem,3vw,2.4rem);line-height:1.35;color:rgba(236,227,208,0.9);max-width:30ch;border-left:3px solid var(--accent);padding-left:1.25rem;margin-top:6rem;">
+              "The bigger the diff, the more the human reviewer trusts the model — exactly inverted from what should happen."
+            </div>
+            <div style="font-family:'JetBrains Mono',monospace;font-size:0.78rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(236,227,208,0.5);margin-top:1rem;">
+              — nrehiew, 2026-04-22 · 372 pts · 210 comments
+            </div>
+          </div>
+        </div>
+        <div class="footline">
+          <span>10 / 10 · Practice</span>
+          <span><a href="https://nrehiew.github.io/blog/minimal_editing/">nrehiew.github.io</a> · <a href="https://news.ycombinator.com/item?id=47866913">HN discussion</a></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── HN front page spread ──────────────────────────── -->
+    <section class="spread s-hn">
+      <div class="spread-inner">
+        <div class="head">
+          <h2 class="section-title">From the <span class="accent">Hacker News</span> front page<span style="color:var(--accent);">.</span></h2>
+          <div class="meta">
+            Window · Last 24 hours<br/>
+            Source · hacker-news.firebaseio.com<br/>
+            Filter · skips items already curated above
+          </div>
+        </div>
+
+        <article class="item">
+          <div class="ordinal">01</div>
+          <div class="body">
+            <h3><a href="https://wheelfront.com/this-alberta-startup-sells-no-tech-tractors-for-half-price/">An Alberta startup sells no-tech tractors for half price</a></h3>
+            <p>
+              Wheelfront profiles Honey Bee Tractors of Frontier, Saskatchewan, where farmers are paying half what John Deere charges for a machine they can actually repair themselves — no DRM, no cellular link, no subscription. The piece reads less like a feel-good story and more like a referendum on what software-defined hardware has done to ownership in the last decade.
+            </p>
+          </div>
+          <div class="stats">
+            <span class="pts">1,815</span>
+            <span class="com">584 comments</span>
+            <span class="by">posted by Kaibeezy</span>
+            <div class="links">
+              <a href="https://news.ycombinator.com/item?id=47865868">HN thread →</a>
+              <a href="https://wheelfront.com/this-alberta-startup-sells-no-tech-tractors-for-half-price/">article →</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="item">
+          <div class="ordinal">02</div>
+          <div class="body">
+            <h3><a href="https://fingerprint.com/blog/firefox-tor-indexeddb-privacy-vulnerability/">A stable Firefox identifier links every one of your Tor identities</a></h3>
+            <p>
+              Fingerprint researchers found that an IndexedDB key Firefox writes survives across Tor Browser's "New Identity" reset, effectively defeating the headline anti-correlation feature for an entire class of users. They reported it through coordinated disclosure; mitigations are landing now in nightly. If you advise anyone on threat modeling, this is the next 90 minutes of your week.
+            </p>
+          </div>
+          <div class="stats">
+            <span class="pts">732</span>
+            <span class="com">212 comments</span>
+            <span class="by">posted by danpinto</span>
+            <div class="links">
+              <a href="https://news.ycombinator.com/item?id=47866697">HN thread →</a>
+              <a href="https://fingerprint.com/blog/firefox-tor-indexeddb-privacy-vulnerability/">article →</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="item">
+          <div class="ordinal">03</div>
+          <div class="body">
+            <h3><a href="https://techcrunch.com/2026/04/22/apple-fixes-bug-that-cops-used-to-extract-deleted-chat-messages-from-iphones/">Apple fixes a bug that cops used to extract deleted iPhone chats</a></h3>
+            <p>
+              TechCrunch reports an iOS quirk had been quietly exploited by forensic firms — most prominently Cellebrite and GrayKey — to recover messages users believed they had erased. Apple's fix shipped in this week's point release and closed the gap server-side as well. The interesting thread isn't the patch but the disclosure timeline: the bug existed long enough to underwrite an entire vendor's pitch deck.
+            </p>
+          </div>
+          <div class="stats">
+            <span class="pts">623</span>
+            <span class="com">154 comments</span>
+            <span class="by">posted by cdrnsf</span>
+            <div class="links">
+              <a href="https://news.ycombinator.com/item?id=47868867">HN thread →</a>
+              <a href="https://techcrunch.com/2026/04/22/apple-fixes-bug-that-cops-used-to-extract-deleted-chat-messages-from-iphones/">article →</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="item">
+          <div class="ordinal">04</div>
+          <div class="body">
+            <h3><a href="https://flipbook.page/">Flipbook — a website streamed live, frame by frame, directly from a model</a></h3>
+            <p>
+              Sethbannon's experiment renders a working webpage with no HTML, CSS or JS in the conventional sense: every paint is generated by an inference call and streamed to the canvas. It is wildly impractical, completely beautiful, and a useful provocation — the team is publishing the latency budget that makes the loop feel real-time.
+            </p>
+          </div>
+          <div class="stats">
+            <span class="pts">297</span>
+            <span class="com">79 comments</span>
+            <span class="by">posted by sethbannon</span>
+            <div class="links">
+              <a href="https://news.ycombinator.com/item?id=47867048">HN thread →</a>
+              <a href="https://flipbook.page/">demo →</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="item">
+          <div class="ordinal">05</div>
+          <div class="body">
+            <h3><a href="https://arstechnica.com/staff/2026/04/our-newsroom-ai-policy/">Ars Technica publishes its newsroom AI policy</a></h3>
+            <p>
+              Ars's editorial team formalized what until now has been case-by-case practice: AI may transcribe, summarize and assist with research, but never draft published copy or quotes, and disclosure goes in-line, not in a footer. The post is short and remarkably specific — a useful template for any engineering team writing the same memo this quarter for their RFCs and design docs.
+            </p>
+          </div>
+          <div class="stats">
+            <span class="pts">68</span>
+            <span class="com">46 comments</span>
+            <span class="by">posted by zdw</span>
+            <div class="links">
+              <a href="https://news.ycombinator.com/item?id=47872452">HN thread →</a>
+              <a href="https://arstechnica.com/staff/2026/04/our-newsroom-ai-policy/">article →</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ── Colophon ──────────────────────────────────────── -->
+    <section class="colophon">
+      <div class="colophon-inner">
+        <h3>Colophon.</h3>
+        <p>
+          Issue No. 5 of <em>Daily Magazine</em>. Curated, designed and set before sunrise on April 23, 2026, for one reader. Body in Fraunces; mono in JetBrains Mono. Stories pulled from the open web, X and the Hacker News Firebase API; the editor read the linked piece before writing each summary.
+        </p>
+        <p>
+          If a story carried the <em>Direct hit</em> flag, it was selected because it touches Aziz's day-to-day stack — Claude Code, agents, Linux, architecture practice — and not just because it scored well on the wire.
+        </p>
+        <div class="kvs">
+          <div class="kv">
+            <div class="l">Volume / Issue</div>
+            <div class="v">Vol. I &nbsp;·&nbsp; No. 5</div>
+          </div>
+          <div class="kv">
+            <div class="l">Published</div>
+            <div class="v">Thursday · April 23, 2026</div>
+          </div>
+          <div class="kv">
+            <div class="l">Archive</div>
+            <div class="v"><a href="../index.html">Back to the shelf →</a></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
