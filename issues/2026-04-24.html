@@ -1,0 +1,918 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>The Fresh Weights — Daily Magazine · No. 6 · April 24, 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,700;1,9..144,900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --cream: #ece3d0;
+        --cream-soft: #efe6d3;
+        --ink: #14140f;
+        --muted: #7a7465;
+        --coral: #e24b4b;
+        --rose: #f5d6d2;
+        --rose-ink: #7a1f1b;
+        --midnight: #0d0d12;
+        --midnight-fg: #ece3d0;
+        --amber: #f2a93b;
+        --terminal-bg: #0a0f0c;
+        --terminal-fg: #b6f0c4;
+        --terminal-accent: #7ee7a3;
+        --newsprint: #f4ecd9;
+        --academic: #efe9db;
+        --stat-bg: #14140f;
+        --stat-fg: #ece3d0;
+        --catalog-bg: #e8e2d4;
+        --tint-peach: #ffd4c2;
+        --tint-straw: #fff0cb;
+        --tint-sky: #d8e5e9;
+        --lab-bg: #0f1a1d;
+        --lab-fg: #d7efe8;
+        --lab-accent: #3cd6b0;
+      }
+
+      * { box-sizing: border-box; }
+      html, body { margin: 0; padding: 0; }
+      body {
+        background: var(--cream);
+        color: var(--ink);
+        font-family: "Fraunces", Georgia, "Times New Roman", serif;
+        font-optical-sizing: auto;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+      }
+      a { color: inherit; }
+
+      .wrap { max-width: 1240px; margin: 0 auto; padding: 0 2rem; }
+
+      .mono { font-family: "JetBrains Mono", ui-monospace, monospace; letter-spacing: 0.12em; text-transform: uppercase; }
+      .sans { font-family: "Inter", system-ui, sans-serif; }
+      .italic { font-style: italic; }
+
+      /* ── Masthead ────────────────────────────────────────── */
+      .masthead { border-bottom: 2px solid var(--ink); padding: 3rem 0 1.25rem; }
+      .masthead .pretitle {
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 0.78rem; letter-spacing: 0.18em; text-transform: uppercase;
+        display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.4rem;
+      }
+      .masthead .pretitle .dot { color: var(--coral); }
+      .masthead .deck {
+        font-family: "Fraunces", serif; font-weight: 900;
+        font-size: clamp(3.5rem, 11vw, 9rem); line-height: 0.9;
+        letter-spacing: -0.035em; margin: 0.3em 0 0;
+      }
+      .masthead .deck .coral { color: var(--coral); font-style: italic; }
+      .masthead .deck .dot { color: var(--coral); }
+      .masthead .subdeck {
+        font-family: "Fraunces", serif; font-style: italic; font-weight: 400;
+        font-size: clamp(1.3rem, 2.5vw, 1.85rem); line-height: 1.35;
+        max-width: 68ch; margin: 1.75rem 0 0; color: #2a281e;
+      }
+
+      /* ── Meta row ────────────────────────────────────────── */
+      .meta-row {
+        display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem;
+        padding: 2rem 0 3rem; border-bottom: 1px solid rgba(20, 20, 15, 0.18);
+      }
+      .meta-row .cell .label {
+        font-family: "JetBrains Mono", monospace; font-size: 0.72rem;
+        letter-spacing: 0.18em; color: var(--muted); text-transform: uppercase;
+        margin-bottom: 0.55rem;
+      }
+      .meta-row .cell .val { font-family: "Fraunces", serif; font-size: 1.25rem; line-height: 1.35; }
+      @media (max-width: 780px) { .meta-row { grid-template-columns: repeat(2, 1fr); } }
+
+      /* ── FOR YOU stamp ───────────────────────────────────── */
+      .foryou {
+        display: inline-block; font-family: "JetBrains Mono", monospace;
+        font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase;
+        background: var(--coral); color: #fff6ef; padding: 0.35rem 0.7rem;
+        border-radius: 2px; transform: rotate(-1.5deg); margin-left: 0.65rem;
+        vertical-align: middle;
+      }
+
+      /* ── Generic spread frame ────────────────────────────── */
+      .spread { padding: 3.5rem 0; border-bottom: 1px solid rgba(20,20,15,0.14); }
+      .spread h2 { margin: 0.2em 0 0.8rem; }
+      .spread .eyebrow {
+        font-family: "JetBrains Mono", monospace; font-size: 0.78rem;
+        letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.85rem;
+      }
+      .spread .ord {
+        font-family: "Fraunces", serif; font-style: italic; font-weight: 400;
+        font-size: 0.95rem; letter-spacing: 0.08em; color: var(--muted);
+      }
+      .spread p { font-size: 1.22rem; line-height: 1.55; max-width: 68ch; }
+      .spread .title {
+        font-family: "Fraunces", serif; font-weight: 900;
+        font-size: clamp(2.4rem, 5.2vw, 4.2rem); line-height: 0.98;
+        letter-spacing: -0.02em; margin: 0.05em 0 1rem;
+      }
+      .spread .sub {
+        font-family: "Fraunces", serif; font-style: italic; font-weight: 400;
+        font-size: clamp(1.25rem, 2.1vw, 1.6rem); line-height: 1.4;
+        color: #2a281e; max-width: 68ch; margin: 0 0 1.5rem;
+      }
+      .source {
+        font-family: "JetBrains Mono", monospace; font-size: 0.76rem;
+        letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted);
+        margin-top: 1.25rem;
+      }
+      .source a { border-bottom: 1px dotted rgba(20,20,15,0.4); padding-bottom: 1px; }
+
+      /* ── 01 Hero ─────────────────────────────────────────── */
+      .hero-spread {
+        background: linear-gradient(180deg, var(--cream) 0%, var(--cream-soft) 100%);
+        padding: 5rem 0 6rem;
+      }
+      .hero-spread .grid {
+        display: grid; grid-template-columns: 1.1fr 1fr; gap: 3rem; align-items: end;
+      }
+      .hero-spread .huge-ord {
+        font-family: "Fraunces", serif; font-style: italic; font-weight: 900;
+        font-size: clamp(9rem, 22vw, 19rem); line-height: 0.82; color: var(--coral);
+        letter-spacing: -0.04em; margin: 0; transform: translateX(-0.05em);
+      }
+      .hero-spread .title { font-size: clamp(3rem, 6vw, 5rem); }
+      .hero-spread .kicker {
+        font-family: "JetBrains Mono", monospace; font-size: 0.82rem;
+        letter-spacing: 0.25em; text-transform: uppercase; color: var(--coral);
+        margin-bottom: 1.1rem;
+      }
+      @media (max-width: 900px) { .hero-spread .grid { grid-template-columns: 1fr; } }
+
+      /* ── 02 Midnight / dark ─────────────────────────────── */
+      .midnight { background: var(--midnight); color: var(--midnight-fg); border-bottom: none; }
+      .midnight .sub, .midnight p { color: rgba(236,227,208,0.85); }
+      .midnight .eyebrow { color: var(--amber); }
+      .midnight .ord { color: rgba(236,227,208,0.55); }
+      .midnight .source { color: rgba(236,227,208,0.55); }
+      .midnight .ord-big {
+        font-family: "Fraunces", serif; font-style: italic; font-weight: 900;
+        font-size: clamp(7rem, 18vw, 15rem); line-height: 0.85;
+        color: var(--amber); margin: 0.2em 0;
+      }
+
+      /* ── 03 Rose alert ───────────────────────────────────── */
+      .rose-spread { background: var(--rose); color: var(--rose-ink); }
+      .rose-spread .eyebrow { color: var(--rose-ink); opacity: 0.75; }
+      .rose-spread .stamp {
+        display: inline-block; border: 2px solid var(--rose-ink); padding: 0.5rem 1rem;
+        transform: rotate(-2.5deg); font-family: "JetBrains Mono", monospace;
+        font-size: 0.78rem; letter-spacing: 0.22em; text-transform: uppercase; margin-bottom: 1.2rem;
+      }
+      .rose-spread .ord { color: var(--rose-ink); opacity: 0.65; }
+
+      /* ── 04 Terminal ─────────────────────────────────────── */
+      .terminal-spread { background: var(--terminal-bg); color: var(--terminal-fg); border-bottom: none; }
+      .terminal-spread .title { color: var(--terminal-fg); font-family: "JetBrains Mono", monospace; font-size: clamp(1.8rem, 3.4vw, 2.6rem); font-weight: 600; letter-spacing: -0.01em; }
+      .terminal-spread .eyebrow { color: var(--terminal-accent); }
+      .terminal-spread p, .terminal-spread .sub { color: rgba(182,240,196,0.82); font-family: "JetBrains Mono", monospace; font-size: 1.02rem; line-height: 1.65; font-style: normal; }
+      .terminal-spread .ord { color: var(--terminal-accent); }
+      .terminal-spread .prompt { color: var(--terminal-accent); }
+      .terminal-spread .source { color: rgba(182,240,196,0.6); }
+      .terminal-spread pre {
+        background: rgba(0,0,0,0.28); border: 1px solid rgba(126,231,163,0.25);
+        padding: 1rem 1.2rem; border-radius: 4px; font-family: "JetBrains Mono", monospace;
+        font-size: 0.92rem; color: var(--terminal-fg); overflow-x: auto; line-height: 1.6;
+        margin: 1.2rem 0;
+      }
+
+      /* ── 05 Academic drop-cap ─────────────────────────────── */
+      .academic { background: var(--academic); }
+      .academic .columns { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-top: 1.5rem; }
+      .academic p { font-size: 1.15rem; line-height: 1.65; }
+      .academic .dropcap::first-letter {
+        font-family: "Fraunces", serif; font-style: italic; font-weight: 900;
+        font-size: 6.4rem; float: left; line-height: 0.85; padding: 0.15em 0.15em 0 0;
+        color: var(--coral);
+      }
+      @media (max-width: 900px) { .academic .columns { grid-template-columns: 1fr; } }
+
+      /* ── 06 Big stat ─────────────────────────────────────── */
+      .stat-spread { background: var(--stat-bg); color: var(--stat-fg); border-bottom: none; }
+      .stat-spread .eyebrow { color: var(--amber); }
+      .stat-spread .sub, .stat-spread p { color: rgba(236,227,208,0.82); }
+      .stat-spread .ord { color: rgba(236,227,208,0.5); }
+      .stat-spread .source { color: rgba(236,227,208,0.55); }
+      .stat-spread .figure {
+        font-family: "Fraunces", serif; font-weight: 900; font-style: italic;
+        font-size: clamp(6rem, 17vw, 14rem); line-height: 0.85; letter-spacing: -0.04em;
+        color: #fff6ef; margin: 0.2em 0 0.1em;
+      }
+      .stat-spread .figure .small { font-size: 0.35em; color: var(--amber); font-weight: 500; font-style: normal; vertical-align: top; }
+
+      /* ── 07 Newsprint ────────────────────────────────────── */
+      .newsprint-spread { background: var(--newsprint); border-top: 6px double var(--ink); }
+      .newsprint-spread .rulecap {
+        display: flex; justify-content: space-between; align-items: baseline;
+        border-bottom: 1px solid var(--ink); padding-bottom: 0.5rem; margin-bottom: 1.2rem;
+      }
+      .newsprint-spread .columns { column-count: 2; column-gap: 2.4rem; margin-top: 1.2rem; }
+      .newsprint-spread .columns p { break-inside: avoid; margin-top: 0; }
+      @media (max-width: 780px) { .newsprint-spread .columns { column-count: 1; } }
+
+      /* ── 08 Catalog / cream-soft ─────────────────────────── */
+      .catalog { background: var(--catalog-bg); }
+      .catalog .grid { display: grid; grid-template-columns: 1fr 2fr; gap: 3rem; }
+      .catalog .chip {
+        display: inline-block; border: 1.5px solid var(--ink); padding: 0.25rem 0.55rem;
+        font-family: "JetBrains Mono", monospace; font-size: 0.72rem; letter-spacing: 0.14em;
+        text-transform: uppercase; margin-right: 0.4rem; margin-bottom: 0.4rem;
+      }
+      @media (max-width: 900px) { .catalog .grid { grid-template-columns: 1fr; } }
+
+      /* ── 09 Creative tint ────────────────────────────────── */
+      .tint { background: var(--tint-straw); position: relative; }
+      .tint .marquee {
+        font-family: "Fraunces", serif; font-style: italic; font-weight: 700;
+        font-size: clamp(2.6rem, 5.5vw, 4.4rem); line-height: 0.95;
+        margin: 0 0 1.4rem; letter-spacing: -0.02em;
+      }
+      .tint .bullets { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.95rem; }
+      .tint .bullets li {
+        border-left: 3px solid var(--coral); padding: 0.1rem 0 0.1rem 1rem;
+        font-family: "Inter", sans-serif; font-size: 1.05rem; line-height: 1.5;
+      }
+
+      /* ── 10 Lab / teal-dark ──────────────────────────────── */
+      .lab { background: var(--lab-bg); color: var(--lab-fg); border-bottom: none; }
+      .lab .eyebrow { color: var(--lab-accent); }
+      .lab p, .lab .sub { color: rgba(215,239,232,0.82); }
+      .lab .ord { color: rgba(215,239,232,0.55); }
+      .lab .source { color: rgba(215,239,232,0.55); }
+      .lab .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2.4rem; margin-top: 1.4rem; }
+      .lab .card {
+        border: 1px solid rgba(60,214,176,0.3); padding: 1.2rem 1.3rem; border-radius: 3px;
+      }
+      .lab .card h4 {
+        font-family: "JetBrains Mono", monospace; font-size: 0.8rem;
+        letter-spacing: 0.18em; text-transform: uppercase; color: var(--lab-accent); margin: 0 0 0.5rem;
+      }
+      .lab .card p { font-size: 1rem; line-height: 1.5; margin: 0; }
+      @media (max-width: 900px) { .lab .grid { grid-template-columns: 1fr; } }
+
+      /* ── HN section ──────────────────────────────────────── */
+      .hn-section { background: var(--newsprint); padding: 5rem 0 5.5rem; border-top: 6px double var(--ink); }
+      .hn-section .hn-head {
+        display: flex; justify-content: space-between; align-items: baseline;
+        border-bottom: 2px solid var(--ink); padding-bottom: 0.8rem; margin-bottom: 2.5rem;
+      }
+      .hn-section h2 {
+        font-family: "Fraunces", serif; font-weight: 900; font-size: clamp(2.6rem, 5vw, 3.6rem);
+        letter-spacing: -0.02em; margin: 0;
+      }
+      .hn-section h2 .coral { color: var(--coral); font-style: italic; }
+      .hn-item {
+        display: grid; grid-template-columns: 7rem 1fr; gap: 2rem; padding: 2.2rem 0;
+        border-bottom: 1px solid rgba(20,20,15,0.14);
+      }
+      .hn-item:last-child { border-bottom: none; }
+      .hn-ord {
+        font-family: "Fraunces", serif; font-style: italic; font-weight: 900;
+        font-size: clamp(3.5rem, 7vw, 5.5rem); line-height: 0.9; color: var(--coral);
+        margin: 0;
+      }
+      .hn-title {
+        font-family: "Fraunces", serif; font-weight: 800;
+        font-size: clamp(1.5rem, 2.8vw, 2.1rem); line-height: 1.1;
+        letter-spacing: -0.015em; margin: 0 0 0.6rem;
+      }
+      .hn-stats {
+        font-family: "JetBrains Mono", monospace; font-size: 0.78rem;
+        letter-spacing: 0.14em; color: var(--muted); margin-bottom: 0.85rem;
+      }
+      .hn-stats .sep { color: rgba(20,20,15,0.25); padding: 0 0.5rem; }
+      .hn-body { font-family: "Fraunces", serif; font-size: 1.1rem; line-height: 1.6; max-width: 68ch; }
+      .hn-links {
+        font-family: "JetBrains Mono", monospace; font-size: 0.74rem;
+        letter-spacing: 0.14em; text-transform: uppercase; margin-top: 0.8rem;
+        display: flex; gap: 1rem; flex-wrap: wrap; color: var(--muted);
+      }
+      .hn-links a { border-bottom: 1px dotted rgba(20,20,15,0.45); padding-bottom: 1px; }
+      @media (max-width: 680px) { .hn-item { grid-template-columns: 1fr; gap: 0.4rem; } .hn-ord { font-size: 3.2rem; } }
+
+      /* ── Architecture in the Wild ────────────────────────── */
+      .arch-section {
+        background: var(--academic); padding: 6rem 0 6.5rem;
+        border-top: 1px solid rgba(20,20,15,0.2);
+      }
+      .arch-section .arch-eyebrow {
+        font-family: "JetBrains Mono", monospace; font-size: 0.8rem;
+        letter-spacing: 0.28em; text-transform: uppercase; color: var(--coral);
+        margin-bottom: 1.8rem;
+      }
+      .arch-section .arch-eyebrow .dot { color: var(--ink); }
+      .arch-section h2 {
+        font-family: "Fraunces", serif; font-weight: 900;
+        font-size: clamp(2.8rem, 6vw, 4.6rem); line-height: 0.98;
+        letter-spacing: -0.025em; margin: 0 0 1.2rem;
+      }
+      .arch-section .byline {
+        font-family: "JetBrains Mono", monospace; font-size: 0.8rem;
+        letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-bottom: 2.4rem;
+      }
+      .arch-section .byline .sep { color: rgba(20,20,15,0.25); padding: 0 0.6rem; }
+      .arch-section .body { max-width: 62ch; }
+      .arch-section .body p {
+        font-size: 1.22rem; line-height: 1.68; margin: 0 0 1.2rem;
+      }
+      .arch-section .body p.lead.dropcap::first-letter {
+        font-family: "Fraunces", serif; font-style: italic; font-weight: 900;
+        font-size: 7rem; float: left; line-height: 0.8; padding: 0.1em 0.18em 0 0;
+        color: var(--coral);
+      }
+      .arch-section blockquote {
+        font-family: "Fraunces", serif; font-style: italic; font-weight: 500;
+        font-size: clamp(1.6rem, 3vw, 2.2rem); line-height: 1.3; letter-spacing: -0.01em;
+        color: var(--ink); border-left: 4px solid var(--coral); padding: 0.3rem 0 0.3rem 1.5rem;
+        margin: 2.2rem 0; max-width: 56ch;
+      }
+      .arch-section .read {
+        display: inline-block; margin-top: 1.4rem;
+        font-family: "JetBrains Mono", monospace; font-size: 0.82rem;
+        letter-spacing: 0.18em; text-transform: uppercase; color: var(--coral);
+        border-bottom: 1.5px solid var(--coral); padding-bottom: 2px;
+      }
+
+      /* ── Footer / colophon ───────────────────────────────── */
+      .colophon {
+        background: var(--ink); color: var(--cream); padding: 3.5rem 0 3rem;
+        font-family: "JetBrains Mono", monospace; font-size: 0.82rem;
+        letter-spacing: 0.14em; text-transform: uppercase; line-height: 1.8;
+      }
+      .colophon a { color: var(--amber); border-bottom: 1px dotted var(--amber); padding-bottom: 1px; }
+      .colophon .row { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1.4rem; }
+
+      ::selection { background: var(--coral); color: #fff; }
+    </style>
+  </head>
+  <body>
+    <!-- ─── MASTHEAD ─────────────────────────────────────── -->
+    <header class="masthead">
+      <div class="wrap">
+        <div class="pretitle">
+          <span>Vol. I <span class="dot">·</span> No. 06</span>
+          <span>Friday <span class="dot">·</span> April 24, 2026</span>
+          <span>Morning Edition</span>
+          <span>12 Spreads</span>
+        </div>
+        <h1 class="deck">The <span class="coral">Fresh</span> Weights<span class="dot">.</span></h1>
+        <p class="subdeck">
+          GPT-5.5 ships the same day DeepSeek v4 drops, Bitwarden's CLI gets hijacked, matz quietly
+          publishes a Ruby AOT compiler, and Anthropic posts a three-bug postmortem for Claude Code.
+          A model-refresh day with a nasty supply-chain aftertaste.
+        </p>
+      </div>
+    </header>
+
+    <!-- ─── META ROW ─────────────────────────────────────── -->
+    <section class="wrap">
+      <div class="meta-row">
+        <div class="cell">
+          <div class="label">Editor</div>
+          <div class="val">Aziz <span class="italic">· by hand</span></div>
+        </div>
+        <div class="cell">
+          <div class="label">Window</div>
+          <div class="val">Last 72 hours</div>
+        </div>
+        <div class="cell">
+          <div class="label">Theme</div>
+          <div class="val">Models · Supply chain · Tooling</div>
+        </div>
+        <div class="cell">
+          <div class="label">Reading time</div>
+          <div class="val">~17 minutes</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── 01 HERO: GPT-5.5 ───────────────────────────────── -->
+    <section class="hero-spread">
+      <div class="wrap">
+        <div class="grid">
+          <div>
+            <div class="kicker">Spread 01 <span style="color:var(--muted)">·</span> Frontier refresh <span class="foryou">For You</span></div>
+            <h2 class="title">GPT-5.5 ships — first fully retrained base since 4.5, priced like it knows.</h2>
+            <p class="sub">
+              OpenAI's new model lands with 84.9% on GDPval, 78.7% on OSWorld-Verified, and 98.0% on
+              Tau2-bench Telecom without prompt tuning. $5 / $30 per million tokens. 1M context.
+            </p>
+            <p>
+              The benchmark sheet matters less than the framing: OpenAI explicitly pitched this as a
+              model that <span class="italic">holds context across large systems, reasons through ambiguous failures,
+              and checks assumptions with tools</span>. That's the Claude Code / Cursor ground game
+              described in OpenAI's own words. For architects, the shift is that GPT-5.5 is the first
+              OpenAI release where the "run it as an agent" path is first-class on the model card itself,
+              not tacked on in a blog post a month later. Pro tier rolls out same-day to Plus, Business,
+              and Enterprise.
+            </p>
+            <div class="source">Source <span style="opacity:0.35">·</span>
+              <a href="https://openai.com/index/introducing-gpt-5-5/">openai.com · Introducing GPT-5.5</a>
+              <span style="opacity:0.35"> · </span>
+              <a href="https://techcrunch.com/2026/04/23/openai-chatgpt-gpt-5-5-ai-model-superapp/">TechCrunch coverage</a>
+            </div>
+          </div>
+          <div style="text-align:right">
+            <div class="huge-ord">01</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── 02 MIDNIGHT: DeepSeek v4 ───────────────────────── -->
+    <section class="spread midnight">
+      <div class="wrap">
+        <div class="eyebrow">Spread 02 · Open weights · Same day <span class="foryou">For You</span></div>
+        <h2 class="title" style="color:var(--midnight-fg)">DeepSeek v4 lands on the same day as GPT-5.5. The counter-programming is the message.</h2>
+        <p class="sub">
+          Two variants on the API: <span class="italic">deepseek-v4-flash</span> and
+          <span class="italic">deepseek-v4-pro</span>. The docs are already live; the benchmark essays will follow the tokens.
+        </p>
+        <div class="ord-big">v4</div>
+        <p>
+          DeepSeek timed this to the hour. While OpenAI's keynote was still cycling, DeepSeek's v4
+          API docs went public. The lab has now made it a discipline to ship within the same news
+          cycle as every major US frontier release — and the pricing implication is the usual one:
+          the open-weight floor is about to drop again. If you've been running DeepSeek v3 as the
+          cheap tier behind a frontier router, expect to re-benchmark this week. If you haven't,
+          the existence of v4 at (presumably) v3-class prices is the quietest piece of good news
+          for the cost side of your AI invoice this quarter.
+        </p>
+        <div class="source">Source <span style="opacity:0.35">·</span>
+          <a href="https://api-docs.deepseek.com/">api-docs.deepseek.com</a>
+          <span style="opacity:0.35"> · </span>
+          <a href="https://news.ycombinator.com/item?id=47884971">HN discussion (1,051 pts)</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── 03 ROSE ALERT: Bitwarden CLI compromise ────────── -->
+    <section class="spread rose-spread">
+      <div class="wrap">
+        <div class="eyebrow">Spread 03 · Supply chain <span class="foryou">For You</span></div>
+        <div class="stamp">Bulletin · Rotate your secrets</div>
+        <h2 class="title">Bitwarden's CLI was hijacked through its own GitHub Actions pipeline.</h2>
+        <p class="sub italic">
+          The password manager for 10M users and 50,000 businesses shipped a malicious npm release.
+          The Chrome extension is clean — the CLI is not.
+        </p>
+        <p>
+          Socket.dev traced <span class="italic">@bitwarden/cli 2026.4.0</span> back to a poisoned GitHub Action in
+          Bitwarden's CI/CD pipeline — the same Checkmarx-themed supply-chain campaign that's been
+          hitting dev tools for weeks. The payload is inside <span class="italic">bw1.js</span> and exfiltrates tokens
+          on install. Self-hosted vaults and browser clients appear unaffected. npm-installed CLI
+          environments do not.
+        </p>
+        <p style="margin-top:1rem">
+          <span class="italic">What to do this morning:</span> remove the package, rotate GitHub + npm + cloud +
+          SSH credentials for anything that touched a CI job this week, audit workflow files for
+          unexpected additions, and grep for outbound connections to <span class="italic">audit.checkmarx.cx</span>. This
+          is now the third major CI-borne campaign of 2026 — the lesson is the same as January:
+          pin by digest, not by version.
+        </p>
+        <div class="source">Source <span style="opacity:0.35">·</span>
+          <a href="https://socket.dev/blog/bitwarden-cli-compromised">socket.dev · the full writeup</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── 04 TERMINAL: TorchTPU ──────────────────────────── -->
+    <section class="spread terminal-spread">
+      <div class="wrap">
+        <div class="eyebrow">Spread 04 · PyTorch · Hardware <span class="foryou">For You</span></div>
+        <h2 class="title"><span class="prompt">$</span> torchtpu · native pytorch on TPUs, no XLA ceremony</h2>
+        <p>
+          Google shipped TorchTPU: PyTorch operators routed through a StableHLO backend onto TPU
+          silicon, with a Fused Eager execution mode that claims 50–100%+ gains over Strict Eager
+          with zero user code changes.
+        </p>
+<pre>modes = {
+  "debug_eager":   "synchronous, one op at a time",
+  "strict_eager":  "async single-op dispatch (feels like cuda)",
+  "fused_eager":   "auto-fusion, +50% to +100% perf",
+}
+
+distributed = [DDP, FSDPv2, DTensor]
+mpmd        = True   # divergent ranks without losing XLA
+compile     = "torch.compile -> Dynamo -> StableHLO"
+</pre>
+        <p>
+          The MPMD detail is the interesting one. Prior PyTorch/XLA broke if different ranks ran
+          different code paths — a real problem for modern training recipes with mixed-precision
+          schedulers and speculative decoding. TorchTPU claims native MPMD support while preserving
+          XLA's compilation benefits. For anyone tempted by TPU pricing but unwilling to rewrite
+          a training harness in JAX, this is the first release that makes "PyTorch on TPU" a
+          non-compromise option rather than a science project.
+        </p>
+        <div class="source">Source <span class="prompt">·</span>
+          <a href="https://developers.googleblog.com/torchtpu-running-pytorch-natively-on-tpus-at-google-scale/">developers.googleblog.com · TorchTPU</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── 05 ACADEMIC: Spinel ────────────────────────────── -->
+    <section class="spread academic">
+      <div class="wrap">
+        <div class="eyebrow">Spread 05 · Language design · Matz <span class="foryou">For You</span></div>
+        <span class="ord">Story 05 · of 10</span>
+        <h2 class="title">Matz quietly publishes a Ruby AOT native compiler.</h2>
+        <p class="sub italic">
+          No blog post. No keynote. Just a repo on GitHub, self-hosting, 74 feature tests green, and
+          11.6× faster than CRuby.
+        </p>
+        <div class="columns">
+          <p class="dropcap">
+            Spinel does whole-program type inference across the codebase, emits optimised C,
+            and compiles to standalone native binaries. It's self-hosting — the backend is written
+            in Ruby and compiles itself. Benchmarks show 11.6× over miniruby on computation-heavy
+            workloads and a startling 86.7× on Conway's Game of Life. The tradeoff is explicit:
+            no eval, no method_missing, no general metaprogramming, no threading.
+          </p>
+          <p>
+            This is Matz admitting what the Ruby community has long rationalised away — that the
+            dynamic-at-all-costs stance has a cost, and that a practical Ruby subset can compete
+            with Go and Rust on performance while keeping the ergonomics that made the language
+            popular in the first place. If you've been waiting for "Ruby as a shipping language
+            for CLIs and servers" without the YJIT warmup penalty, Spinel is the first credible
+            answer from the language's own designer.
+          </p>
+        </div>
+        <div class="source">Source <span style="opacity:0.35">·</span>
+          <a href="https://github.com/matz/spinel">github.com/matz/spinel</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── 06 BIG STAT: Meta layoffs ──────────────────────── -->
+    <section class="spread stat-spread">
+      <div class="wrap">
+        <div class="eyebrow">Spread 06 · Industry · Headcount</div>
+        <span class="ord">Story 06</span>
+        <h2 class="title" style="color:var(--stat-fg)">Meta tells staff it's cutting 10% of jobs.</h2>
+        <p class="sub">
+          Framed as "efficiency." Read as another round of the same pattern: bet heavy on capex,
+          trim hard on headcount, call it discipline.
+        </p>
+        <div class="figure">10<span class="small">% of roles</span></div>
+        <p>
+          The ratio to watch isn't the percentage — it's the juxtaposition. Meta is simultaneously
+          pouring into datacenter commitments while shedding engineering headcount at double-digit
+          rates. The signal for senior engineers is the same as every Big Tech cycle since 2022:
+          hyperscaler jobs are no longer pension-style employment, and team resilience is now a
+          first-order architectural concern. If your agent stack has a dependency that lives
+          inside one hyperscaler's L4 team, price in the possibility that team halves this year.
+        </p>
+        <div class="source">Source <span style="opacity:0.35">·</span>
+          <a href="https://news.ycombinator.com/item?id=47879986">HN (620 pts)</a>
+          <span style="opacity:0.35"> · </span>
+          <a href="https://www.bloomberg.com/news/articles/2026-04-23/meta-tells-staff-it-will-cut-10-of-jobs-in-push-for-efficiency">Bloomberg</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── 07 NEWSPRINT: MeshCore split ───────────────────── -->
+    <section class="spread newsprint-spread">
+      <div class="wrap">
+        <div class="rulecap">
+          <span class="mono" style="font-size:0.78rem; letter-spacing:0.22em">Spread 07 · Governance · OSS</span>
+          <span class="mono" style="font-size:0.78rem; letter-spacing:0.22em">No. 07 / 10</span>
+        </div>
+        <h2 class="title">The MeshCore split: trademark grab, secret AI code, community rupture.</h2>
+        <p class="sub italic">
+          The most 2026 open-source drama to date: a former insider applies for the trademark, ships
+          AI-generated firmware without disclosure, and ends up with the domain and Discord.
+        </p>
+        <div class="columns">
+          <p>
+            Andy Kirby — a former MeshCore contributor — filed a trademark application on March 29
+            without notifying the rest of the core team. He had been building standalone devices,
+            mobile apps, a web flasher, and config tooling using mostly Claude-generated code, and
+            had not disclosed that to users. When the core team discovered the trademark filing,
+            discussions failed. Kirby kept meshcore.co.uk and the original Discord.
+          </p>
+          <p>
+            The core team — Scott (firmware lead), Liam Cottle, Recrof, FDLamotte, Oltaco — relaunched
+            at meshcore.io with a new Discord and a pointed statement about a commitment to
+            "human-written software." Community polls showed strong user appetite for provenance
+            disclosure on firmware.
+          </p>
+          <p>
+            There are two stories here and they rhyme uncomfortably. The governance failure — a
+            volunteer project with no written agreement about trademark, contribution policy, or
+            code provenance — is familiar. The AI-code disclosure question is the new part, and
+            it is coming for every community project that hasn't yet written its position down. If
+            your org contributes to OSS or runs its own plugin ecosystem, this is the week to put
+            that policy on paper.
+          </p>
+        </div>
+        <div class="source">Source ·
+          <a href="https://blog.meshcore.io/2026/04/23/the-split">blog.meshcore.io · The Split</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── 08 CATALOG: Familiarity is the enemy ───────────── -->
+    <section class="spread catalog">
+      <div class="wrap">
+        <div class="eyebrow">Spread 08 · Essays · Enterprise <span class="foryou">For You</span></div>
+        <div class="grid">
+          <div>
+            <span class="ord">08 / 10</span>
+            <h2 class="title">"Familiarity is the enemy."</h2>
+          </div>
+          <div>
+            <p class="sub italic">
+              Felix Barbalet's essay on why enterprise knowledge systems have failed for sixty years
+              is the sharpest diagnosis you'll read this week.
+            </p>
+            <p>
+              The thesis: enterprise buyers have been selecting for <span class="italic">familiarity</span> — familiar
+              vendors (SharePoint), familiar languages (Java/.NET), familiar purchase motion (licenses
+              upfront, risk shifted to buyer), familiar architectures (RAG, knowledge graphs, expert
+              systems) — not for correctness. Every wave repeats the same failure shape: knowledge
+              degrades faster than experts can update it, and structural incentives protect
+              careerists from blame more than they protect users from bad outcomes.
+            </p>
+            <p>
+              Barbalet proposes a four-test diagnostic: can your system query for <span class="italic">absence</span>?
+              Does entity resolution produce auditable proof? Can you time-travel a year back?
+              Does access hold across jurisdictions? If the answer to any of those is no, your
+              "AI on top of the wiki" project is repeating the category error.
+            </p>
+            <div style="margin-top:1rem">
+              <span class="chip">Enterprise</span><span class="chip">RAG</span><span class="chip">Knowledge graph</span><span class="chip">Governance</span><span class="chip">Essay</span>
+            </div>
+            <div class="source">Source ·
+              <a href="https://felixbarbalet.com/familiarity-is-the-enemy/">felixbarbalet.com</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── 09 TINT: Composition Shouldn't Be This Hard ────── -->
+    <section class="spread tint">
+      <div class="wrap">
+        <div class="eyebrow">Spread 09 · Systems thinking <span class="foryou">For You</span></div>
+        <span class="ord">09 / 10</span>
+        <h2 class="marquee">Composition <span style="color:var(--coral); font-style:italic">shouldn't</span> be this hard.</h2>
+        <p class="sub">
+          A foundational argument against how we wire internet applications together — and why
+          AI won't solve it.
+        </p>
+        <ul class="bullets">
+          <li><strong>The diagnosis.</strong> Modern software stacks are <span class="italic">fragmented</span>: database, cache, frontend, service mesh — each with its own internal model, talking through a low-level "networks and OS" substrate that none of them were designed around.</li>
+          <li><strong>The cost.</strong> Contract mismatches, impedance mismatches, ceremony around changes — and optimizations that can't cross component boundaries because nobody agrees on the model.</li>
+          <li><strong>The promise.</strong> A single, general-purpose, <span class="italic">domain-aligned</span> model would enable type systems, query planners, and compilers to work across the whole stack. J2EE and object databases tried; both stopped short of becoming sealed.</li>
+          <li><strong>The AI bit.</strong> The author is pointed: AI doesn't dissolve this problem. Precision and domain-aligned models remain essential regardless of who writes the code. "Just let the LLM glue it" is the new "just let the ORM glue it."</li>
+        </ul>
+        <div class="source" style="margin-top:1.4rem">Source ·
+          <a href="https://www.cambra.dev/blog/announcement/">cambra.dev · Composition Shouldn't be this Hard</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── 10 LAB: UK Biobank data ────────────────────────── -->
+    <section class="spread lab">
+      <div class="wrap">
+        <div class="eyebrow">Spread 10 · Data governance · Research integrity</div>
+        <span class="ord">10 / 10</span>
+        <h2 class="title" style="color:var(--lab-fg)">UK Biobank health data keeps ending up on GitHub.</h2>
+        <p class="sub">
+          Access-controlled genomic and health data for half a million people keeps leaking into public
+          repos. The audit trail lives at a single URL now.
+        </p>
+        <div class="grid">
+          <div class="card">
+            <h4>The scope</h4>
+            <p>UK Biobank is one of the largest consented human health datasets in the world — genomes, imaging, clinical records for ~500,000 volunteers.</p>
+          </div>
+          <div class="card">
+            <h4>The leak pattern</h4>
+            <p>Researchers with legitimate access push analysis code alongside derived artifacts that re-expose restricted data. Classic .gitignore-shaped failure.</p>
+          </div>
+          <div class="card">
+            <h4>The tracker</h4>
+            <p>biobank.rocher.lc surfaces ongoing incidents — a shame-register for research-data hygiene in the GitHub era.</p>
+          </div>
+          <div class="card">
+            <h4>The lesson for us</h4>
+            <p>If your company handles sensitive data and lets researchers "just clone the notebook," you have the same class of bug. CI-scanned repos + broker-issued ephemeral access is the minimum posture.</p>
+          </div>
+        </div>
+        <p style="margin-top:1.6rem">
+          The broader moral: access-controlled data and public-collaboration tooling are still
+          under-engineered for each other, eleven years after this problem was first catalogued.
+          The Biobank case is the one that's easy to point at — every large org has an internal
+          equivalent they've simply never been called on.
+        </p>
+        <div class="source">Source ·
+          <a href="https://biobank.rocher.lc">biobank.rocher.lc</a>
+          <span style="opacity:0.35"> · </span>
+          <a href="https://news.ycombinator.com/item?id=47875843">HN discussion</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── HACKER NEWS SECTION ────────────────────────────── -->
+    <section class="hn-section">
+      <div class="wrap">
+        <div class="hn-head">
+          <h2>Hacker News <span class="coral">·</span> top five</h2>
+          <span class="mono" style="font-size:0.78rem; letter-spacing:0.2em; color:var(--muted)">24h window · HN Firebase</span>
+        </div>
+
+        <article class="hn-item">
+          <div class="hn-ord">01</div>
+          <div>
+            <h3 class="hn-title">South Korea police arrest man over AI image of runaway wolf that misled authorities</h3>
+            <div class="hn-stats">72 points <span class="sep">·</span> 34 comments <span class="sep">·</span> bbc.com</div>
+            <p class="hn-body">
+              A man was arrested after uploading an AI-generated image of the escaped wolf that briefly
+              shut down parts of South Korea's news cycle, sending police in the wrong direction. The
+              case may be the cleanest real-world test yet of "misleading synthetic media" statutes —
+              specific harm, specific state resources misallocated, specific arrest. Worth watching
+              as precedent; the "it was just a joke" defense has a legal edge now.
+            </p>
+            <div class="hn-links">
+              <a href="https://news.ycombinator.com/item?id=47887683">HN thread →</a>
+              <a href="https://www.bbc.com/news/articles/c4gx1n0dl9no">BBC →</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="hn-item">
+          <div class="hn-ord">02</div>
+          <div>
+            <h3 class="hn-title">Why I Write (1946)</h3>
+            <div class="hn-stats">176 points <span class="sep">·</span> 46 comments <span class="sep">·</span> orwellfoundation.com</div>
+            <p class="hn-body">
+              Orwell's 1946 essay resurfaces on the same day OpenAI ships its biggest writing model,
+              and the thread runs exactly where you'd expect: a re-examination of Orwell's four
+              motives — ego, aesthetic enthusiasm, historical impulse, political purpose — in a
+              world where the mechanical writing part has been trivialised. The comments that land
+              focus on what the essay gets right about <span class="italic">why</span> a person writes, which LLMs still
+              cannot simulate because the motivation itself is the product.
+            </p>
+            <div class="hn-links">
+              <a href="https://news.ycombinator.com/item?id=47884768">HN thread →</a>
+              <a href="https://www.orwellfoundation.com/the-orwell-foundation/orwell/essays-and-other-works/why-i-write/">Full essay →</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="hn-item">
+          <div class="hn-ord">03</div>
+          <div>
+            <h3 class="hn-title">Show HN: How LLMs Work — Interactive visual guide based on Karpathy's lecture</h3>
+            <div class="hn-stats">72 points <span class="sep">·</span> 12 comments <span class="sep">·</span> ynarwal.github.io</div>
+            <p class="hn-body">
+              A single-page interactive companion to Andrej Karpathy's LLM lecture — tokenisation,
+              attention, positional encoding, training loop, all wired up as live mini-demos in the
+              browser. The pedagogical value is in the interactivity: you can perturb a single
+              attention head or shift a token embedding and watch the downstream collapse. This is
+              the kind of artifact the field has needed since 2022 — send it to the junior engineer
+              on your team before their first fine-tuning project.
+            </p>
+            <div class="hn-links">
+              <a href="https://news.ycombinator.com/item?id=47886517">HN thread →</a>
+              <a href="https://ynarwal.github.io/how-llms-work/">Visual guide →</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="hn-item">
+          <div class="hn-ord">04</div>
+          <div>
+            <h3 class="hn-title">US special forces soldier arrested after allegedly winning $400K on Maduro raid</h3>
+            <div class="hn-stats">292 points <span class="sep">·</span> 328 comments <span class="sep">·</span> cnn.com</div>
+            <p class="hn-body">
+              A Green Beret was arrested after allegedly placing a large wager tied to an operation
+              he had inside knowledge of. The detail that keeps the thread alive isn't the crime —
+              it's the prediction-market exposure: an actor with specific operational information can
+              move a small-market bet into six figures in minutes. The thread argues, correctly, that
+              prediction markets now have the same information-asymmetry problem equities spent a
+              century legislating around — and that policy hasn't caught up.
+            </p>
+            <div class="hn-links">
+              <a href="https://news.ycombinator.com/item?id=47882645">HN thread →</a>
+              <a href="https://www.cnn.com/2026/04/23/politics/us-special-forces-soldier-arrested-maduro-raid-trade">CNN →</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="hn-item">
+          <div class="hn-ord">05</div>
+          <div>
+            <h3 class="hn-title">Show HN: Gova — the declarative GUI framework for Go</h3>
+            <div class="hn-stats">43 points <span class="sep">·</span> 10 comments <span class="sep">·</span> github.com/NV404/gova</div>
+            <p class="hn-body">
+              A from-scratch declarative GUI toolkit for Go, styled in spirit after SwiftUI and Jetpack
+              Compose. The author is up front that it's early: no Windows target yet, no styling DSL,
+              and a hand-rolled layout engine that is still being hardened. The project's value is as
+              a lens on Go's long-running "no great GUI story" problem — every few years somebody tries
+              declarative; the interesting question is whether the toolchain has finally matured enough
+              (go:wasm, SSR, etc.) for this attempt to stick.
+            </p>
+            <div class="hn-links">
+              <a href="https://news.ycombinator.com/item?id=47886272">HN thread →</a>
+              <a href="https://github.com/NV404/gova">Repo →</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ─── ARCHITECTURE IN THE WILD ───────────────────────── -->
+    <section class="arch-section">
+      <div class="wrap">
+        <div class="arch-eyebrow">Architecture in the Wild <span class="dot">·</span> Feature</div>
+        <h2>Anthropic's three-bug postmortem on Claude Code.</h2>
+        <div class="byline">
+          Anthropic Engineering
+          <span class="sep">·</span>
+          Published April 23, 2026
+          <span class="sep">·</span>
+          Incident window: March 4 — April 20, 2026
+        </div>
+        <div class="body">
+          <p class="lead dropcap">
+            Anthropic published an unusually candid postmortem on April 23: three overlapping bugs
+            that degraded Claude Code quality across March and April 2026, documented by root cause,
+            detection failure, and remediation. The API and inference layers were not affected — this
+            was entirely a client-side and prompt-orchestration story, which makes it more useful to
+            read than most cloud postmortems. The honest sentence in the piece is that the degradations
+            looked "broad, inconsistent" across user segments, which is exactly why they were so
+            hard to repro from the inside.
+          </p>
+          <p>
+            <strong>Bug 1 (March 4 – April 7): reasoning-effort default.</strong> Someone changed the default
+            <span class="italic">reasoning_effort</span> from <span class="italic">high</span> to <span class="italic">medium</span> to reduce latency. Intelligence dropped
+            noticeably on Sonnet 4.6 and Opus 4.6. The fix was to revert — and to set Opus 4.7 to
+            <span class="italic">xhigh</span>. Lesson Anthropic is explicit about: latency/quality tradeoffs are
+            production-shape changes and should be piloted, not defaulted.
+          </p>
+          <p>
+            <strong>Bug 2 (March 26 – April 10): the caching bug.</strong> This one is the architectural
+            meat. Claude Code uses a <span class="italic">clear_thinking_20251015</span> API header with <span class="italic">keep:1</span> to clear
+            old reasoning after an hour-long idle session, because stale reasoning inflates prompts
+            and drains usage limits. The bug: instead of clearing once, it cleared on every subsequent
+            turn. Symptoms were "forgetfulness, repetition, poor tool choices, and faster usage-limit drain."
+            It took over a week to isolate because it only fired in a narrow corner case —
+            stale-session resume — and because internal experiments and display changes masked the
+            behaviour during testing.
+          </p>
+          <blockquote>
+            "When provided the code repositories necessary to gather complete context, Opus 4.7 found
+            the bug, while Opus 4.6 didn't."
+          </blockquote>
+          <p>
+            <strong>Bug 3 (April 16 – April 20): "keep text ≤25 words."</strong> A constraint added to the
+            system prompt to reduce inter-tool-call chatter passed internal testing but showed a 3%
+            drop in the broader evaluation suite. Reverting the prompt fixed it. If you're reading
+            carefully, that's a system-prompt line item changing benchmark scores by percentage
+            points — a reminder that "prompt engineering is not engineering" stopped being true
+            at scale some time ago.
+          </p>
+          <p>
+            The remediation list is where the post earns its keep: <span class="italic">per-model evaluations for every
+            system-prompt change</span>, continuous ablation to isolate each prompt line's contribution,
+            soak periods and staged rollouts for any change that trades latency for intelligence,
+            and an internal policy that Anthropic engineers run the same build shipped to users
+            instead of pre-release variants. For anyone operating an agentic product at scale, this
+            is the missing chapter of your internal runbook — ablation + soak + dogfood, written in
+            the voice of a team that just learned why those three things need to be operational,
+            not aspirational.
+          </p>
+          <a class="read" href="https://www.anthropic.com/engineering/april-23-postmortem">Read the full postmortem on anthropic.com →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── FOOTER ────────────────────────────────────────── -->
+    <footer class="colophon">
+      <div class="wrap">
+        <div class="row">
+          <div>
+            <div>Daily Magazine · No. 06 · April 24, 2026</div>
+            <div style="margin-top:0.3rem; opacity:0.7">Curated <span style="color:var(--amber)">by hand</span> · rendered in a single file</div>
+          </div>
+          <div style="text-align:right">
+            <div><a href="../index.html">← back to the shelf</a></div>
+            <div style="margin-top:0.3rem; opacity:0.7">Fraunces · Inter · JetBrains Mono</div>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
