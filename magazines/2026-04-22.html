@@ -1,0 +1,1568 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>The Subscription Flinch — Daily Magazine · No. 4</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,700;1,9..144,900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --cream: #ece3d0;
+        --ink: #14140f;
+        --muted: #7a7465;
+        --coral: #e24b4b;
+        --rose: #f5d6d2;
+        --rose-ink: #7a1f1b;
+        --midnight: #0d0d12;
+        --midnight-fg: #ece3d0;
+        --amber: #f2a93b;
+        --terminal-bg: #0a0f0c;
+        --terminal-fg: #b6f0c4;
+        --terminal-accent: #7ee7a3;
+        --newsprint: #f1e9d3;
+        --academic: #efe9db;
+        --stat-bg: #14140f;
+        --stat-fg: #ece3d0;
+        --catalog-bg: #e8e2d4;
+        --creative-1: #ffd4c2;
+        --creative-2: #ffeccb;
+        --lab-bg: #0f1a1d;
+        --lab-fg: #d7efe8;
+        --lab-accent: #3cd6b0;
+      }
+
+      * { box-sizing: border-box; }
+      html, body { margin: 0; padding: 0; }
+
+      body {
+        background: var(--cream);
+        color: var(--ink);
+        font-family: "Fraunces", Georgia, "Times New Roman", serif;
+        font-optical-sizing: auto;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+      }
+
+      a { color: inherit; }
+
+      .wrap {
+        max-width: 1240px;
+        margin: 0 auto;
+        padding: 0 2rem;
+      }
+
+      /* ── Mono / Sans utilities ───────────────────────────── */
+      .mono {
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+      .sans { font-family: "Inter", system-ui, sans-serif; }
+      .serif { font-family: "Fraunces", Georgia, serif; }
+      .italic { font-style: italic; }
+
+      /* ── Masthead ────────────────────────────────────────── */
+      .masthead {
+        border-bottom: 2px solid var(--ink);
+        padding: 3rem 0 1.25rem;
+      }
+      .masthead .pretitle {
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 0.78rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-bottom: 1.4rem;
+      }
+      .masthead .pretitle .dot { color: var(--coral); }
+      .masthead .deck {
+        font-family: "Fraunces", serif;
+        font-weight: 900;
+        font-size: clamp(3.5rem, 11vw, 9rem);
+        line-height: 0.9;
+        letter-spacing: -0.035em;
+        margin: 0.3em 0 0;
+      }
+      .masthead .deck .coral { color: var(--coral); font-style: italic; }
+      .masthead .deck .dot { color: var(--coral); }
+      .masthead .subdeck {
+        font-family: "Fraunces", serif;
+        font-style: italic;
+        font-weight: 400;
+        font-size: clamp(1.3rem, 2.5vw, 1.85rem);
+        line-height: 1.35;
+        max-width: 68ch;
+        margin: 1.75rem 0 0;
+        color: #2a281e;
+      }
+
+      /* ── Meta row ────────────────────────────────────────── */
+      .meta-row {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 2rem;
+        padding: 2rem 0 3rem;
+        border-bottom: 1px solid rgba(20, 20, 15, 0.18);
+      }
+      .meta-row .cell .label {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.72rem;
+        letter-spacing: 0.18em;
+        color: var(--muted);
+        text-transform: uppercase;
+        margin-bottom: 0.55rem;
+      }
+      .meta-row .cell .value {
+        font-family: "Fraunces", serif;
+        font-weight: 700;
+        font-size: clamp(1.1rem, 1.8vw, 1.45rem);
+      }
+      .meta-row .cell .value.num {
+        font-weight: 900;
+        font-style: italic;
+        color: var(--coral);
+        font-size: clamp(1.5rem, 2.5vw, 2rem);
+      }
+
+      /* ── Contents strip ──────────────────────────────────── */
+      .contents {
+        padding: 2.5rem 0 3rem;
+      }
+      .contents h2 {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.78rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        margin: 0 0 1.5rem;
+        color: var(--muted);
+      }
+      .contents ol {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.5rem 2.5rem;
+      }
+      .contents ol li {
+        display: grid;
+        grid-template-columns: 2.5rem 1fr auto;
+        gap: 1rem;
+        align-items: baseline;
+        padding: 0.55rem 0;
+        border-bottom: 1px dotted rgba(20, 20, 15, 0.2);
+        font-family: "Fraunces", serif;
+        font-size: 1.05rem;
+      }
+      .contents ol li .no {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.8rem;
+        color: var(--coral);
+        letter-spacing: 0.1em;
+      }
+      .contents ol li .kind {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.64rem;
+        letter-spacing: 0.18em;
+        color: var(--muted);
+        text-transform: uppercase;
+      }
+
+      /* ── Spread chassis ──────────────────────────────────── */
+      .spread {
+        padding: clamp(3.5rem, 8vw, 7rem) 0;
+      }
+      .spread + .spread { margin-top: 0; }
+
+      .slug {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.74rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        margin-bottom: 1.5rem;
+        display: flex;
+        gap: 1.1rem;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+      .slug .ord { color: var(--coral); font-weight: 600; }
+      .slug .divider::before { content: "—"; color: currentColor; opacity: 0.4; }
+      .applies {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.66rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        padding: 0.3rem 0.65rem;
+        border: 1.5px solid var(--coral);
+        color: var(--coral);
+        border-radius: 999px;
+        background: rgba(226, 75, 75, 0.07);
+      }
+      .applies::before {
+        content: "";
+        width: 7px; height: 7px; border-radius: 50%;
+        background: var(--coral);
+      }
+
+      /* ── 01 HERO ─────────────────────────────────────────── */
+      .spread.hero {
+        background: var(--cream);
+        border-bottom: 1.5px solid var(--ink);
+      }
+      .hero .grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+        align-items: end;
+      }
+      .hero h1 {
+        font-family: "Fraunces", serif;
+        font-weight: 900;
+        font-size: clamp(3.25rem, 8vw, 6.5rem);
+        line-height: 0.9;
+        letter-spacing: -0.03em;
+        margin: 0;
+      }
+      .hero h1 .coral { color: var(--coral); font-style: italic; }
+      .hero h1 .dot { color: var(--coral); }
+      .hero .lede {
+        font-family: "Fraunces", serif;
+        font-size: clamp(1.25rem, 1.8vw, 1.55rem);
+        font-weight: 400;
+        line-height: 1.45;
+        max-width: 48ch;
+        margin: 0 0 1.5rem;
+      }
+      .hero .lede strong { font-weight: 700; color: var(--coral); }
+      .hero .huge-numeral {
+        font-family: "Fraunces", serif;
+        font-weight: 900;
+        font-style: italic;
+        color: var(--coral);
+        font-size: clamp(11rem, 22vw, 22rem);
+        line-height: 0.85;
+        letter-spacing: -0.06em;
+        margin: -2rem 0 0;
+      }
+      .hero .by {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.72rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-top: 1.75rem;
+      }
+      .hero .source {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.72rem;
+        letter-spacing: 0.16em;
+        margin-top: 1.25rem;
+      }
+      .hero .source a { color: var(--coral); text-decoration: underline; text-underline-offset: 4px; }
+
+      /* ── 02 MIDNIGHT (SpaceX/Cursor) ─────────────────────── */
+      .spread.midnight {
+        background: var(--midnight);
+        color: var(--midnight-fg);
+      }
+      .midnight .grid {
+        display: grid;
+        grid-template-columns: 1.6fr 1fr;
+        gap: 3rem;
+      }
+      .midnight h2 {
+        font-family: "Fraunces", serif;
+        font-weight: 700;
+        font-size: clamp(2.5rem, 6vw, 5rem);
+        line-height: 0.98;
+        letter-spacing: -0.025em;
+        margin: 0 0 1.5rem;
+      }
+      .midnight h2 .amber { color: var(--amber); font-style: italic; }
+      .midnight .body p {
+        font-family: "Fraunces", serif;
+        font-size: 1.3rem;
+        line-height: 1.55;
+        color: rgba(236, 227, 208, 0.88);
+        max-width: 48ch;
+        margin: 0 0 1rem;
+      }
+      .midnight .sidebar {
+        border-left: 1px solid rgba(236, 227, 208, 0.25);
+        padding-left: 2rem;
+      }
+      .midnight .sidebar .label {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.7rem;
+        letter-spacing: 0.22em;
+        color: rgba(236, 227, 208, 0.55);
+        text-transform: uppercase;
+        margin-bottom: 0.6rem;
+      }
+      .midnight .sidebar .big {
+        font-family: "Fraunces", serif;
+        font-weight: 900;
+        font-style: italic;
+        font-size: clamp(2.5rem, 4.5vw, 4rem);
+        line-height: 0.95;
+        color: var(--amber);
+        margin: 0 0 2rem;
+      }
+      .midnight .slug { color: rgba(236, 227, 208, 0.65); }
+      .midnight .slug .ord { color: var(--amber); }
+
+      /* ── 03 ROSE ALERT STAMP (Meta) ──────────────────────── */
+      .spread.rose {
+        background: var(--rose);
+        color: var(--rose-ink);
+        position: relative;
+      }
+      .rose .stamp {
+        position: absolute;
+        top: 3.5rem;
+        right: 2rem;
+        transform: rotate(-8deg);
+        border: 3px solid var(--rose-ink);
+        padding: 0.6rem 1.2rem;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.92rem;
+        letter-spacing: 0.28em;
+        font-weight: 600;
+        text-transform: uppercase;
+        color: var(--rose-ink);
+        background: rgba(245, 214, 210, 0.6);
+      }
+      .rose h2 {
+        font-family: "Fraunces", serif;
+        font-weight: 900;
+        font-style: italic;
+        font-size: clamp(3rem, 7vw, 5.5rem);
+        line-height: 0.96;
+        letter-spacing: -0.02em;
+        margin: 0 0 2rem;
+        max-width: 16ch;
+      }
+      .rose .body p {
+        font-family: "Fraunces", serif;
+        font-size: 1.3rem;
+        line-height: 1.5;
+        max-width: 56ch;
+        margin: 0 0 1rem;
+      }
+      .rose .pullquote {
+        font-family: "Fraunces", serif;
+        font-style: italic;
+        font-weight: 700;
+        font-size: clamp(1.4rem, 2.2vw, 1.85rem);
+        line-height: 1.25;
+        max-width: 38ch;
+        margin: 2rem 0 0;
+        padding: 1.5rem 0;
+        border-top: 2px solid var(--rose-ink);
+        border-bottom: 2px solid var(--rose-ink);
+      }
+      .rose .slug { color: var(--rose-ink); }
+      .rose .slug .ord { color: var(--rose-ink); }
+
+      /* ── 04 ACADEMIC DROP-CAP (TypeScript 7) ─────────────── */
+      .spread.academic {
+        background: var(--academic);
+      }
+      .academic .grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 3.5rem;
+      }
+      .academic h2 {
+        font-family: "Fraunces", serif;
+        font-weight: 700;
+        font-size: clamp(2.5rem, 5vw, 4.25rem);
+        line-height: 1;
+        letter-spacing: -0.02em;
+        margin: 0 0 1.75rem;
+      }
+      .academic h2 .italic { color: var(--coral); }
+      .academic .dropcap {
+        font-family: "Fraunces", serif;
+        font-weight: 900;
+        font-size: 6.5rem;
+        line-height: 0.85;
+        float: left;
+        margin: 0.15rem 0.7rem -0.4rem 0;
+        color: var(--coral);
+        font-style: italic;
+      }
+      .academic .body p {
+        font-family: "Fraunces", serif;
+        font-size: 1.25rem;
+        line-height: 1.55;
+        margin: 0 0 1.2rem;
+      }
+      .academic .tag-strip {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.75rem;
+        letter-spacing: 0.18em;
+        color: var(--muted);
+        text-transform: uppercase;
+        margin-top: 2rem;
+        padding-top: 1rem;
+        border-top: 1px solid rgba(20, 20, 15, 0.2);
+      }
+      .academic .stat-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+        margin-top: 1.5rem;
+      }
+      .academic .stat {
+        padding: 1.4rem;
+        border: 1.5px solid var(--ink);
+        background: rgba(255,255,255,0.4);
+      }
+      .academic .stat .n {
+        font-family: "Fraunces", serif;
+        font-weight: 900;
+        font-style: italic;
+        color: var(--coral);
+        font-size: clamp(2.5rem, 4.5vw, 3.75rem);
+        line-height: 1;
+        display: block;
+      }
+      .academic .stat .t {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.7rem;
+        letter-spacing: 0.18em;
+        color: var(--muted);
+        text-transform: uppercase;
+        margin-top: 0.7rem;
+      }
+
+      /* ── 05 TERMINAL (CrabTrap) ──────────────────────────── */
+      .spread.terminal {
+        background: var(--terminal-bg);
+        color: var(--terminal-fg);
+      }
+      .terminal .slug { color: rgba(126, 231, 163, 0.6); }
+      .terminal .slug .ord { color: var(--terminal-accent); }
+      .terminal h2 {
+        font-family: "JetBrains Mono", monospace;
+        font-weight: 600;
+        font-size: clamp(2rem, 4.5vw, 3.5rem);
+        line-height: 1.05;
+        letter-spacing: -0.01em;
+        text-transform: none;
+        margin: 0 0 1.5rem;
+        color: var(--terminal-fg);
+      }
+      .terminal h2 .tk { color: var(--terminal-accent); }
+      .terminal .grid {
+        display: grid;
+        grid-template-columns: 1.2fr 1fr;
+        gap: 3rem;
+      }
+      .terminal .body p {
+        font-family: "Fraunces", serif;
+        font-size: 1.28rem;
+        line-height: 1.6;
+        color: rgba(215, 239, 232, 0.88);
+        max-width: 52ch;
+        margin: 0 0 1rem;
+      }
+      .terminal .body p strong { color: var(--terminal-accent); font-weight: 600; }
+      .terminal .code {
+        background: rgba(126, 231, 163, 0.06);
+        border: 1px solid rgba(126, 231, 163, 0.25);
+        padding: 1.5rem;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.95rem;
+        line-height: 1.7;
+        letter-spacing: 0;
+        text-transform: none;
+        white-space: pre-wrap;
+        color: var(--terminal-fg);
+      }
+      .terminal .code .cmt { color: rgba(126, 231, 163, 0.5); }
+      .terminal .code .kw { color: var(--terminal-accent); }
+
+      /* ── 06 BIG STAT (Anthropic/AWS) ─────────────────────── */
+      .spread.bigstat {
+        background: var(--stat-bg);
+        color: var(--stat-fg);
+      }
+      .bigstat .slug { color: rgba(236, 227, 208, 0.6); }
+      .bigstat .slug .ord { color: var(--coral); }
+      .bigstat .mega {
+        font-family: "Fraunces", serif;
+        font-weight: 900;
+        font-style: italic;
+        font-size: clamp(8rem, 22vw, 22rem);
+        line-height: 0.85;
+        letter-spacing: -0.06em;
+        color: var(--coral);
+        margin: 0 0 1rem;
+      }
+      .bigstat h2 {
+        font-family: "Fraunces", serif;
+        font-weight: 400;
+        font-style: italic;
+        font-size: clamp(2rem, 4.5vw, 3.5rem);
+        line-height: 1.02;
+        letter-spacing: -0.01em;
+        max-width: 22ch;
+        margin: 0 0 2rem;
+      }
+      .bigstat .row {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+        padding-top: 2rem;
+        border-top: 1px solid rgba(236, 227, 208, 0.2);
+      }
+      .bigstat .row .n {
+        font-family: "Fraunces", serif;
+        font-weight: 900;
+        font-size: clamp(2rem, 4vw, 3rem);
+        color: var(--stat-fg);
+        display: block;
+        line-height: 1;
+        margin-bottom: 0.6rem;
+      }
+      .bigstat .row .l {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.74rem;
+        letter-spacing: 0.2em;
+        color: rgba(236, 227, 208, 0.55);
+        text-transform: uppercase;
+        margin-bottom: 0.7rem;
+      }
+      .bigstat .row .d {
+        font-family: "Fraunces", serif;
+        font-size: 1.08rem;
+        line-height: 1.45;
+        color: rgba(236, 227, 208, 0.82);
+      }
+
+      /* ── 07 NEWSPRINT (Laws of SWE) ──────────────────────── */
+      .spread.newsprint {
+        background: var(--newsprint);
+      }
+      .newsprint .kicker {
+        font-family: "Fraunces", serif;
+        font-style: italic;
+        font-size: clamp(1rem, 1.4vw, 1.25rem);
+        color: var(--muted);
+        margin-bottom: 0.75rem;
+      }
+      .newsprint h2 {
+        font-family: "Fraunces", serif;
+        font-weight: 900;
+        font-size: clamp(3rem, 7vw, 5.75rem);
+        line-height: 0.93;
+        letter-spacing: -0.02em;
+        margin: 0 0 2rem;
+      }
+      .newsprint h2 em { color: var(--coral); }
+      .newsprint .cols {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2.25rem;
+        column-rule: 1px solid rgba(20, 20, 15, 0.18);
+      }
+      .newsprint .cols p {
+        font-family: "Fraunces", serif;
+        font-size: 1.08rem;
+        line-height: 1.55;
+        margin: 0 0 1rem;
+        text-align: justify;
+        hyphens: auto;
+      }
+      .newsprint .cols h3 {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.72rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--coral);
+        margin: 0 0 0.8rem;
+      }
+      .newsprint .footer-line {
+        margin-top: 2.5rem;
+        padding-top: 1.2rem;
+        border-top: 1.5px solid var(--ink);
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.75rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--muted);
+        display: flex;
+        justify-content: space-between;
+      }
+
+      /* ── 08 CATALOG (Framework 13 Pro) ───────────────────── */
+      .spread.catalog {
+        background: var(--catalog-bg);
+      }
+      .catalog .slug .ord { color: var(--coral); }
+      .catalog .grid {
+        display: grid;
+        grid-template-columns: 1fr 1.2fr;
+        gap: 3.5rem;
+        align-items: start;
+      }
+      .catalog h2 {
+        font-family: "Fraunces", serif;
+        font-weight: 700;
+        font-size: clamp(2.75rem, 5.5vw, 4.75rem);
+        line-height: 0.98;
+        letter-spacing: -0.02em;
+        margin: 0 0 1.5rem;
+      }
+      .catalog h2 .coral { color: var(--coral); font-style: italic; }
+      .catalog .body p {
+        font-family: "Fraunces", serif;
+        font-size: 1.22rem;
+        line-height: 1.55;
+        max-width: 52ch;
+        margin: 0 0 1rem;
+      }
+      .catalog .specs {
+        background: var(--ink);
+        color: var(--cream);
+        padding: 2rem;
+        border-radius: 6px;
+      }
+      .catalog .specs h3 {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.75rem;
+        letter-spacing: 0.22em;
+        color: rgba(236, 227, 208, 0.55);
+        text-transform: uppercase;
+        margin: 0 0 1.3rem;
+      }
+      .catalog .specs ul {
+        list-style: none;
+        padding: 0; margin: 0;
+      }
+      .catalog .specs li {
+        display: grid;
+        grid-template-columns: 1fr 1.7fr;
+        gap: 1rem;
+        padding: 0.9rem 0;
+        border-bottom: 1px dashed rgba(236, 227, 208, 0.2);
+      }
+      .catalog .specs li .k {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.72rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: rgba(236, 227, 208, 0.55);
+      }
+      .catalog .specs li .v {
+        font-family: "Fraunces", serif;
+        font-size: 1.08rem;
+        font-weight: 600;
+      }
+      .catalog .specs li .v em { color: var(--coral); font-style: italic; }
+
+      /* ── 09 CREATIVE GRADIENT (ChatGPT Images) ───────────── */
+      .spread.creative {
+        background: linear-gradient(135deg, var(--creative-1), var(--creative-2) 60%, #fff7ec);
+      }
+      .creative .grid {
+        display: grid;
+        grid-template-columns: 1.1fr 1fr;
+        gap: 3rem;
+        align-items: center;
+      }
+      .creative h2 {
+        font-family: "Fraunces", serif;
+        font-weight: 900;
+        font-style: italic;
+        font-size: clamp(3rem, 7.5vw, 6.25rem);
+        line-height: 0.92;
+        letter-spacing: -0.03em;
+        margin: 0 0 1.5rem;
+      }
+      .creative h2 .coral { color: var(--coral); font-style: italic; }
+      .creative .body p {
+        font-family: "Fraunces", serif;
+        font-size: 1.32rem;
+        line-height: 1.5;
+        max-width: 48ch;
+        margin: 0 0 1rem;
+      }
+      .creative .swatch {
+        aspect-ratio: 1 / 1;
+        border-radius: 18px;
+        background:
+          radial-gradient(circle at 30% 30%, #ffd4c2, transparent 55%),
+          radial-gradient(circle at 70% 70%, #e24b4b, transparent 50%),
+          radial-gradient(circle at 50% 50%, #5a2c95, transparent 70%),
+          linear-gradient(160deg, #ffc38f, #f16a5d 55%, #4a1f72);
+        position: relative;
+        box-shadow: 0 20px 40px rgba(20,20,15,0.14);
+      }
+      .creative .swatch .tag {
+        position: absolute;
+        bottom: 1.25rem; left: 1.25rem;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.72rem;
+        letter-spacing: 0.2em;
+        color: rgba(255,255,255,0.85);
+        text-transform: uppercase;
+      }
+
+      /* ── 10 LAB (Fusion Simulator) ───────────────────────── */
+      .spread.lab {
+        background: var(--lab-bg);
+        color: var(--lab-fg);
+      }
+      .lab .slug { color: rgba(215, 239, 232, 0.6); }
+      .lab .slug .ord { color: var(--lab-accent); }
+      .lab .grid {
+        display: grid;
+        grid-template-columns: 1.3fr 1fr;
+        gap: 3rem;
+      }
+      .lab h2 {
+        font-family: "Fraunces", serif;
+        font-weight: 700;
+        font-size: clamp(2.75rem, 5.5vw, 4.75rem);
+        line-height: 1;
+        letter-spacing: -0.02em;
+        margin: 0 0 1.5rem;
+      }
+      .lab h2 .accent { color: var(--lab-accent); font-style: italic; }
+      .lab .body p {
+        font-family: "Fraunces", serif;
+        font-size: 1.25rem;
+        line-height: 1.55;
+        max-width: 50ch;
+        margin: 0 0 1rem;
+        color: rgba(215, 239, 232, 0.9);
+      }
+      .lab .schematic {
+        border: 1.5px solid rgba(60, 214, 176, 0.35);
+        padding: 2rem;
+        border-radius: 4px;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.82rem;
+        letter-spacing: 0.08em;
+        line-height: 1.9;
+        color: rgba(60, 214, 176, 0.88);
+        text-transform: uppercase;
+      }
+      .lab .schematic .v { color: var(--lab-fg); font-weight: 600; }
+      .lab .schematic .row {
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1px dashed rgba(60,214,176,0.18);
+        padding: 0.4rem 0;
+      }
+
+      /* ── HN SECTION ──────────────────────────────────────── */
+      .hn-wrap {
+        background: #f7efdd;
+        border-top: 3px double var(--ink);
+        border-bottom: 3px double var(--ink);
+      }
+      .hn-inner {
+        padding: 5rem 0 4rem;
+      }
+      .hn-head {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        border-bottom: 1.5px solid var(--ink);
+        padding-bottom: 1.25rem;
+        margin-bottom: 2.5rem;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+      .hn-head h2 {
+        font-family: "Fraunces", serif;
+        font-weight: 900;
+        font-size: clamp(2rem, 4.5vw, 3.5rem);
+        margin: 0;
+        letter-spacing: -0.015em;
+      }
+      .hn-head h2 em { color: var(--coral); }
+      .hn-head .tagline {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.78rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+      .hn-item {
+        display: grid;
+        grid-template-columns: 5rem 1fr;
+        gap: 2rem;
+        padding: 2.75rem 0;
+        border-bottom: 1px solid rgba(20, 20, 15, 0.18);
+        align-items: start;
+      }
+      .hn-item:last-child { border-bottom: 0; }
+      .hn-item .ord {
+        font-family: "Fraunces", serif;
+        font-weight: 900;
+        font-style: italic;
+        color: var(--coral);
+        font-size: clamp(3.75rem, 6vw, 5.5rem);
+        line-height: 0.85;
+        letter-spacing: -0.04em;
+      }
+      .hn-item h3 {
+        font-family: "Fraunces", serif;
+        font-weight: 700;
+        font-size: clamp(1.85rem, 3.2vw, 2.75rem);
+        line-height: 1.05;
+        letter-spacing: -0.015em;
+        margin: 0 0 0.75rem;
+      }
+      .hn-item h3 a { text-decoration: none; border-bottom: 2px solid transparent; transition: border-color 0.15s; }
+      .hn-item h3 a:hover { border-color: var(--coral); }
+      .hn-item .metaline {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.82rem;
+        letter-spacing: 0.08em;
+        color: var(--muted);
+        text-transform: none;
+        margin-bottom: 1.1rem;
+      }
+      .hn-item .metaline .pts { color: var(--coral); font-weight: 600; }
+      .hn-item .metaline .sep { margin: 0 0.75rem; color: rgba(20, 20, 15, 0.3); }
+      .hn-item p {
+        font-family: "Fraunces", serif;
+        font-size: 1.25rem;
+        line-height: 1.55;
+        max-width: 62ch;
+        margin: 0 0 1rem;
+      }
+      .hn-item .links {
+        display: flex;
+        gap: 1.25rem;
+        flex-wrap: wrap;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.78rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+      .hn-item .links a { color: var(--coral); text-decoration: none; border-bottom: 1.5px solid currentColor; padding-bottom: 2px; }
+
+      /* ── Colophon ────────────────────────────────────────── */
+      .colophon {
+        padding: 5rem 0 3.5rem;
+        border-top: 1.5px solid var(--ink);
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.78rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--muted);
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+      }
+      .colophon a { color: var(--coral); }
+
+      /* ── Responsive ──────────────────────────────────────── */
+      @media (max-width: 900px) {
+        .hero .grid,
+        .midnight .grid,
+        .academic .grid,
+        .terminal .grid,
+        .catalog .grid,
+        .creative .grid,
+        .lab .grid { grid-template-columns: 1fr; }
+        .contents ol { grid-template-columns: 1fr; }
+        .meta-row { grid-template-columns: 1fr 1fr; }
+        .newsprint .cols { grid-template-columns: 1fr; }
+        .bigstat .row { grid-template-columns: 1fr; }
+        .hero .huge-numeral { font-size: clamp(7rem, 40vw, 12rem); }
+        .rose .stamp { top: 1.25rem; right: 1rem; padding: 0.4rem 0.9rem; font-size: 0.78rem; }
+        .hn-item { grid-template-columns: 1fr; gap: 0.5rem; }
+        .hn-item .ord { font-size: 3.5rem; }
+      }
+      @media (max-width: 640px) {
+        .wrap { padding: 0 1.25rem; }
+        .meta-row { grid-template-columns: 1fr; padding: 1.5rem 0 2rem; gap: 1rem; }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ═══════════════════════════════════════════════════════
+         MASTHEAD
+         ═══════════════════════════════════════════════════════ -->
+    <header class="masthead">
+      <div class="wrap">
+        <div class="pretitle">
+          <span>Daily Magazine</span>
+          <span class="dot">●</span>
+          <span>Morning Edition</span>
+          <span class="dot">●</span>
+          <span>Vol. I · No. 4</span>
+          <span class="dot">●</span>
+          <span>Wednesday · April 22, 2026</span>
+          <span class="dot">●</span>
+          <span>For Aziz</span>
+        </div>
+        <h1 class="deck">
+          The <span class="coral">Subscription</span><br/>
+          Flinch<span class="dot">.</span>
+        </h1>
+        <p class="subdeck">
+          Ten dispatches from the morning Claude Code briefly vanished from the $20 Pro plan, SpaceX bought
+          the right to buy Cursor for sixty billion dollars, Meta began recording every keystroke on every
+          work laptop — and TypeScript 7 shipped a compiler written in Go that runs ten times faster than
+          the one it replaces.
+        </p>
+      </div>
+    </header>
+
+    <!-- ═══════════════════════════════════════════════════════
+         META ROW
+         ═══════════════════════════════════════════════════════ -->
+    <section class="wrap">
+      <div class="meta-row">
+        <div class="cell">
+          <div class="label">Issue</div>
+          <div class="value num">No. 04</div>
+        </div>
+        <div class="cell">
+          <div class="label">Weather</div>
+          <div class="value">Ten stories, one HN spread</div>
+        </div>
+        <div class="cell">
+          <div class="label">Watching</div>
+          <div class="value italic">Dev-tool pricing, agent proxies</div>
+        </div>
+        <div class="cell">
+          <div class="label">Directly applies</div>
+          <div class="value num">05</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════
+         CONTENTS
+         ═══════════════════════════════════════════════════════ -->
+    <section class="wrap contents">
+      <h2>In this issue</h2>
+      <ol>
+        <li><span class="no">01</span><span>The Subscription Flinch — Claude Code yanked, then restored</span><span class="kind">Dev tools</span></li>
+        <li><span class="no">02</span><span>SpaceX, Cursor, and a sixty-billion-dollar option</span><span class="kind">M&amp;A</span></li>
+        <li><span class="no">03</span><span>Meta will record every keystroke to train its agents</span><span class="kind">Surveillance</span></li>
+        <li><span class="no">04</span><span>TypeScript 7.0 Beta — the Go rewrite, ten times faster</span><span class="kind">Languages</span></li>
+        <li><span class="no">05</span><span>CrabTrap: an LLM-as-a-judge proxy for production agents</span><span class="kind">Security</span></li>
+        <li><span class="no">06</span><span>Anthropic takes $5B from Amazon, pledges $100B back</span><span class="kind">Infrastructure</span></li>
+        <li><span class="no">07</span><span>Fifty-six Laws of Software Engineering, in one index</span><span class="kind">Canon</span></li>
+        <li><span class="no">08</span><span>Framework Laptop 13 Pro — repairable, twenty-hour, haptic</span><span class="kind">Hardware</span></li>
+        <li><span class="no">09</span><span>ChatGPT Images 2.0 ships</span><span class="kind">Creative</span></li>
+        <li><span class="no">10</span><span>A fusion power plant, simulated in your browser</span><span class="kind">Weird science</span></li>
+      </ol>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════
+         SPREAD 01 — HERO
+         ═══════════════════════════════════════════════════════ -->
+    <section class="spread hero">
+      <div class="wrap">
+        <div class="slug">
+          <span class="ord">No. 01</span>
+          <span class="divider"></span>
+          <span>Dev tools</span>
+          <span class="divider"></span>
+          <span>Anthropic</span>
+          <span class="applies">Applies to you</span>
+        </div>
+        <div class="grid">
+          <div>
+            <h1>
+              Claude Code<br/>
+              vanished from<br/>
+              <span class="coral">the Pro plan</span><span class="dot">.</span>
+            </h1>
+            <p class="by">Lede · Dev tooling · Subscription economics</p>
+          </div>
+          <div>
+            <p class="lede">
+              Late afternoon on Tuesday, Anthropic's pricing page and docs quietly rewrote themselves — the line
+              <em>"Using Claude Code with your Pro or Max plan"</em> became <em>"with your Max plan"</em>, and
+              the checkbox under the $20 tier disappeared.
+            </p>
+            <p class="lede">
+              Hours later the checkbox returned. Head of growth <strong>Amol Avasare</strong> said the change was
+              an A/B test aimed at roughly <strong>2%</strong> of new prosumer signups — but the global docs and
+              landing page told a different story, and existing subscribers spent the evening watching their
+              primary dev tool flicker in and out of their billing tier.
+            </p>
+            <p class="lede">
+              The mechanics underneath are simpler than the confusion: Anthropic charges $20 for capacity that can
+              cost it ten times that in tokens. That arithmetic does not resolve itself by reverting a page.
+            </p>
+            <div class="huge-numeral">01</div>
+            <div class="source">
+              Source: <a href="https://simonwillison.net/2026/Apr/22/claude-code-confusion/">simonwillison.net</a>
+              ·
+              <a href="https://www.theregister.com/2026/04/22/anthropic_removes_claude_code_pro/">theregister.com</a>
+              ·
+              <a href="https://www.wheresyoured.at/news-anthropic-removes-pro-cc/">wheresyoured.at</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════
+         SPREAD 02 — MIDNIGHT (SpaceX / Cursor)
+         ═══════════════════════════════════════════════════════ -->
+    <section class="spread midnight">
+      <div class="wrap">
+        <div class="slug">
+          <span class="ord">No. 02</span>
+          <span class="divider"></span>
+          <span>M&amp;A</span>
+          <span class="divider"></span>
+          <span>AI coding</span>
+        </div>
+        <div class="grid">
+          <div>
+            <h2>
+              SpaceX bought the right to buy <span class="amber">Cursor</span>.
+              The option: $60B. The consolation: $10B.
+            </h2>
+            <div class="body">
+              <p>
+                SpaceX and Cursor announced a partnership to build a next-generation coding and
+                knowledge-work model together. Inside the deal is a peculiar clause: SpaceX holds an
+                option to acquire Cursor outright for sixty billion dollars later this year — or, if it
+                walks, pays Cursor ten billion dollars for the collaboration.
+              </p>
+              <p>
+                The structure is shaped by SpaceX's impending IPO (a move targeting a $2 trillion
+                valuation) which would have been complicated by a live acquisition disclosure. Cursor
+                was concurrently raising at north of $50B with a16z leading and Nvidia and Thrive
+                participating; that round is now scrapped, because Cursor's compute is being handed to
+                xAI.
+              </p>
+              <p>
+                Read it as a vertical play: rocket company buys the thing that writes the software
+                that flies the rocket, and owns both sides of its own stack.
+              </p>
+            </div>
+          </div>
+          <aside class="sidebar">
+            <div class="label">The option</div>
+            <div class="big">$60B</div>
+            <div class="label">The consolation</div>
+            <div class="big">$10B</div>
+            <div class="label">IPO target</div>
+            <div class="big">$2T</div>
+            <div class="label">Cursor's round (cancelled)</div>
+            <div class="big">$50B+</div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════
+         SPREAD 03 — ROSE / ALERT STAMP (Meta surveillance)
+         ═══════════════════════════════════════════════════════ -->
+    <section class="spread rose">
+      <div class="stamp">Surveillance · Advisory</div>
+      <div class="wrap">
+        <div class="slug">
+          <span class="ord">No. 03</span>
+          <span class="divider"></span>
+          <span>Surveillance</span>
+          <span class="divider"></span>
+          <span>Meta</span>
+        </div>
+        <h2>Every mouse movement. Every keystroke. Every screenshot.</h2>
+        <div class="body">
+          <p>
+            Meta is rolling out a program called the <strong>Model Capability Initiative</strong> — internal
+            monitoring software that records employees' keystrokes, mouse movements, and periodic screenshots
+            inside applications like Gmail, Slack, Jira, and a pile of internal tools. The captured
+            interactions become training data for the company's AI agents.
+          </p>
+          <p>
+            The Model Capability Initiative is mandatory for affected teams. Staff asked, publicly and in
+            internal channels, why a company whose business model is surveilling the public should also
+            surveil its own workers to teach machines to do their jobs. Leadership has not produced a
+            legible answer.
+          </p>
+        </div>
+        <p class="pullquote">
+          A company that built its empire watching its users at scale
+          has now turned the same machinery inward, and pointed the firehose at the people on its payroll.
+        </p>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════
+         SPREAD 04 — ACADEMIC DROP-CAP (TypeScript 7)
+         ═══════════════════════════════════════════════════════ -->
+    <section class="spread academic">
+      <div class="wrap">
+        <div class="slug">
+          <span class="ord">No. 04</span>
+          <span class="divider"></span>
+          <span>Languages</span>
+          <span class="divider"></span>
+          <span>Microsoft</span>
+          <span class="applies">Applies to you</span>
+        </div>
+        <div class="grid">
+          <div>
+            <h2>TypeScript 7.0 Beta — <span class="italic">the Go rewrite lands</span>.</h2>
+            <div class="body">
+              <p>
+                <span class="dropcap">T</span>he TypeScript team has shipped the beta of what it calls, internally,
+                <em>the native preview</em>: the entire compiler, previously written in TypeScript and
+                self-hosted, has been ported to Go. The change is not aesthetic. Microsoft claims a tenfold
+                compilation-speed improvement on real-world codebases, with parallel type-checking via a new
+                <code>--checkers</code> flag (default four workers) and parallel project builds through
+                <code>--builders</code>.
+              </p>
+              <p>
+                Type-checking semantics are identical to TypeScript 6.0, which makes adoption closer to a
+                dependency upgrade than a migration. Install with
+                <code>npm install -D @typescript/native-preview@beta</code> and invoke as <code>tsgo</code>.
+                Stable targeted within two months.
+              </p>
+            </div>
+            <div class="tag-strip">Install · npm · @typescript/native-preview@beta · tsgo</div>
+          </div>
+          <div>
+            <div class="stat-grid">
+              <div class="stat">
+                <span class="n">10×</span>
+                <div class="t">Compile speedup</div>
+              </div>
+              <div class="stat">
+                <span class="n">4</span>
+                <div class="t">Default checker workers</div>
+              </div>
+              <div class="stat">
+                <span class="n">7.0</span>
+                <div class="t">Beta, targeting stable in ~2mo</div>
+              </div>
+              <div class="stat">
+                <span class="n">6.0</span>
+                <div class="t">Semantic parity</div>
+              </div>
+            </div>
+            <div class="tag-strip">
+              Source: devblogs.microsoft.com/typescript
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════
+         SPREAD 05 — TERMINAL (CrabTrap)
+         ═══════════════════════════════════════════════════════ -->
+    <section class="spread terminal">
+      <div class="wrap">
+        <div class="slug">
+          <span class="ord">No. 05</span>
+          <span class="divider"></span>
+          <span>Agent security</span>
+          <span class="divider"></span>
+          <span>Brex</span>
+          <span class="applies" style="color: var(--terminal-accent); border-color: var(--terminal-accent); background: rgba(126,231,163,0.08);">Applies to you</span>
+        </div>
+        <h2>$ <span class="tk">crabtrap</span> --policy ./agent.policy.yaml</h2>
+        <div class="grid">
+          <div class="body">
+            <p>
+              Brex open-sourced <strong>CrabTrap</strong>, an HTTP proxy that sits between your agent and
+              the rest of the world. Every outbound request is intercepted, evaluated by an LLM acting as
+              a judge against a policy you write, and allowed or blocked in real time.
+            </p>
+            <p>
+              The shape is old — an egress proxy with a rules engine — but the evaluator is new. Instead
+              of listing every dangerous URL pattern, you describe the <strong>intent</strong> of a
+              permissible action, and let a model reason about whether a given call matches. Useful
+              exactly where agents break current firewalls: the request is valid, the target is reachable,
+              the parameters are wrong.
+            </p>
+            <p>
+              A good default, and a good reason to stop giving your agent raw internet.
+            </p>
+          </div>
+          <pre class="code"><span class="cmt"># policies/browse.yaml</span>
+<span class="kw">allow</span>:
+  - <span class="kw">intent</span>: "read product documentation"
+    hosts:  [docs.*, developer.*]
+  - <span class="kw">intent</span>: "search the public web"
+    hosts:  [duckduckgo.com, bing.com]
+
+<span class="kw">deny</span>:
+  - <span class="kw">intent</span>: "exfiltrate secrets"
+  - <span class="kw">intent</span>: "run write operations on
+             internal services"
+
+<span class="kw">judge</span>: claude-haiku-4-5</pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════
+         SPREAD 06 — BIG STAT (Anthropic / AWS)
+         ═══════════════════════════════════════════════════════ -->
+    <section class="spread bigstat">
+      <div class="wrap">
+        <div class="slug">
+          <span class="ord">No. 06</span>
+          <span class="divider"></span>
+          <span>Infrastructure</span>
+          <span class="divider"></span>
+          <span>Anthropic · Amazon</span>
+        </div>
+        <div class="mega">$5B</div>
+        <h2>
+          <em>in</em>. <em>$100B out</em>. Five gigawatts of compute, locked up for a decade.
+        </h2>
+        <div class="row">
+          <div>
+            <div class="l">Amazon → Anthropic</div>
+            <span class="n">$5B</span>
+            <div class="d">
+              New investment, on top of the $8B already placed. Total commitment now sits at $13B.
+            </div>
+          </div>
+          <div>
+            <div class="l">Anthropic → AWS</div>
+            <span class="n">$100B+</span>
+            <div class="d">
+              Over the next decade, on custom silicon — Trainium2 through Trainium4, with options on
+              the generations after that.
+            </div>
+          </div>
+          <div>
+            <div class="l">Capacity</div>
+            <span class="n">5 GW</span>
+            <div class="d">
+              Secured compute, echoing Amazon's earlier $50B arrangement with OpenAI. The pattern:
+              clouds fund frontier labs in exchange for long-dated infra contracts, not equity.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════
+         SPREAD 07 — NEWSPRINT (Laws of SWE)
+         ═══════════════════════════════════════════════════════ -->
+    <section class="spread newsprint">
+      <div class="wrap">
+        <div class="slug">
+          <span class="ord">No. 07</span>
+          <span class="divider"></span>
+          <span>Canon</span>
+          <span class="divider"></span>
+          <span>Reference</span>
+          <span class="applies">Applies to you</span>
+        </div>
+        <p class="kicker">A field guide for anyone who has ever had to explain Conway's Law to a VP.</p>
+        <h2>Fifty-six <em>Laws</em> of Software Engineering, indexed.</h2>
+        <div class="cols">
+          <div>
+            <h3>The pitch</h3>
+            <p>
+              <strong>lawsofsoftwareengineering.com</strong> collects fifty-six principles and patterns —
+              the ones engineers learn by being bitten, and then struggle to name when they try to warn
+              juniors about the next bite. It is categorized across architecture, team dynamics, planning,
+              quality, scalability, design, and decision-making, with every entry linked to an example and
+              a short origin note.
+            </p>
+          </div>
+          <div>
+            <h3>The canon</h3>
+            <p>
+              You already know the load-bearing ones: <em>Conway's Law</em>, <em>Brooks's Law</em>,
+              <em>the CAP theorem</em>, <em>the testing pyramid</em>, DRY, SOLID, YAGNI. Less frequently
+              taught but just as useful: <em>Goodhart</em>, <em>Occam</em>, <em>Hofstadter</em>,
+              <em>Dunning–Kruger</em>, and the Peter Principle — rules that describe humans more than code.
+            </p>
+          </div>
+          <div>
+            <h3>Why it belongs on the shelf</h3>
+            <p>
+              Architects spend half their day naming the thing the room already senses. An indexed vocabulary
+              of failure modes is a cheap lever: it turns "I have a bad feeling about this" into a citable
+              three-word objection. Keep it bookmarked; send it to whoever just suggested re-orging the
+              platform team to speed up the product team.
+            </p>
+          </div>
+        </div>
+        <div class="footer-line">
+          <span>via news.ycombinator.com · 1,062 pts</span>
+          <span>lawsofsoftwareengineering.com</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════
+         SPREAD 08 — CATALOG (Framework 13 Pro)
+         ═══════════════════════════════════════════════════════ -->
+    <section class="spread catalog">
+      <div class="wrap">
+        <div class="slug">
+          <span class="ord">No. 08</span>
+          <span class="divider"></span>
+          <span>Hardware</span>
+          <span class="divider"></span>
+          <span>Framework</span>
+          <span class="applies">Applies to you</span>
+        </div>
+        <div class="grid">
+          <div>
+            <h2>
+              Framework Laptop <span class="coral">13 Pro</span> — twenty-hour, haptic, still repairable.
+            </h2>
+            <div class="body">
+              <p>
+                Framework's new 13-inch flagship refines the thesis without breaking it: Core Ultra Series 3
+                silicon, LPCAMM2 socketed memory you can still swap, a fully CNC-machined aluminum chassis,
+                and — finally — a haptic touchpad driven by piezoelectric actuators.
+              </p>
+              <p>
+                The headline is battery life: twenty hours, which pushes the machine into the range where
+                you actually leave the charger at home. Ubuntu is certified. Multiple distributions are
+                supported. Nothing about the pitch has changed: repair it, upgrade it, own it for a decade.
+              </p>
+            </div>
+          </div>
+          <div class="specs">
+            <h3>Specifications</h3>
+            <ul>
+              <li><span class="k">CPU</span><span class="v">Intel Core Ultra, Series 3</span></li>
+              <li><span class="k">Memory</span><span class="v">LPCAMM2, <em>socketed</em></span></li>
+              <li><span class="k">Chassis</span><span class="v">CNC aluminum, single-piece</span></li>
+              <li><span class="k">Touchpad</span><span class="v">Haptic, <em>piezo-driven</em></span></li>
+              <li><span class="k">Battery</span><span class="v"><em>Up to 20 hours</em></span></li>
+              <li><span class="k">Linux</span><span class="v">Ubuntu-certified</span></li>
+              <li><span class="k">Upgrade path</span><span class="v">User-replaceable mainboard</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════
+         SPREAD 09 — CREATIVE GRADIENT (ChatGPT Images 2.0)
+         ═══════════════════════════════════════════════════════ -->
+    <section class="spread creative">
+      <div class="wrap">
+        <div class="slug">
+          <span class="ord">No. 09</span>
+          <span class="divider"></span>
+          <span>Creative tools</span>
+          <span class="divider"></span>
+          <span>OpenAI</span>
+        </div>
+        <div class="grid">
+          <div>
+            <h2>ChatGPT <span class="coral">Images 2.0</span>.</h2>
+            <div class="body">
+              <p>
+                OpenAI's image pipeline gets a step-function upgrade — tighter type rendering, more
+                faithful instruction-following for layouts and aspect ratios, and a native in-thread
+                editor that understands natural-language masking rather than bounding boxes.
+              </p>
+              <p>
+                The rollout is broad: available to ChatGPT Plus, Team, and Enterprise immediately, with
+                API availability staged behind new moderation tooling. 886 points on Hacker News, 739
+                comments, most of them arguing about whether text inside images is finally, actually
+                solved.
+              </p>
+              <p>
+                It is a small release that makes a large category of "good enough to ship" marketing
+                assets produceable by a single person in an afternoon.
+              </p>
+            </div>
+          </div>
+          <div class="swatch">
+            <div class="tag">Generated · Images 2.0 · Prompt: "morning edition"</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════
+         SPREAD 10 — LAB (Fusion Simulator)
+         ═══════════════════════════════════════════════════════ -->
+    <section class="spread lab">
+      <div class="wrap">
+        <div class="slug">
+          <span class="ord">No. 10</span>
+          <span class="divider"></span>
+          <span>Weird science</span>
+          <span class="divider"></span>
+          <span>Fusion Energy Base</span>
+        </div>
+        <div class="grid">
+          <div>
+            <h2>A fusion power plant, <span class="accent">simulated in your browser</span>.</h2>
+            <div class="body">
+              <p>
+                Fusion Energy Base shipped an in-browser plant simulator: you dial heating energy,
+                pulse rate, and fuel mix, and the model returns a scientific gain Qsci alongside the
+                real-world conversion chain — fusion reaction → thermal output → grid-compatible
+                electricity.
+              </p>
+              <p>
+                It is a good ten-minute introduction to why "net energy" in fusion is a much more
+                interesting number than headlines let on. Recreational, but calibrated — most of the
+                knobs break things realistically when you push them.
+              </p>
+            </div>
+          </div>
+          <div class="schematic">
+            <div class="row"><span>Heating energy</span><span class="v">45 MJ</span></div>
+            <div class="row"><span>Pulse rate</span><span class="v">0.8 Hz</span></div>
+            <div class="row"><span>Fuel mix</span><span class="v">D-T</span></div>
+            <div class="row"><span>Q_sci</span><span class="v">3.1</span></div>
+            <div class="row"><span>Net grid out</span><span class="v">+112 MW</span></div>
+            <div class="row"><span>Status</span><span class="v">Breakeven +</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════
+         HACKER NEWS FRONT-PAGE SPREAD
+         ═══════════════════════════════════════════════════════ -->
+    <section class="hn-wrap">
+      <div class="wrap hn-inner">
+        <div class="hn-head">
+          <h2>From the <em>Hacker News</em> front page.</h2>
+          <div class="tagline">Top 5 · last 24 hours · top stories not already covered</div>
+        </div>
+
+        <article class="hn-item">
+          <div class="ord">01</div>
+          <div>
+            <h3><a href="https://news.ycombinator.com/item?id=47851885">Britannica11.org — a structured edition of the 1911 Encyclopædia Britannica</a></h3>
+            <div class="metaline"><span class="pts">312 points</span><span class="sep">·</span>105 comments<span class="sep">·</span>19h ago</div>
+            <p>
+              Somebody took the 1911 Encyclopædia Britannica — the legendary edition whose entries on
+              math, music theory, and classical antiquity are still cited a century later — and turned
+              it into a fully searchable, cross-referenced, annotated web edition. The result feels
+              like a calm, weirdly modern research tool, free of the brand-chasing noise that clutters
+              today's references. Bookmark it for the next time you need an entry written before
+              anyone had a reason to SEO it.
+            </p>
+            <div class="links">
+              <a href="https://news.ycombinator.com/item?id=47851885">HN discussion →</a>
+              <a href="https://britannica11.org/">britannica11.org →</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="hn-item">
+          <div class="ord">02</div>
+          <div>
+            <h3><a href="https://news.ycombinator.com/item?id=47847558">VidStudio — a browser-based video editor that doesn't upload your files</a></h3>
+            <div class="metaline"><span class="pts">281 points</span><span class="sep">·</span>99 comments<span class="sep">·</span>24h ago</div>
+            <p>
+              A Show HN for a fully client-side video editor: timelines, cuts, transitions, export —
+              all in the browser, nothing leaves your machine. The interesting bit isn't the UI, which
+              is competent; it's the WebCodecs + WASM stack that makes local-first video work
+              plausible at 2026 resolutions. If your threat model includes "don't send rushes to
+              anyone's server," this is the first tool that actually honors it.
+            </p>
+            <div class="links">
+              <a href="https://news.ycombinator.com/item?id=47847558">HN discussion →</a>
+              <a href="https://vidstudio.app/video-editor">vidstudio.app →</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="hn-item">
+          <div class="ord">03</div>
+          <div>
+            <h3><a href="https://news.ycombinator.com/item?id=47852155">Cal.diy — open-source community edition of Cal.com</a></h3>
+            <div class="metaline"><span class="pts">223 points</span><span class="sep">·</span>55 comments<span class="sep">·</span>19h ago</div>
+            <p>
+              Cal.diy is a hard fork of Cal.com with every enterprise-only feature ripped out, everything
+              relicensed pure MIT, and no commercial edition waiting in the wings. The readme is
+              refreshingly blunt about it: a reaction to Cal.com's creeping open-core model, built for
+              self-hosters who want their scheduler to stay their scheduler. It will be worth watching
+              whether the fork sustains — community forks of VC-backed SaaS rarely survive their
+              honeymoon — but today's artifact is usable.
+            </p>
+            <div class="links">
+              <a href="https://news.ycombinator.com/item?id=47852155">HN discussion →</a>
+              <a href="https://github.com/calcom/cal.diy">github.com/calcom/cal.diy →</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="hn-item">
+          <div class="ord">04</div>
+          <div>
+            <h3><a href="https://news.ycombinator.com/item?id=47858246">FBI is investigating nearly a dozen dead or missing scientists tied to NASA, Blue Origin, SpaceX</a></h3>
+            <div class="metaline"><span class="pts">181 points</span><span class="sep">·</span>100 comments<span class="sep">·</span>10h ago</div>
+            <p>
+              A multi-agency FBI probe, coordinated with DOE and DoD, is examining nearly a dozen
+              deaths and disappearances of scientists working on planetary defense, asteroid
+              characterization, and advanced materials for weapons and space vehicles — all dating back
+              to 2022. House Oversight chair James Comer said publicly that "something sinister could
+              be happening." The tell in the reporting is the narrow specialty of the victims; former
+              FBI officials note the pattern matches the way hostile states have historically tried to
+              recruit or eliminate scientists.
+            </p>
+            <div class="links">
+              <a href="https://news.ycombinator.com/item?id=47858246">HN discussion →</a>
+              <a href="https://fortune.com/2026/04/21/scientists-disappear-die-nasa-space-blue-origin-spacex/">fortune.com →</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="hn-item">
+          <div class="ord">05</div>
+          <div>
+            <h3><a href="https://news.ycombinator.com/item?id=47856535">Drunk post: Things I've learned as a senior engineer</a></h3>
+            <div class="metaline"><span class="pts">170 points</span><span class="sep">·</span>112 comments<span class="sep">·</span>13h ago</div>
+            <p>
+              An older post from 2021, rediscovered and back on the front page — which is either a
+              reading of where engineers' heads are today, or just a solid piece that ages well. The
+              three punches: <em>the fastest way to advance is to change companies</em>;
+              <em>there are maybe fifteen real patterns in software engineering and the rest is
+              dressing</em>; and the one worth sitting with — <em>working with smart non-technical
+              people and growing others matters more, at the end, than your own code</em>. The
+              sentiment is late-night, but the conclusions read cold-sober.
+            </p>
+            <div class="links">
+              <a href="https://news.ycombinator.com/item?id=47856535">HN discussion →</a>
+              <a href="https://luminousmen.substack.com/p/drunk-post-things-ive-learned-as">luminousmen.substack.com →</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════
+         COLOPHON
+         ═══════════════════════════════════════════════════════ -->
+    <footer class="wrap colophon">
+      <span>Daily Magazine · Vol. I · No. 4 · Wednesday, April 22, 2026</span>
+      <span>Curated for Aziz · <a href="../index.html">← back to the shelf</a></span>
+    </footer>
+  </body>
+</html>
