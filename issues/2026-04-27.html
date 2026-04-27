@@ -1,0 +1,686 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>The Decoupling — Daily Magazine · No. 8 · April 27, 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,700;1,9..144,900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --cream: #ece3d0;
+        --cream-soft: #efe6d3;
+        --ink: #14140f;
+        --muted: #7a7465;
+        --coral: #e24b4b;
+        --rose: #f5d6d2;
+        --rose-ink: #7a1f1b;
+        --midnight: #0d0d12;
+        --midnight-fg: #ece3d0;
+        --amber: #f2a93b;
+        --terminal-bg: #0a0f0c;
+        --terminal-fg: #b6f0c4;
+        --terminal-accent: #7ee7a3;
+        --newsprint: #f4ecd9;
+        --academic: #efe9db;
+        --stat-bg: #14140f;
+        --stat-fg: #ece3d0;
+        --tint-peach: #ffd4c2;
+        --tint-straw: #fff0cb;
+        --tint-sky: #d8e5e9;
+        --tint-sage: #d6e2d6;
+        --paper: #f1ead7;
+        --ledger-bg: #1d2a3a;
+        --ledger-fg: #f0e6cf;
+        --ledger-accent: #f2c14e;
+      }
+      * { box-sizing: border-box; }
+      html, body { margin: 0; padding: 0; }
+      body {
+        background: var(--cream);
+        color: var(--ink);
+        font-family: "Fraunces", Georgia, "Times New Roman", serif;
+        font-optical-sizing: auto;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+      }
+      a { color: inherit; }
+      .wrap { max-width: 1240px; margin: 0 auto; padding: 0 2rem; }
+      .mono { font-family: "JetBrains Mono", ui-monospace, monospace; letter-spacing: 0.12em; text-transform: uppercase; }
+      .sans { font-family: "Inter", system-ui, sans-serif; }
+      .italic { font-style: italic; }
+
+      /* Masthead */
+      .masthead { border-bottom: 2px solid var(--ink); padding: 3rem 0 1.25rem; }
+      .masthead .pretitle {
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 0.78rem; letter-spacing: 0.18em; text-transform: uppercase;
+        display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.4rem;
+      }
+      .masthead .pretitle .dot { color: var(--coral); }
+      .masthead .deck {
+        font-family: "Fraunces", serif; font-weight: 900;
+        font-size: clamp(3.5rem, 11vw, 9rem); line-height: 0.9;
+        letter-spacing: -0.035em; margin: 0.3em 0 0;
+      }
+      .masthead .deck .coral { color: var(--coral); font-style: italic; }
+      .masthead .deck .dot { color: var(--coral); }
+      .masthead .subdeck {
+        font-family: "Fraunces", serif; font-style: italic; font-weight: 400;
+        font-size: clamp(1.3rem, 2.5vw, 1.85rem); line-height: 1.35;
+        max-width: 68ch; margin: 1.75rem 0 0; color: #2a281e;
+      }
+
+      .meta-row {
+        display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem;
+        padding: 2rem 0 3rem; border-bottom: 1px solid rgba(20, 20, 15, 0.18);
+      }
+      .meta-row .cell .label {
+        font-family: "JetBrains Mono", monospace; font-size: 0.72rem;
+        letter-spacing: 0.18em; color: var(--muted); text-transform: uppercase;
+        margin-bottom: 0.55rem;
+      }
+      .meta-row .cell .val { font-family: "Fraunces", serif; font-size: 1.25rem; line-height: 1.35; }
+      @media (max-width: 780px) { .meta-row { grid-template-columns: repeat(2, 1fr); } }
+
+      .foryou {
+        display: inline-block; font-family: "JetBrains Mono", monospace;
+        font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase;
+        background: var(--coral); color: #fff6ef; padding: 0.35rem 0.7rem;
+        border-radius: 2px; transform: rotate(-1.5deg); margin-left: 0.65rem;
+        vertical-align: middle;
+      }
+
+      .spread { padding: 3.5rem 0; border-bottom: 1px solid rgba(20,20,15,0.14); }
+      .spread h2 { margin: 0.2em 0 0.8rem; }
+      .spread .eyebrow {
+        font-family: "JetBrains Mono", monospace; font-size: 0.78rem;
+        letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.85rem;
+      }
+      .spread .ord {
+        font-family: "Fraunces", serif; font-style: italic; font-weight: 400;
+        font-size: 0.95rem; letter-spacing: 0.08em; color: var(--muted);
+      }
+      .spread p { font-size: 1.22rem; line-height: 1.55; max-width: 68ch; }
+      .spread .title {
+        font-family: "Fraunces", serif; font-weight: 900;
+        font-size: clamp(2.4rem, 5.2vw, 4.2rem); line-height: 0.98;
+        letter-spacing: -0.02em; margin: 0.05em 0 1rem;
+      }
+      .spread .sub {
+        font-family: "Fraunces", serif; font-style: italic; font-weight: 400;
+        color: var(--muted); font-size: 1.2rem; max-width: 60ch; margin-top: 0.6rem;
+      }
+      .readlink {
+        display: inline-block; margin-top: 1.4rem;
+        font-family: "JetBrains Mono", monospace; font-size: 0.78rem;
+        letter-spacing: 0.18em; text-transform: uppercase; color: var(--coral);
+        text-decoration: none; border-bottom: 1px solid var(--coral); padding-bottom: 2px;
+      }
+
+      /* Archetype variants */
+      .hero {
+        background: var(--midnight); color: var(--midnight-fg);
+        border-radius: 14px; padding: clamp(2rem, 4.5vw, 4rem);
+        margin: 3rem 0 2rem; position: relative; overflow: hidden;
+      }
+      .hero::before {
+        content: ""; position: absolute; inset: 0;
+        background: radial-gradient(800px 380px at 92% 0%, rgba(226,75,75,0.22), transparent 70%);
+        pointer-events: none;
+      }
+      .hero .eyebrow { color: rgba(236,227,208,0.55); }
+      .hero .title { color: var(--midnight-fg); font-size: clamp(2.6rem, 6vw, 5.2rem); line-height: 0.95; }
+      .hero .title .coral { color: var(--coral); font-style: italic; }
+      .hero p { color: rgba(236,227,208,0.85); font-size: 1.28rem; max-width: 60ch; }
+      .hero .ord { color: rgba(236,227,208,0.45); }
+      .hero .meta-line { font-family: "JetBrains Mono", monospace; font-size: 0.78rem; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(236,227,208,0.55); margin-top: 1.6rem; }
+
+      .stamp {
+        background: var(--rose); border: 2px solid var(--rose-ink);
+        border-radius: 12px; padding: 2.5rem; margin: 0;
+      }
+      .stamp .eyebrow { color: var(--rose-ink); }
+      .stamp .title { color: var(--rose-ink); }
+      .stamp .stamp-tag {
+        display: inline-block; border: 2px solid var(--rose-ink);
+        color: var(--rose-ink); padding: 0.35rem 0.8rem; transform: rotate(-2deg);
+        font-family: "JetBrains Mono", monospace; font-size: 0.78rem;
+        letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 1.2rem;
+      }
+      .stamp p { color: #2a1110; }
+      .stamp .readlink { color: var(--rose-ink); border-color: var(--rose-ink); }
+
+      .terminal {
+        background: var(--terminal-bg); color: var(--terminal-fg);
+        border-radius: 10px; padding: 2.5rem; font-family: "JetBrains Mono", monospace;
+      }
+      .terminal .bar { display: flex; gap: 0.4rem; margin-bottom: 1.6rem; }
+      .terminal .bar span { width: 10px; height: 10px; border-radius: 50%; background: rgba(182,240,196,0.3); }
+      .terminal .bar span:first-child { background: #ff5f57; }
+      .terminal .bar span:nth-child(2) { background: #ffbd2e; }
+      .terminal .bar span:nth-child(3) { background: #28ca42; }
+      .terminal .eyebrow { color: var(--terminal-accent); }
+      .terminal .title {
+        color: var(--terminal-fg); font-family: "JetBrains Mono", monospace;
+        font-weight: 600; font-size: clamp(1.6rem, 3.4vw, 2.6rem);
+        letter-spacing: -0.01em; line-height: 1.1; text-transform: none;
+      }
+      .terminal p { font-family: "Inter", system-ui, sans-serif; color: rgba(182,240,196,0.85); font-size: 1.1rem; line-height: 1.6; }
+      .terminal .prompt { color: var(--terminal-accent); }
+      .terminal .readlink { color: var(--terminal-accent); border-color: var(--terminal-accent); }
+
+      .academic {
+        background: var(--academic); border: 1.5px solid var(--ink);
+        border-radius: 0; padding: 3rem 3.5rem; position: relative;
+      }
+      .academic .dropcap {
+        float: left; font-family: "Fraunces", serif; font-weight: 900;
+        font-size: clamp(5rem, 10vw, 8rem); line-height: 0.85; padding: 0.05em 0.18em 0 0;
+        color: var(--coral); font-style: italic;
+      }
+      .academic .title { font-style: italic; font-weight: 700; }
+      .academic p { font-size: 1.18rem; line-height: 1.65; }
+
+      .stat {
+        background: var(--stat-bg); color: var(--stat-fg);
+        padding: clamp(2.5rem, 5vw, 4.5rem); border-radius: 14px;
+        text-align: center; position: relative; overflow: hidden;
+      }
+      .stat .eyebrow { color: rgba(236,227,208,0.6); }
+      .stat .bignum {
+        font-family: "Fraunces", serif; font-weight: 900; font-style: italic;
+        font-size: clamp(6rem, 18vw, 16rem); line-height: 0.9; color: var(--coral);
+        letter-spacing: -0.05em; margin: 0.2em 0;
+      }
+      .stat .bignum .small { font-size: 0.4em; vertical-align: top; }
+      .stat .title { font-size: clamp(1.5rem, 2.5vw, 2.3rem); color: var(--stat-fg); margin: 1rem auto; max-width: 30ch; }
+      .stat p { color: rgba(236,227,208,0.78); margin: 0 auto; max-width: 56ch; }
+      .stat .readlink { color: var(--coral); border-color: var(--coral); }
+
+      .newsprint {
+        background: var(--newsprint); border-top: 4px double var(--ink);
+        border-bottom: 4px double var(--ink); padding: 3rem 0;
+      }
+      .newsprint .columns {
+        column-count: 2; column-gap: 3rem; margin-top: 1.2rem;
+      }
+      .newsprint .columns p { font-size: 1.1rem; line-height: 1.6; max-width: none; }
+      @media (max-width: 780px) { .newsprint .columns { column-count: 1; } }
+
+      .alt-tint {
+        padding: 3rem 3.5rem; border-radius: 12px;
+      }
+      .alt-tint.peach { background: var(--tint-peach); }
+      .alt-tint.straw { background: var(--tint-straw); }
+      .alt-tint.sky { background: var(--tint-sky); }
+      .alt-tint.sage { background: var(--tint-sage); }
+
+      .ledger {
+        background: var(--ledger-bg); color: var(--ledger-fg);
+        border-radius: 12px; padding: clamp(2rem, 4vw, 3.5rem); position: relative;
+      }
+      .ledger .eyebrow { color: rgba(240,230,207,0.55); }
+      .ledger .title { color: var(--ledger-fg); }
+      .ledger .title .accent { color: var(--ledger-accent); font-style: italic; }
+      .ledger p { color: rgba(240,230,207,0.86); }
+      .ledger .readlink { color: var(--ledger-accent); border-color: var(--ledger-accent); }
+      .ledger .table {
+        margin-top: 1.6rem; border-top: 1px solid rgba(240,230,207,0.25);
+      }
+      .ledger .table .row {
+        display: grid; grid-template-columns: 1fr auto;
+        padding: 0.8rem 0; border-bottom: 1px solid rgba(240,230,207,0.15);
+        font-family: "JetBrains Mono", monospace; font-size: 0.86rem;
+      }
+      .ledger .table .row .v { color: var(--ledger-accent); }
+
+      /* Section header (HN, Architecture) */
+      .section-divider {
+        margin: 4rem 0 2rem; padding-top: 2rem; border-top: 4px double var(--ink);
+        display: flex; flex-wrap: wrap; align-items: baseline; gap: 1.2rem; justify-content: space-between;
+      }
+      .section-divider .lead {
+        font-family: "Fraunces", serif; font-weight: 900;
+        font-size: clamp(2rem, 4vw, 3.2rem); line-height: 1; letter-spacing: -0.02em;
+      }
+      .section-divider .lead .coral { color: var(--coral); font-style: italic; }
+      .section-divider .meta { font-family: "JetBrains Mono", monospace; font-size: 0.78rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+
+      /* Hacker News spread */
+      .hn-wrap { background: var(--paper); border: 1.5px solid var(--ink); border-radius: 12px; padding: clamp(2rem, 4vw, 3.5rem); }
+      .hn-wrap .hn-head {
+        display: flex; align-items: baseline; justify-content: space-between;
+        flex-wrap: wrap; gap: 1rem; padding-bottom: 1.5rem;
+        border-bottom: 1.5px solid var(--ink);
+      }
+      .hn-wrap .hn-head h2 {
+        font-family: "Fraunces", serif; font-weight: 900;
+        font-size: clamp(2.4rem, 5vw, 3.8rem); line-height: 1; letter-spacing: -0.02em; margin: 0;
+      }
+      .hn-wrap .hn-head h2 .coral { color: var(--coral); font-style: italic; }
+      .hn-wrap .hn-head .tag { font-family: "JetBrains Mono", monospace; font-size: 0.78rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+
+      .hn-item {
+        padding: 2.2rem 0; border-bottom: 1px solid rgba(20,20,15,0.18);
+        display: grid; grid-template-columns: auto 1fr; gap: 2.5rem;
+      }
+      .hn-item:last-child { border-bottom: none; }
+      .hn-item .ord {
+        font-family: "Fraunces", serif; font-style: italic; font-weight: 700;
+        color: var(--coral); font-size: clamp(2.6rem, 5vw, 4rem); line-height: 0.9;
+        min-width: 5ch; padding-top: 0.2rem;
+      }
+      .hn-item h3 {
+        font-family: "Fraunces", serif; font-weight: 700;
+        font-size: clamp(1.5rem, 2.6vw, 2.1rem); line-height: 1.1;
+        margin: 0 0 0.5rem; letter-spacing: -0.01em;
+      }
+      .hn-item .stat-line {
+        font-family: "JetBrains Mono", monospace; font-size: 0.78rem;
+        letter-spacing: 0.14em; color: var(--muted); margin-bottom: 0.9rem;
+      }
+      .hn-item .stat-line .pts { color: var(--coral); }
+      .hn-item p { font-size: 1.1rem; line-height: 1.6; max-width: 72ch; margin: 0.6rem 0 0.9rem; }
+      .hn-item a.thread {
+        font-family: "JetBrains Mono", monospace; font-size: 0.76rem;
+        letter-spacing: 0.16em; text-transform: uppercase; color: var(--coral);
+        text-decoration: none; border-bottom: 1px solid var(--coral); padding-bottom: 2px;
+      }
+      @media (max-width: 720px) {
+        .hn-item { grid-template-columns: 1fr; gap: 0.6rem; }
+      }
+
+      /* Architecture in the Wild */
+      .arch {
+        background: var(--academic); border: 1.5px solid var(--ink);
+        padding: clamp(2.5rem, 5vw, 4.5rem); border-radius: 12px; position: relative;
+      }
+      .arch .eyebrow { color: var(--coral); }
+      .arch .title-xl {
+        font-family: "Fraunces", serif; font-weight: 900;
+        font-size: clamp(2.8rem, 6vw, 5rem); line-height: 0.96;
+        letter-spacing: -0.025em; margin: 0.2em 0 1rem;
+      }
+      .arch .title-xl .coral { color: var(--coral); font-style: italic; }
+      .arch .meta-line {
+        font-family: "JetBrains Mono", monospace; font-size: 0.78rem;
+        letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted);
+        margin-bottom: 1.8rem;
+      }
+      .arch .lede {
+        font-family: "Fraunces", serif; font-weight: 500; font-size: 1.35rem; line-height: 1.55;
+        max-width: 68ch; margin-bottom: 1.4rem;
+      }
+      .arch p { font-size: 1.18rem; line-height: 1.65; max-width: 68ch; }
+      .arch .pullquote {
+        margin: 2.5rem 0; padding: 1.2rem 2rem; border-left: 5px solid var(--coral);
+        font-family: "Fraunces", serif; font-style: italic; font-weight: 500;
+        font-size: clamp(1.4rem, 2.4vw, 2rem); line-height: 1.3; max-width: 36ch; color: #2a281e;
+      }
+      .arch .readlink { color: var(--coral); border-color: var(--coral); }
+      .arch .stats-row {
+        display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+        margin: 2rem 0; padding: 1.4rem 0; border-top: 1.5px solid var(--ink); border-bottom: 1.5px solid var(--ink);
+      }
+      .arch .stats-row .cell .v {
+        font-family: "Fraunces", serif; font-style: italic; font-weight: 900;
+        color: var(--coral); font-size: clamp(2rem, 3.5vw, 3rem); line-height: 1;
+      }
+      .arch .stats-row .cell .l {
+        font-family: "JetBrains Mono", monospace; font-size: 0.7rem;
+        letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted);
+        margin-top: 0.5rem;
+      }
+      @media (max-width: 720px) { .arch .stats-row { grid-template-columns: 1fr; } }
+
+      footer {
+        margin-top: 4rem; padding: 2.5rem 0;
+        border-top: 4px double var(--ink); border-bottom: 4px double var(--ink);
+        display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
+        font-family: "JetBrains Mono", monospace; font-size: 0.74rem; letter-spacing: 0.18em;
+        text-transform: uppercase; color: var(--muted);
+      }
+      footer a { color: var(--coral); text-decoration: none; }
+
+      @media (max-width: 640px) {
+        .wrap { padding: 0 1.2rem; }
+        .spread { padding: 2.5rem 0; }
+        .academic { padding: 2rem 1.6rem; }
+        .stamp, .terminal, .alt-tint, .ledger { padding: 2rem 1.6rem; }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="masthead">
+      <div class="wrap">
+        <div class="pretitle">
+          <span>Daily Magazine</span>
+          <span class="dot">●</span>
+          <span>Vol. I · No. 8</span>
+          <span class="dot">●</span>
+          <span>Monday · April 27, 2026</span>
+          <span class="dot">●</span>
+          <span>Morning Edition</span>
+        </div>
+        <h1 class="deck">
+          The <span class="coral">Decoupling</span><span class="dot">.</span>
+        </h1>
+        <p class="subdeck">
+          Microsoft loosens its grip on OpenAI, DeepSeek peels off Nvidia, and Anthropic publishes the architecture that pulls a model's brain apart from its hands. A morning of unbundlings.
+        </p>
+      </div>
+    </header>
+
+    <section class="wrap">
+      <div class="meta-row">
+        <div class="cell">
+          <div class="label">Issue</div>
+          <div class="val">No. 8 · April 27</div>
+        </div>
+        <div class="cell">
+          <div class="label">Spreads</div>
+          <div class="val">Twelve</div>
+        </div>
+        <div class="cell">
+          <div class="label">For You</div>
+          <div class="val italic">Four flagged</div>
+        </div>
+        <div class="cell">
+          <div class="label">Anchor</div>
+          <div class="val italic">Brain · Hands</div>
+        </div>
+      </div>
+    </section>
+
+    <main class="wrap">
+
+      <!-- 01 — HERO: Microsoft–OpenAI exclusivity -->
+      <section class="spread">
+        <div class="hero">
+          <div class="eyebrow">№ 01 &nbsp;·&nbsp; The deal of the morning</div>
+          <h2 class="title">Microsoft <span class="coral">unhooks</span> from OpenAI.</h2>
+          <p>
+            After weeks of leaked memos and quiet diplomacy, the two companies made it official this morning: Microsoft's exclusive right to sell OpenAI's models is over. OpenAI can now serve Claude-style enterprise contracts on Amazon and Google Cloud, while Azure remains "primary, not sole." The IP license stays in place through 2032 but goes non-exclusive; the revenue share continues through 2030 with a hard cap.
+          </p>
+          <p>
+            For builders, the practical upshot is that any cloud you're already on is now a viable place to land OpenAI's frontier. The eight-year-old "we're a Microsoft shop, so we use Azure OpenAI" reflex has just lost most of its weight as a procurement argument.
+          </p>
+          <div class="meta-line">Bloomberg · Microsoft · OpenAI · April 27, 2026</div>
+          <a class="readlink" href="https://www.bloomberg.com/news/articles/2026-04-27/microsoft-to-stop-sharing-revenue-with-main-ai-partner-openai">Read the report &rarr;</a>
+        </div>
+      </section>
+
+      <!-- 02 — STAT: DeepSeek V4 -->
+      <section class="spread">
+        <div class="stat">
+          <div class="eyebrow">№ 02 &nbsp;·&nbsp; The sovereign stack</div>
+          <div class="bignum">1.6<span class="small">T</span></div>
+          <h2 class="title">DeepSeek V4-Pro arrives — and runs on Huawei Ascend.</h2>
+          <p>
+            Friday's launch pairs an open-weight 1.6-trillion-parameter MoE (49B active) with a 284B "small" sibling, both tuned for Huawei's Ascend 950 supernodes. DeepSeek claims a 9.5× cut in memory needs and pricing roughly 10× under GPT-5.5 on the same workloads. Whether the benchmarks survive scrutiny matters less than the geopolitical signal: a top Chinese model now ships, by default, with a non-Nvidia inference path.
+          </p>
+          <a class="readlink" href="https://www.technologyreview.com/2026/04/24/1136422/why-deepseeks-v4-matters/">MIT Tech Review &rarr;</a>
+        </div>
+      </section>
+
+      <!-- 03 — ROSE STAMP: Mercor breach -->
+      <section class="spread">
+        <div class="stamp">
+          <span class="stamp-tag">Breach Watch</span>
+          <div class="eyebrow">№ 03 &nbsp;·&nbsp; Voice + ID, on a leak site</div>
+          <h2 class="title">4 TB of voice samples, walking out of Mercor.</h2>
+          <p>
+            Lapsus$ posted what it claims is the full dump from data-labeling marketplace Mercor: roughly 40,000 contractors' studio-quality voice recordings (averaging 2–5 minutes each), paired with passport or driver's-license scans and webcam selfies. Modern voice cloning needs about fifteen seconds of clean reference audio. Each victim handed over an order of magnitude more than that, plus the matching identity document. Five contractor lawsuits have already landed.
+          </p>
+          <p>
+            If you've ever shipped product against an AI-labeling vendor, this is the worst-case version of the consent question you didn't ask hard enough.
+          </p>
+          <a class="readlink" href="https://app.oravys.com/blog/mercor-breach-2026">Read the breach writeup &rarr;</a>
+        </div>
+      </section>
+
+      <!-- 04 — NEWSPRINT (FOR YOU): GitHub Copilot AI Credits -->
+      <section class="spread">
+        <div class="newsprint">
+          <div class="wrap">
+            <div class="eyebrow">№ 04 &nbsp;·&nbsp; The metering era arrives</div>
+            <h2 class="title">GitHub Copilot moves to AI Credits.<span class="foryou">For You</span></h2>
+            <p class="sub">
+              Same monthly bill, new accounting underneath: starting June 1, premium request units retire and Copilot bills against token-denominated credits.
+            </p>
+            <div class="columns">
+              <p>
+                Pro stays at $10/month — and now buys $10 of AI Credits. Pro+ is $39 for $39. Business and Enterprise plans get matching credit pools, plus a transitional bonus through August ($30 and $70 respectively). Code completions and Next Edit suggestions remain bundled and don't draw credits; what does draw is exactly what you'd guess — the agent sessions, multi-step tool runs, and the more expensive frontier models.
+              </p>
+              <p>
+                The strategic move buried in the fine print: "fallback experiences to lower-cost models will no longer be available." Translation — when you blow your credit budget, the agent stops, rather than silently downshifting. Preview bills go out in early May, which gives teams about three weeks to rationalize per-developer spend before the meter goes live.
+              </p>
+            </div>
+            <a class="readlink" href="https://github.blog/news-insights/company-news/github-copilot-is-moving-to-usage-based-billing/">Read GitHub's note &rarr;</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- 05 — DARK/MIDNIGHT (FOR YOU): Cursor 3 -->
+      <section class="spread">
+        <div class="hero">
+          <div class="eyebrow">№ 05 &nbsp;·&nbsp; The editor wars</div>
+          <h2 class="title">Cursor 3 ships <span class="coral">Composer 2</span>.<span class="foryou">For You</span></h2>
+          <p>
+            The April release pulls Cursor further out of "VS Code fork" territory: a dedicated Agents Window for managing parallel runs, a cloud-to-local handoff so a remote agent can hand the wheel back to your machine mid-task, and a Design Mode for editing UI from a rendered preview. The headline though is Composer 2 — Cursor's own coding model running at 200+ tok/s — which means the IDE is no longer just a frontend over someone else's frontier.
+          </p>
+          <p>
+            BugBot now learns from PR review feedback and proposes review rules for your repo — the kind of personalization that competing tools mostly hand off to the model.
+          </p>
+          <div class="meta-line">Cursor 3 · April 2026 · Agents · Design Mode · Composer 2</div>
+          <a class="readlink" href="https://thenewstack.io/ai-coding-tool-stack/">Read the analysis &rarr;</a>
+        </div>
+      </section>
+
+      <!-- 06 — TERMINAL (FOR YOU): GPT-5.5 in Codex -->
+      <section class="spread">
+        <div class="terminal">
+          <div class="bar"><span></span><span></span><span></span></div>
+          <div class="eyebrow">№ 06 &nbsp;·&nbsp; Codex changelog</div>
+          <h2 class="title"><span class="prompt">$</span> codex --model gpt-5.5<span class="foryou">For You</span></h2>
+          <p>
+            GPT-5.5 has landed in Codex as the new default for "complex coding, computer use, knowledge work, and research workflows." OpenAI is also wiring the in-app browser into Codex itself — ask the agent to drive the browser when it needs to click through a rendered UI, reproduce a visual bug, or verify a fix against a local server.
+          </p>
+          <p>
+            Combined with Microsoft's exclusivity ending this morning, Codex now has a credible path onto every cloud. The old "Codex on Azure only" geometry is gone.
+          </p>
+          <a class="readlink" href="https://developers.openai.com/codex/changelog">Read the changelog &rarr;</a>
+        </div>
+      </section>
+
+      <!-- 07 — ACADEMIC: Sora retired -->
+      <section class="spread">
+        <div class="academic">
+          <div class="eyebrow">№ 07 &nbsp;·&nbsp; The first major retirement</div>
+          <h2 class="title">A model graduates, a product is mothballed.</h2>
+          <p>
+            <span class="dropcap">O</span>penAI quietly discontinued the standalone web and app versions of Sora this week — the consumer video product spun off less than two years ago. The capability isn't gone; it's been folded back into the main ChatGPT experience and the API. The detail worth noting is the pattern: the company is pruning the product surface around its frontier so the agent layer above can compose video natively, instead of routing users through a second app. Expect more of these consolidations as agentic interfaces mature — "the standalone tool" is rapidly becoming an awkward unit of distribution.
+          </p>
+          <a class="readlink" href="https://llm-stats.com/ai-news">More from LLM Stats &rarr;</a>
+        </div>
+      </section>
+
+      <!-- 08 — TINT: Visual Studio 2026 GA -->
+      <section class="spread">
+        <div class="alt-tint sky">
+          <div class="eyebrow">№ 08 &nbsp;·&nbsp; The IDE blinks</div>
+          <h2 class="title">Visual Studio 2026 calls itself an "Intelligent IDE."<span class="foryou">For You</span></h2>
+          <p>
+            The April update of VS 2026 promises large .NET solutions loading in roughly half the time, a new settings system, and — the more interesting bit — Copilot agents that auto-discover skills defined in your repo or user profile and apply them on demand. <code>@Test</code> in chat now generates xUnit/NUnit/MSTest harnesses with framework awareness. The shape Microsoft is pushing: skills as a first-class repo artifact, agents as the runtime that picks them up. Whether or not the rest of the industry adopts that exact convention, the abstraction is real.
+          </p>
+          <a class="readlink" href="https://learn.microsoft.com/en-us/visualstudio/releases/2026/release-notes">Visual Studio 2026 release notes &rarr;</a>
+        </div>
+      </section>
+
+      <!-- 09 — STAT: Snap CEO 65% AI code -->
+      <section class="spread">
+        <div class="stat">
+          <div class="eyebrow">№ 09 &nbsp;·&nbsp; The benchmark of the moment</div>
+          <div class="bignum">65<span class="small">%</span></div>
+          <h2 class="title">"AI now writes more than 65% of our new code."</h2>
+          <p>
+            That's Snap CEO Evan Spiegel, on an earnings call this week, framing the number as the new internal baseline. UKG cut 950 jobs the same month "citing AI-driven market shifts." The numbers travel together for a reason: the bar for "what a senior engineer ships in a quarter" is being recut in real time. Believe the percentage or don't — the conversation about org design has already moved past it.
+          </p>
+          <a class="readlink" href="https://champaignmagazine.com/2026/04/26/ai-by-ai-weekly-top-5-april-20-26-2026/">More on the AI-by-AI weekly &rarr;</a>
+        </div>
+      </section>
+
+      <!-- 10 — LEDGER: China blocks Meta Manus -->
+      <section class="spread">
+        <div class="ledger">
+          <div class="eyebrow">№ 10 &nbsp;·&nbsp; The deal that didn't happen</div>
+          <h2 class="title">China <span class="accent">blocks</span> Meta's Manus deal.</h2>
+          <p>
+            Beijing's antitrust regulator has formally blocked Meta's planned acquisition of Chinese agent-startup Manus, citing concerns over data flow and concentration in the AI agent layer. It's the second high-profile AI M&A unwind this year — and reads as a warning shot to U.S. companies treating mainland AI talent as a buy target. The agent space is officially cross-border-political.
+          </p>
+          <div class="table">
+            <div class="row"><span>Acquirer</span><span class="v">Meta Platforms</span></div>
+            <div class="row"><span>Target</span><span class="v">Manus AI</span></div>
+            <div class="row"><span>Status</span><span class="v">Blocked · April 27</span></div>
+            <div class="row"><span>Authority</span><span class="v">SAMR (China)</span></div>
+          </div>
+          <a class="readlink" href="https://www.cnbc.com/2026/04/27/meta-manus-china-blocks-acquisition.html">CNBC reporting &rarr;</a>
+        </div>
+      </section>
+
+      <!-- ─────────────────────────── HACKER NEWS ─────────────────────────── -->
+      <div class="section-divider">
+        <div class="lead">From the <span class="coral">orange</span> site<span style="color:var(--coral)">.</span></div>
+        <div class="meta">Hacker News · top 5 · last 24h</div>
+      </div>
+
+      <section class="hn-wrap">
+        <div class="hn-head">
+          <h2><span class="coral">Hacker</span> News</h2>
+          <div class="tag">Editor's picks · April 27</div>
+        </div>
+
+        <article class="hn-item">
+          <div class="ord">01</div>
+          <div>
+            <h3>pgBackRest is no longer being maintained.</h3>
+            <div class="stat-line"><span class="pts">▲ 360 points</span> &nbsp;·&nbsp; 190 comments &nbsp;·&nbsp; news.ycombinator.com</div>
+            <p>
+              After thirteen years of leading the project, the original maintainer archived the repo this morning, citing inability to find a job or sponsorship that supported continued work after the Crunchy Data sale. The consequences ripple far past one tool: pgBackRest is the de-facto choice for parallel, encrypted, S3-aware backups on serious Postgres deployments. Forks are coming, but the maintainer asks they not use the pgBackRest name — which means anyone running it in prod has homework this quarter.
+            </p>
+            <a class="thread" href="https://news.ycombinator.com/item?id=47919997">Discuss on HN &rarr;</a>
+          </div>
+        </article>
+
+        <article class="hn-item">
+          <div class="ord">02</div>
+          <div>
+            <h3>Show HN: Dirac, an open-source agent topping TerminalBench-2.</h3>
+            <div class="stat-line"><span class="pts">▲ 246 points</span> &nbsp;·&nbsp; 93 comments &nbsp;·&nbsp; github.com/dirac-run/dirac</div>
+            <p>
+              An open-source CLI / VS Code agent claiming 65.2% on Terminal-Bench-2 with <code>gemini-3-flash-preview</code> — past Google's official baseline (47.6%) and Junie CLI (64.3%) — at 64.8% lower API cost. The interesting bits under the hood: hash-anchored line edits (so context windows don't drift on stale line numbers), AST-aware refactors for TS/Python/C++, and multi-file batched calls. A worked example of how careful prompt and edit engineering can beat brute-force model size.
+            </p>
+            <a class="thread" href="https://news.ycombinator.com/item?id=47920787">Discuss on HN &rarr;</a>
+          </div>
+        </article>
+
+        <article class="hn-item">
+          <div class="ord">03</div>
+          <div>
+            <h3>"Why not just use Lean?"</h3>
+            <div class="stat-line"><span class="pts">▲ 198 points</span> &nbsp;·&nbsp; 113 comments &nbsp;·&nbsp; lawrencecpaulson.github.io</div>
+            <p>
+              Lawrence Paulson, the principal architect of Isabelle, pushes back against the increasingly tribal "all roads lead to Lean" narrative in formalized mathematics. His argument: dependent type theory is a real cost, automation in Isabelle is genuinely better, and the goal of formalization is a proof a human can read — not just one a kernel will accept. A useful corrective if you've absorbed only the Lean discourse on Twitter.
+            </p>
+            <a class="thread" href="https://news.ycombinator.com/item?id=47922079">Discuss on HN &rarr;</a>
+          </div>
+        </article>
+
+        <article class="hn-item">
+          <div class="ord">04</div>
+          <div>
+            <h3>GitHub is having issues right now.</h3>
+            <div class="stat-line"><span class="pts">▲ 185 points</span> &nbsp;·&nbsp; 70 comments &nbsp;·&nbsp; githubstatus.com</div>
+            <p>
+              Live thread tracking degraded performance across Actions, Pages, and Codespaces this morning — coinciding, somewhat awkwardly, with the day GitHub announced its Copilot billing overhaul. The HN comments are the usual mix of "my CI is on fire" sympathy and the structural argument that one provider hosting most of the open-source supply chain is a single point of failure that nobody's actually mitigating.
+            </p>
+            <a class="thread" href="https://news.ycombinator.com/item?id=47924775">Discuss on HN &rarr;</a>
+          </div>
+        </article>
+
+        <article class="hn-item">
+          <div class="ord">05</div>
+          <div>
+            <h3>Networking changes coming in macOS 27.</h3>
+            <div class="stat-line"><span class="pts">▲ 133 points</span> &nbsp;·&nbsp; 106 comments &nbsp;·&nbsp; eclecticlight.co</div>
+            <p>
+              Two changes worth tracking before the developer beta on June 8: AFP file-sharing is finally being dropped (twelve years after SMB took over as the default), and macOS 27 will require TLS 1.2-or-later with ATS-compliant ciphersuites for server connections used by MDM, app distribution, and software update infrastructure. Local Content Caching is exempt. If your fleet still uses any Time Capsules or non-SMB3 NAS, the deadline is about to be real.
+            </p>
+            <a class="thread" href="https://news.ycombinator.com/item?id=47923010">Discuss on HN &rarr;</a>
+          </div>
+        </article>
+      </section>
+
+      <!-- ─────────────────────── ARCHITECTURE IN THE WILD ─────────────────────── -->
+      <div class="section-divider">
+        <div class="lead">Architecture <span class="coral">in the wild</span><span style="color:var(--coral)">.</span></div>
+        <div class="meta">The anchor read · One per issue</div>
+      </div>
+
+      <section class="arch">
+        <div class="eyebrow">№ 12 &nbsp;·&nbsp; Anthropic Engineering</div>
+        <h1 class="title-xl">Decoupling the brain <span class="coral">from the hands</span>.</h1>
+        <div class="meta-line">Lance Martin, Gabe Cemaj, Michael Cohen · Anthropic Engineering · April 8, 2026</div>
+
+        <p class="lede">
+          Anthropic's engineering blog laid out, in unusual detail, the architecture behind Managed Agents — the hosted Claude service for long-running, tool-using sessions. The thesis is simple to state and surprisingly load-bearing: treat the model's reasoning loop, its execution sandbox, and the session log as three independent services, connected only by stable interfaces.
+        </p>
+
+        <p>
+          The pre-Managed-Agents world is what the authors call "pet containers": a single VM that holds the model harness, the user's tools, the session state, and the credentials, all entangled. It works until it doesn't — and when it doesn't, you can't redeploy the harness without losing context, can't replace the sandbox without re-bootstrapping auth, and can't stream session events to anyone but the harness that wrote them. So Managed Agents tears the three apart. The harness becomes the orchestrator. The sandbox becomes a fungible execution surface that can crash, get replaced, and report tool-error semantics back upstream. The session is an append-only event log that lives outside Claude's context window, retrievable and transformable independently of the run that produced it.
+        </p>
+
+        <div class="pullquote">
+          "Failures stop being incidents — they become tool errors the harness can reason about."
+        </div>
+
+        <p>
+          The payoff numbers are concrete. Removing upfront container provisioning cut time-to-first-token by roughly 60% at p50 and 90% at p95 — the long tail being the part that hurt most. Credentials never reach the sandbox; auth is bundled with each provisioned resource or fetched from an external vault, and Claude only ever sees tools through a secure proxy. The OS analogy the authors lean on — <span class="italic">read()</span> abstracting over wildly different storage hardware — is the right one. They're virtualizing agent components into stable interfaces that outlive any one model generation.
+        </p>
+
+        <div class="stats-row">
+          <div class="cell">
+            <div class="v">~60%</div>
+            <div class="l">TTFT cut at p50</div>
+          </div>
+          <div class="cell">
+            <div class="v">~90%</div>
+            <div class="l">TTFT cut at p95</div>
+          </div>
+          <div class="cell">
+            <div class="v">3</div>
+            <div class="l">Decoupled services</div>
+          </div>
+        </div>
+
+        <p>
+          For anyone designing their own long-running agent infra, this is the architecture worth stealing from. The interesting question it leaves open: where, exactly, does the harness sit on the spectrum between "thin shell around a model" and "miniature Kubernetes for tool calls"? The piece is honest that the answer keeps shifting as models get better — which is itself the argument for why these boundaries need to be stable enough to survive that drift.
+        </p>
+
+        <a class="readlink" href="https://www.anthropic.com/engineering/managed-agents">Read on Anthropic Engineering &rarr;</a>
+      </section>
+
+      <footer>
+        <span>End of issue · No. 8</span>
+        <span>Daily Magazine · Morning Edition</span>
+        <a href="../index.html">Back to the shelf &rarr;</a>
+      </footer>
+
+    </main>
+  </body>
+</html>
