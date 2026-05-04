@@ -1,0 +1,819 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Morning Edition · Vol. I · No. 13 — The Severance</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,500;1,9..144,700;1,9..144,900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    :root {
+      --bg: #ece3d0;
+      --fg: #14140f;
+      --muted: #7a7465;
+      --rule: #14140f;
+      --accent: #e24b4b;
+      --rose: #f0c7c1;
+      --rose-deep: #b8392e;
+      --cream: #f5ecd8;
+      --paper: #efe6d2;
+      --night: #111110;
+      --night-fg: #ece3d0;
+      --night-muted: rgba(236, 227, 208, 0.55);
+      --sand: #ddd1b8;
+      --olive: #2d3221;
+      --olive-fg: #e8e4d3;
+      --terminal-bg: #0e1410;
+      --terminal-fg: #c8e7c0;
+      --terminal-accent: #7df18a;
+      --slate: #1a2230;
+      --slate-fg: #d8e1ec;
+      --slate-accent: #f6c177;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--fg);
+      font-family: "Fraunces", Georgia, "Times New Roman", serif;
+      font-optical-sizing: auto;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+    a { color: inherit; }
+    .page { max-width: 1180px; margin: 0 auto; padding: 3rem 2rem 5rem; }
+
+    /* ── Masthead ───────────────────────────────────────── */
+    .pretitle {
+      font-family: "JetBrains Mono", ui-monospace, monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.9rem;
+      margin-bottom: 1.4rem;
+    }
+    .pretitle .dotsep { color: var(--accent); }
+    .masthead {
+      border-bottom: 1.5px solid var(--rule);
+      padding-bottom: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .title {
+      font-family: "Fraunces", serif;
+      font-weight: 900;
+      font-size: clamp(3rem, 8.5vw, 6.75rem);
+      line-height: 0.92;
+      letter-spacing: -0.035em;
+      margin: 0;
+    }
+    .title .line { display: block; }
+    .title .edition { color: var(--accent); font-style: italic; }
+    .title .edition .dot { color: var(--fg); font-style: normal; }
+    .deck {
+      font-family: "Fraunces", serif;
+      font-style: italic;
+      font-size: clamp(1.1rem, 1.7vw, 1.45rem);
+      max-width: 60ch;
+      margin: 1.6rem 0 0;
+      line-height: 1.5;
+      color: var(--fg);
+    }
+    .meta {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      padding: 1.4rem 0 0.4rem;
+      border-bottom: 1.5px solid var(--rule);
+      margin-bottom: 3rem;
+    }
+    .meta .label {
+      font-family: "JetBrains Mono", ui-monospace, monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-bottom: 0.4rem;
+    }
+    .meta .value { font-size: 1rem; font-weight: 700; }
+    .meta .value.italic { font-style: italic; font-weight: 400; }
+    @media (max-width: 720px) { .meta { grid-template-columns: 1fr 1fr; } }
+
+    /* ── Generic spread ─────────────────────────────────── */
+    .spread {
+      border-radius: 12px;
+      padding: clamp(1.75rem, 3.5vw, 3rem);
+      margin-bottom: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .ord {
+      font-family: "Fraunces", serif;
+      font-style: italic;
+      font-weight: 900;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      line-height: 0.9;
+      color: var(--accent);
+    }
+    .kicker {
+      font-family: "JetBrains Mono", ui-monospace, monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+    .for-you {
+      display: inline-block;
+      font-family: "JetBrains Mono", ui-monospace, monospace;
+      font-size: 0.66rem;
+      letter-spacing: 0.22em;
+      padding: 0.25rem 0.55rem;
+      border: 1.5px solid var(--accent);
+      color: var(--accent);
+      margin-left: 0.6rem;
+      vertical-align: 0.18em;
+    }
+    .h-title {
+      font-family: "Fraunces", serif;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.04;
+      margin: 0.5rem 0 1rem;
+    }
+    .body {
+      font-family: "Fraunces", serif;
+      font-size: 1.13rem;
+      line-height: 1.55;
+      max-width: 60ch;
+      margin: 0 0 1rem;
+    }
+    .source {
+      font-family: "JetBrains Mono", ui-monospace, monospace;
+      font-size: 0.74rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 1.25rem;
+      display: flex;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+    }
+    .source a { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent); }
+
+    /* ── Archetype: HERO ────────────────────────────────── */
+    .hero {
+      background: var(--paper);
+      border: 1.5px solid var(--rule);
+      padding-top: clamp(2rem, 4vw, 3.25rem);
+    }
+    .hero .ord { font-size: clamp(3.5rem, 7vw, 5.5rem); margin-bottom: 0.3rem; }
+    .hero .h-title { font-size: clamp(2.25rem, 5.2vw, 4rem); font-weight: 900; }
+
+    /* ── Archetype: NIGHT ───────────────────────────────── */
+    .night {
+      background: var(--night);
+      color: var(--night-fg);
+    }
+    .night .kicker { color: var(--night-muted); }
+    .night .ord { color: var(--accent); }
+    .night .h-title { font-size: clamp(2rem, 4.4vw, 3.4rem); color: var(--night-fg); }
+    .night .source { color: var(--night-muted); }
+    .night .source a { color: var(--accent); border-bottom-color: var(--accent); }
+
+    /* ── Archetype: ROSE ────────────────────────────────── */
+    .rose {
+      background: var(--rose);
+      border: 1.5px solid var(--rose-deep);
+    }
+    .rose .ord { color: var(--rose-deep); }
+    .rose .stamp {
+      position: absolute;
+      top: 1.2rem;
+      right: 1.2rem;
+      font-family: "JetBrains Mono", ui-monospace, monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      color: var(--rose-deep);
+      border: 1.5px solid var(--rose-deep);
+      padding: 0.3rem 0.6rem;
+      transform: rotate(3deg);
+    }
+    .rose .h-title { font-size: clamp(2rem, 4.4vw, 3.2rem); color: var(--rose-deep); }
+    .rose .body { color: #4a1810; }
+
+    /* ── Archetype: TERMINAL ────────────────────────────── */
+    .terminal {
+      background: var(--terminal-bg);
+      color: var(--terminal-fg);
+      font-family: "JetBrains Mono", ui-monospace, monospace;
+      border: 1.5px solid #1c2a1f;
+    }
+    .terminal .term-bar {
+      display: flex;
+      gap: 0.4rem;
+      margin-bottom: 1.25rem;
+      align-items: center;
+    }
+    .terminal .term-bar i {
+      width: 0.7rem; height: 0.7rem; border-radius: 50%;
+      background: #2a3a2c; display: inline-block;
+    }
+    .terminal .term-bar span {
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      color: #4f6a52;
+      margin-left: 0.6rem;
+    }
+    .terminal .ord { color: var(--terminal-accent); font-family: "Fraunces", serif; }
+    .terminal .h-title { font-family: "JetBrains Mono", monospace; font-size: clamp(1.55rem, 3vw, 2.3rem); font-weight: 600; color: var(--terminal-fg); }
+    .terminal .body { font-family: "JetBrains Mono", monospace; font-size: 1rem; color: #a4c4a0; }
+    .terminal .body .cmd { color: var(--terminal-accent); }
+    .terminal .source { color: #4f6a52; }
+    .terminal .source a { color: var(--terminal-accent); border-bottom-color: var(--terminal-accent); }
+    .terminal .for-you { color: var(--terminal-accent); border-color: var(--terminal-accent); }
+
+    /* ── Archetype: ACADEMIC (drop-cap) ─────────────────── */
+    .academic {
+      background: var(--cream);
+      border: 1.5px solid var(--rule);
+      padding-top: clamp(2rem, 3.5vw, 2.75rem);
+    }
+    .academic .ord { font-size: clamp(3rem, 6vw, 4.5rem); }
+    .academic .h-title { font-size: clamp(1.8rem, 3.8vw, 2.85rem); font-weight: 700; }
+    .academic .body.first::first-letter {
+      font-family: "Fraunces", serif;
+      font-weight: 900;
+      font-size: 4.6rem;
+      line-height: 0.85;
+      float: left;
+      margin: 0.35rem 0.6rem 0 0;
+      color: var(--accent);
+    }
+    .pull {
+      font-family: "Fraunces", serif;
+      font-style: italic;
+      font-size: clamp(1.4rem, 2.6vw, 2rem);
+      line-height: 1.3;
+      border-top: 1.5px solid var(--rule);
+      border-bottom: 1.5px solid var(--rule);
+      padding: 1.2rem 0;
+      margin: 1.5rem 0;
+      max-width: 50ch;
+    }
+
+    /* ── Archetype: BIG-STAT ────────────────────────────── */
+    .stat {
+      background: var(--olive);
+      color: var(--olive-fg);
+    }
+    .stat .kicker { color: rgba(232, 228, 211, 0.55); }
+    .stat .ord { color: var(--slate-accent); }
+    .stat .h-title { color: var(--olive-fg); font-size: clamp(1.85rem, 4vw, 2.85rem); }
+    .stat .big-number {
+      font-family: "Fraunces", serif;
+      font-weight: 900;
+      font-style: italic;
+      color: var(--slate-accent);
+      font-size: clamp(5rem, 13vw, 9.5rem);
+      line-height: 0.9;
+      letter-spacing: -0.04em;
+      margin: 1.5rem 0 0.5rem;
+    }
+    .stat .big-cap {
+      font-family: "JetBrains Mono", ui-monospace, monospace;
+      font-size: 0.82rem;
+      letter-spacing: 0.16em;
+      color: rgba(232, 228, 211, 0.7);
+      max-width: 40ch;
+    }
+    .stat .body { color: var(--olive-fg); }
+    .stat .source { color: rgba(232, 228, 211, 0.55); }
+    .stat .source a { color: var(--slate-accent); border-bottom-color: var(--slate-accent); }
+
+    /* ── Archetype: NEWSPRINT ───────────────────────────── */
+    .newsprint {
+      background: #f4ebd5;
+      border: 1.5px solid var(--rule);
+    }
+    .newsprint .h-title { font-size: clamp(1.85rem, 4vw, 2.85rem); }
+    .newsprint .columns {
+      column-count: 2;
+      column-gap: 2rem;
+      max-width: none;
+      font-size: 1.05rem;
+      line-height: 1.55;
+    }
+    .newsprint .columns p { margin: 0 0 0.8rem; break-inside: avoid; }
+    @media (max-width: 720px) { .newsprint .columns { column-count: 1; } }
+
+    /* ── Archetype: SLATE (cool-blue science) ───────────── */
+    .slate-bg {
+      background: var(--slate);
+      color: var(--slate-fg);
+    }
+    .slate-bg .kicker { color: rgba(216, 225, 236, 0.55); }
+    .slate-bg .ord { color: var(--slate-accent); }
+    .slate-bg .h-title { color: var(--slate-fg); font-size: clamp(2rem, 4.4vw, 3.2rem); }
+    .slate-bg .body { color: rgba(216, 225, 236, 0.9); }
+    .slate-bg .source { color: rgba(216, 225, 236, 0.5); }
+    .slate-bg .source a { color: var(--slate-accent); border-bottom-color: var(--slate-accent); }
+
+    /* ── Hacker News spread ─────────────────────────────── */
+    .hn {
+      background: #f4ebd5;
+      border: 1.5px solid var(--rule);
+      padding: clamp(2rem, 4vw, 3rem);
+      margin-bottom: 2rem;
+    }
+    .hn-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      border-bottom: 1.5px solid var(--rule);
+      padding-bottom: 1rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .hn-head .label {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+    }
+    .hn-head .label .dot { color: var(--accent); }
+    .hn-head .sub {
+      font-family: "Fraunces", serif;
+      font-style: italic;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+    .hn-item {
+      display: grid;
+      grid-template-columns: 5.5rem 1fr;
+      gap: 1.5rem;
+      padding: 1.6rem 0;
+      border-bottom: 1px dashed rgba(20, 20, 15, 0.25);
+    }
+    .hn-item:last-child { border-bottom: none; }
+    .hn-item .ord {
+      font-style: italic;
+      font-weight: 900;
+      font-size: 3.6rem;
+      line-height: 0.9;
+      color: var(--accent);
+    }
+    .hn-item h3 {
+      font-family: "Fraunces", serif;
+      font-weight: 700;
+      font-size: clamp(1.45rem, 2.4vw, 1.95rem);
+      line-height: 1.1;
+      letter-spacing: -0.015em;
+      margin: 0 0 0.6rem;
+    }
+    .hn-meta {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      margin-bottom: 0.8rem;
+    }
+    .hn-meta .pts { color: var(--accent); font-weight: 600; }
+    .hn-item p {
+      font-family: "Fraunces", serif;
+      font-size: 1.04rem;
+      line-height: 1.55;
+      margin: 0 0 0.7rem;
+      max-width: 64ch;
+    }
+    .hn-item .links a {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 0.74rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid var(--accent);
+      margin-right: 1rem;
+    }
+    @media (max-width: 640px) {
+      .hn-item { grid-template-columns: 1fr; gap: 0.5rem; }
+      .hn-item .ord { font-size: 2.6rem; }
+    }
+
+    /* ── Architecture in the Wild ───────────────────────── */
+    .arch {
+      background: #f5ecd8;
+      border: 1.5px solid var(--rule);
+      padding: clamp(2rem, 4.5vw, 3.5rem);
+      margin-bottom: 2rem;
+    }
+    .arch-stamp {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.7rem;
+    }
+    .arch-stamp .dot { color: var(--accent); }
+    .arch h2 {
+      font-family: "Fraunces", serif;
+      font-weight: 700;
+      font-size: clamp(2.25rem, 5.2vw, 3.85rem);
+      line-height: 1.02;
+      letter-spacing: -0.025em;
+      margin: 0.5rem 0 1rem;
+      max-width: 22ch;
+    }
+    .arch-byline {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.14em;
+      color: var(--muted);
+      margin-bottom: 1.6rem;
+      padding-bottom: 1rem;
+      border-bottom: 1.5px solid var(--rule);
+    }
+    .arch-body {
+      font-family: "Fraunces", serif;
+      font-size: 1.15rem;
+      line-height: 1.6;
+      max-width: 62ch;
+    }
+    .arch-body.first::first-letter {
+      font-family: "Fraunces", serif;
+      font-weight: 900;
+      font-size: 5rem;
+      line-height: 0.85;
+      float: left;
+      margin: 0.35rem 0.65rem 0 0;
+      color: var(--accent);
+    }
+    .arch-pull {
+      font-family: "Fraunces", serif;
+      font-style: italic;
+      font-size: clamp(1.4rem, 2.8vw, 2.1rem);
+      line-height: 1.3;
+      border-top: 1.5px solid var(--rule);
+      border-bottom: 1.5px solid var(--rule);
+      padding: 1.4rem 0;
+      margin: 2rem 0;
+      max-width: 52ch;
+    }
+    .arch-pull .who {
+      display: block;
+      margin-top: 0.6rem;
+      font-style: normal;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.14em;
+      color: var(--muted);
+    }
+
+    /* ── Footer ─────────────────────────────────────────── */
+    footer {
+      margin-top: 4rem;
+      padding-top: 1.5rem;
+      border-top: 1.5px solid var(--rule);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 0.74rem;
+      letter-spacing: 0.14em;
+      color: var(--muted);
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+
+    @media (max-width: 640px) {
+      .page { padding: 2rem 1.25rem 4rem; }
+      .pretitle { gap: 0.5rem; font-size: 0.66rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="masthead">
+      <div class="pretitle">
+        <span>Morning Edition</span>
+        <span class="dotsep">●</span>
+        <span>Vol. I · No. 13</span>
+        <span class="dotsep">●</span>
+        <span>Monday · May 4, 2026</span>
+        <span class="dotsep">●</span>
+        <span>For Aziz</span>
+      </div>
+      <h1 class="title">
+        <span class="line">The</span>
+        <span class="line edition">Severance<span class="dot">.</span></span>
+      </h1>
+      <p class="deck">
+        Twelve spreads on parts coming loose: the Pentagon writes Anthropic out of the AI buildout, a proxy lets you swap Claude Code's brain for DeepSeek mid-session, Anthropic wires Claude into Photoshop and Blender, and a quiet essay reminds us that the abstractions we celebrate are also the ones that hide the bill.
+      </p>
+    </header>
+
+    <section class="meta">
+      <div><div class="label">Issue</div><div class="value">No. 13</div></div>
+      <div><div class="label">Spreads</div><div class="value">12</div></div>
+      <div><div class="label">For You stamps</div><div class="value italic">Four</div></div>
+      <div><div class="label">Window</div><div class="value italic">Last 72 hours</div></div>
+    </section>
+
+    <!-- 01 — HERO — Pentagon excludes Anthropic -->
+    <article class="spread hero">
+      <div class="ord">01</div>
+      <div class="kicker">The Defense Beat</div>
+      <h2 class="h-title">The Pentagon picks eight names. Anthropic is not on the list.</h2>
+      <p class="body">
+        On May 1 the Defense Department finalised classified-network AI deals with OpenAI, Google, Microsoft, Amazon, Oracle, Nvidia, SpaceX, and Reflection AI — the entire frontier roster, minus one. Anthropic is out, with officials citing supply-chain risk after a contract dispute earlier in the year over whether Claude could be deployed for "all lawful purposes," language that would have covered autonomous weapons and mass surveillance. Anthropic refused, sued, and won an injunction. It just lost the procurement.
+      </p>
+      <p class="body">
+        Read the move on its own terms: the U.S. government's classified-AI estate is now built without the lab whose public posture leans hardest on safety constraints. That is either an indictment of those constraints or an indictment of the buyer. Either way, the bifurcation is real — there is now a defence-flavoured stack and a constraint-flavoured stack, and they no longer share a vendor.
+      </p>
+      <div class="source">
+        <span>Source ·</span>
+        <a href="https://techstartups.com/2026/05/01/pentagon-signs-ai-deals-with-openai-google-microsoft-and-amazon-for-classified-networks-leaves-out-anthropic/">Tech Startups</a>
+        <a href="https://www.cnn.com/2026/05/01/tech/pentagon-ai-anthropic">CNN Business</a>
+      </div>
+    </article>
+
+    <!-- 02 — TERMINAL — DeepClaude — FOR YOU -->
+    <article class="spread terminal">
+      <div class="term-bar"><i></i><i></i><i></i><span>~/agents — claude-code · pid 47</span></div>
+      <div class="ord">02</div>
+      <div class="kicker">Agent loops · proxy<span class="for-you">FOR YOU</span></div>
+      <h2 class="h-title">DeepClaude swaps the brain while keeping the body.</h2>
+      <p class="body">
+        <span class="cmd">$</span> npx deepclaude — a local proxy on <span class="cmd">localhost:3200</span> that pretends to be the Anthropic API and routes Claude Code's agent loop to whatever's behind the curtain. Default backend is DeepSeek V4 Pro at $0.87/M output tokens; OpenRouter sits at the same tier; Fireworks at $3.48/M; the real Anthropic Claude is a $15/M fallback. Swap mid-session with <span class="cmd">/deepseek</span>, switch back with <span class="cmd">/anthropic</span>, no restart.
+      </p>
+      <p class="body">
+        For anyone running long Claude Code loops on personal credit, the math is brutal: the project claims 17× cheaper for the same UX. The catch is the obvious one — DeepSeek is a different model with different failure modes, and "identical UX" is a UI claim, not a capability claim. Worth pinning to a side terminal and trying on a throwaway repo before the bill arrives.
+      </p>
+      <div class="source">
+        <span>Repo ·</span>
+        <a href="https://github.com/aattaran/deepclaude">github.com/aattaran/deepclaude</a>
+        <a href="https://news.ycombinator.com/item?id=48002136">HN · 489 pts</a>
+      </div>
+    </article>
+
+    <!-- 03 — ROSE — Claude creative connectors — FOR YOU -->
+    <article class="spread rose">
+      <div class="stamp">For You</div>
+      <div class="ord">03</div>
+      <div class="kicker">Claude · creative pipelines</div>
+      <h2 class="h-title">Claude moves into Photoshop, Blender, Ableton — and the lines between code and craft blur.</h2>
+      <p class="body">
+        Anthropic released nine creative-tool connectors on April 28: Adobe Creative Cloud (50+ tools across Photoshop, Premiere, Express), Blender (natural-language interface to its Python API), Autodesk Fusion, Ableton, Splice, Affinity, SketchUp, Resolume. Available on every Claude plan, immediately. This is the same connector pattern Anthropic shipped for consumer apps the previous week — Spotify, Uber, Instacart — but pointed at production tooling.
+      </p>
+      <p class="body">
+        The Blender one is the giveaway: it's wired to the Python API, which means Claude can both author scenes and read state. For anyone doing scripted creative work — generative art, motion design, asset pipelines — this is no longer "ask Claude how to do it, paste into the app." It's the app, with a model in the loop. Worth a real session, not a demo.
+      </p>
+      <div class="source">
+        <span>Source ·</span>
+        <a href="https://www.anthropic.com/news/claude-for-creative-work">anthropic.com</a>
+        <a href="https://9to5mac.com/2026/04/28/anthropic-releases-9-new-claude-connectors-for-creative-tools-including-blender-and-adobe/">9to5Mac</a>
+      </div>
+    </article>
+
+    <!-- 04 — NIGHT — GPT-5.5 -->
+    <article class="spread night">
+      <div class="ord">04</div>
+      <div class="kicker">Frontier models</div>
+      <h2 class="h-title">GPT-5.5 ships, and OpenAI starts behaving like a vendor that wants the enterprise contract.</h2>
+      <p class="body">
+        OpenAI is positioning GPT-5.5 as the strongest agentic model it has built — coding, computer use, research, longer agent-like workflows. The sales motion has changed too: aggressive pricing into Office-365-shaped accounts, deep ChatGPT-as-platform plays (the OpenClaw deal — 3.2M users now able to run autonomous agents on GPT-5.4 for $23/month — landed in the same news cycle), and the Pentagon contract from Spread 01.
+      </p>
+      <p class="body">
+        Anthropic's last public marker is Opus 4.6, with 4.7 already in production for users on the Claude tier. The race for "best coding model" is now decided in dot releases, on benchmarks the labs run themselves, with vendor lock-in arriving via tooling rather than weights.
+      </p>
+      <div class="source">
+        <span>Round-up ·</span>
+        <a href="https://llm-stats.com/llm-updates">LLM Stats</a>
+        <a href="https://blog.mean.ceo/new-ai-model-releases-news-may-2026/">New AI model releases · May</a>
+      </div>
+    </article>
+
+    <!-- 05 — ACADEMIC — Microsoft Agent 365 -->
+    <article class="spread academic">
+      <div class="ord">05</div>
+      <div class="kicker">Enterprise · governance</div>
+      <h2 class="h-title">Microsoft Agent 365: a control plane priced at $15 a head.</h2>
+      <p class="body first">
+        Microsoft launched Agent 365 on May 1 as a dedicated control plane for enterprise AI agents — governance, identity, and security wrapping for whatever the org has built on Copilot, Azure AI Foundry, or third-party model platforms. The product sits one layer above the agents themselves and is priced like an Office 365 SKU: $15 per user per month, billed alongside the rest of the Microsoft estate.
+      </p>
+      <p class="body">
+        The bet is that 2026's enterprise AI problem is no longer "get a model in" but "track every agent that's already there." Inventory, policy, audit. It's a governance product dressed as a platform, and it competes less with OpenAI than with the in-house "agent registry" projects half the Fortune 500 has been quietly building since Q4.
+      </p>
+      <div class="source">
+        <span>Coverage ·</span>
+        <a href="https://blog.mean.ceo/ai-product-launches-news-may-2026/">AI launches · May 2026</a>
+      </div>
+    </article>
+
+    <!-- 06 — ACADEMIC w/ pull — Hidden Costs of Abstractions — FOR YOU -->
+    <article class="spread academic">
+      <div class="ord">06</div>
+      <div class="kicker">Essay · craft<span class="for-you">FOR YOU</span></div>
+      <h2 class="h-title">The hidden costs of great abstractions.</h2>
+      <p class="body first">
+        Joel Gritter's essay — quietly the best 12-minute read of the week — argues that the same abstractions that lower the floor on software development also lower the ceiling on understanding it. Early computing required deep technical knowledge to do anything at all. Today, frameworks and LLMs let anyone ship something functional, and almost nobody ships something good — because discerning good from bad is itself an act of expertise that the abstraction layer is now obscuring.
+      </p>
+      <div class="pull">
+        "Discerning good from bad requires expertise. The inexperienced prospector often mistakes pyrite for gold."
+      </div>
+      <p class="body">
+        It's not a Luddite take. It's a working programmer's worry that the velocity gains being celebrated this year are being paid for in deferred quality, and that the bill comes due at the senior-engineer review desk. Read it before your next code review.
+      </p>
+      <div class="source">
+        <span>Source ·</span>
+        <a href="https://jdgr.net/the-hidden-costs-of-great-abstractions">jdgr.net</a>
+        <a href="https://news.ycombinator.com/item?id=48002607">HN · 179 pts</a>
+      </div>
+    </article>
+
+    <!-- 07 — STAT — Google I/O preview -->
+    <article class="spread stat">
+      <div class="ord">07</div>
+      <div class="kicker">On the calendar</div>
+      <h2 class="h-title">Two weeks out: Gemini 4, Astra, Veo, Android 17 — Google's annual rebuttal.</h2>
+      <div class="big-number">19</div>
+      <div class="big-cap">May · Shoreline Amphitheatre · Keynote 10am PT</div>
+      <p class="body">
+        I/O 2026 lands May 19–20. The leaked betting card: a Gemini 4 reveal sized to OpenAI's GPT-5.5 launch, deeper Project Astra integration (the persistent multimodal assistant), Veo updates for text-to-video, and a fresh push on agentic Gemini across Workspace and Android 17. The interesting question is whether Google can land a story dense enough to pull oxygen back from the OpenAI-Pentagon-Microsoft news cycle, or whether the keynote becomes the "and Google also" footer to a quarter that is no longer about Google.
+      </p>
+      <div class="source">
+        <span>Preview ·</span>
+        <a href="https://io.google/2026/">io.google</a>
+        <a href="https://www.engadget.com/ai/what-to-expect-from-google-io-2026-200252914.html">Engadget</a>
+      </div>
+    </article>
+
+    <!-- 08 — NEWSPRINT — Cursor pricing & IDE landscape — FOR YOU -->
+    <article class="spread newsprint">
+      <div class="ord">08</div>
+      <div class="kicker">Editor wars · pricing<span class="for-you">FOR YOU</span></div>
+      <h2 class="h-title">Cursor's credit-meter, Windsurf's million users, Zed's millisecond.</h2>
+      <div class="columns">
+        <p>The 2026 review-up of AI-native editors is not flattering to incumbents. Cursor's June 2025 pivot from request-based to credit-based pricing — Pro at $20/month now buying ~225 Claude requests instead of ~500 — has been compounding through the spring, with users moving down the funnel.</p>
+        <p>Windsurf has crossed a million active developers and is being treated by the trade press as a peer, not a follower. Free unlimited autocomplete is the wedge; the multi-file coherence is closing the gap.</p>
+        <p>Zed, written in Rust from scratch, keeps winning the latency benchmarks: sub-second startup, edit latency about 40% below VS Code, GPU-accelerated rendering. For anyone who lives in the editor eight hours a day, the milliseconds compound.</p>
+        <p>The strategic read: the AI editor market has stratified. Cursor is the polish play and increasingly the premium-tier play. Windsurf is the volume play. Zed is the engineer-engineer's editor. Pick by what you're optimising — token economics, multi-file coherence, or input lag — not by hype.</p>
+      </div>
+      <div class="source">
+        <span>Round-ups ·</span>
+        <a href="https://www.nxcode.io/resources/news/best-ai-code-editor-2026-cursor-windsurf-copilot-zed-compared">NxCode</a>
+        <a href="https://www.octavehq.com/post/windsurf-vs-cursor-vs-zed-which-ai-ide-in-2026">Octave</a>
+      </div>
+    </article>
+
+    <!-- 09 — SLATE — Oxford quadsqueezing -->
+    <article class="spread slate-bg">
+      <div class="ord">09</div>
+      <div class="kicker">Weird science · quantum control</div>
+      <h2 class="h-title">Oxford pulls off "quadsqueezing" — a fourth-order quantum effect that was theoretical until last week.</h2>
+      <p class="body">
+        Squeezing — the trick that lets you trade noise in one quantum variable for noise in another — has been a staple of optical and atomic physics for forty years, with first- and second-order effects routinely exploited in things like LIGO. Quadsqueezing is the fourth-order version, which in plain language means a much finer knob over the shape of a quantum state's noise distribution. The Oxford team is the first to demonstrate it experimentally.
+      </p>
+      <p class="body">
+        Why it matters outside the lab: every step in the squeezing-order ladder unlocks a class of measurement and sensing protocols that were previously dominated by classical noise floors. The practical applications — gravitational-wave detectors, biological imaging, quantum-enhanced clocks — won't ship next quarter. But the toolkit just got one tier deeper.
+      </p>
+      <div class="source">
+        <span>Source ·</span>
+        <a href="https://www.sciencedaily.com/releases/2026/05/260501052828.htm">ScienceDaily</a>
+      </div>
+    </article>
+
+    <!-- 10 — HERO — MIT classical/quantum bridge -->
+    <article class="spread hero">
+      <div class="ord">10</div>
+      <div class="kicker">Foundations · interpretation</div>
+      <h2 class="h-title">MIT shows the double-slit can be derived from classical "least action" — same answer as Schrödinger.</h2>
+      <p class="body">
+        An MIT team published a result on April 21 showing that quantum problems normally solved with the Schrödinger equation — the double slit, quantum tunnelling — can be reproduced exactly by applying the principle of least action, a classical-physics concept that's been around since Lagrange. Same numbers, different machinery.
+      </p>
+      <p class="body">
+        The paper isn't a claim that quantum mechanics is secretly classical. It's a claim that the seam between the two regimes is thinner than the textbooks let on, and that the "weirdness" of quantum behaviour can be reframed in terms physicists already had vocabulary for. For software engineers it's a reminder that the abstractions we work over — including the ones we built our careers on — sometimes have shorter paths to the same answer hiding in adjacent disciplines.
+      </p>
+      <div class="source">
+        <span>Source ·</span>
+        <a href="https://news.mit.edu/2026/new-study-bridges-classical-and-quantum-physics-0421">MIT News · April 21</a>
+      </div>
+    </article>
+
+    <!-- ─────────── HACKER NEWS SPREAD ─────────── -->
+    <article class="hn">
+      <div class="hn-head">
+        <div class="label">Hacker News<span class="dot">.</span> The Front Page</div>
+        <div class="sub">Top five from the last 24 hours</div>
+      </div>
+
+      <div class="hn-item">
+        <div class="ord">01</div>
+        <div>
+          <h3>GameStop makes $55.5B takeover offer for eBay.</h3>
+          <div class="hn-meta"><span class="pts">111 points</span> · 71 comments · 1.6h ago</div>
+          <p>The internet's most committed meme stock writes a real cheque. GameStop — sitting on a balance sheet stuffed with the proceeds of every retail mania since 2021 — has made a $55.5 billion offer for eBay. The pitch frames it as a "two-sided commerce platform" play, but the deeper read is the war chest meets a market mood: GameStop's leadership has spent four years insisting they could acquire something serious, and a marketplace business with eBay's scale is the first target large enough to make that claim look credible.</p>
+          <p class="links">
+            <a href="https://news.ycombinator.com/item?id=48006402">HN discussion →</a>
+            <a href="https://www.bbc.co.uk/news/articles/cn0p8yled1do">BBC →</a>
+          </p>
+        </div>
+      </div>
+
+      <div class="hn-item">
+        <div class="ord">02</div>
+        <div>
+          <h3>Trademark violation: a fake Notepad++ for Mac is making the rounds.</h3>
+          <div class="hn-meta"><span class="pts">152 points</span> · 49 comments · 1.5h ago</div>
+          <p>A site at notepad-plus-plus-mac.org is impersonating the project — name, biography of creator Don Ho, the works — to push what it calls an "official" macOS build. There is no official macOS build. Don Ho is asking the community to push back on the misinformation and is pursuing the operator directly. The interesting subtext: classic open-source-trust-erosion attack, with the obvious payload risk if anyone runs the binary. If you've been excited about Notepad++ landing on Mac in your feeds today, that's the impersonator's reach.</p>
+          <p class="links">
+            <a href="https://news.ycombinator.com/item?id=48006445">HN discussion →</a>
+            <a href="https://notepad-plus-plus.org/news/npp-trademark-infringement/">Statement →</a>
+          </p>
+        </div>
+      </div>
+
+      <div class="hn-item">
+        <div class="ord">03</div>
+        <div>
+          <h3>Debunking the CIA's "magic" heartbeat sensor.</h3>
+          <div class="hn-meta"><span class="pts">33 points</span> · 28 comments · 11.4h ago</div>
+          <p>After officials credited a quantum sensor codenamed "Ghost Murmur" with locating a downed pilot in Iran from up to 40 miles away, physicists ran the numbers and found the basic claim incompatible with magnetic-sensing physics. The heart's magnetic field is barely detectable at 10cm; at 1m the signal drops by ~1000×. The likely real story: the airman activated a Combat Survivor Evader Locator beacon, and the heartbeat narrative is either spin or an obfuscation of a more boring intercept method.</p>
+          <p class="links">
+            <a href="https://news.ycombinator.com/item?id=48002839">HN discussion →</a>
+            <a href="https://www.youtube.com/watch?v=SVTPv4sI_Jc">Video →</a>
+          </p>
+        </div>
+      </div>
+
+      <div class="hn-item">
+        <div class="ord">04</div>
+        <div>
+          <h3>BYOMesh — a multiband LoRa mesh dev board claiming 100× the bandwidth.</h3>
+          <div class="hn-meta"><span class="pts">390 points</span> · 124 comments · 17.1h ago</div>
+          <p>Dataparty's BYOMesh is a small-form-factor multiband LoRa interface aimed at MeshTNC and rfparty, designed to give hobbyists access to all common LoRa bands on one board. The 100× bandwidth claim is the headline; the HN comments are unanimous that the number is achieved partly by ignoring FCC duty-cycle and bandwidth limits that Meshtastic and MeshCore also routinely break. Useful, but the regulatory envelope is the asterisk no marketing copy includes.</p>
+          <p class="links">
+            <a href="https://news.ycombinator.com/item?id=47999636">HN discussion →</a>
+            <a href="https://shop.dataparty.xyz/products/byomesh">Product →</a>
+          </p>
+        </div>
+      </div>
+
+      <div class="hn-item">
+        <div class="ord">05</div>
+        <div>
+          <h3>Southwest Headquarters Tour.</h3>
+          <div class="hn-meta"><span class="pts">259 points</span> · 80 comments · 18.1h ago</div>
+          <p>Katherine Michel's tour of Southwest Airlines' Dallas HQ is the kind of operational-photography post HN occasionally elevates to the front page. The Network Operations Center coordinates 4,000+ daily flights — more than any other airline — with simulators that cost up to $14.2M each and a TechOps facility that maintains the world's largest 737 fleet. The piece reads as an artifact of a vanishing kind of corporate visibility: an outsider walking through every floor, photographing the systems, and leaving with the culture intact in the captions.</p>
+          <p class="links">
+            <a href="https://news.ycombinator.com/item?id=47998946">HN discussion →</a>
+            <a href="https://katherinemichel.github.io/blog/travel/southwest-headquarters-tour-2026.html">Article →</a>
+          </p>
+        </div>
+      </div>
+    </article>
+
+    <!-- ─────────── ARCHITECTURE IN THE WILD ─────────── -->
+    <article class="arch">
+      <div class="arch-stamp">Architecture in the Wild<span class="dot"> ●</span> Feature</div>
+      <h2>Cloudflare's internal AI engineering stack — built on the platform they ship.</h2>
+      <div class="arch-byline">
+        Ayush Thakur · Scott Roe-Meschke · Rajesh Bhatia &nbsp;·&nbsp; blog.cloudflare.com &nbsp;·&nbsp; April 20, 2026
+      </div>
+      <p class="arch-body first">
+        Cloudflare took the unusual step of publishing the architecture of its own internal AI platform — the one its engineers actually use — and the takeaway is that the entire thing is built on Cloudflare's own publicly available products. Workers, Durable Objects, AI Gateway, Workers AI, Access, Workflows, Sandbox. No proprietary infrastructure, no special path. Eat-your-own-dog-food at enterprise scale: 3,683 active users (93% of R&D), 47.95M AI requests over 30 days, 20.18M routed through AI Gateway, 241 billion tokens processed, 51 billion of those running on Workers AI on open-weight models inside the platform. Merge requests jumped from ~5,600/week to a peak of 10,952.
+      </p>
+      <p class="arch-body">
+        The architecture splits into three layers and the choices are worth absorbing. The <strong>platform layer</strong> handles auth (via Cloudflare Access for Zero Trust), routing (AI Gateway), and inference. The single most consequential decision was a centralised proxy Worker enforced from day one — clients never speak to model providers directly, which means policy, rate-limiting, anonymisation, and cost attribution all live in one chokepoint that can be evolved without touching every consumer. The <strong>knowledge layer</strong> is a service catalog in Backstage plus AGENTS.md files inside each repository, so agents pick up structured context about what the code does and how to operate on it. The <strong>enforcement layer</strong> wires AI code review into every merge request and checks against an internal Engineering Codex.
+      </p>
+      <p class="arch-body">
+        Two micro-decisions deserve a callout. First, Code Mode at the portal level: 34+ tool schemas collapsed into two tools, cutting context-window overhead by ~7.5% across the entire fleet. That's the kind of optimisation that only shows up when one team owns the whole pipe. Second, anonymous UUIDs replace user emails before requests hit external providers — privacy gain, tiny cost, only possible because the proxy is centralised. The post is a textbook for senior engineers thinking about how to roll out AI internally without spawning a sprawl of per-team integrations that no one can govern six months in.
+      </p>
+      <div class="arch-pull">
+        "One thing we got right early: routing through a single proxy Worker from day one."
+        <span class="who">— Ayush Thakur, Cloudflare</span>
+      </div>
+      <p class="arch-body">
+        If your org is currently shipping the agent-per-team architecture this post argues against, treat it as a roadmap. The proxy-first pattern is portable; the rest of the stack is where the company-specific calls live.
+      </p>
+      <div class="source">
+        <span>Source ·</span>
+        <a href="https://blog.cloudflare.com/internal-ai-engineering-stack/">blog.cloudflare.com</a>
+      </div>
+    </article>
+
+    <footer>
+      <span>Morning Edition · Vol. I · No. 13 · 2026-05-04</span>
+      <span><a href="../index.html">← Back to the shelf</a></span>
+    </footer>
+  </div>
+</body>
+</html>
