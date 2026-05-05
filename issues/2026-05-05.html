@@ -1,0 +1,871 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Morning Edition · Vol. I · No. 14 — The Memory Persists</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,500;1,9..144,700;1,9..144,900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    :root {
+      --bg: #ece3d0;
+      --fg: #14140f;
+      --muted: #7a7465;
+      --rule: #14140f;
+      --accent: #e24b4b;
+      --rose: #f0c7c1;
+      --rose-deep: #b8392e;
+      --cream: #f5ecd8;
+      --paper: #efe6d2;
+      --night: #111110;
+      --night-fg: #ece3d0;
+      --night-muted: rgba(236, 227, 208, 0.55);
+      --sand: #ddd1b8;
+      --sand-deep: #6a5b3e;
+      --olive: #2d3221;
+      --olive-fg: #e8e4d3;
+      --terminal-bg: #0e1410;
+      --terminal-fg: #c8e7c0;
+      --terminal-accent: #7df18a;
+      --slate: #1a2230;
+      --slate-fg: #d8e1ec;
+      --slate-accent: #f6c177;
+      --gold: #e4b660;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--fg);
+      font-family: "Fraunces", Georgia, "Times New Roman", serif;
+      font-optical-sizing: auto;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+    a { color: inherit; }
+    .page { max-width: 1180px; margin: 0 auto; padding: 3rem 2rem 5rem; }
+
+    /* ── Masthead ───────────────────────────────────────── */
+    .pretitle {
+      font-family: "JetBrains Mono", ui-monospace, monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.9rem;
+      margin-bottom: 1.4rem;
+    }
+    .pretitle .dotsep { color: var(--accent); }
+    .masthead {
+      border-bottom: 1.5px solid var(--rule);
+      padding-bottom: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .title {
+      font-family: "Fraunces", serif;
+      font-weight: 900;
+      font-size: clamp(3rem, 8.5vw, 6.75rem);
+      line-height: 0.92;
+      letter-spacing: -0.035em;
+      margin: 0;
+    }
+    .title .line { display: block; }
+    .title .edition { color: var(--accent); font-style: italic; }
+    .title .edition .dot { color: var(--fg); font-style: normal; }
+    .deck {
+      font-family: "Fraunces", serif;
+      font-style: italic;
+      font-size: clamp(1.1rem, 1.7vw, 1.45rem);
+      max-width: 60ch;
+      margin: 1.6rem 0 0;
+      line-height: 1.5;
+      color: var(--fg);
+    }
+    .meta {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      padding: 1.4rem 0 0.4rem;
+      border-bottom: 1.5px solid var(--rule);
+      margin-bottom: 3rem;
+    }
+    .meta .label {
+      font-family: "JetBrains Mono", ui-monospace, monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-bottom: 0.4rem;
+    }
+    .meta .value { font-size: 1rem; font-weight: 700; }
+    .meta .value.italic { font-style: italic; font-weight: 400; }
+    @media (max-width: 720px) { .meta { grid-template-columns: 1fr 1fr; } }
+
+    /* ── Generic spread ─────────────────────────────────── */
+    .spread {
+      border-radius: 12px;
+      padding: clamp(1.75rem, 3.5vw, 3rem);
+      margin-bottom: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .ord {
+      font-family: "Fraunces", serif;
+      font-style: italic;
+      font-weight: 900;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      line-height: 0.9;
+      color: var(--accent);
+    }
+    .kicker {
+      font-family: "JetBrains Mono", ui-monospace, monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+    .for-you {
+      display: inline-block;
+      font-family: "JetBrains Mono", ui-monospace, monospace;
+      font-size: 0.66rem;
+      letter-spacing: 0.22em;
+      padding: 0.25rem 0.55rem;
+      border: 1.5px solid var(--accent);
+      color: var(--accent);
+      margin-left: 0.6rem;
+      vertical-align: 0.18em;
+    }
+    .h-title {
+      font-family: "Fraunces", serif;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.04;
+      margin: 0.5rem 0 1rem;
+    }
+    .body {
+      font-family: "Fraunces", serif;
+      font-size: 1.13rem;
+      line-height: 1.55;
+      max-width: 60ch;
+      margin: 0 0 1rem;
+    }
+    .source {
+      font-family: "JetBrains Mono", ui-monospace, monospace;
+      font-size: 0.74rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 1.25rem;
+      display: flex;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+    }
+    .source a { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent); }
+
+    /* ── Archetype: HERO ────────────────────────────────── */
+    .hero {
+      background: var(--paper);
+      border: 1.5px solid var(--rule);
+      padding-top: clamp(2rem, 4vw, 3.25rem);
+    }
+    .hero .ord { font-size: clamp(3.5rem, 7vw, 5.5rem); margin-bottom: 0.3rem; }
+    .hero .h-title { font-size: clamp(2.25rem, 5.2vw, 4rem); font-weight: 900; }
+
+    /* ── Archetype: TERMINAL ────────────────────────────── */
+    .terminal {
+      background: var(--terminal-bg);
+      color: var(--terminal-fg);
+      font-family: "JetBrains Mono", ui-monospace, monospace;
+      border: 1.5px solid #1c2a1f;
+    }
+    .terminal .term-bar {
+      display: flex;
+      gap: 0.4rem;
+      margin-bottom: 1.25rem;
+      align-items: center;
+    }
+    .terminal .term-bar i {
+      width: 0.7rem; height: 0.7rem; border-radius: 50%;
+      background: #2a3a2c; display: inline-block;
+    }
+    .terminal .term-bar span {
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      color: #4f6a52;
+      margin-left: 0.6rem;
+    }
+    .terminal .ord { color: var(--terminal-accent); font-family: "Fraunces", serif; }
+    .terminal .h-title { font-family: "JetBrains Mono", monospace; font-size: clamp(1.55rem, 3vw, 2.3rem); font-weight: 600; color: var(--terminal-fg); }
+    .terminal .body { font-family: "JetBrains Mono", monospace; font-size: 1rem; color: #a4c4a0; }
+    .terminal .body .cmd { color: var(--terminal-accent); }
+    .terminal .source { color: #4f6a52; }
+    .terminal .source a { color: var(--terminal-accent); border-bottom-color: var(--terminal-accent); }
+
+    /* ── Archetype: NIGHT ───────────────────────────────── */
+    .night {
+      background: var(--night);
+      color: var(--night-fg);
+    }
+    .night .kicker { color: var(--night-muted); }
+    .night .ord { color: var(--accent); }
+    .night .h-title { font-size: clamp(2rem, 4.4vw, 3.4rem); color: var(--night-fg); }
+    .night .source { color: var(--night-muted); }
+    .night .source a { color: var(--accent); border-bottom-color: var(--accent); }
+
+    /* ── Archetype: ROSE ────────────────────────────────── */
+    .rose {
+      background: var(--rose);
+      border: 1.5px solid var(--rose-deep);
+    }
+    .rose .ord { color: var(--rose-deep); }
+    .rose .stamp {
+      position: absolute;
+      top: 1.2rem;
+      right: 1.2rem;
+      font-family: "JetBrains Mono", ui-monospace, monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      color: var(--rose-deep);
+      border: 1.5px solid var(--rose-deep);
+      padding: 0.3rem 0.6rem;
+      transform: rotate(3deg);
+    }
+    .rose .h-title { font-size: clamp(2rem, 4.4vw, 3.2rem); color: var(--rose-deep); }
+    .rose .body { color: #4a1810; }
+    .rose .for-you { border-color: var(--rose-deep); color: var(--rose-deep); }
+    .rose .source { color: #6e2b22; }
+    .rose .source a { color: var(--rose-deep); border-bottom-color: var(--rose-deep); }
+
+    /* ── Archetype: NEWSPRINT ───────────────────────────── */
+    .newsprint {
+      background: #f4ebd5;
+      border: 1.5px solid var(--rule);
+    }
+    .newsprint .h-title { font-size: clamp(1.85rem, 4vw, 2.85rem); }
+    .newsprint .columns {
+      column-count: 2;
+      column-gap: 2rem;
+      max-width: none;
+      font-size: 1.05rem;
+      line-height: 1.55;
+    }
+    .newsprint .columns p { margin: 0 0 0.8rem; break-inside: avoid; }
+    @media (max-width: 720px) { .newsprint .columns { column-count: 1; } }
+
+    /* ── Archetype: ACADEMIC (drop-cap) ─────────────────── */
+    .academic {
+      background: var(--cream);
+      border: 1.5px solid var(--rule);
+      padding-top: clamp(2rem, 3.5vw, 2.75rem);
+    }
+    .academic .ord { font-size: clamp(3rem, 6vw, 4.5rem); }
+    .academic .h-title { font-size: clamp(1.8rem, 3.8vw, 2.85rem); font-weight: 700; }
+    .academic .body.first::first-letter {
+      font-family: "Fraunces", serif;
+      font-weight: 900;
+      font-size: 4.6rem;
+      line-height: 0.85;
+      float: left;
+      margin: 0.35rem 0.6rem 0 0;
+      color: var(--accent);
+    }
+
+    /* ── Archetype: BIG-STAT ────────────────────────────── */
+    .stat {
+      background: var(--olive);
+      color: var(--olive-fg);
+    }
+    .stat .kicker { color: rgba(232, 228, 211, 0.55); }
+    .stat .ord { color: var(--slate-accent); }
+    .stat .h-title { color: var(--olive-fg); font-size: clamp(1.85rem, 4vw, 2.85rem); }
+    .stat .big-number {
+      font-family: "Fraunces", serif;
+      font-weight: 900;
+      font-style: italic;
+      color: var(--slate-accent);
+      font-size: clamp(5rem, 13vw, 9.5rem);
+      line-height: 0.9;
+      letter-spacing: -0.04em;
+      margin: 1.5rem 0 0.5rem;
+    }
+    .stat .big-cap {
+      font-family: "JetBrains Mono", ui-monospace, monospace;
+      font-size: 0.82rem;
+      letter-spacing: 0.16em;
+      color: rgba(232, 228, 211, 0.7);
+      max-width: 40ch;
+    }
+    .stat .body { color: var(--olive-fg); }
+    .stat .source { color: rgba(232, 228, 211, 0.55); }
+    .stat .source a { color: var(--slate-accent); border-bottom-color: var(--slate-accent); }
+    .stat .for-you { color: var(--slate-accent); border-color: var(--slate-accent); }
+
+    /* ── Archetype: SLATE (cool-blue science) ───────────── */
+    .slate-bg {
+      background: var(--slate);
+      color: var(--slate-fg);
+    }
+    .slate-bg .kicker { color: rgba(216, 225, 236, 0.55); }
+    .slate-bg .ord { color: var(--slate-accent); }
+    .slate-bg .h-title { color: var(--slate-fg); font-size: clamp(2rem, 4.4vw, 3.2rem); }
+    .slate-bg .body { color: rgba(216, 225, 236, 0.9); }
+    .slate-bg .source { color: rgba(216, 225, 236, 0.5); }
+    .slate-bg .source a { color: var(--slate-accent); border-bottom-color: var(--slate-accent); }
+
+    /* ── Archetype: SAND (warm flat) ────────────────────── */
+    .sand {
+      background: var(--sand);
+      border: 1.5px solid var(--sand-deep);
+    }
+    .sand .ord { color: var(--sand-deep); font-style: italic; }
+    .sand .h-title { color: #2c2515; font-size: clamp(2rem, 4.4vw, 3.1rem); }
+    .sand .kicker { color: var(--sand-deep); }
+    .sand .body { color: #2c2515; }
+
+    /* ── Archetype: DARK-GOLD ───────────────────────────── */
+    .dark-gold {
+      background: #131614;
+      color: #ece3d0;
+      border: 1px solid #1f2520;
+    }
+    .dark-gold .kicker { color: rgba(228, 182, 96, 0.7); }
+    .dark-gold .ord { color: var(--gold); }
+    .dark-gold .h-title { font-size: clamp(2rem, 4.4vw, 3.2rem); color: #f3eadb; }
+    .dark-gold .body { color: rgba(243, 234, 219, 0.86); }
+    .dark-gold .source { color: rgba(243, 234, 219, 0.5); }
+    .dark-gold .source a { color: var(--gold); border-bottom-color: var(--gold); }
+    .dark-gold .pull-orbit {
+      font-family: "Fraunces", serif;
+      font-style: italic;
+      font-size: clamp(1.35rem, 2.6vw, 1.95rem);
+      line-height: 1.3;
+      color: var(--gold);
+      max-width: 40ch;
+      border-left: 2px solid var(--gold);
+      padding-left: 1.1rem;
+      margin: 1.4rem 0 1.6rem;
+    }
+
+    /* ── Hacker News spread ─────────────────────────────── */
+    .hn {
+      background: #f4ebd5;
+      border: 1.5px solid var(--rule);
+      padding: clamp(2rem, 4vw, 3rem);
+      margin-bottom: 2rem;
+    }
+    .hn-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      border-bottom: 1.5px solid var(--rule);
+      padding-bottom: 1rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .hn-head .label {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+    }
+    .hn-head .label .dot { color: var(--accent); }
+    .hn-head .sub {
+      font-family: "Fraunces", serif;
+      font-style: italic;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+    .hn-item {
+      display: grid;
+      grid-template-columns: 5.5rem 1fr;
+      gap: 1.5rem;
+      padding: 1.6rem 0;
+      border-bottom: 1px dashed rgba(20, 20, 15, 0.25);
+    }
+    .hn-item:last-child { border-bottom: none; }
+    .hn-item .ord {
+      font-style: italic;
+      font-weight: 900;
+      font-size: 3.6rem;
+      line-height: 0.9;
+      color: var(--accent);
+    }
+    .hn-item h3 {
+      font-family: "Fraunces", serif;
+      font-weight: 700;
+      font-size: clamp(1.45rem, 2.4vw, 1.95rem);
+      line-height: 1.1;
+      letter-spacing: -0.015em;
+      margin: 0 0 0.6rem;
+    }
+    .hn-meta {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      margin-bottom: 0.8rem;
+    }
+    .hn-meta .pts { color: var(--accent); font-weight: 600; }
+    .hn-item p {
+      font-family: "Fraunces", serif;
+      font-size: 1.04rem;
+      line-height: 1.55;
+      margin: 0 0 0.7rem;
+      max-width: 64ch;
+    }
+    .hn-item .links a {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 0.74rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid var(--accent);
+      margin-right: 1rem;
+    }
+    @media (max-width: 640px) {
+      .hn-item { grid-template-columns: 1fr; gap: 0.5rem; }
+      .hn-item .ord { font-size: 2.6rem; }
+    }
+
+    /* ── Architecture in the Wild ───────────────────────── */
+    .arch {
+      background: #f5ecd8;
+      border: 1.5px solid var(--rule);
+      padding: clamp(2rem, 4.5vw, 3.5rem);
+      margin-bottom: 2rem;
+    }
+    .arch-stamp {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.7rem;
+    }
+    .arch-stamp .dot { color: var(--accent); }
+    .arch h2 {
+      font-family: "Fraunces", serif;
+      font-weight: 700;
+      font-size: clamp(2.25rem, 5.2vw, 3.85rem);
+      line-height: 1.02;
+      letter-spacing: -0.025em;
+      margin: 0.5rem 0 1rem;
+      max-width: 22ch;
+    }
+    .arch-byline {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.14em;
+      color: var(--muted);
+      margin-bottom: 1.6rem;
+      padding-bottom: 1rem;
+      border-bottom: 1.5px solid var(--rule);
+    }
+    .arch-body {
+      font-family: "Fraunces", serif;
+      font-size: 1.15rem;
+      line-height: 1.6;
+      max-width: 62ch;
+    }
+    .arch-body.first::first-letter {
+      font-family: "Fraunces", serif;
+      font-weight: 900;
+      font-size: 5rem;
+      line-height: 0.85;
+      float: left;
+      margin: 0.35rem 0.65rem 0 0;
+      color: var(--accent);
+    }
+    .arch-pull {
+      font-family: "Fraunces", serif;
+      font-style: italic;
+      font-size: clamp(1.4rem, 2.8vw, 2.1rem);
+      line-height: 1.3;
+      border-top: 1.5px solid var(--rule);
+      border-bottom: 1.5px solid var(--rule);
+      padding: 1.4rem 0;
+      margin: 2rem 0;
+      max-width: 52ch;
+    }
+    .arch-pull .who {
+      display: block;
+      margin-top: 0.6rem;
+      font-style: normal;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.14em;
+      color: var(--muted);
+    }
+    .arch .source { margin-top: 1.6rem; }
+
+    /* ── Footer ─────────────────────────────────────────── */
+    footer {
+      margin-top: 4rem;
+      padding-top: 1.5rem;
+      border-top: 1.5px solid var(--rule);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 0.74rem;
+      letter-spacing: 0.14em;
+      color: var(--muted);
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+
+    @media (max-width: 640px) {
+      .page { padding: 2rem 1.25rem 4rem; }
+      .pretitle { gap: 0.5rem; font-size: 0.66rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="masthead">
+      <div class="pretitle">
+        <span>Morning Edition</span>
+        <span class="dotsep">●</span>
+        <span>Vol. I · No. 14</span>
+        <span class="dotsep">●</span>
+        <span>Tuesday · May 5, 2026</span>
+        <span class="dotsep">●</span>
+        <span>For Aziz</span>
+      </div>
+      <h1 class="title">
+        <span class="line">The Memory</span>
+        <span class="line edition">Persists<span class="dot">.</span></span>
+      </h1>
+      <p class="deck">
+        Twelve spreads on AI getting stickier. Anthropic, Goldman, and Blackstone form a $1.5B services firm to embed Claude inside mid-market companies; Memory and Security ship in public beta; Cerebras files for a $26.6B Nasdaq listing on the back of a $20B OpenAI compute pact; and Cloudflare's new inference engine splits prefill from decode to fit a trillion-parameter model on eight GPUs. Architecture anchor: how OpenAI's voice team shrank WebRTC's public footprint to a thin Go transceiver — and refused to ship an SFU.
+      </p>
+    </header>
+
+    <section class="meta">
+      <div><div class="label">Issue</div><div class="value">No. 14</div></div>
+      <div><div class="label">Spreads</div><div class="value">12</div></div>
+      <div><div class="label">For You stamps</div><div class="value italic">Six</div></div>
+      <div><div class="label">Window</div><div class="value italic">Last 72 hours</div></div>
+    </section>
+
+    <!-- 01 — HERO — Anthropic + Wall Street JV -->
+    <article class="spread hero">
+      <div class="ord">01</div>
+      <div class="kicker">The Consulting Beat <span class="for-you">FOR YOU</span></div>
+      <h2 class="h-title">Anthropic, Goldman and Blackstone are starting an AI services firm. They want McKinsey's job.</h2>
+      <p class="body">
+        On May 4 Anthropic announced a new enterprise services company with Blackstone, Hellman &amp; Friedman, and Goldman Sachs, backed by ~$1.5B in committed capital. Anthropic, Blackstone, and H&amp;F each contribute around $300M; Goldman ~$150M; Apollo, General Atlantic, Leonard Green, GIC, and Sequoia round out the consortium. The mandate: embed Anthropic engineers and Claude directly into the operating cores of mid-sized companies — explicitly a competitor to the world's largest consulting firms.
+      </p>
+      <p class="body">
+        Read it as the second domino, not the first. OpenAI is reportedly building the near-identical structure with TPG, Brookfield, Advent, and Bain. A bake-off between two AI services firms — each with a model lab as the prime contractor and PE money as the carry — is now the shape of corporate AI in 2026. If you architect for these companies, your future stakeholder isn't a CIO. It's a partner-track engineer who has equity in a JV.
+      </p>
+      <div class="source">
+        <span>Source</span>
+        <a href="https://www.blackstone.com/news/press/anthropic-partners-with-blackstone-hellman-friedman-and-goldman-sachs-to-launch-enterprise-ai-services-firm/" target="_blank" rel="noopener">Blackstone press release</a>
+        <a href="https://fortune.com/2026/05/04/anthropic-claude-consulting-industry-joint-venture-blackstone-goldman-sachs/" target="_blank" rel="noopener">Fortune</a>
+        <a href="https://www.cnbc.com/2026/05/04/anthropic-goldman-blackstone-ai-venture.html" target="_blank" rel="noopener">CNBC</a>
+      </div>
+    </article>
+
+    <!-- 02 — TERMINAL — Cerebras IPO -->
+    <article class="spread terminal">
+      <div class="term-bar"><i></i><i></i><i></i><span>~/markets/ipo $</span></div>
+      <div class="ord">02</div>
+      <div class="kicker" style="color:#4f6a52;">The Silicon Beat</div>
+      <h2 class="h-title">$ cerebras --price-range 115..125 --shares 28M --target $26.6B</h2>
+      <p class="body">
+        <span class="cmd">&gt;</span> Cerebras filed updated S-1 on May 4 — selling 28M shares at $115–$125 to raise $3.5B at a $26.6B valuation. Q4 revenue: $510M, +76% YoY. Books are reportedly oversubscribed at $10B against the $3.5B offer; bankers expect to price above range.
+      </p>
+      <p class="body">
+        <span class="cmd">&gt;</span> The OpenAI tie is the real story: a January 2026 Master Relationship Agreement worth $20B+ over three years for 750MW of Cerebras compute (250MW/yr through 2028), plus a $1B 6% loan from OpenAI to fund Cerebras' data-center buildout, plus warrants for 33.4M Class N shares. Translation: OpenAI is both customer and equity holder in the chipmaker that ships its inference.
+      </p>
+      <p class="body">
+        <span class="cmd">&gt;</span> If Nvidia's moat is scale and CUDA, the bet here is that wafer-scale + a single committed hyperscaler is enough to carve out a meaningful inference niche. Mid-May listing.
+      </p>
+      <div class="source">
+        <span>$ src</span>
+        <a href="https://techcrunch.com/2026/05/04/openais-cozy-partner-cerebras-is-on-track-for-a-blockbuster-ipo/" target="_blank" rel="noopener">TechCrunch</a>
+        <a href="https://www.cnbc.com/2026/05/04/cerebras-ipo-ai-chipmaker.html" target="_blank" rel="noopener">CNBC</a>
+        <a href="https://siliconangle.com/2026/05/04/ai-chip-provider-cerebras-seeks-raise-3-5b-ipo-26-6b-valuation/" target="_blank" rel="noopener">SiliconANGLE</a>
+      </div>
+    </article>
+
+    <!-- 03 — NIGHT — Anthropic Memory beta -->
+    <article class="spread night">
+      <div class="ord">03</div>
+      <div class="kicker">The Agent Beat <span class="for-you">FOR YOU</span></div>
+      <h2 class="h-title">Memory, in public beta, lets agents learn across sessions — and share what they learned.</h2>
+      <p class="body">
+        Anthropic shipped Memory to public beta for Claude Managed Agents. Agents can now persist learnings across sessions and pass those learnings to other agents in the same fleet. The notable design choice: memories are stored as <em>files</em> the developer can read, edit, and delete — a deliberate rejection of the "opaque vector store" paradigm that has dominated agent memory for two years.
+      </p>
+      <p class="body">
+        For anyone running long-horizon agents, this is the missing primitive. Until now you wrote your own scratchpad layer, your own dedupe, your own promotion rules from short-term to long-term. The trade-off lands inverted: instead of trusting the model's recall, you trust the filesystem and audit it. That is the first agent-memory story in a while that an enterprise security team can actually approve.
+      </p>
+      <div class="source">
+        <span>Source</span>
+        <a href="https://www.anthropic.com/news" target="_blank" rel="noopener">Anthropic news</a>
+        <a href="https://releasebot.io/updates/anthropic" target="_blank" rel="noopener">Release notes</a>
+      </div>
+    </article>
+
+    <!-- 04 — ROSE — Claude Security beta -->
+    <article class="spread rose">
+      <div class="stamp">PUBLIC BETA</div>
+      <div class="ord">04</div>
+      <div class="kicker">The Security Beat <span class="for-you">FOR YOU</span></div>
+      <h2 class="h-title">Claude Security ships: scheduled scans, proposed fixes, and Opus 4.7 looking at your repo.</h2>
+      <p class="body">
+        Claude Security entered public beta for Enterprise customers this week — code vulnerability scanning with proposed fixes generated by Opus 4.7, plus scheduled scans, targeted scans, triage tracking, and exports to whatever ticket system you already pay for. It is <em>not</em> a Snyk replacement; it is a model-generated review layer on top of your existing scanners.
+      </p>
+      <p class="body">
+        The interesting wrinkle: "proposed fixes" means a model is now writing PRs against your security findings. The reviewer-in-the-loop pattern that emerged for refactors is now arriving at the security boundary, where the cost of a bad merge is meaningfully higher. Expect the next twelve months of platform debate to be about exactly which classes of finding get a model-authored fix and which still demand a human author.
+      </p>
+      <div class="source">
+        <span>Source</span>
+        <a href="https://www.anthropic.com/news" target="_blank" rel="noopener">Anthropic news</a>
+        <a href="https://releasebot.io/updates/anthropic" target="_blank" rel="noopener">Release notes</a>
+      </div>
+    </article>
+
+    <!-- 05 — NEWSPRINT — VS Code 1.116 / Copilot CLI -->
+    <article class="spread newsprint">
+      <div class="ord">05</div>
+      <div class="kicker">The IDE Beat <span class="for-you">FOR YOU</span></div>
+      <h2 class="h-title">VS Code 1.116 lands. The Copilot CLI now answers your phone.</h2>
+      <div class="body columns">
+        <p>
+          The May VS Code release ships agent debug logs, terminal agent tools, Copilot CLI thinking-effort controls, and built-in GitHub Copilot — the biggest agent-workflow drop since the editor first absorbed chat in 2024.
+        </p>
+        <p>
+          The headline feature is Remote Control for Copilot CLI. A long-running CLI session keeps churning on your laptop while you check progress, approve actions, and steer the work from github.com or the GitHub mobile app. The primitive matters: agents are no longer tethered to the editor window that started them.
+        </p>
+        <p>
+          Token economics shifted as well. Repeated context now bills at roughly 10× lower for Anthropic models in Copilot — a quiet but consequential change for anyone running multi-turn agent loops where the same project tree gets re-read a dozen times per session.
+        </p>
+        <p>
+          Worth noting: GitHub announced on April 27 that Copilot moves to usage-based billing on June 1. The next month is the cheap window to learn how your team's actual token shape maps onto the new meter.
+        </p>
+      </div>
+      <div class="source">
+        <span>Source</span>
+        <a href="https://github.com/microsoft/vscode/releases" target="_blank" rel="noopener">microsoft/vscode releases</a>
+        <a href="https://github.com/features/copilot/whats-new" target="_blank" rel="noopener">Copilot what's new</a>
+        <a href="https://releasebot.io/updates/microsoft/visual-studio-code" target="_blank" rel="noopener">Releasebot</a>
+      </div>
+    </article>
+
+    <!-- 06 — ACADEMIC drop-cap — Anaconda Desktop -->
+    <article class="spread academic">
+      <div class="ord">06</div>
+      <div class="kicker">The Local-AI Beat <span class="for-you">FOR YOU</span></div>
+      <h2 class="h-title">Anaconda Desktop, in public beta, finally puts model discovery, local inference, and conda envs in one window.</h2>
+      <p class="body first">
+        Anaconda has been the obvious place to put a local LLM workbench for two years and has not. That changed with the Anaconda Desktop public beta — a single application that unifies model discovery, local inference, and conda environment management. The pitch is unsexy and exactly right: stop juggling Ollama, llama.cpp, lm-studio, and whatever you used to spin up the Python kernel that calls them. The one tool that already owns your scientific Python environment now also owns the model.
+      </p>
+      <p class="body">
+        For dev teams whose ML work is half "is the right Python in scope" and half "is the right model loaded," consolidating both into a single installable should remove a meaningful percentage of meeting-time-spent-debugging-environments. If it nails offline use and reproducible env+model bundles, it becomes the path of least resistance for prototyping anything that touches a local LLM.
+      </p>
+      <div class="source">
+        <span>Source</span>
+        <a href="https://www.anaconda.com/blog" target="_blank" rel="noopener">Anaconda blog</a>
+        <a href="https://sdtimes.com/" target="_blank" rel="noopener">SD Times</a>
+      </div>
+    </article>
+
+    <!-- 07 — STAT — Cloudflare Infire / Unweight -->
+    <article class="spread stat">
+      <div class="ord">07</div>
+      <div class="kicker">The Inference Beat <span class="for-you">FOR YOU</span></div>
+      <h2 class="h-title">Cloudflare's new engine fits Kimi K2.5 — a trillion-parameter model — on eight H100s.</h2>
+      <div class="big-number">22<span style="font-size:0.45em;">%</span></div>
+      <div class="big-cap">weight reduction with no accuracy loss · "Unweight" compression in production</div>
+      <p class="body">
+        Cloudflare published the architecture of its production LLM stack: a custom inference engine called <em>Infire</em> that splits each request across two hardware-optimized stages — prefill (compute-bound input processing) and decode (memory-bound generation) — and a compression system, <em>Unweight</em>, hitting 15–22% weight reduction without measurable accuracy loss.
+      </p>
+      <p class="body">
+        Concrete deployments: Llama 4 Scout running on two H200s; Kimi K2.5 (560GB, 1T+ parameters) running on eight H100s while still leaving adequate KV cache headroom. Multi-GPU is handled with pipeline + tensor parallelism designed specifically for short startup time, because cold-start matters at edge scale.
+      </p>
+      <div class="source">
+        <span>Source</span>
+        <a href="https://www.infoq.com/news/2026/05/cloudflare-llm-infrastructure/" target="_blank" rel="noopener">InfoQ</a>
+      </div>
+    </article>
+
+    <!-- 08 — SLATE-BG — Oxford quadsqueezing -->
+    <article class="spread slate-bg">
+      <div class="ord">08</div>
+      <div class="kicker">The Quantum Beat</div>
+      <h2 class="h-title">Oxford pulls off "quadsqueezing": a fourth-order quantum effect, on a single trapped ion.</h2>
+      <p class="body">
+        On May 1 the University of Oxford reported the first demonstration of <em>quadsqueezing</em>, a fourth-order quantum interaction generated by carefully engineering progressively more complex forms of squeezing on a single trapped ion. Squeezing — second-order — has been a staple of quantum sensing for decades. Third-order has been demonstrated. Fourth-order had not, until now.
+      </p>
+      <p class="body">
+        Why it matters in plain language: each higher-order interaction unlocks a richer toolkit for engineering quantum states. The Oxford result is the kind of foundational experimental capability that quietly seeds the next decade of quantum sensing, simulation, and computing — without a press release saying so.
+      </p>
+      <div class="source">
+        <span>Source</span>
+        <a href="https://www.sciencedaily.com/releases/2026/05/260501052828.htm" target="_blank" rel="noopener">ScienceDaily</a>
+      </div>
+    </article>
+
+    <!-- 09 — SAND — UChicago bio qubit -->
+    <article class="spread sand">
+      <div class="ord">09</div>
+      <div class="kicker">The Biology Beat</div>
+      <h2 class="h-title">UChicago turned a protein found in living cells into a working qubit.</h2>
+      <p class="body">
+        Researchers at UChicago PME demonstrated a <em>biological qubit</em> — a protein, native to living cells, configured to function as the foundation of a quantum bit. The result is novel because most quantum platforms (trapped ions, superconducting circuits, nitrogen-vacancy centers) require exotic substrates and conditions; this one runs in the kind of biochemical environment a cell already provides.
+      </p>
+      <p class="body">
+        Practical consequence: a quantum sensor that can sit inside a cell and detect minute chemical or magnetic shifts, rather than imaging the cell from outside. If the platform generalises, it changes what we can ask cells about — at a resolution biology has not previously had access to. Quantum computing is not the headline. Quantum biosensing is.
+      </p>
+      <div class="source">
+        <span>Source</span>
+        <a href="https://news.uchicago.edu/story/scientists-program-cells-create-biological-qubit-quantum-breakthrough" target="_blank" rel="noopener">UChicago News</a>
+      </div>
+    </article>
+
+    <!-- 10 — DARK-GOLD — Photon teleportation -->
+    <article class="spread dark-gold">
+      <div class="ord">10</div>
+      <div class="kicker">The Networking-Of-Atoms Beat</div>
+      <h2 class="h-title">A photon's quantum state was teleported between two independent quantum dots — over 270 metres of open air.</h2>
+      <div class="pull-orbit">
+        Two devices that have never been entangled. One photon's state, intact, on the other side.
+      </div>
+      <p class="body">
+        Researchers reported teleporting a photon's quantum state between two <em>independent</em> quantum dots across a 270-metre open-air free-space link. Independence matters: until now, most teleportation demos relied on entangled-source pairs from the same lab apparatus. This one shows the trick working between separately fabricated emitters — the precondition for a quantum network.
+      </p>
+      <p class="body">
+        The thing to actually internalise: 270m of <em>open air</em>. Atmospheric noise is the hard part of free-space quantum links, and getting fidelity over a useful distance with non-paired devices is the gap between "lab demo" and "infrastructure." The next benchmark will be doing it across a city.
+      </p>
+      <div class="source">
+        <span>Source</span>
+        <a href="https://www.sciencedaily.com/news/matter_energy/quantum_physics/" target="_blank" rel="noopener">ScienceDaily Quantum</a>
+      </div>
+    </article>
+
+    <!-- HACKER NEWS SECTION -->
+    <article class="hn">
+      <div class="hn-head">
+        <div class="label">Hacker News<span class="dot"> · </span>last 24 hours</div>
+        <div class="sub">Top five by rank, with editor's notes.</div>
+      </div>
+
+      <div class="hn-item">
+        <div class="ord">01</div>
+        <div>
+          <h3>Bun is being ported from Zig to Rust.</h3>
+          <div class="hn-meta"><span class="pts">▲ 546</span> · 381 comments · May 4</div>
+          <p>
+            The Bun team merged a "Phase-A porting guide" into the repo on May 4 — not a rewrite announcement, a porting guide, with batch tooling alongside it. After years of being the loudest argument for Zig in production, Bun is admitting the language's tooling and ecosystem aren't where they need them. The HN thread is the better read than the commit: half the comments are Rust converts, half are "this is exactly what we said three years ago."
+          </p>
+          <div class="links">
+            <a href="https://github.com/oven-sh/bun/commit/46d3bc29f270fa881dd5730ef1549e88407701a5" target="_blank" rel="noopener">Commit →</a>
+            <a href="https://news.ycombinator.com/item?id=48016880" target="_blank" rel="noopener">HN discussion →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="hn-item">
+        <div class="ord">02</div>
+        <div>
+          <h3>Google Chrome silently installs a 4 GB AI model on your device without consent.</h3>
+          <div class="hn-meta"><span class="pts">▲ 293</span> · 296 comments · May 5</div>
+            <p>
+              The author documents that recent Chrome stable channels download a ~4 GB on-device model (the "Gemini Nano" / Built-In AI bundle) in the background, without an explicit consent prompt, on devices that meet the disk and RAM thresholds. The post is mostly a measurement: where the bytes go, what flag toggles it, why "experimental" features that sit behind no UI are a meaningful policy line. The HN thread is the predictable browser-as-OS argument re-litigated, but with receipts this time.
+            </p>
+          <div class="links">
+            <a href="https://www.thatprivacyguy.com/blog/chrome-silent-nano-install/" target="_blank" rel="noopener">Article →</a>
+            <a href="https://news.ycombinator.com/item?id=48019219" target="_blank" rel="noopener">HN discussion →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="hn-item">
+        <div class="ord">03</div>
+        <div>
+          <h3>Async Rust never left the MVP state.</h3>
+          <div class="hn-meta"><span class="pts">▲ 179</span> · 84 comments · May 5</div>
+          <p>
+            Tweede Golf argues async Rust still emits bloated state machines that waste binary size and cycles — particularly painful on embedded — and that the standard "trust LLVM" answer is the wrong layer to fix it. Their proposal: do the work in the compiler — eliminate unreachable panic states, skip the state machine entirely for await-free futures, and inline futures to flatten the generated code. Concrete, unromantic, and the kind of post that nudges a language project from "we shipped it" to "we're maintaining it."
+          </p>
+          <div class="links">
+            <a href="https://tweedegolf.nl/en/blog/237/async-rust-never-left-the-mvp-state" target="_blank" rel="noopener">Article →</a>
+            <a href="https://news.ycombinator.com/item?id=48019163" target="_blank" rel="noopener">HN discussion →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="hn-item">
+        <div class="ord">04</div>
+        <div>
+          <h3>Empty Screenings — finds AMC movie screenings with few or no tickets sold.</h3>
+          <div class="hn-meta"><span class="pts">▲ 166</span> · 131 comments · May 5</div>
+          <p>
+            A small site that scrapes AMC's public ticketing pages and surfaces showings with zero or near-zero sold seats, near you. It is mostly funny — book the 11pm screening of a six-week-old release and you have your own private theater for $8 — but it is also a tidy demonstration of how much consumer behaviour data is one well-formed query away from a public API. The HN thread is largely "wait, this works for X chain too?"
+          </p>
+          <div class="links">
+            <a href="https://walzr.com/empty-screenings" target="_blank" rel="noopener">Site →</a>
+            <a href="https://news.ycombinator.com/item?id=48018066" target="_blank" rel="noopener">HN discussion →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="hn-item">
+        <div class="ord">05</div>
+        <div>
+          <h3>Hand-drawn QR codes, by Seth Larson.</h3>
+          <div class="hn-meta"><span class="pts">▲ 122</span> · 22 comments · May 5</div>
+          <p>
+            Larson drew a working QR code by hand on grid paper — a version-1 code encoding a URL — and confirmed it scans reliably as long as the paper sits flat or hangs vertically. Minor pixel-fill errors did not break it; the format's error correction did its job. It is a delightful one-evening project and a quiet reminder that a lot of the magic in everyday tech is well-designed redundancy, not precision.
+          </p>
+          <div class="links">
+            <a href="https://sethmlarson.dev/hand-drawn-qr-codes" target="_blank" rel="noopener">Article →</a>
+            <a href="https://news.ycombinator.com/item?id=48017907" target="_blank" rel="noopener">HN discussion →</a>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- ARCHITECTURE IN THE WILD -->
+    <article class="arch">
+      <div class="arch-stamp">Architecture in the Wild<span class="dot"> · </span>this week's anchor</div>
+      <h2>How OpenAI delivers low-latency voice AI at scale.</h2>
+      <div class="arch-byline">OpenAI Engineering · published May 4, 2026 · ~12 min read</div>
+      <p class="arch-body first">
+        OpenAI's Realtime team published the architecture behind their voice product, and the headline is what they refused to build. Most "voice AI at scale" stacks reach for a Selective Forwarding Unit because that is how the videoconferencing world has solved this problem for a decade. OpenAI argues — with receipts — that the SFU model is wrong for point-to-point, latency-sensitive sessions where the "other peer" is a model, not a human. So they built a thin layer instead: a <em>WebRTC transceiver</em> that terminates the client connection at the edge and immediately translates the media and signalling into simpler internal protocols for the inference, transcription, TTS, tool-use, and orchestration services behind it. The transceiver is the only component that owns WebRTC session state — ICE checks, DTLS handshake, SRTP keys, lifecycle — which means the inference layer never has to behave like a WebRTC peer.
+      </p>
+      <div class="arch-pull">
+        "A narrow Go implementation with careful use of <code style="font-family:'JetBrains Mono',monospace;font-style:normal;background:rgba(20,20,15,0.06);padding:0 0.3rem;border-radius:3px;">SO_REUSEPORT</code>, thread pinning, and low-allocation parsing was sufficient for our workload."
+        <span class="who">— OpenAI engineering, on the transceiver</span>
+      </div>
+      <p class="arch-body">
+        The unsexy infrastructure win is the small, fixed UDP port surface. WebRTC at scale traditionally exposes thousands of UDP ports per node, which is hostile to Kubernetes, hostile to load balancers, and hostile to anyone trying to write a sane firewall rule. By encoding routing metadata into a protocol-native field, OpenAI gets deterministic first-packet routing — the load balancer can place a session on the right backend before any handshake begins — with a small public UDP footprint that fits cleanly into k8s networking primitives. The ingress can be placed close to users worldwide without reserving large public port ranges.
+      </p>
+      <p class="arch-body">
+        The architectural lesson generalises beyond voice. When the workload looks superficially like a known problem (real-time media → SFU), the standard answer pulls a heavy stack into your system that exists to solve a problem you do not have (multi-party fanout). The cheaper, more honest design is the one that reads its own constraints — point-to-point, latency-bound, model-on-the-other-end — and builds the thinnest layer that satisfies them. For senior engineers staring at agentic infrastructure in 2026, this is the template: write the transceiver, not the SFU.
+      </p>
+      <div class="source">
+        <span>Read</span>
+        <a href="https://openai.com/index/delivering-low-latency-voice-ai-at-scale/" target="_blank" rel="noopener">openai.com — original post</a>
+        <a href="https://news.ycombinator.com/item?id=48013919" target="_blank" rel="noopener">HN discussion (413 ▲)</a>
+      </div>
+    </article>
+
+    <footer>
+      <span>Morning Edition · No. 14 · May 5, 2026</span>
+      <span>Set in <em>Fraunces</em> &amp; <em>JetBrains Mono</em>.</span>
+      <a href="../index.html">← Back to the shelf</a>
+    </footer>
+  </div>
+</body>
+</html>
