@@ -1,0 +1,705 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Morning Edition · Vol. I · No. 15 — The Agent Goes to Work</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,500;1,9..144,700;1,9..144,900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    :root {
+      --bg: #ece3d0;
+      --fg: #14140f;
+      --muted: #7a7465;
+      --rule: #14140f;
+      --accent: #e24b4b;
+      --rose: #f0c7c1;
+      --rose-deep: #b8392e;
+      --cream: #f5ecd8;
+      --paper: #efe6d2;
+      --night: #111110;
+      --night-fg: #ece3d0;
+      --night-muted: rgba(236, 227, 208, 0.55);
+      --sand: #ddd1b8;
+      --sand-deep: #6a5b3e;
+      --olive: #2d3221;
+      --olive-fg: #e8e4d3;
+      --terminal-bg: #0e1410;
+      --terminal-fg: #c8e7c0;
+      --terminal-accent: #7df18a;
+      --slate: #1a2230;
+      --slate-fg: #d8e1ec;
+      --slate-accent: #f6c177;
+      --gold: #e4b660;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--fg);
+      font-family: "Fraunces", Georgia, "Times New Roman", serif;
+      font-optical-sizing: auto;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+    a { color: inherit; }
+    .page { max-width: 1180px; margin: 0 auto; padding: 3rem 2rem 5rem; }
+
+    .pretitle {
+      font-family: "JetBrains Mono", ui-monospace, monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.9rem;
+      margin-bottom: 1.4rem;
+    }
+    .pretitle .dotsep { color: var(--accent); }
+    .masthead {
+      border-bottom: 1.5px solid var(--rule);
+      padding-bottom: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .title {
+      font-family: "Fraunces", serif;
+      font-weight: 900;
+      font-size: clamp(3rem, 8.5vw, 6.75rem);
+      line-height: 0.92;
+      letter-spacing: -0.035em;
+      margin: 0;
+    }
+    .title .line { display: block; }
+    .title .edition { color: var(--accent); font-style: italic; }
+    .title .edition .dot { color: var(--fg); font-style: normal; }
+    .deck {
+      font-family: "Fraunces", serif;
+      font-style: italic;
+      font-size: clamp(1.1rem, 1.7vw, 1.45rem);
+      max-width: 60ch;
+      margin: 1.6rem 0 0;
+      line-height: 1.5;
+      color: var(--fg);
+    }
+    .meta {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      padding: 1.4rem 0 0.4rem;
+      border-bottom: 1.5px solid var(--rule);
+      margin-bottom: 3rem;
+    }
+    .meta .label {
+      font-family: "JetBrains Mono", ui-monospace, monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-bottom: 0.4rem;
+    }
+    .meta .value { font-size: 1rem; font-weight: 700; }
+    .meta .value.italic { font-style: italic; font-weight: 400; }
+    @media (max-width: 720px) { .meta { grid-template-columns: 1fr 1fr; } }
+
+    .spread {
+      border-radius: 12px;
+      padding: clamp(1.75rem, 3.5vw, 3rem);
+      margin-bottom: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .ord {
+      font-family: "Fraunces", serif;
+      font-style: italic;
+      font-weight: 900;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      line-height: 0.9;
+      color: var(--accent);
+    }
+    .kicker {
+      font-family: "JetBrains Mono", ui-monospace, monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+    .for-you {
+      display: inline-block;
+      font-family: "JetBrains Mono", ui-monospace, monospace;
+      font-size: 0.66rem;
+      letter-spacing: 0.22em;
+      padding: 0.25rem 0.55rem;
+      border: 1.5px solid var(--accent);
+      color: var(--accent);
+      margin-left: 0.6rem;
+      vertical-align: 0.18em;
+    }
+    .h-title {
+      font-family: "Fraunces", serif;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.04;
+      margin: 0.5rem 0 1rem;
+    }
+    .body {
+      font-family: "Fraunces", serif;
+      font-size: 1.13rem;
+      line-height: 1.55;
+      max-width: 60ch;
+      margin: 0 0 1rem;
+    }
+    .source {
+      font-family: "JetBrains Mono", ui-monospace, monospace;
+      font-size: 0.74rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 1.25rem;
+      display: flex;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+    }
+    .source a { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent); }
+
+    /* HERO */
+    .hero {
+      background: var(--paper);
+      border: 1.5px solid var(--rule);
+      padding-top: clamp(2rem, 4vw, 3.25rem);
+    }
+    .hero .ord { font-size: clamp(3.5rem, 7vw, 5.5rem); margin-bottom: 0.3rem; }
+    .hero .h-title { font-size: clamp(2.25rem, 5.2vw, 4rem); font-weight: 900; }
+
+    /* TERMINAL */
+    .terminal {
+      background: var(--terminal-bg);
+      color: var(--terminal-fg);
+      font-family: "JetBrains Mono", ui-monospace, monospace;
+      border: 1.5px solid #1c2a1f;
+    }
+    .terminal .term-bar { display: flex; gap: 0.4rem; margin-bottom: 1.25rem; align-items: center; }
+    .terminal .term-bar i { width: 0.7rem; height: 0.7rem; border-radius: 50%; background: #2a3a2c; display: inline-block; }
+    .terminal .term-bar span { font-size: 0.7rem; letter-spacing: 0.18em; color: #4f6a52; margin-left: 0.6rem; }
+    .terminal .ord { color: var(--terminal-accent); font-family: "Fraunces", serif; }
+    .terminal .h-title { font-family: "JetBrains Mono", monospace; font-size: clamp(1.55rem, 3vw, 2.3rem); font-weight: 600; color: var(--terminal-fg); }
+    .terminal .body { font-family: "JetBrains Mono", monospace; font-size: 1rem; color: #a4c4a0; }
+    .terminal .body .cmd { color: var(--terminal-accent); }
+    .terminal .source { color: #4f6a52; }
+    .terminal .source a { color: var(--terminal-accent); border-bottom-color: var(--terminal-accent); }
+
+    /* NIGHT */
+    .night { background: var(--night); color: var(--night-fg); }
+    .night .kicker { color: var(--night-muted); }
+    .night .ord { color: var(--accent); }
+    .night .h-title { font-size: clamp(2rem, 4.4vw, 3.4rem); color: var(--night-fg); }
+    .night .source { color: var(--night-muted); }
+    .night .source a { color: var(--accent); border-bottom-color: var(--accent); }
+
+    /* ROSE */
+    .rose { background: var(--rose); border: 1.5px solid var(--rose-deep); }
+    .rose .ord { color: var(--rose-deep); }
+    .rose .stamp {
+      position: absolute; top: 1.2rem; right: 1.2rem;
+      font-family: "JetBrains Mono", ui-monospace, monospace;
+      font-size: 0.7rem; letter-spacing: 0.2em;
+      color: var(--rose-deep); border: 1.5px solid var(--rose-deep);
+      padding: 0.3rem 0.6rem; transform: rotate(3deg);
+    }
+    .rose .h-title { font-size: clamp(2rem, 4.4vw, 3.2rem); color: var(--rose-deep); }
+    .rose .body { color: #4a1810; }
+    .rose .for-you { border-color: var(--rose-deep); color: var(--rose-deep); }
+    .rose .source { color: #6e2b22; }
+    .rose .source a { color: var(--rose-deep); border-bottom-color: var(--rose-deep); }
+
+    /* NEWSPRINT */
+    .newsprint { background: #f4ebd5; border: 1.5px solid var(--rule); }
+    .newsprint .h-title { font-size: clamp(1.85rem, 4vw, 2.85rem); }
+    .newsprint .columns { column-count: 2; column-gap: 2rem; max-width: none; font-size: 1.05rem; line-height: 1.55; }
+    .newsprint .columns p { margin: 0 0 0.8rem; break-inside: avoid; }
+    @media (max-width: 720px) { .newsprint .columns { column-count: 1; } }
+
+    /* ACADEMIC */
+    .academic {
+      background: var(--cream);
+      border: 1.5px solid var(--rule);
+      padding-top: clamp(2rem, 3.5vw, 2.75rem);
+    }
+    .academic .ord { font-size: clamp(3rem, 6vw, 4.5rem); }
+    .academic .h-title { font-size: clamp(1.8rem, 3.8vw, 2.85rem); font-weight: 700; }
+    .academic .body.first::first-letter {
+      font-family: "Fraunces", serif; font-weight: 900;
+      font-size: 4.6rem; line-height: 0.85;
+      float: left; margin: 0.35rem 0.6rem 0 0;
+      color: var(--accent);
+    }
+
+    /* BIG-STAT */
+    .stat { background: var(--olive); color: var(--olive-fg); }
+    .stat .kicker { color: rgba(232, 228, 211, 0.55); }
+    .stat .ord { color: var(--slate-accent); }
+    .stat .h-title { color: var(--olive-fg); font-size: clamp(1.85rem, 4vw, 2.85rem); }
+    .stat .big-number {
+      font-family: "Fraunces", serif; font-weight: 900; font-style: italic;
+      color: var(--slate-accent);
+      font-size: clamp(5rem, 13vw, 9.5rem);
+      line-height: 0.9; letter-spacing: -0.04em;
+      margin: 1.5rem 0 0.5rem;
+    }
+    .stat .big-cap {
+      font-family: "JetBrains Mono", ui-monospace, monospace;
+      font-size: 0.82rem; letter-spacing: 0.16em;
+      color: rgba(232, 228, 211, 0.7); max-width: 40ch;
+    }
+    .stat .body { color: var(--olive-fg); }
+    .stat .source { color: rgba(232, 228, 211, 0.55); }
+    .stat .source a { color: var(--slate-accent); border-bottom-color: var(--slate-accent); }
+    .stat .for-you { color: var(--slate-accent); border-color: var(--slate-accent); }
+
+    /* SLATE */
+    .slate-bg { background: var(--slate); color: var(--slate-fg); }
+    .slate-bg .kicker { color: rgba(216, 225, 236, 0.55); }
+    .slate-bg .ord { color: var(--slate-accent); }
+    .slate-bg .h-title { color: var(--slate-fg); font-size: clamp(2rem, 4.4vw, 3.2rem); }
+    .slate-bg .body { color: rgba(216, 225, 236, 0.9); }
+    .slate-bg .source { color: rgba(216, 225, 236, 0.5); }
+    .slate-bg .source a { color: var(--slate-accent); border-bottom-color: var(--slate-accent); }
+
+    /* SAND */
+    .sand { background: var(--sand); border: 1.5px solid var(--sand-deep); }
+    .sand .ord { color: var(--sand-deep); font-style: italic; }
+    .sand .h-title { color: #2c2515; font-size: clamp(2rem, 4.4vw, 3.1rem); }
+    .sand .kicker { color: var(--sand-deep); }
+    .sand .body { color: #2c2515; }
+
+    /* DARK-GOLD */
+    .dark-gold { background: #131614; color: #ece3d0; border: 1px solid #1f2520; }
+    .dark-gold .kicker { color: rgba(228, 182, 96, 0.7); }
+    .dark-gold .ord { color: var(--gold); }
+    .dark-gold .h-title { font-size: clamp(2rem, 4.4vw, 3.2rem); color: #f3eadb; }
+    .dark-gold .body { color: rgba(243, 234, 219, 0.86); }
+    .dark-gold .source { color: rgba(243, 234, 219, 0.5); }
+    .dark-gold .source a { color: var(--gold); border-bottom-color: var(--gold); }
+    .dark-gold .pull-orbit {
+      font-family: "Fraunces", serif; font-style: italic;
+      font-size: clamp(1.35rem, 2.6vw, 1.95rem);
+      line-height: 1.3; color: var(--gold);
+      max-width: 40ch; border-left: 2px solid var(--gold);
+      padding-left: 1.1rem; margin: 1.4rem 0 1.6rem;
+    }
+
+    /* HN */
+    .hn { background: #f4ebd5; border: 1.5px solid var(--rule); padding: clamp(2rem, 4vw, 3rem); margin-bottom: 2rem; }
+    .hn-head {
+      display: flex; align-items: baseline; justify-content: space-between;
+      border-bottom: 1.5px solid var(--rule);
+      padding-bottom: 1rem; margin-bottom: 2rem;
+      flex-wrap: wrap; gap: 1rem;
+    }
+    .hn-head .label { font-family: "JetBrains Mono", monospace; font-size: 0.78rem; letter-spacing: 0.22em; text-transform: uppercase; }
+    .hn-head .label .dot { color: var(--accent); }
+    .hn-head .sub { font-family: "Fraunces", serif; font-style: italic; color: var(--muted); font-size: 1.05rem; }
+    .hn-item {
+      display: grid; grid-template-columns: 5.5rem 1fr; gap: 1.5rem;
+      padding: 1.6rem 0; border-bottom: 1px dashed rgba(20, 20, 15, 0.25);
+    }
+    .hn-item:last-child { border-bottom: none; }
+    .hn-item .ord { font-style: italic; font-weight: 900; font-size: 3.6rem; line-height: 0.9; color: var(--accent); }
+    .hn-item h3 {
+      font-family: "Fraunces", serif; font-weight: 700;
+      font-size: clamp(1.45rem, 2.4vw, 1.95rem);
+      line-height: 1.1; letter-spacing: -0.015em; margin: 0 0 0.6rem;
+    }
+    .hn-meta { font-family: "JetBrains Mono", monospace; font-size: 0.78rem; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 0.8rem; }
+    .hn-meta .pts { color: var(--accent); font-weight: 600; }
+    .hn-item p { font-family: "Fraunces", serif; font-size: 1.04rem; line-height: 1.55; margin: 0 0 0.7rem; max-width: 64ch; }
+    .hn-item .links a {
+      font-family: "JetBrains Mono", monospace; font-size: 0.74rem;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--accent); text-decoration: none;
+      border-bottom: 1px solid var(--accent); margin-right: 1rem;
+    }
+    @media (max-width: 640px) {
+      .hn-item { grid-template-columns: 1fr; gap: 0.5rem; }
+      .hn-item .ord { font-size: 2.6rem; }
+    }
+
+    /* Architecture in the Wild */
+    .arch { background: #f5ecd8; border: 1.5px solid var(--rule); padding: clamp(2rem, 4.5vw, 3.5rem); margin-bottom: 2rem; }
+    .arch-stamp {
+      font-family: "JetBrains Mono", monospace; font-size: 0.72rem;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 0.7rem;
+    }
+    .arch-stamp .dot { color: var(--accent); }
+    .arch h2 {
+      font-family: "Fraunces", serif; font-weight: 700;
+      font-size: clamp(2.25rem, 5.2vw, 3.85rem);
+      line-height: 1.02; letter-spacing: -0.025em;
+      margin: 0.5rem 0 1rem; max-width: 22ch;
+    }
+    .arch-byline {
+      font-family: "JetBrains Mono", monospace; font-size: 0.78rem;
+      letter-spacing: 0.14em; color: var(--muted);
+      margin-bottom: 1.6rem; padding-bottom: 1rem;
+      border-bottom: 1.5px solid var(--rule);
+    }
+    .arch-body { font-family: "Fraunces", serif; font-size: 1.15rem; line-height: 1.6; max-width: 62ch; }
+    .arch-body.first::first-letter {
+      font-family: "Fraunces", serif; font-weight: 900;
+      font-size: 5rem; line-height: 0.85;
+      float: left; margin: 0.35rem 0.65rem 0 0;
+      color: var(--accent);
+    }
+    .arch-pull {
+      font-family: "Fraunces", serif; font-style: italic;
+      font-size: clamp(1.4rem, 2.8vw, 2.1rem);
+      line-height: 1.3;
+      border-top: 1.5px solid var(--rule);
+      border-bottom: 1.5px solid var(--rule);
+      padding: 1.4rem 0; margin: 2rem 0; max-width: 52ch;
+    }
+    .arch-pull .who {
+      display: block; margin-top: 0.6rem;
+      font-style: normal;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 0.78rem; letter-spacing: 0.14em;
+      color: var(--muted);
+    }
+    .arch .source { margin-top: 1.6rem; }
+
+    footer {
+      margin-top: 4rem; padding-top: 1.5rem;
+      border-top: 1.5px solid var(--rule);
+      display: flex; justify-content: space-between;
+      flex-wrap: wrap; gap: 1rem;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 0.74rem; letter-spacing: 0.14em; color: var(--muted);
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+
+    @media (max-width: 640px) {
+      .page { padding: 2rem 1.25rem 4rem; }
+      .pretitle { gap: 0.5rem; font-size: 0.66rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="masthead">
+      <div class="pretitle">
+        <span>Morning Edition</span>
+        <span class="dotsep">●</span>
+        <span>Vol. I · No. 15</span>
+        <span class="dotsep">●</span>
+        <span>Wednesday · May 6, 2026</span>
+        <span class="dotsep">●</span>
+        <span>For Aziz</span>
+      </div>
+      <h1 class="title">
+        <span class="line">The Agent</span>
+        <span class="line edition">Goes to Work<span class="dot">.</span></span>
+      </h1>
+      <p class="deck">
+        Twelve spreads on the day agents stopped being demos. Anthropic ships ten finance agent templates and Claude add-ins for Excel, Word and Outlook; Microsoft turns on Agent 365, the governance plane and a $99/seat license for them; Cloudflare gives agents API access to spin up accounts, buy domains, and deploy workers; Google's Gemma 4 drafters cut inference time by 3x. Architecture anchor: how Cloudflare put seven specialised LLMs in their own CI/CD pipeline — and what 131,246 review runs taught them about the prompt engineering that actually matters.
+      </p>
+    </header>
+
+    <section class="meta">
+      <div><div class="label">Issue</div><div class="value">No. 15</div></div>
+      <div><div class="label">Spreads</div><div class="value">12</div></div>
+      <div><div class="label">For You stamps</div><div class="value italic">Five</div></div>
+      <div><div class="label">Window</div><div class="value italic">Last 72 hours</div></div>
+    </section>
+
+    <!-- 01 — HERO — Anthropic finance agents -->
+    <article class="spread hero">
+      <div class="ord">01</div>
+      <div class="kicker">The Wall Street Beat <span class="for-you">FOR YOU</span></div>
+      <h2 class="h-title">Ten finance agents, a Microsoft 365 add-in, and Moody's wired in as a native app.</h2>
+      <p class="body">
+        At a New York briefing on May 5, Anthropic shipped the first wide-release pack of vertical agents: pitch builder, meeting prep, earnings reviewer, model builder, market researcher, KYC screener, valuation reviewer, GL reconciler, month-end closer, and statement auditor. Each template ships as a reference architecture — Skills (instructions and domain knowledge) plus Connectors (governed access to data) plus subagents (smaller Claude calls for sub-tasks like comparables selection). Claude add-ins for Excel, PowerPoint, Word, and Outlook arrive simultaneously, with context that carries between apps so a model in Excel knows what you wrote in Word.
+      </p>
+      <p class="body">
+        The data play is the more interesting half. Verisk, Third Bridge, Fiscal AI, Dun &amp; Bradstreet, Experian, GLG, Guidepoint, IBISWorld and — most notably — Moody's all snap in as native data sources. Opus 4.7 leads the Vals Finance Agent benchmark at 64.4% and tops the new GDPval-AA. Anthropic claims production deployments at JPMorgan, Goldman, Citi, AIG, and Visa. The pattern is now clear: the model lab is not selling a model anymore. It's selling an opinionated agent + the data + the integration into a tool you already pay for.
+      </p>
+      <div class="source">
+        <span>Source</span>
+        <a href="https://www.anthropic.com/news/finance-agents" target="_blank" rel="noopener">Anthropic</a>
+        <a href="https://fortune.com/2026/05/05/anthropic-wall-street-financial-services-agents-jamie-dimon/" target="_blank" rel="noopener">Fortune</a>
+        <a href="https://www.bloomberg.com/news/articles/2026-05-05/anthropic-unveils-ai-agents-to-field-financial-services-tasks" target="_blank" rel="noopener">Bloomberg</a>
+        <a href="https://www.theregister.com/2026/05/05/anthropic_unleashes_finance_agents_claude/" target="_blank" rel="noopener">The Register</a>
+      </div>
+    </article>
+
+    <!-- 02 — TERMINAL — OpenAI low-latency voice -->
+    <article class="spread terminal">
+      <div class="term-bar"><i></i><i></i><i></i><span>~/openai/realtime $</span></div>
+      <div class="ord">02</div>
+      <div class="kicker" style="color:#4f6a52;">The Voice Beat</div>
+      <h2 class="h-title">$ openai realtime --voice --latency low --release 2026-05-05</h2>
+      <p class="body">
+        <span class="cmd">&gt;</span> OpenAI rolled out a new low-latency voice mode on May 5, the second public push at sub-second turn-taking after the WebRTC stack overhaul earlier this year. The new server-side trick is parallel decoding: text generation and speech synthesis run on overlapping streams, so the first audio frame ships before the LLM has finished the sentence.
+      </p>
+      <p class="body">
+        <span class="cmd">&gt;</span> Pair this with the May 4 Advanced Account Security release — passkey-first signin, fine-grained API token scopes, programmatic audit logs — and the platform gear is converging on enterprise voice. If your product is a call center, a coding assistant in a headset, or a clinical scribe, the integration cost just dropped by a quarter.
+      </p>
+      <div class="source">
+        <span>$ src</span>
+        <a href="https://releasebot.io/updates/openai/chatgpt" target="_blank" rel="noopener">OpenAI release notes</a>
+        <a href="https://openai.com/news/" target="_blank" rel="noopener">OpenAI news</a>
+      </div>
+    </article>
+
+    <!-- 03 — NIGHT — Microsoft Agent 365 -->
+    <article class="spread night">
+      <div class="ord">03</div>
+      <div class="kicker">The Governance Beat <span class="for-you">FOR YOU</span></div>
+      <h2 class="h-title">Microsoft Agent 365 turns "do agents have access to the right things?" into a license SKU.</h2>
+      <p class="body">
+        Agent 365 went GA on May 1: a control plane that registers every agent your tenancy runs (whether it's Microsoft's, Anthropic's, OpenAI's, or homegrown), assigns it an identity in Entra, scopes its data access against your existing DLP rules, and ships you a per-agent audit log. Alongside it, Microsoft introduced the new "E7 Frontier Suite" license tier at $99 per user per month — the price of routing every Copilot and connected agent through the same governance fabric as the human workforce.
+      </p>
+      <p class="body">
+        The interesting move is identity-as-throttle. An agent that exceeds its budget for tool calls or document reads gets quarantined the same way a compromised user account would; security teams get a single dashboard for "what did automation just do on our behalf this week." For anyone shipping agents into the enterprise, the integration story is no longer "we expose an MCP server." It's "we register with Agent 365 and pass its compliance hooks." Plan accordingly.
+      </p>
+      <div class="source">
+        <span>Source</span>
+        <a href="https://www.microsoft.com/en-us/microsoft-365/blog/" target="_blank" rel="noopener">Microsoft 365 blog</a>
+        <a href="https://blog.mean.ceo/ai-trends-may-2026/" target="_blank" rel="noopener">May startup trends roundup</a>
+      </div>
+    </article>
+
+    <!-- 04 — ROSE — Cloudflare agents-buying-things alert -->
+    <article class="spread rose">
+      <div class="stamp">Capability creep</div>
+      <div class="ord">04</div>
+      <div class="kicker">The Autonomy Beat <span class="for-you">FOR YOU</span></div>
+      <h2 class="h-title">Cloudflare agents can now create accounts, buy domains, and deploy workers — programmatically.</h2>
+      <p class="body">
+        Cloudflare announced the integration on May 5: agents authenticated via a new Stripe-issued payment credential can create a Cloudflare account, register a domain through Cloudflare Registrar, provision a Workers project, and push code — all without a human touching the dashboard. The pitch is "let the agent build the thing it just designed." The risk surface is the obvious one: an agent with a credit-card and a deploy permission is, definitionally, a malware family if the goal is misaligned.
+      </p>
+      <p class="body">
+        Read this paired with Microsoft Agent 365 above. The infrastructure providers and the platform companies are racing toward the same concept — agent identity — from opposite ends. Cloudflare hands the agent the keys; Microsoft makes you log who has them. Until both layers actually meet and exchange signed audit trails, the answer to "what did an LLM spend my money on yesterday" lives in a shell history file somewhere.
+      </p>
+      <div class="source">
+        <span>Source</span>
+        <a href="https://blog.cloudflare.com/agents-stripe-projects/" target="_blank" rel="noopener">Cloudflare blog</a>
+        <a href="https://news.ycombinator.com/item?id=48031684" target="_blank" rel="noopener">HN discussion</a>
+      </div>
+    </article>
+
+    <!-- 05 — STAT — Gemma 4 MTP drafters -->
+    <article class="spread stat">
+      <div class="ord">05</div>
+      <div class="kicker">The Inference Beat</div>
+      <h2 class="h-title">Open weights, open drafter, three times the throughput.</h2>
+      <div class="big-number">3×</div>
+      <p class="big-cap">aggregate decode speedup on Gemma 4 31B with MTP drafter, no measurable drop in quality.</p>
+      <p class="body">
+        Google released Multi-Token Prediction (MTP) drafters for the entire Gemma 4 family on May 5, under Apache 2.0. Speculative decoding pairs the heavy target model with a small drafter that proposes several future tokens; the target verifies them in parallel using compute that would otherwise sit idle. Numbers from the field test: ~108 tokens/sec single stream, 670 tok/s aggregate on a single DGX Spark. Weights ship via Hugging Face, Kaggle, Ollama, vLLM, SGLang, MLX, and the Google AI Edge Gallery on Android and iOS.
+      </p>
+      <p class="body">
+        The unflashy implication: small open models that ran "fast enough" three weeks ago now run cheap enough to put in a loop. If you've been deferring an agent build because per-step latency was 4–5s, the math just changed.
+      </p>
+      <div class="source">
+        <span>Source</span>
+        <a href="https://blog.google/innovation-and-ai/technology/developers-tools/multi-token-prediction-gemma-4/" target="_blank" rel="noopener">Google blog</a>
+        <a href="https://ai.google.dev/gemma/docs/mtp/mtp" target="_blank" rel="noopener">MTP docs</a>
+        <a href="https://www.marktechpost.com/2026/05/06/google-ai-releases-multi-token-prediction-mtp-drafters-for-gemma-4-delivering-up-to-3x-faster-inference-without-quality-loss/" target="_blank" rel="noopener">MarkTechPost</a>
+      </div>
+    </article>
+
+    <!-- 06 — NEWSPRINT — Google Cloud Next consolidation -->
+    <article class="spread newsprint">
+      <div class="ord">06</div>
+      <div class="kicker">The Platform Beat</div>
+      <h2 class="h-title">Vertex is dead, long live Gemini Enterprise — Google rebrands the agent stack.</h2>
+      <div class="columns">
+        <p>
+          Google Cloud Next quietly rewrote its AI nameplate this week. Vertex AI, the umbrella that has held Google's enterprise model offerings for four years, has been renamed the <em>Gemini Enterprise Agent Platform</em>. The Model Garden expanded past 200 models — Anthropic's Claude family included — and a new no-code agent builder, Workspace Studio, drops into Drive, Docs, and Gmail in a way that mirrors Microsoft's Agent 365 announcement to the day.
+        </p>
+        <p>
+          The new piece is Project Mariner, Google's web-browsing agent, now positioned not as a research demo but as a primitive any enterprise agent can call. The framing matters: agents that do work on the open web through a sanctioned Google-controlled browser are, in compliance terms, less terrifying than agents that drive their own headless Chrome.
+        </p>
+        <p>
+          Read the renaming as the third act of a year-long consolidation. Microsoft has Copilot + Agent 365. Anthropic has Claude Managed Agents + finance templates + Memory. Google now has Gemini Enterprise + Workspace Studio + Mariner. Three full agent stacks, three governance plays, three preferred data partners. The age of "we'll just call the OpenAI API" enterprise deployment is closing.
+        </p>
+      </div>
+      <div class="source">
+        <span>Source</span>
+        <a href="https://thenextweb.com/news/google-cloud-next-ai-agents-agentic-era" target="_blank" rel="noopener">TNW</a>
+      </div>
+    </article>
+
+    <!-- 07 — DARK-GOLD — AWS Bedrock + GPT-5.5 -->
+    <article class="spread dark-gold">
+      <div class="ord">07</div>
+      <div class="kicker">The Cloud Beat</div>
+      <h2 class="h-title">OpenAI lands on Bedrock; AWS finally has a frontier model on its own ground.</h2>
+      <p class="body">
+        OpenAI's GPT-5.5 (along with Codex and the new Bedrock Managed Agents service powered by OpenAI) shipped to AWS Bedrock this week. For three years AWS's frontier-model story leaned on Anthropic. With OpenAI now hosted natively, AWS's pitch reverts to the optionality argument: pick your model, route across labs, never see your data leave the VPC.
+      </p>
+      <p class="pull-orbit">
+        Three frontier model families on one cloud is no longer a Google monopoly — and the pricing pressure follows.
+      </p>
+      <div class="source">
+        <span>Source</span>
+        <a href="https://releasebot.io/updates/openai" target="_blank" rel="noopener">OpenAI release tracker</a>
+      </div>
+    </article>
+
+    <!-- 08 — SAND — Foxconn AI server revenue -->
+    <article class="spread sand">
+      <div class="ord">08</div>
+      <div class="kicker">The Supply-Side Beat</div>
+      <h2 class="h-title">Foxconn April: +29.7% YoY, AI servers doing the heavy lifting.</h2>
+      <p class="body">
+        Foxconn reported April revenue up 29.7% year-on-year, attributed almost entirely to AI server and accelerator-rack demand. The detail under the headline: cloud-products revenue is now larger than the iPhone assembly line for two months running. The ODM whose name was synonymous with consumer electronics for two decades has rotated, in maybe eighteen months, into a hyperscaler-infrastructure shop.
+      </p>
+      <p class="body">
+        It's the cleanest macro signal in the deck. AI capex is still climbing, the bottleneck is still racks and rack power not models, and the industrial supply chain has converted aggressively. Anyone who plans roadmaps for inference cost at the 18-month horizon should treat that as the floor.
+      </p>
+      <div class="source">
+        <span>Source</span>
+        <a href="https://techstartups.com/2026/05/05/top-tech-news-today-may-5-2026/" target="_blank" rel="noopener">Tech Startups</a>
+      </div>
+    </article>
+
+    <!-- 09 — SLATE — Fleet Data Centers $4.6B -->
+    <article class="spread slate-bg">
+      <div class="ord">09</div>
+      <div class="kicker">The Capex Beat</div>
+      <h2 class="h-title">$4.6B in senior secured notes for one Nevada data center.</h2>
+      <p class="body">
+        Fleet Data Centers closed a $4.6 billion senior secured notes offering this week to fund a single large-scale facility in Storey County, Nevada. For context, that's roughly the entire 2019 revenue of Equinix in one site, financed at one go. The interesting financial wrinkle is the structure — secured against future hyperscaler lease commitments rather than completed-and-leased capacity, a model that until recently the rating agencies refused to bless.
+      </p>
+      <p class="body">
+        The pattern across this issue: silicon (Cerebras-style), supply chain (Foxconn), and now financial engineering are all reorganizing around AI compute. The hardware overhang of the next two years is being pre-paid right now, in cash, by debt markets that have decided AI capex is closer to a utility than to a software bet.
+      </p>
+      <div class="source">
+        <span>Source</span>
+        <a href="https://techstartups.com/2026/05/05/top-tech-news-today-may-5-2026/" target="_blank" rel="noopener">Tech Startups</a>
+      </div>
+    </article>
+
+    <!-- 10 — ACADEMIC — Micron 245TB SSD -->
+    <article class="spread academic">
+      <div class="ord">10</div>
+      <div class="kicker">The Storage Beat</div>
+      <h2 class="h-title">Micron's 245TB QLC ION SSD ships — and the math on cold-storage tiers wobbles.</h2>
+      <p class="body first">
+        Micron started shipping the 6600 ION on May 5: a 245TB SSD using QLC flash, aimed squarely at AI training-set storage and warm-tier inference caches. A single 1U chassis fitted with twenty-four of them holds ~5.9PB. The implication isn't speed — these aren't the fast tier. The implication is that the kinds of workloads that historically lived on tape (model weights archives, training-data corpora, embedding stores) now plausibly live on flash that can be re-read at sub-millisecond latency the moment a fine-tune kicks off. That collapses one of the longest-standing tradeoffs in ML storage architecture: the choice between cold/cheap and warm/queryable.
+      </p>
+      <div class="source">
+        <span>Source</span>
+        <a href="https://investors.micron.com/news-releases/news-release-details/industry-leading-245tb-micron-6600-ion-data-center-ssd-now" target="_blank" rel="noopener">Micron IR</a>
+        <a href="https://news.ycombinator.com/item?id=48031867" target="_blank" rel="noopener">HN discussion</a>
+      </div>
+    </article>
+
+    <!-- ── HACKER NEWS SPREAD ─────────────────────────────────── -->
+    <section class="hn">
+      <div class="hn-head">
+        <div class="label">Hacker News<span class="dot">.</span> Top 5 · last 24 hours</div>
+        <div class="sub">ranked by points, deduped against the spreads above</div>
+      </div>
+
+      <div class="hn-item">
+        <div class="ord">01</div>
+        <div>
+          <h3>DNSSEC disruption affecting .de domains — resolved</h3>
+          <div class="hn-meta"><span class="pts">680 points</span> · 355 comments · denic.de status</div>
+          <p>
+            DENIC, the registry for Germany's .de TLD, briefly published a broken DNSSEC chain on May 5 — every recursive resolver doing strict validation started returning SERVFAIL for the entire country code. The thread is the better artifact than the incident: a multi-hour live read on which CDNs failed open, which CPEs cached negative answers for an hour, and why "just turn off DNSSEC validation" is and isn't a real fallback. Bookmark for the next ccTLD-scale outage post-mortem.
+          </p>
+          <div class="links"><a href="https://news.ycombinator.com/item?id=48027897" target="_blank" rel="noopener">HN thread →</a></div>
+        </div>
+      </div>
+
+      <div class="hn-item">
+        <div class="ord">02</div>
+        <div>
+          <h3>Accelerating Gemma 4: faster inference with multi-token prediction drafters</h3>
+          <div class="hn-meta"><span class="pts">587 points</span> · 273 comments · blog.google</div>
+          <p>
+            Same announcement covered in Spread No. 5, but the HN thread is where the engineers benchmark it. Highlights: an MLX runner reports near-linear scaling on M3 Max for 12B-class targets; a vLLM contributor walks through the kernel changes needed to land 3x; and three commenters argue that the right comparison is not against base Gemma 4 but against a year-old GPT-4-level closed model running on H100 — and that the open stack has, on dollars-per-token, finally crossed it.
+          </p>
+          <div class="links"><a href="https://news.ycombinator.com/item?id=48024540" target="_blank" rel="noopener">HN thread →</a></div>
+        </div>
+      </div>
+
+      <div class="hn-item">
+        <div class="ord">03</div>
+        <div>
+          <h3>StarFighter 16-Inch</h3>
+          <div class="hn-meta"><span class="pts">377 points</span> · 198 comments · us.starlabs.systems</div>
+          <p>
+            Star Labs' new 16" Linux-first laptop landed and the comment section did what HN does — itemised the keyboard layout, the user-replaceable battery, the coreboot firmware status, and the AMD Ryzen AI 9 HX 370 thermals against a clamshell that is supposedly thinner than the 14" predecessor. The bigger story is the Linux-laptop market itself, which after a decade of "almost there" suddenly has three credible vendors shipping flagship 16" hardware in 2026.
+          </p>
+          <div class="links"><a href="https://news.ycombinator.com/item?id=48031261" target="_blank" rel="noopener">HN thread →</a></div>
+        </div>
+      </div>
+
+      <div class="hn-item">
+        <div class="ord">04</div>
+        <div>
+          <h3>Agents can now create Cloudflare accounts, buy domains, and deploy</h3>
+          <div class="hn-meta"><span class="pts">364 points</span> · 203 comments · blog.cloudflare.com</div>
+          <p>
+            Source post for Spread No. 4. The HN discussion is split between people building autonomous web-spawning systems and people pointing out, at length, that an agent with a Stripe credential and a deploy hook is the perfect substrate for a worm. Worth the read for the reply chain on rate-limits, abuse heuristics, and what Cloudflare's own AI-detection layer means now that the prompt and the deployer are the same entity.
+          </p>
+          <div class="links"><a href="https://news.ycombinator.com/item?id=48031684" target="_blank" rel="noopener">HN thread →</a></div>
+        </div>
+      </div>
+
+      <div class="hn-item">
+        <div class="ord">05</div>
+        <div>
+          <h3>Write some software, give it away for free</h3>
+          <div class="hn-meta"><span class="pts">277 points</span> · 187 comments · nonogra.ph</div>
+          <p>
+            A short essay arguing that releasing small, useful, unmonetized software in 2026 is the cheapest creative practice an engineer has — and that the AI shift has, paradoxically, made the act more meaningful: a working tool that does one thing well now reads like a craft object next to LLM-generated app slop. The thread fills with names of tools the commenters built and gave away last year. Mood reading for an industry currently being told everything has to be a startup.
+          </p>
+          <div class="links"><a href="https://news.ycombinator.com/item?id=48028842" target="_blank" rel="noopener">HN thread →</a></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── ARCHITECTURE IN THE WILD ─────────────────────────── -->
+    <section class="arch">
+      <div class="arch-stamp">Architecture in the wild<span class="dot"> ●</span> Feature spread</div>
+      <h2>Cloudflare's seven-reviewer code review pipeline, by the numbers.</h2>
+      <div class="arch-byline">Ryan Skidmore · Cloudflare engineering blog · April 20, 2026</div>
+      <p class="arch-body first">
+        Skidmore's post is the rare engineering writeup that names the prompts, the models, the dollar costs, the percentile timings, and the things they deliberately don't do. The system is a CI-native orchestrator built on OpenCode that sits in the merge-request pipeline and spawns up to seven specialised reviewers — security, performance, code quality, documentation, release management, compliance, and an AGENTS.md-validation agent — each running as its own OpenCode session under a coordinator process. The coordinator (Claude Opus 4.7 or GPT-5.4, depending on routing) reads the JSONL output stream, dedupes findings across reviewers, filters false positives, and then makes a single approve / request-changes decision against an explicit rubric. The standard reviewers run on Sonnet 4.6 or GPT-5.3 Codex; the lightweight text-heavy paths run on Kimi K2.5. Every model assignment lives in a Workers KV blob, so model swaps happen without redeploys.
+      </p>
+      <p class="arch-body">
+        The risk-tiering logic is where the system gets cheap. Diffs ≤10 lines run two agents at ~$0.20 per review; diffs ≤100 lines run four at ~$0.67; anything bigger gets the full seven-agent treatment at ~$1.68. Across 131,246 review runs over a thirty-day window (March 10 to April 9, 2026, against 48,095 merge requests in 5,169 repos), the median review took 3 minutes 39 seconds, the average cost was $1.19, and engineers used the "break glass" approval override on just 0.6% of MRs. Token spend was 120 billion processed at an 85.7% cache hit rate — the cache layer is what makes the pricing remotely sane.
+      </p>
+      <p class="arch-pull">
+        "Telling an LLM what <em>not</em> to do is where the actual prompt engineering value resides."
+        <span class="who">— Ryan Skidmore, Cloudflare</span>
+      </p>
+      <p class="arch-body">
+        The piece's most useful contribution to the LLM-in-CI literature is its essay-length section on <em>signal-over-noise</em>. Each reviewer prompt has an explicit "What NOT to flag" list — speculative warnings, cosmetic nits, defensive-programming wishlists — designed to drag findings-per-review from ten-plus down to about 1.2 (it worked: 159,103 total findings across 131k runs). Single warnings don't block merges; only critical items or detected risk patterns do. Diffs are pre-filtered server-side to strip lock files, vendored dependencies, minified assets, and generated code (migrations excepted). And shared context — the diff itself, the AGENTS.md, the surrounding files — is written to disk once per review session rather than embedded into every sub-reviewer's prompt, killing the 7x token multiplication that naïve fan-out would impose.
+      </p>
+      <p class="arch-body">
+        For anyone scoping an LLM code reviewer of their own: the architecture lessons here are model-tiering by risk, deduplication via a coordinator instead of in the prompt, KV-driven model routing for outage resilience, and — above all — that prompts succeed by what they suppress. Worth the dwell time.
+      </p>
+      <div class="source">
+        <span>Source</span>
+        <a href="https://blog.cloudflare.com/ai-code-review/" target="_blank" rel="noopener">Cloudflare blog</a>
+      </div>
+    </section>
+
+    <footer>
+      <span>Morning Edition · Vol. I · No. 15 · Wednesday, May 6, 2026</span>
+      <span><a href="../index.html">← The newsstand</a></span>
+    </footer>
+  </div>
+</body>
+</html>
