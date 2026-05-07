@@ -1,0 +1,745 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Morning Edition · Vol. I · No. 16 — The Wallet Layer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,500;1,9..144,700;1,9..144,900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    :root {
+      --bg: #ece3d0;
+      --fg: #14140f;
+      --muted: #7a7465;
+      --rule: #14140f;
+      --accent: #e24b4b;
+      --rose: #f0c7c1;
+      --rose-deep: #b8392e;
+      --cream: #f5ecd8;
+      --paper: #efe6d2;
+      --night: #111110;
+      --night-fg: #ece3d0;
+      --night-muted: rgba(236, 227, 208, 0.55);
+      --sand: #ddd1b8;
+      --sand-deep: #6a5b3e;
+      --olive: #2d3221;
+      --olive-fg: #e8e4d3;
+      --terminal-bg: #0e1410;
+      --terminal-fg: #c8e7c0;
+      --terminal-accent: #7df18a;
+      --slate: #1a2230;
+      --slate-fg: #d8e1ec;
+      --slate-accent: #f6c177;
+      --gold: #e4b660;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--fg);
+      font-family: "Fraunces", Georgia, "Times New Roman", serif;
+      font-optical-sizing: auto;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+    a { color: inherit; }
+    .page { max-width: 1180px; margin: 0 auto; padding: 3rem 2rem 5rem; }
+
+    .pretitle {
+      font-family: "JetBrains Mono", ui-monospace, monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.9rem;
+      margin-bottom: 1.4rem;
+    }
+    .pretitle .dotsep { color: var(--accent); }
+    .masthead {
+      border-bottom: 1.5px solid var(--rule);
+      padding-bottom: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .title {
+      font-family: "Fraunces", serif;
+      font-weight: 900;
+      font-size: clamp(3rem, 8.5vw, 6.75rem);
+      line-height: 0.92;
+      letter-spacing: -0.035em;
+      margin: 0;
+    }
+    .title .line { display: block; }
+    .title .edition { color: var(--accent); font-style: italic; }
+    .title .edition .dot { color: var(--fg); font-style: normal; }
+    .deck {
+      font-family: "Fraunces", serif;
+      font-style: italic;
+      font-size: clamp(1.1rem, 1.7vw, 1.45rem);
+      max-width: 60ch;
+      margin: 1.6rem 0 0;
+      line-height: 1.5;
+      color: var(--fg);
+    }
+    .meta {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      padding: 1.4rem 0 0.4rem;
+      border-bottom: 1.5px solid var(--rule);
+      margin-bottom: 3rem;
+    }
+    .meta .label {
+      font-family: "JetBrains Mono", ui-monospace, monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-bottom: 0.4rem;
+    }
+    .meta .value { font-size: 1rem; font-weight: 700; }
+    .meta .value.italic { font-style: italic; font-weight: 400; }
+    @media (max-width: 720px) { .meta { grid-template-columns: 1fr 1fr; } }
+
+    .spread {
+      border-radius: 12px;
+      padding: clamp(1.75rem, 3.5vw, 3rem);
+      margin-bottom: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .ord {
+      font-family: "Fraunces", serif;
+      font-style: italic;
+      font-weight: 900;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      line-height: 0.9;
+      color: var(--accent);
+    }
+    .kicker {
+      font-family: "JetBrains Mono", ui-monospace, monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+    .for-you {
+      display: inline-block;
+      font-family: "JetBrains Mono", ui-monospace, monospace;
+      font-size: 0.66rem;
+      letter-spacing: 0.22em;
+      padding: 0.25rem 0.55rem;
+      border: 1.5px solid var(--accent);
+      color: var(--accent);
+      margin-left: 0.6rem;
+      vertical-align: 0.18em;
+    }
+    .h-title {
+      font-family: "Fraunces", serif;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.04;
+      margin: 0.5rem 0 1rem;
+    }
+    .body {
+      font-family: "Fraunces", serif;
+      font-size: 1.13rem;
+      line-height: 1.55;
+      max-width: 60ch;
+      margin: 0 0 1rem;
+    }
+    .source {
+      font-family: "JetBrains Mono", ui-monospace, monospace;
+      font-size: 0.74rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 1.25rem;
+      display: flex;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+    }
+    .source a { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent); }
+
+    /* HERO */
+    .hero {
+      background: var(--paper);
+      border: 1.5px solid var(--rule);
+      padding-top: clamp(2rem, 4vw, 3.25rem);
+    }
+    .hero .ord { font-size: clamp(3.5rem, 7vw, 5.5rem); margin-bottom: 0.3rem; }
+    .hero .h-title { font-size: clamp(2.25rem, 5.2vw, 4rem); font-weight: 900; }
+
+    /* TERMINAL */
+    .terminal {
+      background: var(--terminal-bg);
+      color: var(--terminal-fg);
+      font-family: "JetBrains Mono", ui-monospace, monospace;
+      border: 1.5px solid #1c2a1f;
+    }
+    .terminal .term-bar { display: flex; gap: 0.4rem; margin-bottom: 1.25rem; align-items: center; }
+    .terminal .term-bar i { width: 0.7rem; height: 0.7rem; border-radius: 50%; background: #2a3a2c; display: inline-block; }
+    .terminal .term-bar span { font-size: 0.7rem; letter-spacing: 0.18em; color: #4f6a52; margin-left: 0.6rem; }
+    .terminal .ord { color: var(--terminal-accent); font-family: "Fraunces", serif; }
+    .terminal .h-title { font-family: "JetBrains Mono", monospace; font-size: clamp(1.55rem, 3vw, 2.3rem); font-weight: 600; color: var(--terminal-fg); }
+    .terminal .body { font-family: "JetBrains Mono", monospace; font-size: 1rem; color: #a4c4a0; }
+    .terminal .body .cmd { color: var(--terminal-accent); }
+    .terminal .source { color: #4f6a52; }
+    .terminal .source a { color: var(--terminal-accent); border-bottom-color: var(--terminal-accent); }
+
+    /* NIGHT */
+    .night { background: var(--night); color: var(--night-fg); }
+    .night .kicker { color: var(--night-muted); }
+    .night .ord { color: var(--accent); }
+    .night .h-title { font-size: clamp(2rem, 4.4vw, 3.4rem); color: var(--night-fg); }
+    .night .source { color: var(--night-muted); }
+    .night .source a { color: var(--accent); border-bottom-color: var(--accent); }
+
+    /* ROSE */
+    .rose { background: var(--rose); border: 1.5px solid var(--rose-deep); }
+    .rose .ord { color: var(--rose-deep); }
+    .rose .stamp {
+      position: absolute; top: 1.2rem; right: 1.2rem;
+      font-family: "JetBrains Mono", ui-monospace, monospace;
+      font-size: 0.7rem; letter-spacing: 0.2em;
+      color: var(--rose-deep); border: 1.5px solid var(--rose-deep);
+      padding: 0.3rem 0.6rem; transform: rotate(3deg);
+    }
+    .rose .h-title { font-size: clamp(2rem, 4.4vw, 3.2rem); color: var(--rose-deep); }
+    .rose .body { color: #4a1810; }
+    .rose .for-you { border-color: var(--rose-deep); color: var(--rose-deep); }
+    .rose .source { color: #6e2b22; }
+    .rose .source a { color: var(--rose-deep); border-bottom-color: var(--rose-deep); }
+
+    /* NEWSPRINT */
+    .newsprint { background: #f4ebd5; border: 1.5px solid var(--rule); }
+    .newsprint .h-title { font-size: clamp(1.85rem, 4vw, 2.85rem); }
+    .newsprint .columns { column-count: 2; column-gap: 2rem; max-width: none; font-size: 1.05rem; line-height: 1.55; }
+    .newsprint .columns p { margin: 0 0 0.8rem; break-inside: avoid; }
+    @media (max-width: 720px) { .newsprint .columns { column-count: 1; } }
+
+    /* ACADEMIC */
+    .academic {
+      background: var(--cream);
+      border: 1.5px solid var(--rule);
+      padding-top: clamp(2rem, 3.5vw, 2.75rem);
+    }
+    .academic .ord { font-size: clamp(3rem, 6vw, 4.5rem); }
+    .academic .h-title { font-size: clamp(1.8rem, 3.8vw, 2.85rem); font-weight: 700; }
+    .academic .body.first::first-letter {
+      font-family: "Fraunces", serif; font-weight: 900;
+      font-size: 4.6rem; line-height: 0.85;
+      float: left; margin: 0.35rem 0.6rem 0 0;
+      color: var(--accent);
+    }
+
+    /* BIG-STAT */
+    .stat { background: var(--olive); color: var(--olive-fg); }
+    .stat .kicker { color: rgba(232, 228, 211, 0.55); }
+    .stat .ord { color: var(--slate-accent); }
+    .stat .h-title { color: var(--olive-fg); font-size: clamp(1.85rem, 4vw, 2.85rem); }
+    .stat .big-number {
+      font-family: "Fraunces", serif; font-weight: 900; font-style: italic;
+      color: var(--slate-accent);
+      font-size: clamp(5rem, 13vw, 9.5rem);
+      line-height: 0.9; letter-spacing: -0.04em;
+      margin: 1.5rem 0 0.5rem;
+    }
+    .stat .big-cap {
+      font-family: "JetBrains Mono", ui-monospace, monospace;
+      font-size: 0.82rem; letter-spacing: 0.16em;
+      color: rgba(232, 228, 211, 0.7); max-width: 40ch;
+    }
+    .stat .body { color: var(--olive-fg); }
+    .stat .source { color: rgba(232, 228, 211, 0.55); }
+    .stat .source a { color: var(--slate-accent); border-bottom-color: var(--slate-accent); }
+    .stat .for-you { color: var(--slate-accent); border-color: var(--slate-accent); }
+
+    /* SLATE */
+    .slate-bg { background: var(--slate); color: var(--slate-fg); }
+    .slate-bg .kicker { color: rgba(216, 225, 236, 0.55); }
+    .slate-bg .ord { color: var(--slate-accent); }
+    .slate-bg .h-title { color: var(--slate-fg); font-size: clamp(2rem, 4.4vw, 3.2rem); }
+    .slate-bg .body { color: rgba(216, 225, 236, 0.9); }
+    .slate-bg .source { color: rgba(216, 225, 236, 0.5); }
+    .slate-bg .source a { color: var(--slate-accent); border-bottom-color: var(--slate-accent); }
+
+    /* SAND */
+    .sand { background: var(--sand); border: 1.5px solid var(--sand-deep); }
+    .sand .ord { color: var(--sand-deep); font-style: italic; }
+    .sand .h-title { color: #2c2515; font-size: clamp(2rem, 4.4vw, 3.1rem); }
+    .sand .kicker { color: var(--sand-deep); }
+    .sand .body { color: #2c2515; }
+
+    /* DARK-GOLD */
+    .dark-gold { background: #131614; color: #ece3d0; border: 1px solid #1f2520; }
+    .dark-gold .kicker { color: rgba(228, 182, 96, 0.7); }
+    .dark-gold .ord { color: var(--gold); }
+    .dark-gold .h-title { font-size: clamp(2rem, 4.4vw, 3.2rem); color: #f3eadb; }
+    .dark-gold .body { color: rgba(243, 234, 219, 0.86); }
+    .dark-gold .source { color: rgba(243, 234, 219, 0.5); }
+    .dark-gold .source a { color: var(--gold); border-bottom-color: var(--gold); }
+    .dark-gold .pull-orbit {
+      font-family: "Fraunces", serif; font-style: italic;
+      font-size: clamp(1.35rem, 2.6vw, 1.95rem);
+      line-height: 1.3; color: var(--gold);
+      max-width: 40ch; border-left: 2px solid var(--gold);
+      padding-left: 1.1rem; margin: 1.4rem 0 1.6rem;
+    }
+
+    /* HN */
+    .hn { background: #f4ebd5; border: 1.5px solid var(--rule); padding: clamp(2rem, 4vw, 3rem); margin-bottom: 2rem; }
+    .hn-head {
+      display: flex; align-items: baseline; justify-content: space-between;
+      border-bottom: 1.5px solid var(--rule);
+      padding-bottom: 1rem; margin-bottom: 2rem;
+      flex-wrap: wrap; gap: 1rem;
+    }
+    .hn-head .label { font-family: "JetBrains Mono", monospace; font-size: 0.78rem; letter-spacing: 0.22em; text-transform: uppercase; }
+    .hn-head .label .dot { color: var(--accent); }
+    .hn-head .sub { font-family: "Fraunces", serif; font-style: italic; color: var(--muted); font-size: 1.05rem; }
+    .hn-item {
+      display: grid; grid-template-columns: 5.5rem 1fr; gap: 1.5rem;
+      padding: 1.6rem 0; border-bottom: 1px dashed rgba(20, 20, 15, 0.25);
+    }
+    .hn-item:last-child { border-bottom: none; }
+    .hn-item .ord { font-style: italic; font-weight: 900; font-size: 3.6rem; line-height: 0.9; color: var(--accent); }
+    .hn-item h3 {
+      font-family: "Fraunces", serif; font-weight: 700;
+      font-size: clamp(1.45rem, 2.4vw, 1.95rem);
+      line-height: 1.1; letter-spacing: -0.015em; margin: 0 0 0.6rem;
+    }
+    .hn-meta { font-family: "JetBrains Mono", monospace; font-size: 0.78rem; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 0.8rem; }
+    .hn-meta .pts { color: var(--accent); font-weight: 600; }
+    .hn-item p { font-family: "Fraunces", serif; font-size: 1.04rem; line-height: 1.55; margin: 0 0 0.7rem; max-width: 64ch; }
+    .hn-item .links a {
+      font-family: "JetBrains Mono", monospace; font-size: 0.74rem;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--accent); text-decoration: none;
+      border-bottom: 1px solid var(--accent); margin-right: 1rem;
+    }
+    @media (max-width: 640px) {
+      .hn-item { grid-template-columns: 1fr; gap: 0.5rem; }
+      .hn-item .ord { font-size: 2.6rem; }
+    }
+
+    /* Architecture in the Wild */
+    .arch { background: #f5ecd8; border: 1.5px solid var(--rule); padding: clamp(2rem, 4.5vw, 3.5rem); margin-bottom: 2rem; }
+    .arch-stamp {
+      font-family: "JetBrains Mono", monospace; font-size: 0.72rem;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 0.7rem;
+    }
+    .arch-stamp .dot { color: var(--accent); }
+    .arch h2 {
+      font-family: "Fraunces", serif; font-weight: 700;
+      font-size: clamp(2.25rem, 5.2vw, 3.85rem);
+      line-height: 1.02; letter-spacing: -0.025em;
+      margin: 0.5rem 0 1rem; max-width: 22ch;
+    }
+    .arch-byline {
+      font-family: "JetBrains Mono", monospace; font-size: 0.78rem;
+      letter-spacing: 0.14em; color: var(--muted);
+      margin-bottom: 1.6rem; padding-bottom: 1rem;
+      border-bottom: 1.5px solid var(--rule);
+    }
+    .arch-body { font-family: "Fraunces", serif; font-size: 1.15rem; line-height: 1.6; max-width: 62ch; }
+    .arch-body.first::first-letter {
+      font-family: "Fraunces", serif; font-weight: 900;
+      font-size: 5rem; line-height: 0.85;
+      float: left; margin: 0.35rem 0.65rem 0 0;
+      color: var(--accent);
+    }
+    .arch-pull {
+      font-family: "Fraunces", serif; font-style: italic;
+      font-size: clamp(1.4rem, 2.8vw, 2.1rem);
+      line-height: 1.3;
+      border-top: 1.5px solid var(--rule);
+      border-bottom: 1.5px solid var(--rule);
+      padding: 1.4rem 0; margin: 2rem 0; max-width: 52ch;
+    }
+    .arch-pull .who {
+      display: block; margin-top: 0.6rem;
+      font-style: normal;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 0.78rem; letter-spacing: 0.14em;
+      color: var(--muted);
+    }
+    .arch .source { margin-top: 1.6rem; }
+
+    footer {
+      margin-top: 4rem; padding-top: 1.5rem;
+      border-top: 1.5px solid var(--rule);
+      display: flex; justify-content: space-between;
+      flex-wrap: wrap; gap: 1rem;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 0.74rem; letter-spacing: 0.14em; color: var(--muted);
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+
+    @media (max-width: 640px) {
+      .page { padding: 2rem 1.25rem 4rem; }
+      .pretitle { gap: 0.5rem; font-size: 0.66rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="masthead">
+      <div class="pretitle">
+        <span>Morning Edition</span>
+        <span class="dotsep">●</span>
+        <span>Vol. I · No. 16</span>
+        <span class="dotsep">●</span>
+        <span>Thursday · May 7, 2026</span>
+        <span class="dotsep">●</span>
+        <span>For Aziz</span>
+      </div>
+      <h1 class="title">
+        <span class="line">The Wallet</span>
+        <span class="line edition">Layer<span class="dot">.</span></span>
+      </h1>
+      <p class="deck">
+        Twelve spreads on the day money started flowing through the agents. Stripe shipped 288 launches at Sessions — a Machine Payments Protocol, Link agent wallets, and a Universal Commerce Protocol with Google. OpenAI quietly swapped every ChatGPT user onto GPT-5.5 Instant: 52% fewer hallucinations, 30% fewer words, far fewer emojis. Zed hit 1.0 with parallel agents and DeltaDB. Simon Willison admits his vibe-coding agents have crossed into agentic engineering territory whether he likes it or not. Architecture anchor: how Cloudflare's resolver kept .de domains resolving when DENIC published broken DNSSEC signatures during a routine key rollover.
+      </p>
+    </header>
+
+    <section class="meta">
+      <div><div class="label">Issue</div><div class="value">No. 16</div></div>
+      <div><div class="label">Spreads</div><div class="value">12</div></div>
+      <div><div class="label">For You stamps</div><div class="value italic">Seven</div></div>
+      <div><div class="label">Window</div><div class="value italic">Last 72 hours</div></div>
+    </section>
+
+    <!-- 01 — HERO — Stripe Sessions agent payments -->
+    <article class="spread hero">
+      <div class="ord">01</div>
+      <div class="kicker">The Payments Beat <span class="for-you">FOR YOU</span></div>
+      <h2 class="h-title">Stripe ships 288 launches at Sessions — and the one to watch is the agent's wallet.</h2>
+      <p class="body">
+        Stripe spent its keynote on May 6 telling the world it intends to be the bank for software that buys things. The Machine Payments Protocol (MPP), co-authored with Tempo, gives agents a programmatic surface for microtransactions and recurring charges. Link's agent wallet hands a model a one-time-use card per task, with spending caps and full purchase visibility kept on the human side. The Agentic Commerce Suite, expanded with Meta and Google partnerships, now lets businesses upload a product catalog and let agents transact against it from the dashboard. Patrick Collison framed it sharply: "if AI can solve Nobel-level physics problems but can't buy a domain, something's gone wrong."
+      </p>
+      <p class="body">
+        The bigger structural move is the Universal Commerce Protocol (UCP) — a Stripe-and-Google standard that lets agents buy products surfaced inside Gemini and AI Mode. Pair this with Stripe Projects (now 32 partners including Cloudflare, Vercel, Supabase, Hugging Face, and Render) and the picture is clear: the entire commerce layer is being rebuilt as a federation of payment-aware APIs that any agent with an attested identity can call. If your product accepts money on the internet today, plan a roadmap line for "what does the agent integration look like."
+      </p>
+      <div class="source">
+        <span>Source</span>
+        <a href="https://stripe.com/blog/everything-we-announced-at-sessions-2026" target="_blank" rel="noopener">Stripe blog</a>
+        <a href="https://stripe.com/newsroom/news/sessions-2026" target="_blank" rel="noopener">Stripe newsroom</a>
+        <a href="https://www.paymentsdive.com/news/stripe-google-partner-on-agentic-commerce/818915/" target="_blank" rel="noopener">Payments Dive</a>
+      </div>
+    </article>
+
+    <!-- 02 — TERMINAL — GPT-5.5 Instant default -->
+    <article class="spread terminal">
+      <div class="term-bar"><i></i><i></i><i></i><span>~/openai/chatgpt $</span></div>
+      <div class="ord">02</div>
+      <div class="kicker" style="color:#4f6a52;">The Default-Model Beat <span class="for-you">FOR YOU</span></div>
+      <h2 class="h-title">$ openai swap-default --to gpt-5.5-instant --emoji-rate -29% --rolling 100%</h2>
+      <p class="body">
+        <span class="cmd">&gt;</span> OpenAI replaced ChatGPT's default model on May 5 without a launch event. GPT-5.5 Instant produces 52.5% fewer hallucinated claims than GPT-5.3 Instant on high-stakes prompts in medicine, law, and finance, and 37.3% fewer factual errors on user-flagged conversations.
+      </p>
+      <p class="body">
+        <span class="cmd">&gt;</span> Replies now use 30.2% fewer words and 29.2% fewer lines. The patch notes specifically call out "gratuitous emojis" as a regression OpenAI fixed. Plus and Pro users get retrieval over past chats, files, and Gmail when the model decides to invoke the search tool.
+      </p>
+      <p class="body">
+        <span class="cmd">&gt;</span> A new Memory Sources panel ships across all models — every personalized answer now exposes the artifact it pulled from, and you can correct or delete any source. GPT-5.3 Instant stays accessible in model settings for three months before retirement. If your prompts assume the old verbosity, expect to reshape them.
+      </p>
+      <div class="source">
+        <span>$ src</span>
+        <a href="https://openai.com/index/gpt-5-5-instant/" target="_blank" rel="noopener">OpenAI</a>
+        <a href="https://techcrunch.com/2026/05/05/openai-releases-gpt-5-5-instant-a-new-default-model-for-chatgpt/" target="_blank" rel="noopener">TechCrunch</a>
+        <a href="https://9to5mac.com/2026/05/05/gpt-5-5-instant-makes-chatgpt-more-accurate-while-nixing-gratuitous-emojis/" target="_blank" rel="noopener">9to5Mac</a>
+      </div>
+    </article>
+
+    <!-- 03 — NIGHT — Zed 1.0 -->
+    <article class="spread night">
+      <div class="ord">03</div>
+      <div class="kicker">The Editor Beat <span class="for-you">FOR YOU</span></div>
+      <h2 class="h-title">After five years, Zed reaches 1.0 — with parallel agents and a CRDT-backed code sync engine.</h2>
+      <p class="body">
+        Zed shipped 1.0 on April 29 after a development cycle that started in 2021. The headline addition for an agent-heavy workflow is parallel agents — multiple Claude or DeepSeek instances running in the same window without stepping on each other's diffs. The release also lands Zed for Business (centralized billing and team management), bookmarks, a git commit-palette action, and a "disable all AI features" toggle for the offline crowd. Mac, Windows, and Linux ship at parity for the first time.
+      </p>
+      <p class="body">
+        The more interesting preview is DeltaDB — a CRDT sync engine built to give humans and agents a shared, real-time view of the codebase. The premise is that conflict-free replication, originally a collaboration trick, becomes an architectural primitive once your collaborator is also a model. DeepSeek-V4-Pro, DeepSeek-V4-Flash, Claude Opus 4.7 (BYOK), and Cursor itself (as an external ACP agent) round out the model menu. If you've been juggling Claude Code in a terminal next to a separate IDE, the gap just closed.
+      </p>
+      <div class="source">
+        <span>Source</span>
+        <a href="https://zed.dev/blog/zed-1-0" target="_blank" rel="noopener">Zed blog</a>
+        <a href="https://zed.dev/releases/stable/1.0.0" target="_blank" rel="noopener">Release notes</a>
+        <a href="https://www.phoronix.com/news/Zed-1.0-Released" target="_blank" rel="noopener">Phoronix</a>
+      </div>
+    </article>
+
+    <!-- 04 — ROSE — Simon Willison vibe coding -->
+    <article class="spread rose">
+      <div class="stamp">Sharp shift</div>
+      <div class="ord">04</div>
+      <div class="kicker">The Discipline Beat <span class="for-you">FOR YOU</span></div>
+      <h2 class="h-title">Simon Willison: vibe coding and agentic engineering are getting closer than I'd like.</h2>
+      <p class="body">
+        Willison's May 6 post rethinks his own taxonomy. He once drew a clean line: vibe coding (build with AI, ship without reading) was for throwaways; agentic engineering (build with AI, review every line) was the professional posture. He now admits he treats sufficiently capable agents the way he'd treat a trusted team — as a "semi-black box" he doesn't fully inspect unless something breaks. Commit history, docstrings, and tests can all be generated, so they no longer signal quality the way they used to.
+      </p>
+      <p class="body">
+        His new heuristic: usage history beats artifact quality. "If you've got a vibe-coded thing you've used every day for the past two weeks, that's much more valuable" than a polished PR with a green test suite that no one has actually run in production. The piece is worth reading because it's the first time Willison — one of the most careful AI users in public — is conceding that his own diligence has slipped, and he doesn't think that's necessarily wrong. Read it next to the HN-trending "Appearing productive in the workplace" piece below for the counter-argument.
+      </p>
+      <div class="source">
+        <span>Source</span>
+        <a href="https://simonwillison.net/2026/May/6/vibe-coding-and-agentic-engineering/" target="_blank" rel="noopener">Simon Willison</a>
+        <a href="https://news.ycombinator.com/item?id=48037128" target="_blank" rel="noopener">HN discussion</a>
+      </div>
+    </article>
+
+    <!-- 05 — ACADEMIC — Cloudflare Agents Week recap -->
+    <article class="spread academic">
+      <div class="ord">05</div>
+      <div class="kicker">The Platform Beat <span class="for-you">FOR YOU</span></div>
+      <h2 class="h-title">Cloudflare's "Cloud 2.0" thesis: when the workload is millions of agents, traditional cloud is the wrong shape.</h2>
+      <p class="body first">
+        Cloudflare's Agents Week roundup, refreshed this week, is the clearest articulation yet of what changes when agents — not user sessions — are the dominant unit of work. The argument: a cloud built for "one app, many users" doesn't survive millions of short-lived models that each spin up persistent state, run shell commands, and tear themselves down. The five layers Cloudflare just rebuilt around that premise: <em>compute</em> (Sandboxes GA, Durable Objects with SQLite per app, Workflows v2 at 50,000 concurrent executions); <em>state</em> (Artifacts, a git-compatible versioned store sized for tens of millions of repos); <em>security</em> (Cloudflare Mesh + Workers VPC for scoped agent access; Managed OAuth with RFC 9728 for non-human identities; an MCP Governance reference architecture); <em>tooling</em> (Project Think SDK bundling inference, memory, voice, email; Browser Run with 4× concurrency); and <em>DX</em> (one unified <code>cf</code> CLI across roughly 3,000 API operations).
+      </p>
+      <p class="body">
+        Read this alongside yesterday's Cloudflare-Stripe agent provisioning protocol and the picture sharpens: the network providers are claiming the agent runtime layer the same way they claimed the DDoS layer a decade ago. If you're shipping agents into production, the question is no longer "do I need a sandbox?" — it's "do I run my own, or do I rent the abstraction?"
+      </p>
+      <div class="source">
+        <span>Source</span>
+        <a href="https://blog.cloudflare.com/agents-week-in-review/" target="_blank" rel="noopener">Cloudflare blog</a>
+      </div>
+    </article>
+
+    <!-- 06 — BIG-STAT — SWE-bench leaderboard -->
+    <article class="spread stat">
+      <div class="ord">06</div>
+      <div class="kicker">The Benchmark Beat <span class="for-you">FOR YOU</span></div>
+      <h2 class="h-title">The SWE-bench leaderboard, refreshed this week, has a new ceiling — and a new floor.</h2>
+      <div class="big-number">93.9%</div>
+      <div class="big-cap">Claude Mythos Preview · SWE-bench Verified · top of the leaderboard, May 5, 2026</div>
+      <p class="body" style="margin-top:1.75rem;">
+        Anthropic's unreleased Mythos preview now sits at 93.9% on SWE-bench Verified, ahead of Opus 4.7 (Adaptive) at 87.6% and GPT-5.3 Codex at 85%. That's the ceiling. The floor is more interesting: SWE-bench Pro — built explicitly to defeat the saturation of Verified — has top models around 23%, against the 70%+ they post on the older split. Verified is also getting harder by attrition: SWE-bench-Live now adds 50 freshly verified issues every month while keeping the lite/verified splits frozen for fair comparison.
+      </p>
+      <p class="body">
+        The signal for an architect: the gap between leaderboard and on-the-job is widening, not closing. Two-thirds of what makes Pro hard is what makes real engineering hard — codebase scale, ambiguous bug reports, cross-file refactors. If your AI eval pipeline still anchors on Verified, you're calibrating against a benchmark the field has already moved past.
+      </p>
+      <div class="source">
+        <span>Source</span>
+        <a href="https://www.swebench.com/" target="_blank" rel="noopener">SWE-bench</a>
+        <a href="https://labs.scale.com/leaderboard/swe_bench_pro_public" target="_blank" rel="noopener">SWE-bench Pro · Scale</a>
+        <a href="https://swe-bench-live.github.io/" target="_blank" rel="noopener">SWE-bench-Live</a>
+      </div>
+    </article>
+
+    <!-- 07 — SAND — Quantum exotic matter -->
+    <article class="spread sand">
+      <div class="ord">07</div>
+      <div class="kicker">The Weird-Science Beat</div>
+      <h2 class="h-title">Time-driven quantum phases: matter that exists only because you keep poking it.</h2>
+      <p class="body">
+        A team at Cal Poly led by physicist Ian Powell and student Louis Buchalter, in a paper published in <em>Physical Review B</em> on May 4, showed that timed magnetic kicks can drive a material into a quantum state that has no static-field analogue. The phase exists only while the system is being driven; remove the field and it relaxes back to ordinary matter. "Useful quantum properties," Powell put it, "can depend not just on what a material is, but on how it is driven in time."
+      </p>
+      <p class="body">
+        The applied hook is qubit stability. Static topological qubits have been the field's preferred path to error-resistant computation, but they're hard to fabricate. A driven phase, in principle, lets you engineer the same robustness from a more ordinary substrate by choosing the drive protocol — software-defined matter, in the most literal sense. Years of replication and experimental hardware between paper and product, but the conceptual move is the kind the textbooks eventually catch.
+      </p>
+      <div class="source">
+        <span>Source</span>
+        <a href="https://www.sciencedaily.com/releases/2026/05/260504154014.htm" target="_blank" rel="noopener">ScienceDaily</a>
+      </div>
+    </article>
+
+    <!-- 08 — NEWSPRINT — Steam Controller CAD -->
+    <article class="spread newsprint">
+      <div class="ord">08</div>
+      <div class="kicker">The Open-Hardware Beat</div>
+      <h2 class="h-title">Valve releases the Steam Controller's shell as CAD, under Creative Commons.</h2>
+      <div class="columns">
+        <p>The new Steam Controller sold out within days of its May 4 launch. Valve's response, on May 6, was to open-source the device's outer shell. The release covers the controller and its companion Puck — the magnetic charging dock that doubles as a 2.4 GHz wireless receiver — as STP and STL files, plus engineering diagrams that mark the antenna keep-out zones the device needs to function.</p>
+        <p>The license is CC BY-NC-SA 4.0: share, modify, attribute Valve, no commercial use, derivative works under the same terms. An addendum at the top of the license file invites anyone with commercial intent to talk to Valve directly. The internals stay proprietary — you're not 3D-printing a working controller from scratch — but skins, grip extensions, charging stands, smartphone mounts, and accessibility mods are all suddenly fair game.</p>
+        <p>The strategic read is that Valve is treating modder communities the way it once treated Counter-Strike modders: as a free product team. Dropping CAD a week after a launch that already sold out is not an apology for stockouts. It's a way to ensure the controller has an aftermarket ecosystem before the second batch even ships.</p>
+      </div>
+      <div class="source">
+        <span>Source</span>
+        <a href="https://store.steampowered.com/news/group/45479024/view/702141174212723352" target="_blank" rel="noopener">Steam News</a>
+        <a href="https://www.tomshardware.com/peripherals/controllers-gamepads/steam-controller-and-puck-cad-files-officially-released-under-a-creative-commons-license-valve-encourages-users-to-create-accessories-for-the-device" target="_blank" rel="noopener">Tom's Hardware</a>
+        <a href="https://news.ycombinator.com/item?id=48037555" target="_blank" rel="noopener">HN discussion</a>
+      </div>
+    </article>
+
+    <!-- 09 — SLATE — Stargate UK paused / AMD-OpenAI -->
+    <article class="spread slate-bg">
+      <div class="ord">09</div>
+      <div class="kicker">The Capacity Beat</div>
+      <h2 class="h-title">Stargate UK pauses, Stargate Abilene scales back, and AMD takes 6 GW of OpenAI's next phase.</h2>
+      <p class="body">
+        OpenAI paused its multi-billion-pound Stargate UK datacenter this week, citing UK energy costs and regulation. The Abilene, Texas campus — the original Stargate flagship — quietly walked back its expansion from 1.2 GW to a planned 2.0 GW after financing terms collapsed, though the existing 64,000-GB200 deployment is still on track for end of 2026. Microsoft, meanwhile, picked up data-center capacity in Narvik, Norway that had originally been earmarked for Stargate.
+      </p>
+      <p class="body">
+        The supplier story is the louder one. Meta committed to a 6 GW, up-to-$60B AMD deal in February covering custom MI450-based GPUs. OpenAI followed: also 6 GW of next-gen capacity from AMD, plus warrants for up to 160 million AMD shares — meaningful equity in exchange for guaranteed offtake. Vera Rubin from Nvidia and OpenAI's first custom "Titan" silicon are both on schedule for second-half 2026. The AI buildout isn't slowing; it's reshuffling. Single-vendor dependency on Nvidia is, finally, breaking.
+      </p>
+      <div class="source">
+        <span>Source</span>
+        <a href="https://www.datacenterknowledge.com/data-center-construction/new-data-center-developments-may-2026" target="_blank" rel="noopener">Data Center Knowledge</a>
+        <a href="https://www.cnbc.com/2026/02/17/meta-nvidia-deal-ai-data-center-chips.html" target="_blank" rel="noopener">CNBC</a>
+        <a href="https://www.spglobal.com/market-intelligence/en/news-insights/research/2026/03/amd-s-next-generation-ai-chips-set-to-power-2026-data-center-growth" target="_blank" rel="noopener">S&amp;P Global</a>
+      </div>
+    </article>
+
+    <!-- 10 — DARK-GOLD — TypeScript 7.0 -->
+    <article class="spread dark-gold">
+      <div class="ord">10</div>
+      <div class="kicker">The Compiler Beat <span class="for-you">FOR YOU</span></div>
+      <h2 class="h-title">TypeScript's Go-rewrite compiler crosses the 99.6% checking-correctness mark.</h2>
+      <p class="pull-orbit">
+        The native port now matches tsc on all but 74 of about 20,000 compiler tests — and runs an order of magnitude faster while it does it.
+      </p>
+      <p class="body">
+        Microsoft's port of the TypeScript compiler from TypeScript-on-Node to Go is closer to ready than most teams have noticed. Of approximately 20,000 compiler tests, 6,000 fail in TypeScript 6.0 (the bridge release that shipped March 23). TypeScript 7.0 — the native port — produces an error in all but 74 of those same tests. That's a parity story dressed as a performance story: the same diagnostics, ten-plus times faster, with the memory footprint of a real systems language.
+      </p>
+      <p class="body">
+        For an architect, the ramifications are downstream. CI runtimes for monorepos shrink by minutes per PR, large IDEs stop choking on cold-starts, and the language service can finally be embedded in tools that were previously priced out (think: the same tsc running inside an agent's sandbox). 6.0 is the bridge; 7.0 is the bet that the next decade of TypeScript tooling will be written against a fast, parallel, native server.
+      </p>
+      <div class="source">
+        <span>Source</span>
+        <a href="https://www.infoworld.com/article/4100582/microsoft-steers-native-port-of-typescript-to-early-2026-release.html" target="_blank" rel="noopener">InfoWorld</a>
+        <a href="https://www.infoworld.com/article/4149659/typescript-6-0-arrives.html" target="_blank" rel="noopener">TypeScript 6.0 release</a>
+      </div>
+    </article>
+
+    <!-- 11 — HN section -->
+    <section class="hn">
+      <div class="hn-head">
+        <div class="label">Hacker News<span class="dot">.</span> Top of the front page</div>
+        <div class="sub">five stories from the last 24 hours · ranked, deduped, summarized</div>
+      </div>
+
+      <div class="hn-item">
+        <div class="ord">01</div>
+        <div>
+          <h3>Appearing productive in the workplace</h3>
+          <div class="hn-meta"><span class="pts">1,221 points</span> · 477 comments · nooneshappy.com</div>
+          <p>
+            The author argues the danger of generative AI in the workplace isn't that it makes bad work worse — it's that it lets untrained colleagues impersonate expertise long enough to waste months. A non-engineer the author works with shipped two months of polished schemas and architecture docs that anyone with two years of experience could see were broken — but the institutional momentum (managers invested in "appearance of progress") let it ride.
+          </p>
+          <p>
+            The coined phrase is "output-competence decoupling": the link between work quality and worker skill snaps when the worker can ask a model for the artifact. Read this back-to-back with Simon Willison's piece above for the cleanest current statement of the trade-off.
+          </p>
+          <div class="links">
+            <a href="https://nooneshappy.com/article/appearing-productive-in-the-workplace/" target="_blank" rel="noopener">Read article</a>
+            <a href="https://news.ycombinator.com/item?id=48038001" target="_blank" rel="noopener">HN thread</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="hn-item">
+        <div class="ord">02</div>
+        <div>
+          <h3>SQLite is a Library of Congress recommended storage format</h3>
+          <div class="hn-meta"><span class="pts">285 points</span> · 76 comments · sqlite.org</div>
+          <p>
+            The Library of Congress has added SQLite to its Recommended Format Statement for digital preservation — the institutional list of formats it considers durable enough to outlast the systems that wrote them. The criteria the LoC publishes line up with SQLite's design choices almost item-for-item: complete public specification and tooling (Disclosure), broad cross-platform adoption, and minimal external dependencies on specific software or hardware.
+          </p>
+          <p>
+            For an architect choosing a storage format for archival data, this is the strongest endorsement available short of a regulator mandate. SQLite joins a short list that includes TIFF, PDF/A, and uncompressed WAV.
+          </p>
+          <div class="links">
+            <a href="https://sqlite.org/locrsf.html" target="_blank" rel="noopener">Read article</a>
+            <a href="https://news.ycombinator.com/item?id=48042434" target="_blank" rel="noopener">HN thread</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="hn-item">
+        <div class="ord">03</div>
+        <div>
+          <h3>Permacomputing principles</h3>
+          <div class="hn-meta"><span class="pts">157 points</span> · 75 comments · permacomputing.net</div>
+          <p>
+            A ten-point design philosophy for technology that's meant to outlive its hardware and not externalize its environmental costs. The principles span hardware longevity (build for repair), system resilience (degrade gracefully on partial failure), and a sharper question: whether the technology should exist at all.
+          </p>
+          <p>
+            Read it as a counter-text to the day's other big story — six-gigawatt datacenter buildouts and parallel-agent IDEs. The authors don't pretend permacomputing is a programme; they call it "situational awareness" for designers who have to decide what to build next.
+          </p>
+          <div class="links">
+            <a href="https://permacomputing.net/principles/" target="_blank" rel="noopener">Read article</a>
+            <a href="https://news.ycombinator.com/item?id=48044638" target="_blank" rel="noopener">HN thread</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="hn-item">
+        <div class="ord">04</div>
+        <div>
+          <h3>RSS feeds send me more traffic than Google</h3>
+          <div class="hn-meta"><span class="pts">128 points</span> · 27 comments · shkspr.mobi</div>
+          <p>
+            Terence Eden ran 28 days of analytics on his blog and tallied 13,774 Atom views and 10,419 RSS views against 10,833 Google Search referrals — feeds combined nearly 2.4× search traffic. He's careful to flag the asymmetry: feed metrics only fire when a subscriber opens the post and loads the tracking pixel, while search referrals are counted on click.
+          </p>
+          <p>
+            It's a single data point and Eden says so. But the comparison is suggestive of something a lot of independent publishers report anecdotally: as Google's AI Overviews swallow the click-through, feed-based audiences are quietly the resilient channel.
+          </p>
+          <div class="links">
+            <a href="https://shkspr.mobi/blog/2026/05/rss-feeds-send-me-more-traffic-than-google/" target="_blank" rel="noopener">Read article</a>
+            <a href="https://news.ycombinator.com/item?id=48043964" target="_blank" rel="noopener">HN thread</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="hn-item">
+        <div class="ord">05</div>
+        <div>
+          <h3>Diskless Linux boot using ZFS, iSCSI and PXE</h3>
+          <div class="hn-meta"><span class="pts">106 points</span> · 54 comments · aniket.foo</div>
+          <p>
+            A walkthrough for booting a diskless Debian box from an iSCSI target served by a ZFS volume on a Proxmox host, with PXE handling the initial handoff. The author does it to keep his Windows install untouched and his NVME free for ML model weights — and because hosting GRUB itself on the remote drive eliminates UEFI maintenance from the equation.
+          </p>
+          <p>
+            The hard part, predictably, is the installer. Debian's installer doesn't natively know how to authenticate to an iSCSI target during partitioning, so the post documents a TTY-switch dance: drop to a second console, write the iSCSI initiator credentials by hand, and then return to the installer to let it discover the now-attached LUN.
+          </p>
+          <div class="links">
+            <a href="https://aniket.foo/posts/20260505-netboot/" target="_blank" rel="noopener">Read article</a>
+            <a href="https://news.ycombinator.com/item?id=48045012" target="_blank" rel="noopener">HN thread</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 12 — Architecture in the Wild -->
+    <section class="arch">
+      <div class="arch-stamp">Architecture in the Wild<span class="dot">.</span> · Issue 16's anchor read</div>
+      <h2>When DNSSEC goes wrong: how Cloudflare kept .de domains resolving during the DENIC outage.</h2>
+      <div class="arch-byline">Cloudflare blog · Sebastiaan Neuteboom, Christian Elmerot, Max Worsley · published May 6, 2026</div>
+      <p class="arch-body first">
+        On May 5, 2026 at roughly 19:30 UTC, DENIC — the registry that runs Germany's .de TLD — generated invalid DNSSEC signatures during a routine Key Signing Key rollover and pushed them to its authoritative servers. Any validating resolver on the internet, including Cloudflare's 1.1.1.1, was now obligated by DNSSEC's own rules to reject every record under .de and return SERVFAIL: bahn.de, spiegel.de, amazon.de, the bank portals, the major hosting providers, all dark. The Cloudflare engineering team's postmortem is interesting precisely because the problem was upstream — they couldn't fix DENIC's signatures — and yet the resolver served a meaningful fraction of .de queries successfully through the entire incident.
+      </p>
+      <p class="arch-body">
+        Two pieces of standards-track engineering did the work. RFC 8767's "serve stale" — already shipped in 1.1.1.1 — let the resolver keep returning cached records past their TTL while the validation chain was broken upstream. Most popular .de domains were warm in cache at 19:30 UTC, so requests for them quietly became serve-stale hits and resolution kept working for hours after the formal SLA had collapsed. Then at 22:17 UTC, less than three hours in, the team deployed a Negative Trust Anchor (RFC 7646) — an override that marks a zone as insecure on the resolver, bypassing DNSSEC validation entirely for .de until DENIC's signatures were correct. Other major resolver operators, coordinating over the DNS-OARC operator channel, did the same within the hour.
+      </p>
+      <p class="arch-pull">
+        "Operational practices, industry communication channels like DNS-OARC, and features like serve stale all reduce the impact."
+        <span class="who">Sebastiaan Neuteboom, Christian Elmerot, Max Worsley · Cloudflare</span>
+      </p>
+      <p class="arch-body">
+        The architectural lesson worth taking home is about graceful degradation in adversarial-by-default protocols. DNSSEC is fail-closed by design — if a signature doesn't validate, the answer is dropped. That property is the whole point: it's what makes DNSSEC a defense against cache poisoning. But fail-closed protocols are catastrophic when the failure is upstream, well-intentioned, and affects an entire TLD. The cure isn't to weaken DNSSEC; it's to layer in escape valves — RFC 8767 for time, RFC 7646 for zone-level overrides, and an out-of-band coordination mechanism (DNS-OARC) to make sure operators can move in tandem without being accused of unilaterally degrading security.
+      </p>
+      <p class="arch-body">
+        For an architect, the takeaway generalizes well past DNS. If your protocol is fail-closed, you owe yourself an inventory of the operator levers you can pull when the failure is upstream and your users are bystanders. Those levers should be (a) standardized — not custom config branches per operator — (b) cheap to deploy under pressure, and (c) auditable after the fact. Cloudflare's postmortem reads less like a story about DNS and more like a story about what good "break-glass" architecture looks like when the break-glass is a reference back to an RFC someone wrote in 2019 against exactly this scenario.
+      </p>
+      <div class="source">
+        <span>Source</span>
+        <a href="https://blog.cloudflare.com/de-tld-outage-dnssec/" target="_blank" rel="noopener">Cloudflare blog</a>
+        <a href="https://www.rfc-editor.org/rfc/rfc8767" target="_blank" rel="noopener">RFC 8767 (serve stale)</a>
+        <a href="https://www.rfc-editor.org/rfc/rfc7646" target="_blank" rel="noopener">RFC 7646 (NTA)</a>
+      </div>
+    </section>
+
+    <footer>
+      <span>Morning Edition · Vol. I · No. 16 · For Aziz</span>
+      <a href="../index.html">← Back to the shelf</a>
+    </footer>
+  </div>
+</body>
+</html>
