@@ -1,0 +1,884 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Morning Edition · Vol. I · No. 17 — The Tools Settle</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,700;1,9..144,900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --paper: #ece3d0;
+        --paper-warm: #efe6d4;
+        --newsprint: #e8e0cc;
+        --ink: #14140f;
+        --muted: #6e6857;
+        --rule: #14140f;
+        --coral: #e24b4b;
+        --coral-soft: #d96b5a;
+        --rose: #f3c8c0;
+        --midnight: #0e0d0c;
+        --midnight-fg: #ece3d0;
+        --terminal-bg: #0b0e0a;
+        --terminal-fg: #c8e8b6;
+        --terminal-accent: #ffb84d;
+        --cream: #f4ecd8;
+      }
+
+      * { box-sizing: border-box; }
+      html, body { margin: 0; padding: 0; }
+      body {
+        background: var(--paper);
+        color: var(--ink);
+        font-family: "Fraunces", Georgia, serif;
+        font-optical-sizing: auto;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+        line-height: 1.45;
+      }
+      a { color: inherit; }
+      .mono {
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        letter-spacing: 0.12em;
+      }
+      .page {
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: 3rem 2rem 6rem;
+      }
+
+      /* ── Masthead ── */
+      .masthead {
+        border-bottom: 1.5px solid var(--rule);
+        padding-bottom: 1.25rem;
+      }
+      .pretitle {
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 0.74rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.9rem;
+        margin-bottom: 1.4rem;
+      }
+      .pretitle .dot { color: var(--coral); }
+      .home-link {
+        text-decoration: none;
+        color: var(--muted);
+        border-bottom: 1px dotted var(--muted);
+      }
+      .home-link:hover { color: var(--coral); border-color: var(--coral); }
+      .title {
+        font-family: "Fraunces", serif;
+        font-weight: 900;
+        font-size: clamp(3rem, 9vw, 7rem);
+        line-height: 0.92;
+        letter-spacing: -0.035em;
+        margin: 0;
+      }
+      .title .line { display: block; }
+      .title .em {
+        color: var(--coral);
+        font-style: italic;
+        font-weight: 900;
+      }
+      .title .em .stop { color: var(--ink); font-style: normal; }
+      .deck {
+        margin-top: 1.5rem;
+        font-size: clamp(1.15rem, 1.8vw, 1.5rem);
+        font-style: italic;
+        color: #2a2922;
+        max-width: 56ch;
+        line-height: 1.4;
+      }
+
+      /* ── Meta strip ── */
+      .meta {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 2rem;
+        padding: 2rem 0;
+      }
+      .meta-item .label {
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 0.68rem;
+        letter-spacing: 0.18em;
+        color: var(--muted);
+        text-transform: uppercase;
+        margin-bottom: 0.5rem;
+      }
+      .meta-item .value {
+        font-family: "Fraunces", serif;
+        font-weight: 700;
+        font-size: clamp(1rem, 1.6vw, 1.35rem);
+      }
+      .meta-item .value.italic { font-style: italic; font-weight: 400; }
+      .meta-item .value.numeral {
+        font-weight: 900;
+        font-style: italic;
+        font-size: clamp(1.4rem, 2.4vw, 2rem);
+        color: var(--coral);
+      }
+
+      .double-rule {
+        border-top: 1.5px solid var(--rule);
+        border-bottom: 1.5px solid var(--rule);
+        height: 4px;
+        margin: 1.5rem 0 3rem;
+      }
+
+      /* ── Universal spread ── */
+      .spread {
+        margin-bottom: 4rem;
+        border-radius: 12px;
+        overflow: hidden;
+        position: relative;
+      }
+      .spread .ord {
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 0.74rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        opacity: 0.7;
+      }
+      .spread h2 {
+        font-family: "Fraunces", serif;
+        font-weight: 700;
+        line-height: 1.02;
+        letter-spacing: -0.02em;
+        margin: 0.6rem 0 1rem;
+      }
+      .spread .lede {
+        font-family: "Fraunces", serif;
+        font-size: clamp(1.05rem, 1.4vw, 1.2rem);
+        line-height: 1.55;
+      }
+      .spread .foot {
+        margin-top: 1.5rem;
+        padding-top: 1rem;
+        border-top: 1px solid currentColor;
+        opacity: 0.85;
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 0.74rem;
+        letter-spacing: 0.16em;
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+      }
+      .spread .foot a { color: inherit; text-decoration: none; border-bottom: 1px solid; padding-bottom: 1px; }
+      .for-you {
+        display: inline-block;
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 0.66rem;
+        letter-spacing: 0.22em;
+        background: var(--coral);
+        color: #fff;
+        padding: 0.3rem 0.55rem;
+        border-radius: 3px;
+        margin-bottom: 0.9rem;
+      }
+
+      /* Archetype: HERO (cream, big numeral) */
+      .a-hero {
+        background: var(--cream);
+        padding: clamp(2rem, 4vw, 3.25rem);
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 2rem;
+        align-items: end;
+      }
+      .a-hero .body { max-width: 60ch; }
+      .a-hero h2 { font-size: clamp(2.2rem, 5vw, 3.6rem); }
+      .a-hero .numeral {
+        font-family: "Fraunces", serif;
+        font-weight: 900;
+        font-style: italic;
+        color: var(--coral);
+        font-size: clamp(6rem, 14vw, 11rem);
+        line-height: 0.85;
+        letter-spacing: -0.04em;
+      }
+      @media (max-width: 720px) {
+        .a-hero { grid-template-columns: 1fr; }
+        .a-hero .numeral { font-size: 5.5rem; align-self: start; }
+      }
+
+      /* Archetype: DARK / MIDNIGHT */
+      .a-dark {
+        background: var(--midnight);
+        color: var(--midnight-fg);
+        padding: clamp(2rem, 4vw, 3rem);
+      }
+      .a-dark h2 { font-size: clamp(2rem, 4.5vw, 3.2rem); }
+      .a-dark .lede { color: rgba(236, 227, 208, 0.78); }
+      .a-dark .ord { color: var(--coral); }
+      .a-dark .foot { border-top-color: rgba(236, 227, 208, 0.18); }
+
+      /* Archetype: NEWSPRINT */
+      .a-newsprint {
+        background: var(--newsprint);
+        padding: clamp(2rem, 3.5vw, 2.75rem);
+        border: 1.5px solid var(--ink);
+        column-rule: 1.5px solid var(--ink);
+      }
+      .a-newsprint .columns {
+        column-count: 2;
+        column-gap: 2rem;
+        margin-top: 0.5rem;
+      }
+      .a-newsprint h2 {
+        font-size: clamp(2rem, 4vw, 2.9rem);
+        column-span: all;
+        font-weight: 900;
+      }
+      .a-newsprint .kicker {
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 0.7rem;
+        letter-spacing: 0.24em;
+        text-transform: uppercase;
+        text-align: center;
+        margin-bottom: 0.4rem;
+        color: var(--muted);
+      }
+      @media (max-width: 720px) {
+        .a-newsprint .columns { column-count: 1; }
+      }
+
+      /* Archetype: TERMINAL */
+      .a-terminal {
+        background: var(--terminal-bg);
+        color: var(--terminal-fg);
+        padding: clamp(1.75rem, 3.5vw, 2.75rem);
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+      }
+      .a-terminal h2 {
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-weight: 600;
+        font-size: clamp(1.55rem, 2.8vw, 2.2rem);
+        color: var(--terminal-accent);
+        line-height: 1.15;
+        letter-spacing: 0;
+      }
+      .a-terminal h2::before {
+        content: "❯ ";
+        color: var(--terminal-fg);
+        opacity: 0.6;
+      }
+      .a-terminal .lede {
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 0.95rem;
+        line-height: 1.65;
+        color: var(--terminal-fg);
+      }
+      .a-terminal .ord { color: var(--terminal-accent); }
+      .a-terminal .foot { color: var(--terminal-accent); border-top-color: rgba(200,232,182,0.2); }
+      .a-terminal .for-you { background: var(--terminal-accent); color: #0b0e0a; }
+      .a-terminal .cmd-line {
+        display: block;
+        margin: 0.3rem 0;
+      }
+      .a-terminal .cmt { color: #6f8a5e; }
+      .a-terminal .key { color: var(--terminal-accent); }
+
+      /* Archetype: BIG-STAT */
+      .a-stat {
+        background: var(--cream);
+        padding: clamp(2rem, 4vw, 3rem);
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2.5rem;
+        align-items: center;
+        border-top: 6px solid var(--coral);
+      }
+      .a-stat .stat {
+        font-family: "Fraunces", serif;
+        font-weight: 900;
+        font-size: clamp(4rem, 11vw, 8.5rem);
+        line-height: 0.9;
+        letter-spacing: -0.045em;
+        color: var(--ink);
+      }
+      .a-stat .stat .unit {
+        font-size: 0.32em;
+        font-weight: 500;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--muted);
+        display: block;
+        margin-top: 0.6rem;
+      }
+      .a-stat h2 { font-size: clamp(1.8rem, 3.6vw, 2.6rem); }
+      @media (max-width: 720px) {
+        .a-stat { grid-template-columns: 1fr; }
+      }
+
+      /* Archetype: ROSE ALERT */
+      .a-rose {
+        background: var(--rose);
+        padding: clamp(2rem, 4vw, 3rem);
+        border-radius: 12px;
+        position: relative;
+      }
+      .a-rose::before {
+        content: "ALERT";
+        position: absolute;
+        top: 1.5rem;
+        right: 1.5rem;
+        background: var(--ink);
+        color: var(--rose);
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 0.66rem;
+        letter-spacing: 0.28em;
+        padding: 0.3rem 0.6rem;
+        transform: rotate(2deg);
+      }
+      .a-rose h2 { font-size: clamp(2rem, 4.5vw, 3rem); max-width: 22ch; }
+
+      /* Archetype: ACADEMIC DROP-CAP */
+      .a-academic {
+        background: var(--paper-warm);
+        padding: clamp(2rem, 4vw, 3.5rem);
+        border-top: 1.5px solid var(--ink);
+        border-bottom: 1.5px solid var(--ink);
+        border-radius: 0;
+      }
+      .a-academic h2 {
+        font-size: clamp(2.2rem, 5vw, 3.6rem);
+        font-weight: 900;
+        max-width: 22ch;
+      }
+      .a-academic .lede { font-size: clamp(1.1rem, 1.45vw, 1.25rem); max-width: 70ch; }
+      .a-academic .lede::first-letter {
+        font-family: "Fraunces", serif;
+        font-weight: 900;
+        font-size: 4.6em;
+        float: left;
+        line-height: 0.85;
+        margin: 0.15em 0.12em -0.05em -0.05em;
+        color: var(--coral);
+        font-style: italic;
+      }
+
+      /* Archetype: BIG-QUOTE */
+      .a-quote {
+        background: var(--paper-warm);
+        padding: clamp(2rem, 4vw, 3rem);
+        border-left: 6px solid var(--coral);
+      }
+      .a-quote h2 { font-size: clamp(1.9rem, 4vw, 2.8rem); }
+      .a-quote .pull {
+        font-family: "Fraunces", serif;
+        font-style: italic;
+        font-weight: 500;
+        font-size: clamp(1.5rem, 3vw, 2.2rem);
+        line-height: 1.2;
+        color: var(--ink);
+        margin: 1.5rem 0 1rem;
+        max-width: 28ch;
+      }
+      .a-quote .pull::before { content: "“"; color: var(--coral); }
+      .a-quote .pull::after { content: "”"; color: var(--coral); }
+
+      /* ── Hacker News spread ── */
+      .hn-section {
+        background: var(--paper-warm);
+        padding: clamp(2.5rem, 5vw, 4rem) clamp(1.75rem, 3.5vw, 3rem);
+        border-top: 1.5px solid var(--ink);
+        border-bottom: 1.5px solid var(--ink);
+        margin: 5rem 0;
+      }
+      .hn-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        border-bottom: 1.5px solid var(--ink);
+        padding-bottom: 0.7rem;
+        margin-bottom: 2.5rem;
+      }
+      .hn-head .lbl {
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 0.82rem;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        font-weight: 600;
+      }
+      .hn-head .lbl::before {
+        content: "▲";
+        color: #ff6600;
+        margin-right: 0.5rem;
+      }
+      .hn-head .sub {
+        font-style: italic;
+        color: var(--muted);
+        font-size: 1rem;
+      }
+      .hn-item {
+        display: grid;
+        grid-template-columns: 6rem 1fr;
+        gap: 2rem;
+        padding: 2rem 0;
+        border-bottom: 1px solid rgba(20,20,15,0.18);
+      }
+      .hn-item:last-child { border-bottom: 0; }
+      .hn-item .ordinal {
+        font-family: "Fraunces", serif;
+        font-style: italic;
+        font-weight: 900;
+        font-size: clamp(3.5rem, 5.5vw, 4.5rem);
+        line-height: 0.85;
+        color: var(--coral);
+        letter-spacing: -0.03em;
+      }
+      .hn-item h3 {
+        font-family: "Fraunces", serif;
+        font-weight: 700;
+        font-size: clamp(1.5rem, 2.6vw, 2rem);
+        line-height: 1.1;
+        letter-spacing: -0.015em;
+        margin: 0 0 0.6rem;
+      }
+      .hn-item .meta-row {
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 0.72rem;
+        letter-spacing: 0.14em;
+        color: var(--muted);
+        margin-bottom: 0.9rem;
+      }
+      .hn-item .meta-row .pts { color: #ff6600; font-weight: 600; }
+      .hn-item .note {
+        font-family: "Fraunces", serif;
+        font-size: 1.05rem;
+        line-height: 1.55;
+        max-width: 70ch;
+      }
+      .hn-item .link {
+        display: inline-block;
+        margin-top: 0.9rem;
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 0.74rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--coral);
+        text-decoration: none;
+        border-bottom: 1px solid var(--coral);
+        padding-bottom: 1px;
+      }
+      @media (max-width: 720px) {
+        .hn-item { grid-template-columns: 1fr; gap: 0.4rem; }
+        .hn-item .ordinal { font-size: 3rem; }
+      }
+
+      /* ── Architecture in the Wild feature ── */
+      .arch-section {
+        background: var(--cream);
+        padding: clamp(3rem, 6vw, 5rem) clamp(2rem, 4vw, 3.5rem);
+        margin: 5rem 0 3rem;
+        border-top: 6px solid var(--ink);
+        border-bottom: 1.5px solid var(--ink);
+      }
+      .arch-eyebrow {
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 0.74rem;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        color: var(--coral);
+        margin-bottom: 1.2rem;
+      }
+      .arch-section h2 {
+        font-family: "Fraunces", serif;
+        font-weight: 900;
+        font-size: clamp(2.4rem, 5.5vw, 4rem);
+        line-height: 1.02;
+        letter-spacing: -0.025em;
+        margin: 0 0 1rem;
+        max-width: 22ch;
+      }
+      .arch-section .byline {
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 0.78rem;
+        letter-spacing: 0.16em;
+        color: var(--muted);
+        margin: 1rem 0 2.5rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid rgba(20,20,15,0.2);
+      }
+      .arch-section .body {
+        font-family: "Fraunces", serif;
+        font-size: clamp(1.15rem, 1.5vw, 1.3rem);
+        line-height: 1.6;
+        max-width: 68ch;
+      }
+      .arch-section .body p { margin: 0 0 1.2rem; }
+      .arch-section .body p:first-of-type::first-letter {
+        font-family: "Fraunces", serif;
+        font-weight: 900;
+        font-style: italic;
+        font-size: 5em;
+        float: left;
+        line-height: 0.85;
+        margin: 0.15em 0.15em -0.05em -0.05em;
+        color: var(--coral);
+      }
+      .arch-section .pullquote {
+        font-family: "Fraunces", serif;
+        font-style: italic;
+        font-weight: 500;
+        font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+        line-height: 1.2;
+        color: var(--ink);
+        max-width: 22ch;
+        margin: 2.5rem 0;
+        border-left: 4px solid var(--coral);
+        padding: 0.5rem 0 0.5rem 1.5rem;
+      }
+      .arch-section .read-link {
+        display: inline-block;
+        margin-top: 1.5rem;
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 0.78rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--coral);
+        text-decoration: none;
+        border-bottom: 1.5px solid var(--coral);
+        padding-bottom: 2px;
+      }
+
+      /* ── Footer ── */
+      footer {
+        margin-top: 4rem;
+        padding-top: 1.25rem;
+        border-top: 1.5px solid var(--rule);
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 1rem;
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 0.72rem;
+        letter-spacing: 0.14em;
+        color: var(--muted);
+      }
+      footer a {
+        color: var(--coral);
+        text-decoration: none;
+        border-bottom: 1px solid var(--coral);
+      }
+
+      @media (max-width: 640px) {
+        .page { padding: 2rem 1.1rem 4rem; }
+        .meta { grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header class="masthead">
+        <div class="pretitle">
+          <span><a href="../index.html" class="home-link">← Newsstand</a></span>
+          <span class="dot">●</span>
+          <span>Morning Edition</span>
+          <span class="dot">●</span>
+          <span>Vol. I · No. 17</span>
+          <span class="dot">●</span>
+          <span>Friday · May 8, 2026</span>
+        </div>
+        <h1 class="title">
+          <span class="line">The Tools</span>
+          <span class="line em">Settle<span class="stop">.</span></span>
+        </h1>
+        <p class="deck">
+          Claude Opus 4.7 is generally available. Cloudflare cuts twenty percent of the workforce. Stripe formats twenty‑five million lines of Ruby in a single Saturday morning. The day's mood, set by a Hacker News front-pager: maybe don't install anything new for a bit.
+        </p>
+      </header>
+
+      <section class="meta">
+        <div class="meta-item">
+          <div class="label">Edition</div>
+          <div class="value">Morning</div>
+        </div>
+        <div class="meta-item">
+          <div class="label">Stories</div>
+          <div class="value italic">Twelve spreads</div>
+        </div>
+        <div class="meta-item">
+          <div class="label">Issue</div>
+          <div class="value numeral">17</div>
+        </div>
+        <div class="meta-item">
+          <div class="label">For</div>
+          <div class="value italic">Aziz</div>
+        </div>
+      </section>
+
+      <div class="double-rule"></div>
+
+      <!-- ── 01 · HERO ────────────────────────────────── -->
+      <article class="spread a-hero">
+        <div class="body">
+          <span class="for-you">FOR YOU</span>
+          <div class="ord">01 · Frontier model</div>
+          <h2>Claude Opus 4.7 lands, same price, better at the work.</h2>
+          <p class="lede">
+            Anthropic's most powerful generally available model is now live across products and API. Same sticker as 4.6 — five dollars per million in, twenty‑five out — but materially stronger at software engineering, instruction‑following, and "real‑world work." If you push code through Claude Code daily, the upgrade arrives without ceremony. The model curating this magazine? It's 4.7.
+          </p>
+          <div class="foot">
+            <span>anthropic.com</span>
+            <a href="https://www.anthropic.com/news/claude-opus-4-7">Read →</a>
+          </div>
+        </div>
+        <div class="numeral">4.7</div>
+      </article>
+
+      <!-- ── 02 · DARK ────────────────────────────────── -->
+      <article class="spread a-dark">
+        <div class="ord">02 · Infrastructure & people</div>
+        <h2>Cloudflare cuts roughly 20% of the workforce.</h2>
+        <p class="lede">
+          Reuters confirms the layoffs — over 1,100 roles — landing in the same week the company crowed about Agents Week, FL2 Rust performance gains, and a re‑architected Workflows control plane. The split message of 2026 in one company: ship more software with fewer humans, and broadcast the math. Front‑paged on HN at 800+ points within hours.
+        </p>
+        <div class="foot">
+          <span>Reuters</span>
+          <a href="https://www.reuters.com/business/world-at-work/cloudflare-cut-over-1100-jobs-2026">Read →</a>
+        </div>
+      </article>
+
+      <!-- ── 03 · NEWSPRINT ───────────────────────────── -->
+      <article class="spread a-newsprint">
+        <div class="kicker">— Op‑ed of the day —</div>
+        <h2>Maybe you shouldn't install new software for a bit.</h2>
+        <div class="columns">
+          <p class="lede">
+            Xeiaso's argument lands at the right moment. Between supply‑chain compromises, AI‑authored slop in package registries, and the ambient pressure to plug every shiny MCP into your terminal, the rational move for most working engineers right now is restraint. Don't run the npm install on the new framework. Don't <span class="mono">curl | sh</span> the bash script the model just suggested.
+          </p>
+          <p class="lede">
+            What makes the piece resonate isn't paranoia — it's the observation that velocity has become its own threat model. The cost of "trying things out" used to be a few minutes. Today it can be exfiltrated SSH keys, a poisoned dev environment, or a postcompromise foothold that lives in your shell rc for months. Read it before you sudo anything new this week.
+          </p>
+        </div>
+        <div class="foot">
+          <span>xeiaso.net</span>
+          <a href="https://xeiaso.net/blog/2026/abstain-from-install/">Read →</a>
+        </div>
+      </article>
+
+      <!-- ── 04 · TERMINAL ─────────────────────────────── -->
+      <article class="spread a-terminal">
+        <span class="for-you">FOR YOU</span>
+        <div class="ord">04 · GitHub Copilot</div>
+        <h2>copilot ships chronicle, byok, terminal r/w</h2>
+        <p class="lede">
+          <span class="cmd-line"><span class="cmt"># the experimental ones worth a look</span></span>
+          <span class="cmd-line"><span class="key">/chronicle</span> — query your own chat history; recall what you worked on, files touched, PRs cited.</span>
+          <span class="cmd-line"><span class="key">grep</span> — search by meaning across any repo or org with Secret Protection on.</span>
+          <span class="cmd-line"><span class="key">agent</span> — inline diffs in chat, browser tab sharing, read/write to any open terminal.</span>
+          <span class="cmd-line"><span class="key">byok</span> — bring your own key on Business and Enterprise; admin policies for which domains agents can reach.</span>
+          <span class="cmd-line"><span class="cmt"># vs code is now on weekly stable. v1.116 → v1.119 shipped april into may.</span></span>
+        </p>
+        <div class="foot">
+          <span>github.blog</span>
+          <a href="https://github.blog/news-insights/product-news/">Read →</a>
+        </div>
+      </article>
+
+      <!-- ── 05 · BIG STAT ─────────────────────────────── -->
+      <article class="spread a-stat">
+        <div class="stat">
+          300<span class="unit">megawatts · 220k+ GPUs</span>
+        </div>
+        <div>
+          <span class="for-you">FOR YOU</span>
+          <div class="ord">05 · Compute deal</div>
+          <h2>Anthropic takes all of Colossus 1; Pro &amp; Max limits double.</h2>
+          <p class="lede">
+            The SpaceX agreement gives Anthropic full capacity at Colossus 1 — over 220,000 NVIDIA GPUs landing within the month — and they're already passing the budget downstream: Pro, Max, Team, and seat‑based Enterprise rate limits doubled, and the peak‑hour reductions for Pro and Max are gone. If your day is a Claude Code daily‑driver, you'll feel it before you read the press release.
+          </p>
+          <div class="foot">
+            <span>anthropic.com</span>
+            <a href="https://www.anthropic.com/news">Read →</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- ── 06 · ACADEMIC DROP-CAP ──────────────────────── -->
+      <article class="spread a-academic">
+        <span class="for-you">FOR YOU</span>
+        <div class="ord">06 · Agent design</div>
+        <h2>Agents need control flow, not more prompts.</h2>
+        <p class="lede">
+          The argument that landed on HN today (479 points, climbing) is one any practitioner who's shipped an agent has slowly arrived at: you can't prompt your way out of orchestration. What multi‑step agents actually need is a real control‑flow surface — branches, retries, idempotency keys, a place to park state between tool calls — and treating "the prompt" as the only lever is why so many agent demos collapse the moment you ask them to do two things in sequence. The piece reads like field notes from someone who's burned a quarter and a few launches finding this out the hard way.
+        </p>
+        <div class="foot">
+          <span>bsuh.bearblog.dev</span>
+          <a href="https://bsuh.bearblog.dev/agents-need-control-flow/">Read →</a>
+        </div>
+      </article>
+
+      <!-- ── 07 · ROSE ALERT ───────────────────────────── -->
+      <article class="spread a-rose">
+        <span class="for-you">FOR YOU</span>
+        <div class="ord">07 · Vulnerability</div>
+        <h2>CVE‑2026‑3854: GitHub RCE through a crafted git push.</h2>
+        <p class="lede">
+          The May patch cycle's headline issue — an authenticated push‑access RCE — has been remediated, but it's the class of vulnerability worth carrying forward: anything that lets a contributor flip into code execution on the platform side breaks the implicit trust boundary GitHub Actions and Codespaces have leaned on for years. If you operate self‑hosted GHES, patch this week. If you operate orgs with broad write access, audit who has it. The Dirtyfrag universal Linux LPE on HN today (662 points) is a parallel reminder that boundary trust assumptions age badly.
+        </p>
+        <div class="foot">
+          <span>github / openwall</span>
+          <a href="https://github.blog/news-insights/product-news/">Read →</a>
+        </div>
+      </article>
+
+      <!-- ── 08 · HERO VARIANT ──────────────────────────── -->
+      <article class="spread a-hero" style="background: #f0e5cf;">
+        <div class="body">
+          <span class="for-you">FOR YOU</span>
+          <div class="ord">08 · Production agents</div>
+          <h2>Vercel's text‑to‑SQL agent: 1,200 internal requests a day.</h2>
+          <p class="lede">
+            From Stripe Sessions, Vercel walked through the architecture of an internal agent that has quietly become a load‑bearing tool. Twelve hundred requests a day from product, finance, growth — humans doing what humans used to file Looker tickets for. The interesting part isn't the demo; it's the iteration loop they describe: months of small interface and retrieval tweaks, eval harnesses tuned to the specific schema, and a willingness to keep the human review surface visible. A useful counter‑weight to "agents need control flow" — agents also need someone watching them.
+          </p>
+          <div class="foot">
+            <span>vercel.com</span>
+            <a href="https://vercel.com/stripe-sessions">Read →</a>
+          </div>
+        </div>
+        <div class="numeral" style="font-size: clamp(4rem, 9vw, 7.5rem);">1.2k<span style="display:block;font-size:0.18em;letter-spacing:0.16em;color:var(--muted);font-style:normal;font-weight:500;margin-top:0.6em;">REQ / DAY</span></div>
+      </article>
+
+      <!-- ── 09 · NEWSPRINT 2 ───────────────────────────── -->
+      <article class="spread a-newsprint">
+        <div class="kicker">— Enterprise dispatch —</div>
+        <h2>Anthropic plants a flag on Wall Street.</h2>
+        <div class="columns">
+          <p class="lede">
+            A set of purpose‑built financial services agents now ships on top of Opus 4.7 — and per Fortune, Anthropic is moving "deeper" into the sector with full Microsoft 365 integration on the way (Excel, PowerPoint, Word, Outlook), a Moody's data partnership, and ready‑to‑run finance templates aimed at JPMorgan and the rest of the universe Jamie Dimon presides over.
+          </p>
+          <p class="lede">
+            The translation: Claude is being positioned as the model that lives inside the analyst's spreadsheet, not just the chat tab. If you ship developer tooling for finance, the surface area of "the model can read your workbook" just expanded — and the regulatory scrutiny that follows it almost certainly will too.
+          </p>
+        </div>
+        <div class="foot">
+          <span>Fortune</span>
+          <a href="https://fortune.com/2026/05/05/anthropic-wall-street-financial-services-agents-jamie-dimon/">Read →</a>
+        </div>
+      </article>
+
+      <!-- ── 10 · BIG QUOTE ──────────────────────────────── -->
+      <article class="spread a-quote">
+        <div class="ord">10 · Interpretability</div>
+        <h2>Anthropic turns Claude's thoughts into text.</h2>
+        <p class="pull">A natural‑language autoencoder learns to round‑trip a residual stream through English.</p>
+        <p class="lede">
+          The new Anthropic research note (HN: 291 points, 98 comments) describes natural‑language autoencoders — models trained to compress and reconstruct internal model state through human language. It's the same thesis interpretability people have been circling for two years, finally rendered in a form that actually emits readable sentences. Practical near‑term use is debugging: read what the model "was thinking" before it gave you the answer. Speculative long‑term use: a real audit trail for agent cognition.
+        </p>
+        <div class="foot">
+          <span>anthropic.com / research</span>
+          <a href="https://www.anthropic.com/research/natural-language-autoencoders">Read →</a>
+        </div>
+      </article>
+
+      <!-- ── HACKER NEWS ─────────────────────────────── -->
+      <section class="hn-section">
+        <div class="hn-head">
+          <div class="lbl">Hacker News · last 24h</div>
+          <div class="sub">five from the front page</div>
+        </div>
+
+        <article class="hn-item">
+          <div class="ordinal">01</div>
+          <div>
+            <h3>Cloudflare to cut about 20% of workforce</h3>
+            <div class="meta-row"><span class="pts">809 ▲</span> · 536 comments · 15h</div>
+            <p class="note">
+              Reuters says over 1,100 roles. The thread is the usual split: half debating whether AI tooling is the cause or the cover, half trading anecdotes about edge‑network ops culture. Notable that this comes the same fortnight as the FL2 Rust migration and Workflows v2 — the company is publicly more capital‑efficient and leaner at once, which is exactly the 2026 narrative every infra player is now selling.
+            </p>
+            <a class="link" href="https://news.ycombinator.com/item?id=48054423">Discussion →</a>
+          </div>
+        </article>
+
+        <article class="hn-item">
+          <div class="ordinal">02</div>
+          <div>
+            <h3>Canvas is down as ShinyHunters threatens to leak schools' data</h3>
+            <div class="meta-row"><span class="pts">681 ▲</span> · 417 comments · 13h</div>
+            <p class="note">
+              The Verge reports the LMS used by half the world's higher‑ed has been pulled offline while Instructure negotiates with the breach group. Comments are equal parts "we told you about Salesforce data clusters" and "this is what happens when one vendor concentrates a whole sector." Worth tracking if your org consumes Canvas APIs — outage will outlast the news cycle.
+            </p>
+            <a class="link" href="https://news.ycombinator.com/item?id=48055913">Discussion →</a>
+          </div>
+        </article>
+
+        <article class="hn-item">
+          <div class="ordinal">03</div>
+          <div>
+            <h3>Dirtyfrag: Universal Linux LPE</h3>
+            <div class="meta-row"><span class="pts">662 ▲</span> · 270 comments · 16h</div>
+            <p class="note">
+              Disclosed via oss‑security: a local privilege escalation that, per the discussion, lights up nearly every modern distro before patches roll. The thread is doing the usual reverse‑engineering and "is your kernel old enough to bother" cataloguing. If you run untrusted workloads on shared hosts — CI runners, code‑execution agents — assume you're affected and update.
+            </p>
+            <a class="link" href="https://news.ycombinator.com/item?id=48053623">Discussion →</a>
+          </div>
+        </article>
+
+        <article class="hn-item">
+          <div class="ordinal">04</div>
+          <div>
+            <h3>The map that keeps Burning Man honest</h3>
+            <div class="meta-row"><span class="pts">661 ▲</span> · 321 comments · 21h</div>
+            <p class="note">
+              Not‑Ship's piece on the open MOOP (matter‑out‑of‑place) map — the volunteer‑run, GIS‑driven ledger of every camp's clean‑up score after the burn. It's a beautiful little parable about distributed accountability: a single dataset, public, contested, that quietly determines who can come back next year. Recommend reading even if your interest in the desert is zero.
+            </p>
+            <a class="link" href="https://news.ycombinator.com/item?id=48049653">Discussion →</a>
+          </div>
+        </article>
+
+        <article class="hn-item">
+          <div class="ordinal">05</div>
+          <div>
+            <h3>Maybe you shouldn't install new software for a bit</h3>
+            <div class="meta-row"><span class="pts">565 ▲</span> · 303 comments · 12h</div>
+            <p class="note">
+              Xeiaso making the case that the supply‑chain risk floor for casual installs has quietly risen above the value floor — for working engineers at least. The HN thread is more nuanced than the title; lots of people pushing back with their own heuristics for vetting (lockfiles, signed releases, vendoring). A piece worth pinning.
+            </p>
+            <a class="link" href="https://news.ycombinator.com/item?id=48056227">Discussion →</a>
+          </div>
+        </article>
+      </section>
+
+      <!-- ── ARCHITECTURE IN THE WILD ──────────────────── -->
+      <section class="arch-section">
+        <div class="arch-eyebrow">Architecture in the Wild · Feature</div>
+        <h2>Formatting an entire 25‑million‑line codebase overnight.</h2>
+        <div class="byline">
+          Stripe Engineering · Fable Tales &amp; Anna Mason · April 28, 2026
+        </div>
+        <div class="body">
+          <p>
+            The story is older than the post — rubyfmt has been a side‑of‑desk Stripe project for years — but the rollout writeup is the part worth reading. Stripe runs the world's largest known Ruby codebase (somewhere between 25 and 42 million lines, depending on how you count generated code) and for most of that history, the codebase was un‑formatted: every team's local style, every pile of legacy whitespace, every strangely‑indented if‑else preserved in amber. The Developer Productivity team's job was to flip it to a single canonical shape without breaking history, blame, or anyone's open PR.
+          </p>
+          <p>
+            They picked rubyfmt — Rust‑based, zero‑config, fast enough to run inline in editors — and the technical anchor of the writeup is how they validated correctness at this scale. Rather than diff strings, they built ripper‑tree diffing: parse both before and after into Ruby's native AST, normalize trivia, and assert structural equivalence. That's the only way to bulk‑format tens of millions of lines and not introduce a single subtle behavioural regression. It also gave them a clean opt‑in path: teams that wanted formatting could turn it on, the diffs were guaranteed semantics‑preserving, and CI could run rubyfmt in milliseconds against any new PR.
+          </p>
+          <p class="pullquote">
+            On a single Saturday morning, 62,213 files were re‑formatted. Today, 100% of Stripe's Ruby is canonical.
+          </p>
+          <p>
+            The cultural detail is what makes the piece more than a tooling postmortem. Stripe didn't mandate the cutover. They opt‑in‑rolled rubyfmt across teams, kept the AST‑equivalence guarantee load‑bearing, and only mass‑formatted the long tail when the social proof had built up enough that almost nobody was going to push back. That's the part most "we standardized X" engineering writeups skip — that the format change is the easy bit, and the real work is making thousands of engineers shrug rather than argue when their muscle memory stops matching the file on disk.
+          </p>
+          <p>
+            Why it matters for senior eng readers: this is the platonic case study of a long‑running developer‑productivity bet — Rust where Rust earned its keep, AST‑equivalence as the testing strategy that made the migration safe, and a rollout patient enough to land without a revolt. Pair it with the Cloudflare Workflows v2 piece from April 15 (which solved a similar Durable‑Object‑bottleneck problem by sharding load across new <span class="mono">SousChef</span> and <span class="mono">Gatekeeper</span> components) and you have a picture of how 2026 platform teams actually move: Rust for the hot path, structural verification for the migration, slow social rollout for the humans.
+          </p>
+          <a class="read-link" href="https://stripe.dev/blog/formatting-an-entire-25-million-line-codebase-overnight-the-rubyfmt-story">Read the full Stripe writeup →</a>
+        </div>
+      </section>
+
+      <footer>
+        <span>Morning Edition · No. 17 · Curated for Aziz</span>
+        <span><a href="../index.html">← Back to the newsstand</a></span>
+      </footer>
+    </div>
+  </body>
+</html>
