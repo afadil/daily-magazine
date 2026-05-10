@@ -1,0 +1,1137 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>The Inner Stack — Morning Edition · May 10, 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,700;1,9..144,900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #ece3d0;
+        --fg: #14140f;
+        --muted: #7a7465;
+        --rule: #14140f;
+        --accent: #e24b4b;
+        --accent-soft: rgba(226, 75, 75, 0.12);
+        --midnight: #0d0d0c;
+        --midnight-fg: #ece3d0;
+        --terminal-bg: #0a0e0a;
+        --terminal-fg: #b6f1c0;
+        --terminal-dim: #5a8a64;
+        --rose: #f5d6cf;
+        --newsprint: #f1ebda;
+        --mars: #2a1410;
+        --mars-fg: #f3d6c4;
+        --sky: #d3e3ed;
+        --sky-deep: #14283a;
+        --paper: #e9e0c9;
+        --pink: #f1c1d6;
+        --leaf: #2c5230;
+      }
+      * { box-sizing: border-box; }
+      html, body { margin: 0; padding: 0; }
+      body {
+        background: var(--bg);
+        color: var(--fg);
+        font-family: "Fraunces", Georgia, serif;
+        font-optical-sizing: auto;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+        font-size: 18px;
+        line-height: 1.5;
+      }
+      a { color: inherit; }
+      .page { max-width: 1180px; margin: 0 auto; padding: 3rem 2rem 6rem; }
+
+      /* ── Masthead ─────────────────────────────────────────── */
+      .masthead {
+        border-bottom: 1.5px solid var(--rule);
+        padding-bottom: 1.25rem;
+      }
+      .pretitle {
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 0.75rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.9rem;
+        margin-bottom: 1.4rem;
+      }
+      .pretitle .dot { color: var(--accent); }
+      .title {
+        font-family: "Fraunces", serif;
+        font-weight: 900;
+        font-size: clamp(3.25rem, 9vw, 7rem);
+        line-height: 0.92;
+        letter-spacing: -0.035em;
+        margin: 0;
+      }
+      .title .line { display: block; }
+      .title .edition {
+        color: var(--accent);
+        font-style: italic;
+        font-weight: 900;
+      }
+      .title .edition .stop { color: var(--fg); font-style: normal; }
+      .meta-row {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2.25rem;
+        padding: 2rem 0;
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+      }
+      .meta-row .label {
+        font-size: 0.7rem;
+        letter-spacing: 0.18em;
+        color: var(--muted);
+        text-transform: uppercase;
+        margin-bottom: 0.5rem;
+      }
+      .meta-row .value {
+        font-family: "Fraunces", serif;
+        font-size: 1.4rem;
+        font-weight: 700;
+      }
+      .meta-row .value.italic { font-style: italic; font-weight: 400; }
+      .double-rule {
+        border-top: 1.5px solid var(--rule);
+        border-bottom: 1.5px solid var(--rule);
+        height: 4px;
+        margin: 1rem 0 3rem;
+      }
+      @media (max-width: 640px) {
+        .meta-row { grid-template-columns: 1fr 1fr; gap: 1.4rem; }
+      }
+
+      /* ── Spread shell ─────────────────────────────────────── */
+      .spread {
+        margin: 0 0 3rem;
+        border-radius: 14px;
+        overflow: hidden;
+        position: relative;
+      }
+      .spread-pad { padding: clamp(1.75rem, 3.4vw, 3rem); }
+      .ord {
+        font-family: "Fraunces", serif;
+        font-style: italic;
+        font-weight: 900;
+        color: var(--accent);
+        line-height: 0.9;
+      }
+      .kicker {
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 0.74rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+      .for-you {
+        display: inline-block;
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 0.7rem;
+        font-weight: 600;
+        letter-spacing: 0.22em;
+        background: var(--accent);
+        color: #fff;
+        padding: 0.32rem 0.65rem;
+        border-radius: 3px;
+        margin-left: 0.6rem;
+        vertical-align: middle;
+      }
+      .h-title {
+        font-family: "Fraunces", serif;
+        font-weight: 700;
+        line-height: 1.02;
+        letter-spacing: -0.022em;
+        margin: 0.6rem 0 1.1rem;
+      }
+      .body-serif {
+        font-family: "Fraunces", serif;
+        font-weight: 400;
+        font-size: 1.15rem;
+        line-height: 1.55;
+        max-width: 64ch;
+      }
+      .body-serif p { margin: 0 0 0.95rem; }
+      .source {
+        margin-top: 1.4rem;
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 0.74rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+      .source a { color: var(--accent); text-decoration: none; }
+
+      /* ── 01 HERO ──────────────────────────────────────────── */
+      .hero {
+        background: linear-gradient(135deg, #ebe2cf 0%, #ddd0b2 100%);
+        border: 1.5px solid var(--rule);
+      }
+      .hero .ord { font-size: clamp(7rem, 15vw, 12rem); }
+      .hero .h-title { font-size: clamp(2.6rem, 5.5vw, 4.4rem); }
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1.4fr 1fr;
+        gap: 2.5rem;
+        align-items: end;
+      }
+      .hero-grid .ord { text-align: right; align-self: stretch; }
+      @media (max-width: 800px) {
+        .hero-grid { grid-template-columns: 1fr; }
+        .hero-grid .ord { text-align: left; }
+      }
+
+      /* ── 02 MIDNIGHT ──────────────────────────────────────── */
+      .midnight {
+        background: var(--midnight);
+        color: var(--midnight-fg);
+      }
+      .midnight .kicker { color: rgba(236, 227, 208, 0.55); }
+      .midnight .source { color: rgba(236, 227, 208, 0.45); }
+      .midnight .source a { color: #ff8b6e; }
+      .midnight .h-title { font-size: clamp(2.1rem, 4.4vw, 3.4rem); }
+      .midnight .ord { font-size: clamp(5rem, 10vw, 8rem); color: #ff8b6e; }
+
+      /* ── 03 TERMINAL ──────────────────────────────────────── */
+      .terminal {
+        background: var(--terminal-bg);
+        color: var(--terminal-fg);
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        border: 1px solid #1a2a1c;
+      }
+      .terminal .term-bar {
+        display: flex;
+        gap: 0.4rem;
+        padding-bottom: 1rem;
+        margin-bottom: 1rem;
+        border-bottom: 1px dashed #1f3a23;
+      }
+      .terminal .dot { width: 11px; height: 11px; border-radius: 50%; background: #2a4a2e; }
+      .terminal .prompt { color: var(--terminal-dim); }
+      .terminal .ord {
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        color: var(--terminal-fg);
+        font-style: normal;
+        font-weight: 500;
+        font-size: 1.1rem;
+        margin-bottom: 0.7rem;
+      }
+      .terminal .h-title {
+        font-family: "Fraunces", serif;
+        color: #f1ffe8;
+        font-size: clamp(2rem, 4.2vw, 3.2rem);
+        font-weight: 700;
+      }
+      .terminal .body-serif { color: #c8e6cd; font-family: "JetBrains Mono", monospace; font-size: 0.95rem; line-height: 1.65; }
+      .terminal .source { color: var(--terminal-dim); }
+      .terminal .source a { color: #b6f1c0; }
+
+      /* ── 04 BIG STAT ──────────────────────────────────────── */
+      .bigstat {
+        background: #ece3d0;
+        border: 1.5px solid var(--rule);
+      }
+      .bigstat-grid {
+        display: grid;
+        grid-template-columns: 1fr 1.1fr;
+        gap: 2.5rem;
+        align-items: center;
+      }
+      .bigstat .stat {
+        font-family: "Fraunces", serif;
+        font-weight: 900;
+        font-style: italic;
+        color: var(--accent);
+        font-size: clamp(7rem, 18vw, 14rem);
+        line-height: 0.85;
+        letter-spacing: -0.05em;
+      }
+      .bigstat .stat-cap {
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 0.78rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-top: 0.8rem;
+      }
+      .bigstat .h-title { font-size: clamp(1.8rem, 3.6vw, 2.6rem); }
+      @media (max-width: 800px) {
+        .bigstat-grid { grid-template-columns: 1fr; }
+      }
+
+      /* ── 05 ROSE ALERT STAMP ──────────────────────────────── */
+      .rose {
+        background: var(--rose);
+        border: 1.5px solid var(--accent);
+      }
+      .rose .stamp {
+        display: inline-block;
+        border: 2.5px solid var(--accent);
+        color: var(--accent);
+        padding: 0.5rem 1rem;
+        font-family: "JetBrains Mono", monospace;
+        font-weight: 700;
+        font-size: 0.78rem;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        transform: rotate(-2.5deg);
+        margin-bottom: 1.5rem;
+      }
+      .rose .h-title { font-size: clamp(2rem, 4.4vw, 3.2rem); }
+      .rose .ord { font-size: clamp(4.5rem, 9vw, 7rem); float: right; margin: 0 0 1rem 1.5rem; }
+
+      /* ── 06 NEWSPRINT QUOTE ───────────────────────────────── */
+      .newsprint-q {
+        background: var(--newsprint);
+        border: 1.5px solid var(--rule);
+      }
+      .newsprint-q .h-title { font-size: clamp(1.9rem, 3.8vw, 2.7rem); }
+      .newsprint-q blockquote {
+        font-family: "Fraunces", serif;
+        font-style: italic;
+        font-size: clamp(1.3rem, 2.4vw, 1.75rem);
+        line-height: 1.4;
+        margin: 1.4rem 0;
+        padding: 1.2rem 0 1.2rem 1.5rem;
+        border-left: 3px solid var(--accent);
+        max-width: 60ch;
+      }
+      .newsprint-q .ord { font-size: clamp(4.5rem, 9vw, 7rem); }
+
+      /* ── 07 SKY (exoplanet) ───────────────────────────────── */
+      .sky {
+        background: linear-gradient(180deg, #d3e3ed 0%, #9bb6c8 100%);
+        color: var(--sky-deep);
+      }
+      .sky .kicker { color: rgba(20, 40, 58, 0.65); }
+      .sky .ord { color: var(--sky-deep); font-size: clamp(5rem, 11vw, 9rem); }
+      .sky .h-title { font-size: clamp(2.1rem, 4.4vw, 3.4rem); color: var(--sky-deep); }
+      .sky .source { color: rgba(20, 40, 58, 0.6); }
+      .sky .source a { color: var(--sky-deep); border-bottom: 1px solid var(--sky-deep); }
+      .sky-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 2rem; align-items: center; }
+      @media (max-width: 800px) { .sky-grid { grid-template-columns: 1fr; } }
+
+      /* ── 08 MARS RUST ─────────────────────────────────────── */
+      .mars {
+        background:
+          radial-gradient(circle at 80% 20%, rgba(255, 130, 60, 0.18) 0%, transparent 60%),
+          var(--mars);
+        color: var(--mars-fg);
+      }
+      .mars .kicker { color: rgba(243, 214, 196, 0.55); }
+      .mars .ord { color: #ff8c4a; font-size: clamp(6rem, 13vw, 10rem); }
+      .mars .h-title { font-size: clamp(2.2rem, 4.6vw, 3.5rem); color: #fbe6d4; }
+      .mars .body-serif { color: #e8c8b3; }
+      .mars .source { color: rgba(243, 214, 196, 0.55); }
+      .mars .source a { color: #ff8c4a; }
+      .mars-stat {
+        display: inline-block;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.78rem;
+        letter-spacing: 0.18em;
+        background: rgba(255, 140, 74, 0.15);
+        color: #ff8c4a;
+        padding: 0.35rem 0.7rem;
+        border-radius: 3px;
+        margin-right: 0.5rem;
+      }
+
+      /* ── 09 ACADEMIC PHYSICS ──────────────────────────────── */
+      .academic {
+        background: var(--paper);
+        border: 1px solid var(--rule);
+        border-top: 6px double var(--rule);
+      }
+      .academic .label-line {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.72rem;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--muted);
+        text-align: center;
+        margin-bottom: 1rem;
+      }
+      .academic .h-title {
+        font-size: clamp(2rem, 4.4vw, 3.3rem);
+        text-align: center;
+        max-width: 22ch;
+        margin: 0.8rem auto 1.6rem;
+        font-weight: 900;
+      }
+      .academic .body-serif {
+        margin: 0 auto;
+        font-size: 1.15rem;
+        column-count: 2;
+        column-gap: 2.5rem;
+        max-width: none;
+      }
+      .academic .body-serif::first-letter {
+        font-family: "Fraunces", serif;
+        font-weight: 900;
+        font-size: 4.3rem;
+        float: left;
+        line-height: 0.85;
+        margin: 0.18rem 0.6rem 0 0;
+        color: var(--accent);
+      }
+      .academic .source { text-align: center; margin-top: 1.6rem; }
+      @media (max-width: 800px) {
+        .academic .body-serif { column-count: 1; }
+      }
+
+      /* ── 10 PINK / KATYDID ────────────────────────────────── */
+      .splash {
+        background: linear-gradient(120deg, var(--pink) 0%, #d8e8c4 70%, #aedab8 100%);
+        color: #2a1d2a;
+      }
+      .splash .ord { font-size: clamp(6rem, 13vw, 10rem); color: var(--leaf); }
+      .splash .h-title { font-size: clamp(2.2rem, 4.6vw, 3.4rem); }
+      .splash .kicker { color: rgba(42, 29, 42, 0.6); }
+      .splash .source { color: rgba(42, 29, 42, 0.5); }
+      .splash .source a { color: var(--leaf); }
+
+      /* ── HN SPREAD ────────────────────────────────────────── */
+      .hn {
+        background: var(--newsprint);
+        border: 1.5px solid var(--rule);
+      }
+      .hn .hn-head {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        padding-bottom: 1.1rem;
+        border-bottom: 2.5px solid var(--rule);
+        margin-bottom: 0.5rem;
+      }
+      .hn .hn-name {
+        font-family: "Fraunces", serif;
+        font-weight: 900;
+        font-size: clamp(2rem, 4vw, 2.8rem);
+        letter-spacing: -0.025em;
+      }
+      .hn .hn-name .dot { color: var(--accent); }
+      .hn .hn-sub {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.74rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+      .hn-item {
+        padding: 2rem 0;
+        border-bottom: 1px solid rgba(20, 20, 15, 0.18);
+        display: grid;
+        grid-template-columns: 110px 1fr;
+        gap: 1.6rem;
+      }
+      .hn-item:last-child { border-bottom: none; }
+      .hn-item .ord {
+        font-size: clamp(3.5rem, 7vw, 5.5rem);
+        line-height: 0.85;
+      }
+      .hn-item h3 {
+        font-family: "Fraunces", serif;
+        font-weight: 700;
+        font-size: clamp(1.55rem, 2.7vw, 2.1rem);
+        line-height: 1.08;
+        letter-spacing: -0.018em;
+        margin: 0 0 0.6rem;
+      }
+      .hn-item .stats {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.75rem;
+        letter-spacing: 0.14em;
+        color: var(--muted);
+        margin-bottom: 0.85rem;
+      }
+      .hn-item p {
+        font-family: "Fraunces", serif;
+        font-size: 1.08rem;
+        line-height: 1.55;
+        margin: 0 0 0.85rem;
+        max-width: 60ch;
+      }
+      .hn-item .thread {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.74rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--accent);
+        text-decoration: none;
+      }
+      @media (max-width: 700px) {
+        .hn-item { grid-template-columns: 1fr; gap: 0.4rem; }
+      }
+
+      /* ── ARCHITECTURE FEATURE ─────────────────────────────── */
+      .arch {
+        background: #efe6d2;
+        border: 1.5px solid var(--rule);
+      }
+      .arch .arch-tag {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.78rem;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+      }
+      .arch .arch-tag::before {
+        content: "";
+        width: 28px;
+        height: 1.5px;
+        background: var(--accent);
+      }
+      .arch .h-title {
+        font-size: clamp(2.6rem, 6vw, 4.6rem);
+        font-weight: 900;
+        line-height: 0.98;
+        letter-spacing: -0.03em;
+        max-width: 18ch;
+      }
+      .arch .arch-meta {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.78rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin: 1.2rem 0 2rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+      .arch .arch-meta .sep { color: var(--accent); }
+      .arch-grid {
+        display: grid;
+        grid-template-columns: 1.05fr 1fr;
+        gap: 3rem;
+        align-items: start;
+      }
+      .arch .body-serif {
+        font-size: 1.18rem;
+        line-height: 1.62;
+        max-width: 58ch;
+      }
+      .arch .body-serif::first-letter {
+        font-family: "Fraunces", serif;
+        font-weight: 900;
+        font-style: italic;
+        font-size: 5.5rem;
+        float: left;
+        line-height: 0.82;
+        margin: 0.2rem 0.7rem -0.2rem 0;
+        color: var(--accent);
+      }
+      .arch .pull {
+        font-family: "Fraunces", serif;
+        font-style: italic;
+        font-weight: 400;
+        font-size: clamp(1.6rem, 3.2vw, 2.2rem);
+        line-height: 1.28;
+        color: var(--fg);
+        padding: 1.5rem 0;
+        margin: 0;
+        border-top: 4px double var(--rule);
+        border-bottom: 4px double var(--rule);
+      }
+      .arch .pull-attr {
+        font-family: "JetBrains Mono", monospace;
+        font-style: normal;
+        font-size: 0.75rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-top: 0.9rem;
+        display: block;
+      }
+      .arch .stack-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+        margin-top: 1.6rem;
+      }
+      .arch .stack-card {
+        background: rgba(20, 20, 15, 0.06);
+        border-left: 2px solid var(--accent);
+        padding: 0.8rem 1rem;
+      }
+      .arch .stack-card .num {
+        font-family: "Fraunces", serif;
+        font-weight: 900;
+        font-style: italic;
+        color: var(--accent);
+        font-size: 1.7rem;
+        line-height: 1;
+      }
+      .arch .stack-card .lab {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.7rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-top: 0.3rem;
+      }
+      @media (max-width: 900px) {
+        .arch-grid { grid-template-columns: 1fr; gap: 2rem; }
+      }
+
+      /* ── footer ───────────────────────────────────────────── */
+      footer {
+        margin-top: 5rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid rgba(20, 20, 15, 0.15);
+        display: flex;
+        justify-content: space-between;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.74rem;
+        letter-spacing: 0.14em;
+        color: var(--muted);
+      }
+      .colophon {
+        text-align: center;
+        margin: 4rem 0 2rem;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.75rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+      .colophon::before, .colophon::after {
+        content: "·";
+        margin: 0 1rem;
+        color: var(--accent);
+      }
+      @media (max-width: 640px) {
+        .page { padding: 2rem 1.1rem 4rem; }
+        .pretitle { gap: 0.5rem; font-size: 0.65rem; }
+        .spread-pad { padding: 1.4rem; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header class="masthead">
+        <div class="pretitle">
+          <span>The Morning Edition</span>
+          <span class="dot">●</span>
+          <span>Vol. I · No. 18</span>
+          <span class="dot">●</span>
+          <span>Sunday · May 10, 2026</span>
+          <span class="dot">●</span>
+          <span>For Aziz</span>
+        </div>
+        <h1 class="title">
+          <span class="line">The Inner</span>
+          <span class="line edition">Stack<span class="stop">.</span></span>
+        </h1>
+      </header>
+
+      <section class="meta-row">
+        <div>
+          <div class="label">Issue</div>
+          <div class="value">No. 18</div>
+        </div>
+        <div>
+          <div class="label">Spreads</div>
+          <div class="value italic">Twelve</div>
+        </div>
+        <div>
+          <div class="label">Window</div>
+          <div class="value">72 hrs</div>
+        </div>
+      </section>
+
+      <div class="double-rule"></div>
+
+      <!-- ════════════ 01 · HERO ════════════ -->
+      <section class="spread hero spread-pad">
+        <div class="hero-grid">
+          <div>
+            <div class="kicker">Spread 01 · Cybersecurity · OpenAI</div>
+            <h2 class="h-title">
+              GPT-5.5-Cyber arrives — and it isn't a ChatGPT update<span style="color: var(--accent)">.</span>
+              <span class="for-you">For You</span>
+            </h2>
+            <div class="body-serif">
+              <p>
+                On Friday OpenAI dropped <em>GPT-5.5-Cyber</em>, a model
+                fine-tuned for security operations and shipped behind a
+                "Trusted Access" tier rather than the consumer product. The
+                announcement leans hard on triage: incident response,
+                vulnerability research, and patch generation are the three
+                workloads called out by name.
+              </p>
+              <p>
+                The interesting move is the access pattern. OpenAI is gating
+                the model behind enterprise verification because it can
+                meaningfully accelerate exploit development as well — the
+                same dual-use line Anthropic walked when it shipped
+                cyber-tuned variants of Claude. If you do appsec or run a
+                red team, this is the one to evaluate this week.
+              </p>
+            </div>
+            <div class="source">
+              Source · <a href="https://openai.com/news/">openai.com/news</a>
+            </div>
+          </div>
+          <div class="ord">01</div>
+        </div>
+      </section>
+
+      <!-- ════════════ 02 · MIDNIGHT ════════════ -->
+      <section class="spread midnight spread-pad">
+        <div class="kicker">Spread 02 · Voice models · OpenAI</div>
+        <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 2rem; flex-wrap: wrap;">
+          <h2 class="h-title" style="max-width: 22ch;">
+            Voice intelligence quietly takes a step up<span style="color: #ff8b6e">.</span>
+            <span class="for-you">For You</span>
+          </h2>
+          <div class="ord">02</div>
+        </div>
+        <div class="body-serif" style="color: rgba(236, 227, 208, 0.85);">
+          <p>
+            On May 7 OpenAI shipped a refreshed line of voice models in the
+            API alongside <em>Trusted Contact</em> in ChatGPT — a way to
+            verify a human is on the other end of a call before the model
+            keeps acting on what it hears. Both releases point at the same
+            problem: agentic flows are now happening over phone lines, and
+            the surface area for prompt injection by audio is real.
+          </p>
+          <p>
+            For anyone wiring an agent into a call centre or voice
+            interface, the new latency and steerability numbers are worth
+            benchmarking against your current stack. The rollout came the
+            same day Perplexity put its Personal Computer agent on Mac —
+            agentic plumbing is becoming the surface area, not the model.
+          </p>
+        </div>
+        <div class="source">
+          Source · <a href="https://openai.com/news/">openai.com/news</a>
+        </div>
+      </section>
+
+      <!-- ════════════ 03 · TERMINAL ════════════ -->
+      <section class="spread terminal spread-pad">
+        <div class="term-bar">
+          <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        </div>
+        <div class="ord"><span class="prompt">$</span> uname -r</div>
+        <div class="ord">7.0.5</div>
+        <div class="kicker" style="color: var(--terminal-dim); margin-top: 1.2rem;">Spread 03 · Linux kernel · stable + LTS</div>
+        <h2 class="h-title">
+          Linux 7.0.5 stable, plus three longterm trees on the same day<span style="color: #b6f1c0">.</span>
+          <span class="for-you">For You</span>
+        </h2>
+        <div class="body-serif">
+          <p>
+            Friday May 8 saw Linus push 7.0.5 stable and Greg KH stamp
+            6.18.28, 6.12.87, and 6.6.138 on the longterm branches in a
+            single coordinated drop — the first proper batch since the 7.0
+            transition in mid-April.
+          </p>
+          <p>
+            If you run prod boxes on 6.6 LTS (RHEL 9 derivatives, Debian
+            stable point releases), 6.6.138 is the one to schedule. The
+            6.18 longterm continues to be the migration target for anyone
+            jumping off the now-EOLed 6.x mainline.
+          </p>
+        </div>
+        <div class="source">
+          Source · <a href="https://kernel.org/">kernel.org</a>
+        </div>
+      </section>
+
+      <!-- ════════════ 04 · BIG STAT ════════════ -->
+      <section class="spread bigstat spread-pad">
+        <div class="bigstat-grid">
+          <div>
+            <div class="kicker">Spread 04 · Funding · China LLM</div>
+            <div class="stat">$2B</div>
+            <div class="stat-cap">Moonshot AI · ~$20B post</div>
+          </div>
+          <div>
+            <h2 class="h-title">Moonshot's Kimi crew banks two billion at a twenty-billion mark<span style="color: var(--accent)">.</span></h2>
+            <div class="body-serif">
+              <p>
+                Beijing-based Moonshot — the lab behind the open-weight
+                Kimi K-series — closed roughly $2 billion in fresh capital
+                at a $20B valuation this week. It's a striking number for a
+                Chinese lab that has been competing on open weights rather
+                than hosted product, and it lands while OpenAI's own custom
+                silicon push with Broadcom is reportedly stuck on an $18B
+                financing hurdle.
+              </p>
+              <p class="source" style="margin-top: 1rem;">
+                Source · <a href="https://news.crunchbase.com/">Crunchbase News</a> · <a href="https://techcrunch.com/">TechCrunch</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ════════════ 05 · ROSE ALERT ════════════ -->
+      <section class="spread rose spread-pad">
+        <div class="ord">05</div>
+        <div class="stamp">Capex · Watch this line</div>
+        <div class="kicker">Spread 05 · Infrastructure economics</div>
+        <h2 class="h-title">$725 billion of compute, almost all of it pointed at one thing<span style="color: var(--accent)">.</span></h2>
+        <div class="body-serif">
+          <p>
+            Meta, Amazon, Microsoft and Alphabet have now collectively
+            signalled roughly <strong>$725B</strong> of 2026 capex — up
+            more than 75% year-on-year — with nearly the entire delta
+            earmarked for data centres, custom silicon, GPUs, and AI
+            training runs. The number lands the same week OpenAI's
+            Broadcom partnership reportedly hit an $18B financing wall,
+            forcing a rework of how the chip programme gets funded.
+          </p>
+          <p>
+            For anyone planning capacity, pricing, or a startup that
+            depends on inference economics, the takeaway isn't the
+            absolute number — it's the speed of the curve. The hyperscaler
+            buildout is now visibly compressing supplier roadmaps.
+          </p>
+        </div>
+        <div class="source">
+          Source · <a href="https://techstartups.com/">Tech Startups</a>
+        </div>
+      </section>
+
+      <!-- ════════════ 06 · NEWSPRINT QUOTE ════════════ -->
+      <section class="spread newsprint-q spread-pad">
+        <div class="ord" style="float: right;">06</div>
+        <div class="kicker">Spread 06 · Quantum hardware · Series C</div>
+        <h2 class="h-title">Quantum Motion lands $160M for silicon-native qubits<span style="color: var(--accent)">.</span></h2>
+        <blockquote>
+          The pitch is simple: if your qubit is a CMOS transistor at
+          millikelvin, the world already knows how to manufacture you a
+          million of them.
+        </blockquote>
+        <div class="body-serif">
+          <p>
+            UCL spinout Quantum Motion closed a $160M Series C this week
+            co-led by Mundi Ventures and DCVC, betting on silicon
+            spin-qubit chips that piggy-back on existing semiconductor
+            fabs. It's the unglamorous quantum thesis — no superconducting
+            cryostats, no trapped ions, just transistors at sub-Kelvin
+            temperatures — and the round suggests the patient money is
+            quietly siding with it.
+          </p>
+        </div>
+        <div class="source">
+          Source · <a href="https://techcrunch.com/">TechCrunch</a>
+        </div>
+      </section>
+
+      <!-- ════════════ 07 · SKY (exoplanets) ════════════ -->
+      <section class="spread sky spread-pad">
+        <div class="sky-grid">
+          <div class="ord">07</div>
+          <div>
+            <div class="kicker">Spread 07 · Astronomy · machine learning</div>
+            <h2 class="h-title">An AI tool called <em>RAVEN</em> just sifted 100+ planets out of TESS data<span style="color: var(--sky-deep)">.</span></h2>
+            <div class="body-serif">
+              <p>
+                NASA confirmed this week that RAVEN — a transit-signal
+                classifier trained on the Transiting Exoplanet Survey
+                Satellite archive — has surfaced more than one hundred
+                exoplanets including 31 brand-new worlds. The interesting
+                catches sit in the so-called <em>Neptunian desert</em>,
+                where planets of a certain mass aren't supposed to exist,
+                and on ultra-short orbits under twenty-four hours.
+              </p>
+              <p>
+                RAVEN didn't find anything new in the universe; it found
+                things humans had already collected and never looked at.
+                The bottleneck wasn't telescope time. It was attention.
+              </p>
+            </div>
+            <div class="source">
+              Source · <a href="https://www.sciencedaily.com/releases/2026/05/260502233926.htm">ScienceDaily, May 2</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ════════════ 08 · MARS ════════════ -->
+      <section class="spread mars spread-pad">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 2rem; flex-wrap: wrap;">
+          <div class="kicker">Spread 08 · Astrobiology · Mars</div>
+          <div class="ord">08</div>
+        </div>
+        <h2 class="h-title">Curiosity finds the most diverse organic chemistry yet seen on Mars<span style="color: #ff8c4a">.</span></h2>
+        <div style="margin: 1rem 0 1.4rem;">
+          <span class="mars-stat">7 new molecules</span>
+          <span class="mars-stat">Cumberland mudstone</span>
+          <span class="mars-stat">Billions of yrs old</span>
+        </div>
+        <div class="body-serif">
+          <p>
+            A re-analysis of samples from the Cumberland drill site has
+            turned up seven previously undetected organic molecules
+            preserved in clay-rich rock that once held standing water.
+            None of them are biosignatures on their own, but the diversity
+            — long-chain hydrocarbons sitting alongside sulphur-bearing
+            organics — is the most varied set the rover has produced.
+          </p>
+          <p>
+            The team used a one-shot pyrolysis technique they had been
+            saving for high-confidence targets, which is why the result
+            took a decade to surface from samples drilled in 2013. The
+            chemistry is consistent with prebiotic process; the absence of
+            extant biology, equally so.
+          </p>
+        </div>
+        <div class="source">
+          Source · <a href="https://www.livescience.com/space/space-exploration/nasa-rover-uncovers-rock-with-7-new-organic-molecules-on-mars-the-most-diverse-collection-ever-seen">Live Science</a>
+        </div>
+      </section>
+
+      <!-- ════════════ 09 · ACADEMIC PHYSICS ════════════ -->
+      <section class="spread academic spread-pad">
+        <div class="label-line">Spread 09 · Quantum optics · Oxford · Nature</div>
+        <h2 class="h-title">Quadsqueezing: the fourth-order squeeze that wasn't supposed to be measurable<span style="color: var(--accent)">.</span></h2>
+        <div class="body-serif">
+          Oxford physicists have demonstrated <em>quadsqueezing</em>, a
+          fourth-order quantum effect that compresses uncertainty along a
+          higher-order axis of the optical phase space than the standard
+          two-mode squeeze familiar from gravitational-wave detectors. In
+          plain terms: where conventional squeezing trades amplitude noise
+          for phase noise on a single observable, quadsqueezing
+          re-allocates uncertainty across a quartic combination of
+          quadratures — a regime theorists had described but no lab had
+          actually produced. The team used a tailored nonlinear medium and
+          homodyne tomography to verify the negative-Wigner-function
+          signature, and reports a route to using the effect for sensing
+          tasks that hit the standard quantum limit. The result widens the
+          toolkit for any experiment whose precision is bottlenecked by
+          shot noise — interferometric astronomy, dark-matter searches,
+          and chip-scale magnetometry are the three application domains
+          the paper calls out.
+        </div>
+        <div class="source">
+          Source · <a href="https://www.nature.com/news">Nature News</a>
+        </div>
+      </section>
+
+      <!-- ════════════ 10 · PINK / KATYDID ════════════ -->
+      <section class="spread splash spread-pad">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 2rem; flex-wrap: wrap;">
+          <div class="kicker">Spread 10 · Field biology · weird</div>
+          <div class="ord">10</div>
+        </div>
+        <h2 class="h-title">A rainforest katydid was caught switching from hot pink to forest green<span style="color: var(--leaf)">.</span></h2>
+        <div class="body-serif">
+          <p>
+            Researchers in Ecuador documented a <em>Markia</em>-species
+            katydid sliding through a colour change that the field had
+            assumed impossible at this taxonomic level — pink in low light,
+            green in high. Reversible carotenoid-mediated colour change
+            shows up in cephalopods and a few fish; a katydid making the
+            same trick on a longer timescale forces a small rewrite of
+            what insect cuticle chromatophores can do.
+          </p>
+          <p>
+            The paper notes the animal isn't camouflaging in the moment —
+            it's tracking the dominant wavelength of its microhabitat over
+            hours. Slow camouflage. A new category, basically.
+          </p>
+        </div>
+        <div class="source">
+          Source · <a href="https://www.sciencedaily.com/news/strange_offbeat/">ScienceDaily, Strange &amp; Offbeat</a>
+        </div>
+      </section>
+
+      <!-- ════════════ 11 · HACKER NEWS ════════════ -->
+      <section class="spread hn spread-pad">
+        <div class="hn-head">
+          <div>
+            <div class="hn-name">Hacker News<span class="dot">.</span></div>
+            <div class="hn-sub">Top five · last 24 hrs</div>
+          </div>
+          <div class="hn-sub">orange.firebaseio</div>
+        </div>
+
+        <div class="hn-item">
+          <div class="ord">01</div>
+          <div>
+            <h3>Internet Archive Switzerland</h3>
+            <div class="stats">619 points · 101 comments</div>
+            <p>
+              The Internet Archive has stood up an independent Swiss
+              foundation in St. Gallen, jurisdictionally severed from the
+              US-based parent and tasked with preserving endangered
+              archives — including, notably, the weights of public
+              generative AI models. The piece is partly about copyright
+              risk-spreading and partly about the realisation that, of all
+              digital artefacts, frontier model weights might be the most
+              ephemeral. A partnership with the University of St. Gallen's
+              Computer Science school anchors the technical side.
+            </p>
+            <a class="thread" href="https://news.ycombinator.com/item?id=48074265">→ HN discussion</a>
+          </div>
+        </div>
+
+        <div class="hn-item">
+          <div class="ord">02</div>
+          <div>
+            <h3>Bun's experimental Rust rewrite hits 99.8% test compatibility on Linux x64 glibc</h3>
+            <div class="stats">584 points · 548 comments</div>
+            <p>
+              Six days into the experiment, Jarred Sumner reports a
+              ported-to-Rust Bun runtime — roughly 960k lines — passing
+              99.8% of the existing Zig test suite on Linux glibc. He is
+              explicit that this is exploratory ("a very high chance all
+              this code gets thrown out") and that the goal is a
+              side-by-side comparison on perf, memory, maintainability and
+              DX. The thread is mostly an argument about what an
+              AI-assisted port at this scale actually proves.
+            </p>
+            <a class="thread" href="https://news.ycombinator.com/item?id=48073680">→ HN discussion</a>
+          </div>
+        </div>
+
+        <div class="hn-item">
+          <div class="ord">03</div>
+          <div>
+            <h3>I've banned query strings</h3>
+            <div class="stats">426 points · 227 comments</div>
+            <p>
+              Chris Morgan documents a Caddyfile policy that returns an
+              error for any unknown query parameter on his personal site
+              — a blanket refusal aimed squarely at tracking parameters
+              appended by social platforms and link shorteners. The
+              comments split predictably between "elegant minimalism" and
+              "this breaks things in ways you haven't thought about,"
+              which is exactly the conversation worth having.
+            </p>
+            <a class="thread" href="https://news.ycombinator.com/item?id=48076173">→ HN discussion</a>
+          </div>
+        </div>
+
+        <div class="hn-item">
+          <div class="ord">04</div>
+          <div>
+            <h3>Show HN: Building a web server in assembly to give my life (a lack of) meaning</h3>
+            <div class="stats">295 points · 138 comments</div>
+            <p>
+              <em>ymawky</em> is a static-file HTTP server written
+              entirely in ARM64 assembly for macOS — fork-per-connection,
+              no libc, syscall-only. It supports GET/PUT/DELETE/OPTIONS/HEAD,
+              guards against path traversal, and includes slowloris
+              mitigations. The author's framing is honest: this is
+              recreational assembly programming pretending to be a useful
+              project, and it's the better for it.
+            </p>
+            <a class="thread" href="https://news.ycombinator.com/item?id=48080587">→ HN discussion</a>
+          </div>
+        </div>
+
+        <div class="hn-item">
+          <div class="ord">05</div>
+          <div>
+            <h3>Gemini API File Search is now multimodal</h3>
+            <div class="stats">102 points · 14 comments</div>
+            <p>
+              Google extended Gemini's managed RAG product so it now
+              indexes images alongside text using <em>Gemini Embedding 2</em>,
+              with custom metadata filters and page-level citations. The
+              feature target is the same one Anthropic's Files API and
+              OpenAI's File Search have been chasing — make
+              "verifiable retrieval over your enterprise corpus" a
+              one-API-call problem rather than a six-week pipeline build.
+            </p>
+            <a class="thread" href="https://news.ycombinator.com/item?id=48080702">→ HN discussion</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ════════════ 12 · ARCHITECTURE IN THE WILD ════════════ -->
+      <section class="spread arch spread-pad">
+        <div class="arch-tag">Architecture in the Wild</div>
+        <h2 class="h-title">Cloudflare ate its own dogfood and ended up with 3,683 internal AI users<span style="color: var(--accent)">.</span></h2>
+        <div class="arch-meta">
+          <span>blog.cloudflare.com</span>
+          <span class="sep">/</span>
+          <span>Ayush Thakur, Scott Roe-Meschke, Rajesh Bhatia</span>
+          <span class="sep">/</span>
+          <span>April 20, 2026</span>
+        </div>
+        <div class="arch-grid">
+          <div>
+            <div class="body-serif">
+              Eleven months ago Cloudflare formed a tiger team it named
+              <em>iMARS</em> — Internal MCP Agent/Server Rollout Squad —
+              and pointed it at the same problem every large engineering
+              org now has: how do you give thousands of developers safe,
+              governed access to frontier models without the result
+              looking like a spaghetti pile of personal API keys? The
+              answer they describe in this April 20 piece is a vertical
+              stack built almost entirely on shipping Cloudflare products:
+              AI Gateway as the LLM proxy and cost meter, Workers AI for
+              cheaper open-weight inference (Kimi K2.5 handles ~15% of
+              their AI code review traffic), an MCP Portal exposing 13
+              production servers and 182+ tools, and a Backstage instance
+              cataloguing 2,055 services as the grounding context every
+              agent reads. The architectural insight is the proxy: by
+              forcing every model call through a single Worker, they get a
+              control plane — quotas, redaction, ZDR enforcement, BYOK —
+              that direct SDK calls cannot. The numbers they share are the
+              kind that make you re-evaluate your own rollout: 60% of the
+              company actively using the tooling, 93% in R&amp;D, weekly
+              merge requests up from ~5,600 to a peak of 10,952. Worth
+              reading if you are inside an org that is still
+              hand-distributing OpenAI keys.
+            </div>
+          </div>
+          <div>
+            <p class="pull">
+              "Frontier models still do the hard agentic work, but
+              everything routed through the gateway is a control surface
+              we own — not a contract we hope our vendor honours."
+              <span class="pull-attr">— iMARS team, paraphrased from the post</span>
+            </p>
+            <div class="stack-grid">
+              <div class="stack-card">
+                <div class="num">3,683</div>
+                <div class="lab">Internal users · 60% of co.</div>
+              </div>
+              <div class="stack-card">
+                <div class="num">241B</div>
+                <div class="lab">Tokens through AI Gateway · 30 d</div>
+              </div>
+              <div class="stack-card">
+                <div class="num">10,952</div>
+                <div class="lab">Peak weekly MRs (was 5,600)</div>
+              </div>
+              <div class="stack-card">
+                <div class="num">3,900+</div>
+                <div class="lab">Repos with AGENTS.md context</div>
+              </div>
+            </div>
+            <div class="source" style="margin-top: 1.4rem;">
+              Read it · <a href="https://blog.cloudflare.com/internal-ai-engineering-stack/">blog.cloudflare.com/internal-ai-engineering-stack</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="colophon">End of issue · No. 18 · The Inner Stack</div>
+
+      <footer>
+        <span>Morning Edition · Vol. I · No. 18</span>
+        <a href="../index.html">← Back to the shelf</a>
+      </footer>
+    </div>
+  </body>
+</html>
