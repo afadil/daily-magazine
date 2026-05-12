@@ -1,0 +1,1122 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Fail Small — Morning Edition · May 12, 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,700;1,9..144,900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #ece3d0;
+        --fg: #14140f;
+        --muted: #7a7465;
+        --rule: #14140f;
+        --accent: #d8542a;
+        --accent-soft: rgba(216, 84, 42, 0.12);
+        --midnight: #0d0d0c;
+        --midnight-fg: #ece3d0;
+        --terminal-bg: #0a0e0a;
+        --terminal-fg: #b6f1c0;
+        --terminal-dim: #5a8a64;
+        --rose: #f5d6cf;
+        --newsprint: #f1ebda;
+        --paper: #e9e0c9;
+        --sky: #d6e6dc;
+        --sky-deep: #1d3a2e;
+        --plum: #2a1224;
+        --plum-fg: #f1d5e8;
+        --gold: #c9a345;
+        --pink: #f1c1d6;
+        --leaf: #2c5230;
+      }
+      * { box-sizing: border-box; }
+      html, body { margin: 0; padding: 0; }
+      body {
+        background: var(--bg);
+        color: var(--fg);
+        font-family: "Fraunces", Georgia, serif;
+        font-optical-sizing: auto;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+        font-size: 18px;
+        line-height: 1.5;
+      }
+      a { color: inherit; }
+      .page { max-width: 1180px; margin: 0 auto; padding: 3rem 2rem 6rem; }
+
+      /* ── Masthead ─────────────────────────────────────────── */
+      .masthead { border-bottom: 1.5px solid var(--rule); padding-bottom: 1.25rem; }
+      .pretitle {
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 0.75rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.9rem;
+        margin-bottom: 1.4rem;
+      }
+      .pretitle .dot { color: var(--accent); }
+      .title {
+        font-family: "Fraunces", serif;
+        font-weight: 900;
+        font-size: clamp(3.25rem, 9vw, 7rem);
+        line-height: 0.92;
+        letter-spacing: -0.035em;
+        margin: 0;
+      }
+      .title .line { display: block; }
+      .title .edition { color: var(--accent); font-style: italic; font-weight: 900; }
+      .title .edition .stop { color: var(--fg); font-style: normal; }
+      .meta-row {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2.25rem;
+        padding: 2rem 0;
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+      }
+      .meta-row .label {
+        font-size: 0.7rem;
+        letter-spacing: 0.18em;
+        color: var(--muted);
+        text-transform: uppercase;
+        margin-bottom: 0.5rem;
+      }
+      .meta-row .value {
+        font-family: "Fraunces", serif;
+        font-size: 1.4rem;
+        font-weight: 700;
+      }
+      .meta-row .value.italic { font-style: italic; font-weight: 400; }
+      .double-rule { border-top: 1.5px solid var(--rule); border-bottom: 1.5px solid var(--rule); height: 4px; margin: 1rem 0 3rem; }
+      @media (max-width: 640px) { .meta-row { grid-template-columns: 1fr 1fr; gap: 1.4rem; } }
+
+      /* ── Spread shell ─────────────────────────────────────── */
+      .spread { margin: 0 0 3rem; border-radius: 14px; overflow: hidden; position: relative; }
+      .spread-pad { padding: clamp(1.75rem, 3.4vw, 3rem); }
+      .ord {
+        font-family: "Fraunces", serif;
+        font-style: italic;
+        font-weight: 900;
+        color: var(--accent);
+        line-height: 0.9;
+      }
+      .kicker {
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 0.74rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+      .for-you {
+        display: inline-block;
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 0.7rem;
+        font-weight: 600;
+        letter-spacing: 0.22em;
+        background: var(--accent);
+        color: #fff;
+        padding: 0.32rem 0.65rem;
+        border-radius: 3px;
+        margin-left: 0.6rem;
+        vertical-align: middle;
+      }
+      .h-title {
+        font-family: "Fraunces", serif;
+        font-weight: 700;
+        line-height: 1.02;
+        letter-spacing: -0.022em;
+        margin: 0.6rem 0 1.1rem;
+      }
+      .body-serif {
+        font-family: "Fraunces", serif;
+        font-weight: 400;
+        font-size: 1.15rem;
+        line-height: 1.55;
+        max-width: 64ch;
+      }
+      .body-serif p { margin: 0 0 0.95rem; }
+      .source {
+        margin-top: 1.4rem;
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 0.74rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+      .source a { color: var(--accent); text-decoration: none; }
+
+      /* ── 01 HERO ──────────────────────────────────────────── */
+      .hero {
+        background: linear-gradient(135deg, #ebe2cf 0%, #d8c799 100%);
+        border: 1.5px solid var(--rule);
+      }
+      .hero .ord { font-size: clamp(7rem, 15vw, 12rem); }
+      .hero .h-title { font-size: clamp(2.6rem, 5.5vw, 4.4rem); }
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1.4fr 1fr;
+        gap: 2.5rem;
+        align-items: end;
+      }
+      .hero-grid .ord { text-align: right; align-self: stretch; }
+      @media (max-width: 800px) {
+        .hero-grid { grid-template-columns: 1fr; }
+        .hero-grid .ord { text-align: left; }
+      }
+
+      /* ── 02 MIDNIGHT ──────────────────────────────────────── */
+      .midnight {
+        background: var(--midnight);
+        color: var(--midnight-fg);
+      }
+      .midnight .kicker { color: rgba(236, 227, 208, 0.55); }
+      .midnight .source { color: rgba(236, 227, 208, 0.45); }
+      .midnight .source a { color: #ff8b6e; }
+      .midnight .h-title { font-size: clamp(2.1rem, 4.4vw, 3.4rem); }
+      .midnight .ord { font-size: clamp(5rem, 10vw, 8rem); color: #ff8b6e; }
+
+      /* ── 03 TERMINAL ──────────────────────────────────────── */
+      .terminal {
+        background: var(--terminal-bg);
+        color: var(--terminal-fg);
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        border: 1px solid #1a2a1c;
+      }
+      .terminal .term-bar {
+        display: flex;
+        gap: 0.4rem;
+        padding-bottom: 1rem;
+        margin-bottom: 1rem;
+        border-bottom: 1px dashed #1f3a23;
+      }
+      .terminal .dot { width: 11px; height: 11px; border-radius: 50%; background: #2a4a2e; }
+      .terminal .prompt { color: var(--terminal-dim); }
+      .terminal .ord {
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        color: var(--terminal-fg);
+        font-style: normal;
+        font-weight: 500;
+        font-size: 1.1rem;
+        margin-bottom: 0.7rem;
+      }
+      .terminal .h-title {
+        font-family: "Fraunces", serif;
+        color: #f1ffe8;
+        font-size: clamp(2rem, 4.2vw, 3.2rem);
+        font-weight: 700;
+      }
+      .terminal .body-serif { color: #c8e6cd; font-family: "JetBrains Mono", monospace; font-size: 0.95rem; line-height: 1.65; }
+      .terminal .source { color: var(--terminal-dim); }
+      .terminal .source a { color: #b6f1c0; }
+
+      /* ── 04 BIG STAT ──────────────────────────────────────── */
+      .bigstat {
+        background: #ece3d0;
+        border: 1.5px solid var(--rule);
+      }
+      .bigstat-grid {
+        display: grid;
+        grid-template-columns: 1fr 1.1fr;
+        gap: 2.5rem;
+        align-items: center;
+      }
+      .bigstat .stat {
+        font-family: "Fraunces", serif;
+        font-weight: 900;
+        font-style: italic;
+        color: var(--accent);
+        font-size: clamp(6rem, 16vw, 13rem);
+        line-height: 0.85;
+        letter-spacing: -0.05em;
+      }
+      .bigstat .stat-cap {
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 0.78rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-top: 0.8rem;
+      }
+      .bigstat .h-title { font-size: clamp(1.8rem, 3.6vw, 2.6rem); }
+      @media (max-width: 800px) { .bigstat-grid { grid-template-columns: 1fr; } }
+
+      /* ── 05 ROSE ALERT STAMP ──────────────────────────────── */
+      .rose {
+        background: var(--rose);
+        border: 1.5px solid var(--accent);
+      }
+      .rose .stamp {
+        display: inline-block;
+        border: 2.5px solid var(--accent);
+        color: var(--accent);
+        padding: 0.5rem 1rem;
+        font-family: "JetBrains Mono", monospace;
+        font-weight: 700;
+        font-size: 0.78rem;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        transform: rotate(-2.5deg);
+        margin-bottom: 1.5rem;
+      }
+      .rose .h-title { font-size: clamp(2rem, 4.4vw, 3.2rem); }
+      .rose .ord { font-size: clamp(4.5rem, 9vw, 7rem); float: right; margin: 0 0 1rem 1.5rem; }
+
+      /* ── 06 NEWSPRINT QUOTE ───────────────────────────────── */
+      .newsprint-q {
+        background: var(--newsprint);
+        border: 1.5px solid var(--rule);
+      }
+      .newsprint-q .h-title { font-size: clamp(1.9rem, 3.8vw, 2.7rem); }
+      .newsprint-q blockquote {
+        font-family: "Fraunces", serif;
+        font-style: italic;
+        font-size: clamp(1.3rem, 2.4vw, 1.75rem);
+        line-height: 1.4;
+        margin: 1.4rem 0;
+        padding: 1.2rem 0 1.2rem 1.5rem;
+        border-left: 3px solid var(--accent);
+        max-width: 60ch;
+      }
+      .newsprint-q .ord { font-size: clamp(4.5rem, 9vw, 7rem); }
+
+      /* ── 07 SKY (medical) ─────────────────────────────────── */
+      .sky {
+        background: linear-gradient(180deg, #d6e6dc 0%, #9bb6a8 100%);
+        color: var(--sky-deep);
+      }
+      .sky .kicker { color: rgba(29, 58, 46, 0.65); }
+      .sky .ord { color: var(--sky-deep); font-size: clamp(5rem, 11vw, 9rem); }
+      .sky .h-title { font-size: clamp(2.1rem, 4.4vw, 3.4rem); color: var(--sky-deep); }
+      .sky .source { color: rgba(29, 58, 46, 0.6); }
+      .sky .source a { color: var(--sky-deep); border-bottom: 1px solid var(--sky-deep); }
+      .sky-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 2rem; align-items: center; }
+      @media (max-width: 800px) { .sky-grid { grid-template-columns: 1fr; } }
+
+      /* ── 08 PLUM RESEARCH ─────────────────────────────────── */
+      .plum {
+        background:
+          radial-gradient(circle at 80% 20%, rgba(201, 163, 69, 0.18) 0%, transparent 60%),
+          var(--plum);
+        color: var(--plum-fg);
+      }
+      .plum .kicker { color: rgba(241, 213, 232, 0.55); }
+      .plum .ord { color: var(--gold); font-size: clamp(6rem, 13vw, 10rem); }
+      .plum .h-title { font-size: clamp(2.2rem, 4.6vw, 3.5rem); color: #fbe6f4; }
+      .plum .body-serif { color: #e8c8dd; }
+      .plum .source { color: rgba(241, 213, 232, 0.55); }
+      .plum .source a { color: var(--gold); }
+      .plum-stat {
+        display: inline-block;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.78rem;
+        letter-spacing: 0.18em;
+        background: rgba(201, 163, 69, 0.15);
+        color: var(--gold);
+        padding: 0.35rem 0.7rem;
+        border-radius: 3px;
+        margin-right: 0.5rem;
+      }
+
+      /* ── 09 ACADEMIC DROP-CAP ─────────────────────────────── */
+      .academic {
+        background: var(--paper);
+        border: 1px solid var(--rule);
+        border-top: 6px double var(--rule);
+      }
+      .academic .label-line {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.72rem;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--muted);
+        text-align: center;
+        margin-bottom: 1rem;
+      }
+      .academic .h-title {
+        font-size: clamp(2rem, 4.4vw, 3.3rem);
+        text-align: center;
+        max-width: 22ch;
+        margin: 0.8rem auto 1.6rem;
+        font-weight: 900;
+      }
+      .academic .body-serif {
+        margin: 0 auto;
+        font-size: 1.15rem;
+        column-count: 2;
+        column-gap: 2.5rem;
+        max-width: none;
+      }
+      .academic .body-serif::first-letter {
+        font-family: "Fraunces", serif;
+        font-weight: 900;
+        font-size: 4.3rem;
+        float: left;
+        line-height: 0.85;
+        margin: 0.18rem 0.6rem 0 0;
+        color: var(--accent);
+      }
+      .academic .source { text-align: center; margin-top: 1.6rem; }
+      @media (max-width: 800px) { .academic .body-serif { column-count: 1; } }
+
+      /* ── 10 SPLASH ────────────────────────────────────────── */
+      .splash {
+        background: linear-gradient(120deg, var(--pink) 0%, #d8e8c4 70%, #aedab8 100%);
+        color: #2a1d2a;
+      }
+      .splash .ord { font-size: clamp(6rem, 13vw, 10rem); color: var(--leaf); }
+      .splash .h-title { font-size: clamp(2.2rem, 4.6vw, 3.4rem); }
+      .splash .kicker { color: rgba(42, 29, 42, 0.6); }
+      .splash .source { color: rgba(42, 29, 42, 0.5); }
+      .splash .source a { color: var(--leaf); }
+
+      /* ── HN SPREAD ────────────────────────────────────────── */
+      .hn { background: var(--newsprint); border: 1.5px solid var(--rule); }
+      .hn .hn-head {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        padding-bottom: 1.1rem;
+        border-bottom: 2.5px solid var(--rule);
+        margin-bottom: 0.5rem;
+      }
+      .hn .hn-name {
+        font-family: "Fraunces", serif;
+        font-weight: 900;
+        font-size: clamp(2rem, 4vw, 2.8rem);
+        letter-spacing: -0.025em;
+      }
+      .hn .hn-name .dot { color: var(--accent); }
+      .hn .hn-sub {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.74rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+      .hn-item {
+        padding: 2rem 0;
+        border-bottom: 1px solid rgba(20, 20, 15, 0.18);
+        display: grid;
+        grid-template-columns: 110px 1fr;
+        gap: 1.6rem;
+      }
+      .hn-item:last-child { border-bottom: none; }
+      .hn-item .ord { font-size: clamp(3.5rem, 7vw, 5.5rem); line-height: 0.85; }
+      .hn-item h3 {
+        font-family: "Fraunces", serif;
+        font-weight: 700;
+        font-size: clamp(1.55rem, 2.7vw, 2.1rem);
+        line-height: 1.08;
+        letter-spacing: -0.018em;
+        margin: 0 0 0.6rem;
+      }
+      .hn-item .stats {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.75rem;
+        letter-spacing: 0.14em;
+        color: var(--muted);
+        margin-bottom: 0.85rem;
+      }
+      .hn-item p {
+        font-family: "Fraunces", serif;
+        font-size: 1.08rem;
+        line-height: 1.55;
+        margin: 0 0 0.85rem;
+        max-width: 60ch;
+      }
+      .hn-item .thread {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.74rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--accent);
+        text-decoration: none;
+      }
+      @media (max-width: 700px) { .hn-item { grid-template-columns: 1fr; gap: 0.4rem; } }
+
+      /* ── ARCHITECTURE FEATURE ─────────────────────────────── */
+      .arch { background: #efe6d2; border: 1.5px solid var(--rule); }
+      .arch .arch-tag {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.78rem;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+      }
+      .arch .arch-tag::before { content: ""; width: 28px; height: 1.5px; background: var(--accent); }
+      .arch .h-title {
+        font-size: clamp(2.6rem, 6vw, 4.6rem);
+        font-weight: 900;
+        line-height: 0.98;
+        letter-spacing: -0.03em;
+        max-width: 18ch;
+      }
+      .arch .arch-meta {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.78rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin: 1.2rem 0 2rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+      .arch .arch-meta .sep { color: var(--accent); }
+      .arch-grid {
+        display: grid;
+        grid-template-columns: 1.05fr 1fr;
+        gap: 3rem;
+        align-items: start;
+      }
+      .arch .body-serif { font-size: 1.18rem; line-height: 1.62; max-width: 58ch; }
+      .arch .body-serif::first-letter {
+        font-family: "Fraunces", serif;
+        font-weight: 900;
+        font-style: italic;
+        font-size: 5.5rem;
+        float: left;
+        line-height: 0.82;
+        margin: 0.2rem 0.7rem -0.2rem 0;
+        color: var(--accent);
+      }
+      .arch .pull {
+        font-family: "Fraunces", serif;
+        font-style: italic;
+        font-weight: 400;
+        font-size: clamp(1.6rem, 3.2vw, 2.2rem);
+        line-height: 1.28;
+        color: var(--fg);
+        padding: 1.5rem 0;
+        margin: 0;
+        border-top: 4px double var(--rule);
+        border-bottom: 4px double var(--rule);
+      }
+      .arch .pull-attr {
+        font-family: "JetBrains Mono", monospace;
+        font-style: normal;
+        font-size: 0.75rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-top: 0.9rem;
+        display: block;
+      }
+      .arch .stack-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+        margin-top: 1.6rem;
+      }
+      .arch .stack-card {
+        background: rgba(20, 20, 15, 0.06);
+        border-left: 2px solid var(--accent);
+        padding: 0.8rem 1rem;
+      }
+      .arch .stack-card .num {
+        font-family: "Fraunces", serif;
+        font-weight: 900;
+        font-style: italic;
+        color: var(--accent);
+        font-size: 1.7rem;
+        line-height: 1;
+      }
+      .arch .stack-card .lab {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.7rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-top: 0.3rem;
+      }
+      @media (max-width: 900px) { .arch-grid { grid-template-columns: 1fr; gap: 2rem; } }
+
+      /* ── footer ───────────────────────────────────────────── */
+      footer {
+        margin-top: 5rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid rgba(20, 20, 15, 0.15);
+        display: flex;
+        justify-content: space-between;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.74rem;
+        letter-spacing: 0.14em;
+        color: var(--muted);
+      }
+      .colophon {
+        text-align: center;
+        margin: 4rem 0 2rem;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.75rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+      .colophon::before, .colophon::after { content: "·"; margin: 0 1rem; color: var(--accent); }
+      @media (max-width: 640px) {
+        .page { padding: 2rem 1.1rem 4rem; }
+        .pretitle { gap: 0.5rem; font-size: 0.65rem; }
+        .spread-pad { padding: 1.4rem; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header class="masthead">
+        <div class="pretitle">
+          <span>The Morning Edition</span>
+          <span class="dot">●</span>
+          <span>Vol. I · No. 19</span>
+          <span class="dot">●</span>
+          <span>Tuesday · May 12, 2026</span>
+          <span class="dot">●</span>
+          <span>For Aziz</span>
+        </div>
+        <h1 class="title">
+          <span class="line">Fail</span>
+          <span class="line edition">Small<span class="stop">.</span></span>
+        </h1>
+      </header>
+
+      <section class="meta-row">
+        <div>
+          <div class="label">Issue</div>
+          <div class="value">No. 19</div>
+        </div>
+        <div>
+          <div class="label">Spreads</div>
+          <div class="value italic">Twelve</div>
+        </div>
+        <div>
+          <div class="label">Window</div>
+          <div class="value">72 hrs</div>
+        </div>
+      </section>
+
+      <div class="double-rule"></div>
+
+      <!-- ════════════ 01 · HERO ════════════ -->
+      <section class="spread hero spread-pad">
+        <div class="hero-grid">
+          <div>
+            <div class="kicker">Spread 01 · Cloud · Anthropic × AWS</div>
+            <h2 class="h-title">
+              Anthropic puts Claude on AWS without going through Bedrock<span style="color: var(--accent)">.</span>
+              <span class="for-you">For You</span>
+            </h2>
+            <div class="body-serif">
+              <p>
+                Yesterday Anthropic launched the <em>Claude Platform on
+                AWS</em> — a first-party offering that gives AWS customers
+                native access to the full Claude API with IAM auth,
+                CloudTrail audit logging, and unified billing through their
+                AWS invoice. Unlike Claude on Bedrock, this one is operated
+                by Anthropic, which means day-one access to features that
+                normally lag on Bedrock by months: Managed Agents, code
+                execution, web search, Skills, and the MCP connector.
+              </p>
+              <p>
+                The interesting architectural beat: enterprises now have a
+                serious option that doesn't force them to choose between
+                AWS-native governance and frontier-feature velocity. If
+                you've been holding off on agentic workloads because your
+                security team requires VPC-resident audit trails, this
+                changes the calculus.
+              </p>
+            </div>
+            <div class="source">
+              Source · <a href="https://claude.com/blog/claude-platform-on-aws">claude.com/blog</a>
+            </div>
+          </div>
+          <div class="ord">01</div>
+        </div>
+      </section>
+
+      <!-- ════════════ 02 · MIDNIGHT ════════════ -->
+      <section class="spread midnight spread-pad">
+        <div class="kicker">Spread 02 · Agentic runtimes · Anthropic</div>
+        <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 2rem; flex-wrap: wrap;">
+          <h2 class="h-title" style="max-width: 22ch;">
+            Claude agents now <em>dream</em>, grade themselves, and split into specialists<span style="color: #ff8b6e">.</span>
+            <span class="for-you">For You</span>
+          </h2>
+          <div class="ord">02</div>
+        </div>
+        <div class="body-serif" style="color: rgba(236, 227, 208, 0.85);">
+          <p>
+            At <em>Code with Claude</em> last week Anthropic shipped three
+            features for Managed Agents that change the runtime shape, not
+            just the model. <strong>Dreaming</strong> (research preview)
+            reviews past sessions to extract patterns and self-improve.
+            <strong>Outcomes</strong> wires in a separate evaluator that
+            scores output against a rubric and tells the agent what to fix
+            — a tight closed loop instead of one-shot generation.
+            <strong>Multiagent Orchestration</strong> lets a lead agent
+            decompose work, spawn specialists with their own models and
+            tools, run them in parallel on a shared filesystem, and merge
+            their context back.
+          </p>
+          <p>
+            Harvey reports a <strong>6× jump in task completion</strong>
+            using the new features. The product story is that Claude is no
+            longer a model, it's a workflow runtime — and the abstractions
+            are starting to look more like Airflow than like a chat API.
+          </p>
+        </div>
+        <div class="source">
+          Source · <a href="https://www.anthropic.com/engineering/managed-agents">anthropic.com/engineering</a>
+        </div>
+      </section>
+
+      <!-- ════════════ 03 · TERMINAL ════════════ -->
+      <section class="spread terminal spread-pad">
+        <div class="term-bar">
+          <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        </div>
+        <div class="ord"><span class="prompt">$</span> codex --in chrome</div>
+        <div class="kicker" style="color: var(--terminal-dim); margin-top: 1.2rem;">Spread 03 · Coding agents · OpenAI</div>
+        <h2 class="h-title">
+          Codex moves into Chrome where your signed-in session actually lives<span style="color: #b6f1c0">.</span>
+          <span class="for-you">For You</span>
+        </h2>
+        <div class="body-serif">
+          <p>
+            On May 7 OpenAI shipped a Codex Chrome extension on macOS and
+            Windows. The framing is direct: after launching Computer Use in
+            the Codex desktop app, OpenAI saw most workflows actually
+            happening in the browser — LinkedIn, Salesforce, Gmail,
+            internal admin tools — and they wanted Codex to share the
+            tabs you're already authenticated into.
+          </p>
+          <p>
+            It runs across multiple tabs in parallel, uses DevTools, and
+            can read context across tabs without taking the browser away
+            from you. EU/UK availability is "coming." Codex is at <strong>4M
+            weekly active users</strong> — an 8× year-to-date jump that
+            re-frames the IDE landscape entirely.
+          </p>
+        </div>
+        <div class="source">
+          Source · <a href="https://developers.openai.com/codex/app/chrome-extension">developers.openai.com/codex</a>
+        </div>
+      </section>
+
+      <!-- ════════════ 04 · BIG STAT ════════════ -->
+      <section class="spread bigstat spread-pad">
+        <div class="bigstat-grid">
+          <div>
+            <div class="kicker">Spread 04 · Adoption · Coding agents</div>
+            <div class="stat">8×</div>
+            <div class="stat-cap">Codex weekly actives · YTD growth</div>
+          </div>
+          <div>
+            <h2 class="h-title">From a side bet to four million weekly users in five months<span style="color: var(--accent)">.</span></h2>
+            <div class="body-serif">
+              <p>
+                OpenAI disclosed last week that Codex now serves <strong>4
+                million weekly actives</strong>, up 8× since January. For
+                comparison, GitHub Copilot took roughly three years to
+                cross 4M monthly. The slope matters more than the absolute
+                number: it suggests the constraint on coding-agent adoption
+                isn't model quality anymore, it's distribution surface —
+                and the Chrome extension is a deliberate move on
+                surface, not on capability.
+              </p>
+              <p class="source" style="margin-top: 1rem;">
+                Source · <a href="https://openai.com/index/codex-for-almost-everything/">openai.com/codex</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ════════════ 05 · ROSE ALERT ════════════ -->
+      <section class="spread rose spread-pad">
+        <div class="ord">05</div>
+        <div class="stamp">Dual-use · Watch this line</div>
+        <div class="kicker">Spread 05 · AI · offensive security</div>
+        <h2 class="h-title">Google says a criminal crew used an LLM to find a real, exploitable software flaw<span style="color: var(--accent)">.</span></h2>
+        <div class="body-serif">
+          <p>
+            Google's Threat Intelligence Group reported yesterday that a
+            financially motivated actor used an AI assistant to discover a
+            previously unknown vulnerability in widely deployed software,
+            then build the exploit. It's not the first time AI has been
+            used in offensive research — Project Zero has been publishing
+            its own LLM-assisted findings for months — but it's an early
+            confirmed case where attackers, not defenders, banked the
+            advantage first.
+          </p>
+          <p>
+            The strategic question that's been theoretical for a year is
+            now an operational one: when offense and defense both use the
+            same tools, the lead is measured in days of patch latency, not
+            quarters. Plan your disclosure pipeline accordingly.
+          </p>
+        </div>
+        <div class="source">
+          Source · <a href="https://www.nytimes.com/2026/05/11/us/politics/google-hackers-attack-ai.html">NYT, May 11</a>
+        </div>
+      </section>
+
+      <!-- ════════════ 06 · NEWSPRINT QUOTE ════════════ -->
+      <section class="spread newsprint-q spread-pad">
+        <div class="ord" style="float: right;">06</div>
+        <div class="kicker">Spread 06 · Agentic commerce · Cloudflare × Stripe</div>
+        <h2 class="h-title">Stripe handles the payment; Cloudflare handles the discovery; the agent does the buying<span style="color: var(--accent)">.</span>
+          <span class="for-you">For You</span>
+        </h2>
+        <blockquote>
+          If the agent can find a service, negotiate access, and pay for
+          it without a human in the loop, the API isn't an endpoint
+          anymore — it's a marketplace participant.
+        </blockquote>
+        <div class="body-serif">
+          <p>
+            Cloudflare and Stripe published a joint writeup on what they're
+            calling <em>agentic commerce</em>: Stripe's CLI owns the
+            transactional layer (auth, identity, subscriptions);
+            Cloudflare's CLI owns service discovery (domain purchases,
+            infra provisioning, agent-callable endpoints). The composition
+            is the point — an agent finds a service, evaluates it, and
+            pays for it as one continuous flow.
+          </p>
+        </div>
+        <div class="source">
+          Source · <a href="https://blog.cloudflare.com/">blog.cloudflare.com</a> · <a href="https://stripe.com/blog/engineering">stripe.com/blog</a>
+        </div>
+      </section>
+
+      <!-- ════════════ 07 · SKY MEDICAL ════════════ -->
+      <section class="spread sky spread-pad">
+        <div class="sky-grid">
+          <div class="ord">07</div>
+          <div>
+            <div class="kicker">Spread 07 · Neuroscience · UCLA</div>
+            <h2 class="h-title">A small molecule that repairs stroke damage long after the stroke<span style="color: var(--sky-deep)">.</span></h2>
+            <div class="body-serif">
+              <p>
+                UCLA's stem cell program announced what they describe as the
+                first compound to actively repair brain tissue damaged by
+                stroke — distinct from the clot-busters that limit damage in
+                the first hours. In mouse models the molecule, administered
+                weeks after the event, restored motor function by promoting
+                cortical remyelination rather than replacing lost neurons.
+              </p>
+              <p>
+                Translation timelines are the usual long road. The reason it
+                matters now: the mechanism is not "save the brain you have"
+                but "rebuild what was lost," which is a category of
+                intervention the field has spent a generation circling
+                without landing.
+              </p>
+            </div>
+            <div class="source">
+              Source · <a href="https://stemcell.ucla.edu/news/ucla-discovers-first-stroke-rehabilitation-drug-repair-brain-damage">UCLA Stem Cell</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ════════════ 08 · PLUM RESEARCH ════════════ -->
+      <section class="spread plum spread-pad">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 2rem; flex-wrap: wrap;">
+          <div class="kicker">Spread 08 · Research · Thinking Machines</div>
+          <div class="ord">08</div>
+        </div>
+        <h2 class="h-title">Thinking Machines on the unit of work that should drive eval design<span style="color: #fbe6f4">.</span>
+          <span class="for-you">For You</span>
+        </h2>
+        <div style="margin: 1rem 0 1.4rem;">
+          <span class="plum-stat">Interaction models</span>
+          <span class="plum-stat">Eval design</span>
+          <span class="plum-stat">Agent loops</span>
+        </div>
+        <div class="body-serif">
+          <p>
+            Mira Murati's Thinking Machines published a post arguing that
+            the right primitive for thinking about evals is the
+            <em>interaction model</em> — the shape of one full
+            human-or-tool-or-agent exchange, including its retries, its
+            self-corrections, and its terminal state — rather than the
+            single token or the single response. Evals built on tokens
+            measure fluency; evals built on interactions measure whether
+            the loop actually finishes.
+          </p>
+          <p>
+            The piece is short and useful if you've been struggling to
+            make agent benchmarks correlate with production behaviour. It
+            also slots cleanly into Anthropic's Outcomes work (see Spread
+            02): the same insight from a different vendor in the same
+            week.
+          </p>
+        </div>
+        <div class="source">
+          Source · <a href="https://thinkingmachines.ai/blog/interaction-models/">thinkingmachines.ai/blog</a>
+        </div>
+      </section>
+
+      <!-- ════════════ 09 · ACADEMIC DROP-CAP ════════════ -->
+      <section class="spread academic spread-pad">
+        <div class="label-line">Spread 09 · IDE · Microsoft · Visual Studio 2026</div>
+        <h2 class="h-title">Visual Studio ships with agents that run inside the IDE, not next to it<span style="color: var(--accent)">.</span>
+          <span class="for-you">For You</span>
+        </h2>
+        <div class="body-serif">
+          Microsoft has begun calling Visual Studio 2026 the "first
+          intelligent IDE" — marketing aside, the substantive shift is
+          that the C# and C++ agents are first-party components of the
+          editor process, not Copilot-style sidecars. They live inside
+          the language service, hold persistent context across solutions,
+          and can drive long-running refactors as background tasks. The
+          coordinated release of VS 2026, .NET 10, and the latest VS Code
+          drop is the first time Microsoft has lined up a tooling
+          trifecta this tightly. For engineers in the .NET stack the
+          honest read is: if you skipped Copilot because the loop felt
+          superficial, evaluating VS 2026 with its on-by-default agent
+          mode is a different proposition. Enterprise, Professional and
+          Community editions ship together — no staggered rollouts, no
+          tier-gated agent features. The risk most worth flagging is
+          attention cost: an editor that can refactor your codebase in
+          the background is also one that demands a new kind of code
+          review discipline. The category boundary between "developer
+          tool" and "co-developer" is finally fully gone.
+        </div>
+        <div class="source">
+          Source · <a href="https://visualstudiomagazine.com/articles/2025/11/12/visual-studio-2026-ga-first-intelligent-developer-environment-ide.aspx">Visual Studio Magazine</a>
+        </div>
+      </section>
+
+      <!-- ════════════ 10 · SPLASH ════════════ -->
+      <section class="spread splash spread-pad">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 2rem; flex-wrap: wrap;">
+          <div class="kicker">Spread 10 · Commerce · Alibaba × Qwen</div>
+          <div class="ord">10</div>
+        </div>
+        <h2 class="h-title">Four billion SKUs, one agentic shopper: Qwen lands inside Taobao<span style="color: var(--leaf)">.</span></h2>
+        <div class="body-serif">
+          <p>
+            Alibaba integrated Qwen across Taobao this week, turning the
+            super-app into an agentic shopping surface that spans 4B+
+            products. The flagship features are conversational discovery
+            ("find me running shoes for a humid trail under ¥600"), a
+            virtual try-on layer, and 30-day price tracking that the
+            agent uses to time purchases. It's the consumer-facing
+            counterpart to Cloudflare and Stripe's developer agentic
+            commerce (Spread 06) — same thesis, different audience.
+          </p>
+          <p>
+            For Western e-commerce platforms the comparison is unkind:
+            Taobao now has an in-app agent shopping for 1B+ users while
+            Amazon's Rufus is still effectively a Q&amp;A overlay.
+          </p>
+        </div>
+        <div class="source">
+          Source · <a href="https://www.alibabagroup.com/en-US/news">Alibaba Newsroom</a>
+        </div>
+      </section>
+
+      <!-- ════════════ 11 · HACKER NEWS ════════════ -->
+      <section class="spread hn spread-pad">
+        <div class="hn-head">
+          <div>
+            <div class="hn-name">Hacker News<span class="dot">.</span></div>
+            <div class="hn-sub">Top five · last 24 hrs</div>
+          </div>
+          <div class="hn-sub">orange.firebaseio</div>
+        </div>
+
+        <div class="hn-item">
+          <div class="ord">01</div>
+          <div>
+            <h3>Learning Software Architecture</h3>
+            <div class="stats">82 points · 3 comments · matklad.github.io</div>
+            <p>
+              matklad — author of rust-analyzer — argues that real
+              software architecture is learned in the wild, not in
+              coursework, and that incentive structures (publish-or-perish,
+              quarterly OKRs) determine code quality more than developer
+              skill. The piece reframes Conway's Law not as observation
+              but as design constraint: when you can't change the org,
+              design modular features with isolated failures and accept
+              that "there's never a time to do a thing properly."
+            </p>
+            <a class="thread" href="https://news.ycombinator.com/item?id=48106024">→ HN discussion</a>
+          </div>
+        </div>
+
+        <div class="hn-item">
+          <div class="ord">02</div>
+          <div>
+            <h3>Postmortem: TanStack NPM supply-chain compromise</h3>
+            <div class="stats">875 points · 356 comments · tanstack.com</div>
+            <p>
+              Between 19:20 and 19:26 UTC on May 11, attackers published
+              84 malicious versions across 42 <code>@tanstack/*</code>
+              packages by chaining three CI flaws: a misused
+              <code>pull_request_target</code>, a poisonable GitHub
+              Actions cache shared between PR and prod, and OIDC token
+              extraction from runner process memory. The malware ran on
+              <code>npm install</code> and harvested AWS, GCP, Vault,
+              GitHub, and npm credentials. External researchers caught it
+              before TanStack's own alerting did. Read this one even if
+              you don't ship public npm packages.
+            </p>
+            <a class="thread" href="https://news.ycombinator.com/item?id=48100706">→ HN discussion</a>
+          </div>
+        </div>
+
+        <div class="hn-item">
+          <div class="ord">03</div>
+          <div>
+            <h3>Screenshots of Old Desktop OSes</h3>
+            <div class="stats">223 points · 70 comments · typewritten.org</div>
+            <p>
+              A meticulously curated visual archive of desktop operating
+              systems from the 1980s through the early 2000s — NeXTSTEP,
+              BeOS, OS/2, the entire arc of pre-Aqua Mac UI, RISC OS,
+              AmigaOS. The comments turn into a UI nostalgia thread
+              quickly, but the artefacts themselves are worth scrolling
+              through if only to notice how much screen real estate used
+              to be reserved for system chrome and how little for
+              content.
+            </p>
+            <a class="thread" href="https://news.ycombinator.com/item?id=48104428">→ HN discussion</a>
+          </div>
+        </div>
+
+        <div class="hn-item">
+          <div class="ord">04</div>
+          <div>
+            <h3>Toxicity on Social Media — The Noisy Room</h3>
+            <div class="stats">48 points · 19 comments · thenoisyroom.com</div>
+            <p>
+              An essay framing social-media toxicity as a structural
+              property of large rooms rather than a moral failing of
+              individual posters: the same comment that lands fine in a
+              50-person Discord reads as an attack at 50,000. The
+              author's prescription is amplification design, not content
+              moderation — slow the speed at which strangers can see
+              each other, and the volume problem partially resolves
+              itself.
+            </p>
+            <a class="thread" href="https://news.ycombinator.com/item?id=48105297">→ HN discussion</a>
+          </div>
+        </div>
+
+        <div class="hn-item">
+          <div class="ord">05</div>
+          <div>
+            <h3>They Live (1988) inspired Adblocker</h3>
+            <div class="stats">273 points · 91 comments · github.com</div>
+            <p>
+              An adblocker that doesn't hide ads — it replaces them with
+              "OBEY" / "CONSUME" / "SLEEP" overlays cribbed from the
+              Carpenter film. It's a joke project that's also a small
+              piece of cultural commentary: making the ad disappear lets
+              you forget it was ever there; making it shout the
+              subliminal makes the surveillance economy feel exactly as
+              loud as it actually is.
+            </p>
+            <a class="thread" href="https://news.ycombinator.com/item?id=48102700">→ HN discussion</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ════════════ 12 · ARCHITECTURE IN THE WILD ════════════ -->
+      <section class="spread arch spread-pad">
+        <div class="arch-tag">Architecture in the Wild</div>
+        <h2 class="h-title">Cloudflare shipped "Fail Small" — a two-quarter rewrite of how the edge handles its own mistakes<span style="color: var(--accent)">.</span></h2>
+        <div class="arch-meta">
+          <span>blog.cloudflare.com</span>
+          <span class="sep">/</span>
+          <span>Jeremy Hartman</span>
+          <span class="sep">/</span>
+          <span>May 1, 2026</span>
+        </div>
+        <div class="arch-grid">
+          <div>
+            <div class="body-serif">
+              After two global outages in November and December 2025 — one
+              caused by a Bot Management ML classifier that shipped without
+              a graceful fallback, the other by a single invalid global
+              configuration flag — Cloudflare put the company into what it
+              called "Code Orange" and spent two quarters re-engineering
+              the blast radius of its own changes. The May 1 wrap-up by
+              Jeremy Hartman is the most useful internal-discipline
+              writeup the company has published in years, and it reads
+              like a manifesto for every team running a large fleet. The
+              centrepiece is <strong>Snapstone</strong>, a system that
+              promotes configuration changes the same way software
+              releases get promoted — progressive cohorts, real-time
+              health checks, automated rollback before customer impact.
+              Workers runtime now ships to free-tier customers first;
+              free-tier traffic is the canary, not a coupon tier. Critical
+              services were redesigned with explicit failure modes —
+              "fail open," "fail close," and the genuinely useful
+              "<em>fail stale</em>" (keep the last known good config when
+              the new one is unreadable, rather than crashing). The
+              <strong>Engineering Codex</strong> codifies rules pulled
+              directly from postmortems — including the now-famous "do
+              not use <code>.unwrap()</code> outside of tests and
+              <code>build.rs</code>" — and an AI reviewer enforces them
+              on every merge. Two hundred engineers ran company-wide
+              incident drills. Eighteen critical services got backup
+              authorization pathways for when normal control planes are
+              themselves the failure. The architectural lesson is not
+              new — limit blast radius, fail gracefully — but the
+              implementation discipline is unusually concrete. This is
+              the post to send to anyone on your team who thinks
+              "resilience" is a virtue rather than a budget line.
+            </div>
+          </div>
+          <div>
+            <p class="pull">
+              "Snapstone allows teams to dynamically define any unit of
+              configuration that needs health mediation."
+              <span class="pull-attr">— Jeremy Hartman, Cloudflare</span>
+            </p>
+            <div class="stack-grid">
+              <div class="stack-card">
+                <div class="num">50+</div>
+                <div class="lab">Workers runtime deploys · 7 days</div>
+              </div>
+              <div class="stack-card">
+                <div class="num">200+</div>
+                <div class="lab">Engineers in company-wide drill</div>
+              </div>
+              <div class="stack-card">
+                <div class="num">18</div>
+                <div class="lab">Backup authorization pathways</div>
+              </div>
+              <div class="stack-card">
+                <div class="num">100%</div>
+                <div class="lab">AI-enforced Codex coverage</div>
+              </div>
+            </div>
+            <div class="source" style="margin-top: 1.4rem;">
+              Read it · <a href="https://blog.cloudflare.com/code-orange-fail-small-complete/">blog.cloudflare.com/code-orange-fail-small-complete</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="colophon">End of issue · No. 19 · Fail Small</div>
+
+      <footer>
+        <span>Morning Edition · Vol. I · No. 19</span>
+        <a href="../index.html">← Back to the shelf</a>
+      </footer>
+    </div>
+  </body>
+</html>
