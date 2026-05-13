@@ -1,0 +1,828 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Morning Edition · The Surface Bet · May 13, 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,700;1,9..144,900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #ece3d0;
+        --fg: #14140f;
+        --muted: #6e6857;
+        --accent: #e24b4b;
+        --rose: #f8d6c8;
+        --rose-stamp: #c4391c;
+        --midnight: #0e1320;
+        --midnight-fg: #f0ead7;
+        --paper: #f5ecd6;
+        --news: #ede6d2;
+        --cream: #f1e8d3;
+        --term-bg: #131611;
+        --term-fg: #b8f0a3;
+      }
+      * { box-sizing: border-box; }
+      html, body { margin: 0; padding: 0; }
+      body {
+        background: var(--bg);
+        color: var(--fg);
+        font-family: "Fraunces", Georgia, "Times New Roman", serif;
+        font-optical-sizing: auto;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+        font-size: 18px;
+        line-height: 1.55;
+      }
+      a { color: inherit; }
+
+      .page {
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: 3rem 1.75rem 6rem;
+      }
+
+      /* ── Masthead ─────────────────────────── */
+      .masthead {
+        border-bottom: 1.5px solid var(--fg);
+        padding-bottom: 1.4rem;
+      }
+      .pretitle {
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 0.78rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.9rem;
+        margin-bottom: 1.2rem;
+      }
+      .pretitle .dot { color: var(--accent); }
+      .title {
+        font-family: "Fraunces", serif;
+        font-weight: 900;
+        font-size: clamp(3rem, 9.5vw, 7.2rem);
+        line-height: 0.92;
+        letter-spacing: -0.035em;
+        margin: 0;
+      }
+      .title .ital { font-style: italic; color: var(--accent); font-weight: 900; }
+      .title .blackdot { color: var(--fg); font-style: normal; }
+      .deck {
+        font-family: "Fraunces", serif;
+        font-style: italic;
+        font-size: clamp(1.1rem, 1.9vw, 1.5rem);
+        max-width: 60ch;
+        margin: 1.4rem 0 0;
+        color: #2a261d;
+        line-height: 1.45;
+      }
+
+      /* ── Meta strip ───────────────────────── */
+      .meta {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1.5rem;
+        padding: 1.5rem 0;
+        border-bottom: 1.5px solid var(--fg);
+      }
+      .meta-item .label {
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 0.72rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: 0.5rem;
+      }
+      .meta-item .val {
+        font-family: "Fraunces", serif;
+        font-size: 1.15rem;
+        font-weight: 700;
+        letter-spacing: -0.01em;
+      }
+      .meta-item .val.italic { font-style: italic; font-weight: 500; }
+
+      /* ── Section header ───────────────────── */
+      .section-head {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        margin: 3.5rem 0 1.4rem;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+      .section-head .label {
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 0.8rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+      }
+      .section-head .sub {
+        font-style: italic;
+        color: var(--muted);
+        font-size: 1rem;
+      }
+      .rule {
+        height: 1.5px;
+        background: var(--fg);
+        margin: 0 0 2rem;
+      }
+      .double-rule {
+        border-top: 1.5px solid var(--fg);
+        border-bottom: 1.5px solid var(--fg);
+        height: 4px;
+        margin: 1rem 0 2rem;
+      }
+
+      /* ── Story common ─────────────────────── */
+      .spread {
+        border-radius: 14px;
+        padding: clamp(1.8rem, 4vw, 3rem);
+        margin-bottom: 1.6rem;
+        position: relative;
+      }
+      .ord {
+        font-family: "Fraunces", serif;
+        font-weight: 900;
+        font-style: italic;
+        font-size: clamp(3rem, 7vw, 5.5rem);
+        line-height: 0.9;
+        letter-spacing: -0.04em;
+        color: var(--accent);
+        margin: 0 0 0.5rem;
+      }
+      .ord.small { font-size: clamp(2.5rem, 5vw, 4rem); }
+      .kicker {
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 0.74rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: 0.7rem;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.7rem;
+        align-items: center;
+      }
+      .kicker .sep { color: var(--accent); }
+      .for-you {
+        display: inline-block;
+        background: var(--accent);
+        color: #fff;
+        padding: 0.18rem 0.55rem;
+        border-radius: 3px;
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 0.65rem;
+        letter-spacing: 0.18em;
+        font-weight: 600;
+      }
+      .spread h2 {
+        font-family: "Fraunces", serif;
+        font-weight: 700;
+        font-size: clamp(2rem, 4.4vw, 3.4rem);
+        line-height: 1.02;
+        letter-spacing: -0.022em;
+        margin: 0 0 1rem;
+      }
+      .spread h2 .dot { color: var(--accent); }
+      .spread p {
+        font-size: 1.06rem;
+        margin: 0 0 1rem;
+        max-width: 70ch;
+      }
+      .spread .read {
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 0.75rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--accent);
+        text-decoration: none;
+        border-bottom: 1.5px solid var(--accent);
+        padding-bottom: 2px;
+      }
+
+      /* ── Archetype: hero ──────────────────── */
+      .hero {
+        background: var(--cream);
+        border: 1.5px solid var(--fg);
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+        align-items: center;
+      }
+      .hero .left { padding-right: 1rem; }
+      .hero .right {
+        font-family: "Fraunces", serif;
+        font-weight: 900;
+        font-style: italic;
+        color: var(--accent);
+        font-size: clamp(8rem, 18vw, 14rem);
+        line-height: 0.85;
+        text-align: right;
+        letter-spacing: -0.05em;
+      }
+      @media (max-width: 760px) {
+        .hero { grid-template-columns: 1fr; }
+        .hero .right { text-align: left; font-size: 7rem; }
+      }
+
+      /* ── Archetype: midnight ──────────────── */
+      .midnight {
+        background: var(--midnight);
+        color: var(--midnight-fg);
+      }
+      .midnight .kicker { color: rgba(240, 234, 215, 0.6); }
+      .midnight .ord { color: #f08a6c; }
+      .midnight .read { color: #f08a6c; border-color: #f08a6c; }
+      .midnight h2 .dot { color: #f08a6c; }
+
+      /* ── Archetype: terminal ──────────────── */
+      .term {
+        background: var(--term-bg);
+        color: var(--term-fg);
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        border: 1.5px solid #1f2a1c;
+      }
+      .term .kicker { color: #6e8d68; }
+      .term .ord {
+        color: #b8f0a3;
+        font-family: "Fraunces", serif;
+      }
+      .term h2 {
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-weight: 700;
+        font-size: clamp(1.55rem, 3.2vw, 2.4rem);
+        line-height: 1.15;
+        letter-spacing: 0;
+      }
+      .term h2 .dot { color: #d9a0ff; }
+      .term p {
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 0.95rem;
+        color: #c8d6c2;
+      }
+      .term .read { color: #d9a0ff; border-color: #d9a0ff; }
+      .term .prompt { color: #6e8d68; }
+
+      /* ── Archetype: rose alert ────────────── */
+      .rose {
+        background: var(--rose);
+        border: 1.5px solid var(--rose-stamp);
+        position: relative;
+      }
+      .rose-stamp {
+        position: absolute;
+        top: 1.4rem;
+        right: 1.4rem;
+        border: 1.5px solid var(--rose-stamp);
+        color: var(--rose-stamp);
+        padding: 0.3rem 0.65rem;
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 0.7rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        transform: rotate(-3deg);
+        background: rgba(255, 255, 255, 0.4);
+      }
+      .rose .ord { color: var(--rose-stamp); }
+      .rose .read { color: var(--rose-stamp); border-color: var(--rose-stamp); }
+      .rose h2 .dot { color: var(--rose-stamp); }
+
+      /* ── Archetype: big-stat ──────────────── */
+      .bigstat {
+        background: var(--paper);
+        border: 1.5px solid var(--fg);
+        display: grid;
+        grid-template-columns: 1.3fr 1fr;
+        gap: 2.5rem;
+        align-items: center;
+      }
+      .bigstat .stat {
+        font-family: "Fraunces", serif;
+        font-weight: 900;
+        font-size: clamp(5rem, 14vw, 10rem);
+        line-height: 0.88;
+        letter-spacing: -0.04em;
+        color: var(--fg);
+        text-align: right;
+      }
+      .bigstat .stat .unit {
+        display: block;
+        font-size: 0.95rem;
+        font-weight: 600;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--muted);
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        margin-top: 0.5rem;
+        line-height: 1.4;
+      }
+      @media (max-width: 760px) {
+        .bigstat { grid-template-columns: 1fr; }
+        .bigstat .stat { text-align: left; }
+      }
+
+      /* ── Archetype: newsprint ─────────────── */
+      .newsprint {
+        background: var(--news);
+        border-top: 1.5px solid var(--fg);
+        border-bottom: 1.5px solid var(--fg);
+        border-radius: 0;
+      }
+      .newsprint .colset {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+      }
+      @media (max-width: 760px) {
+        .newsprint .colset { grid-template-columns: 1fr; }
+      }
+
+      /* ── Archetype: academic drop-cap ─────── */
+      .academic {
+        background: #f6efdb;
+        border: 1.5px solid var(--fg);
+      }
+      .academic p.first::first-letter {
+        font-family: "Fraunces", serif;
+        font-weight: 900;
+        font-style: italic;
+        font-size: 5.5rem;
+        float: left;
+        line-height: 0.85;
+        margin: 0.25rem 0.5rem -0.2rem 0;
+        color: var(--accent);
+      }
+      .academic .pull {
+        font-family: "Fraunces", serif;
+        font-style: italic;
+        font-size: clamp(1.5rem, 2.8vw, 2.1rem);
+        line-height: 1.25;
+        color: var(--fg);
+        border-left: 3px solid var(--accent);
+        padding: 0.4rem 0 0.4rem 1.2rem;
+        margin: 1.6rem 0 1.6rem;
+        max-width: 60ch;
+      }
+      .academic .meta-line {
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 0.72rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin: 0 0 1.6rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid rgba(20, 20, 15, 0.2);
+      }
+
+      /* ── HN list ──────────────────────────── */
+      .hn-spread {
+        background: #f1e7cf;
+        border: 1.5px solid var(--fg);
+      }
+      .hn-spread .hn-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        margin-bottom: 1.5rem;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+      .hn-spread .hn-head .title {
+        font-family: "Fraunces", serif;
+        font-weight: 900;
+        font-size: clamp(2.4rem, 5vw, 3.6rem);
+        line-height: 1;
+        letter-spacing: -0.025em;
+        margin: 0;
+      }
+      .hn-spread .hn-head .title .dot { color: var(--accent); font-style: italic; }
+      .hn-item {
+        padding: 1.5rem 0;
+        border-top: 1px solid rgba(20, 20, 15, 0.2);
+        display: grid;
+        grid-template-columns: 4rem 1fr;
+        gap: 1.2rem;
+      }
+      .hn-item:first-of-type { border-top: 1.5px solid var(--fg); }
+      .hn-item .hn-ord {
+        font-family: "Fraunces", serif;
+        font-style: italic;
+        font-weight: 900;
+        font-size: clamp(2.4rem, 4vw, 3.4rem);
+        color: var(--accent);
+        line-height: 0.95;
+      }
+      .hn-item h3 {
+        font-family: "Fraunces", serif;
+        font-weight: 700;
+        font-size: clamp(1.4rem, 2.6vw, 1.9rem);
+        line-height: 1.12;
+        letter-spacing: -0.015em;
+        margin: 0 0 0.5rem;
+      }
+      .hn-item .stats {
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 0.78rem;
+        letter-spacing: 0.12em;
+        color: var(--muted);
+        margin-bottom: 0.7rem;
+      }
+      .hn-item .stats .dot { color: var(--accent); }
+      .hn-item p {
+        font-size: 1.02rem;
+        margin: 0 0 0.6rem;
+        max-width: 65ch;
+      }
+      .hn-item .links {
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 0.74rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+      .hn-item .links a { color: var(--accent); margin-right: 1rem; text-decoration: none; border-bottom: 1px solid currentColor; padding-bottom: 1px; }
+      @media (max-width: 540px) {
+        .hn-item { grid-template-columns: 3rem 1fr; gap: 0.8rem; }
+      }
+
+      /* ── Footer ───────────────────────────── */
+      footer {
+        margin-top: 4rem;
+        padding-top: 1.5rem;
+        border-top: 1.5px solid var(--fg);
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 1rem;
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 0.72rem;
+        letter-spacing: 0.14em;
+        color: var(--muted);
+      }
+
+      @media (max-width: 640px) {
+        .page { padding: 2rem 1.1rem 4rem; }
+        .meta { grid-template-columns: 1fr 1fr; gap: 1.1rem; }
+        .pretitle { font-size: 0.68rem; gap: 0.6rem; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header class="masthead">
+        <div class="pretitle">
+          <span>Morning Edition</span>
+          <span class="dot">●</span>
+          <span>Vol. I · No. 20</span>
+          <span class="dot">●</span>
+          <span>Wed · May 13 · 2026</span>
+          <span class="dot">●</span>
+          <span>For Aziz</span>
+        </div>
+        <h1 class="title">
+          The <span class="ital">Surface</span> Bet<span class="blackdot">.</span>
+        </h1>
+        <p class="deck">
+          Codex moves into Chrome where the signed-in work already lives. Google bets the laptop itself on Gemini. Anthropic buys the SDK layer between every frontier lab and its developers. Cloudflare maps a death spiral in CUBIC and ships the fix in three lines.
+        </p>
+      </header>
+
+      <section class="meta">
+        <div class="meta-item">
+          <div class="label">Issue</div>
+          <div class="val">No. 20</div>
+        </div>
+        <div class="meta-item">
+          <div class="label">Spreads</div>
+          <div class="val italic">Twelve</div>
+        </div>
+        <div class="meta-item">
+          <div class="label">Window</div>
+          <div class="val italic">Last 72 hours</div>
+        </div>
+        <div class="meta-item">
+          <div class="label">Filed</div>
+          <div class="val">07:00 CET</div>
+        </div>
+      </section>
+
+      <div class="section-head">
+        <div class="label">§ I · The Curated Ten</div>
+        <div class="sub">moves worth your morning</div>
+      </div>
+      <div class="rule"></div>
+
+      <!-- 01 · Hero · Anthropic / Stainless -->
+      <article class="spread hero">
+        <div class="left">
+          <div class="kicker">
+            <span>01 · Acquisition</span>
+            <span class="sep">●</span>
+            <span>The Information · May 12</span>
+            <span class="for-you">FOR YOU</span>
+          </div>
+          <h2>Anthropic is buying the SDK layer<span class="dot">.</span></h2>
+          <p>
+            Anthropic is in advanced talks to acquire Stainless for at least $300M — the same company that already auto-generates the official SDKs for OpenAI, Google, and Anthropic itself. If it closes, Anthropic owns the connective tissue between every major frontier lab and its developers.
+          </p>
+          <p>
+            This is the fourth bolt-on in six months after Bun (December), Vercept (computer-use), and Coefficient Bio. The pattern: stop renting the layer where your customers integrate you.
+          </p>
+          <a class="read" href="https://www.theinformation.com/articles/anthropic-talks-buy-developer-tools-startup-used-openai-google">Read the report &rarr;</a>
+        </div>
+        <div class="right">$300M+</div>
+      </article>
+
+      <!-- 02 · Terminal · Codex in Chrome -->
+      <article class="spread term">
+        <div class="kicker">
+          <span class="prompt">$</span>
+          <span>02 · Codex Goes Where The Cookies Live</span>
+          <span class="sep">●</span>
+          <span>May 7 · 4M WAUs</span>
+          <span class="for-you">FOR YOU</span>
+        </div>
+        <h2><span class="prompt">&gt;</span> codex install --target chrome<span class="dot">_</span></h2>
+        <p>
+          OpenAI shipped Codex for Chrome on May 7. The agent now operates inside your already-authenticated browser session — LinkedIn, Salesforce, Gmail, internal admin tools — without you ever exposing API keys or screen-scraping a remote VM.
+        </p>
+        <p>
+          Reported growth: <strong>4M weekly active users, up 8× since January.</strong> The strategic read: after launching desktop Computer Use, OpenAI saw that nearly every real workflow ended up in the browser. So they moved the agent into the surface where signed-in state lives, instead of trying to virtualize around it.
+        </p>
+        <p>
+          For senior engineers: the risk surface just changed. An agent running in your logged-in Chrome can write to any tab it can read. Treat it like a junior with prod credentials.
+        </p>
+        <a class="read" href="https://developers.openai.com/codex/app/chrome-extension">Read the docs &rarr;</a>
+      </article>
+
+      <!-- 03 · Rose alert · OpenAI Daybreak vs Anthropic Mythos -->
+      <article class="spread rose">
+        <div class="rose-stamp">Cyber Race</div>
+        <div class="kicker">
+          <span>03 · Security</span>
+          <span class="sep">●</span>
+          <span>Dataconomy · May 12</span>
+        </div>
+        <h2>OpenAI launches Daybreak — a direct shot at Anthropic's Project Glasswing<span class="dot">.</span></h2>
+        <p>
+          OpenAI's new Daybreak initiative — powered by GPT-5.5-Cyber and Codex Security — wants to fold defensive cyber into the build pipeline and collapse triage from hours to minutes. Launch partners include Cloudflare, Cisco, CrowdStrike, Palo Alto Networks, Oracle, and Akamai.
+        </p>
+        <p>
+          The framing is a deliberate counter to Anthropic's Project Glasswing, which used unreleased Claude Mythos to find and patch <strong>271 vulnerabilities in Firefox</strong>. Mythos itself reportedly leaked into "preview access" via a third-party vendor — the kind of supply-chain story that vendors are now both selling defense against and creating.
+        </p>
+        <a class="read" href="https://dataconomy.com/2026/05/12/openai-daybreak-anthropic-ai-cybersecurity/">Read more &rarr;</a>
+      </article>
+
+      <!-- 04 · Big stat · Googlebook -->
+      <article class="spread bigstat">
+        <div class="left">
+          <div class="kicker">
+            <span>04 · Hardware</span>
+            <span class="sep">●</span>
+            <span>blog.google · May 12</span>
+          </div>
+          <h2>Google scraps "Chromebook" — renames the whole line for Gemini<span class="dot">.</span></h2>
+          <p>
+            Announced at the I/O pre-show: <em>Googlebook</em>, a premium laptop line running an Android-based desktop OS with Gemini integrated at the system level. Headline feature is "Magic Pointer," which lets Gemini act on whatever you're pointing at — a system-level agent rather than an app.
+          </p>
+          <p>
+            Acer, ASUS, Dell, HP, and Lenovo all signed on for the fall launch. The strategic read mirrors Codex-in-Chrome: AI is moving below the application layer into the OS itself. ChromeOS as a brand is over.
+          </p>
+          <a class="read" href="https://blog.google/products-and-platforms/platforms/android/meet-googlebook/">Read the announcement &rarr;</a>
+        </div>
+        <div class="stat">
+          5
+          <span class="unit">OEMs signed · ASUS · Acer · Dell · HP · Lenovo</span>
+        </div>
+      </article>
+
+      <!-- 05 · Terminal · GitHub Copilot agent terminal/browser -->
+      <article class="spread term">
+        <div class="kicker">
+          <span class="prompt">$</span>
+          <span>05 · Copilot Reads Your Live Terminal</span>
+          <span class="sep">●</span>
+          <span>VS Code v1.116–v1.119</span>
+          <span class="for-you">FOR YOU</span>
+        </div>
+        <h2><span class="prompt">&gt;</span> copilot --tail $TTY --tab $CHROME<span class="dot">_</span></h2>
+        <p>
+          Quietly, in the April-to-May VS Code releases, GitHub Copilot agents picked up two new abilities: read/write access to any foreground terminal — including running REPLs and interactive scripts — and live browser tab context that lets the agent read the page, click, and validate changes in real time.
+        </p>
+        <p>
+          Also new: BYO-key for Business/Enterprise (OpenRouter, Foundry, Google, Anthropic, OpenAI), org-level "Agents" secrets, and admin-distributed Copilot CLI plugins. The center of gravity has moved from autocomplete to multi-tool agent inside the editor.
+        </p>
+        <a class="read" href="https://github.blog/changelog/2026-05-06-github-copilot-in-visual-studio-code-april-releases/">Read the changelog &rarr;</a>
+      </article>
+
+      <!-- 06 · Newsprint two-col · Cursor 3 / Composer 2 -->
+      <article class="spread newsprint">
+        <div class="kicker">
+          <span>06 · IDE Wars</span>
+          <span class="sep">●</span>
+          <span>Cursor 3 · April</span>
+          <span class="for-you">FOR YOU</span>
+        </div>
+        <h2 style="font-style: italic;">Cursor ships Composer 2 — its own model, 200+ tok/s, cloud-to-local handoff<span class="dot">.</span></h2>
+        <div class="colset">
+          <p>
+            Cursor 3 shipped in April with a dedicated Agents Window, a new visual "Design Mode," and Composer 2, Cursor's first-party frontier coding model serving at 200+ tokens/sec. Cloud agents can now hand work back to the local editor mid-task.
+          </p>
+          <p>
+            Per JetBrains' January survey, Copilot still leads workplace adoption (29%), but Cursor is now tied with Claude Code at 18%, with Windsurf at 8%. The frontier-vs-foundation game has bled into the editor: every IDE either owns its own model or pays rent on one.
+          </p>
+        </div>
+        <a class="read" href="https://www.mindstudio.ai/blog/best-ai-code-editors">Read the comparison &rarr;</a>
+      </article>
+
+      <!-- 07 · Academic drop cap · Stripe Terraform via AI agents -->
+      <article class="spread academic">
+        <div class="kicker">
+          <span>07 · Platform Engineering</span>
+          <span class="sep">●</span>
+          <span>stripe.com/blog · March 2</span>
+          <span class="for-you">FOR YOU</span>
+        </div>
+        <h2>Stripe argues AI agents should write Terraform — not call the API directly<span class="dot">.</span></h2>
+        <p class="first">
+          Stripe's engineering blog lays out a case worth reading even if you don't run Stripe: when you let an AI agent configure infrastructure, the safest interface isn't the live API — it's the IaC layer. Terraform's plan/apply split gives you a diff to review before anything mutates state, version-controlled history, and a predictable rollback story. Direct API calls give you none of that.
+        </p>
+        <p>
+          The piece pairs with their earlier post on building eval environments for agentic Stripe integrations: instead of trusting a model to call the right endpoint, you bench it against a synthetic merchant and grade the diff. The whole posture is "agents are powerful — wrap them in the safest reviewable surface you already have."
+        </p>
+        <a class="read" href="https://stripe.com/blog/engineering">Read on stripe.com &rarr;</a>
+      </article>
+
+      <!-- 08 · Newsprint · Supabase @supabase/server -->
+      <article class="spread newsprint">
+        <div class="kicker">
+          <span>08 · Runtimes</span>
+          <span class="sep">●</span>
+          <span>supabase.com/changelog · May</span>
+          <span class="for-you">FOR YOU</span>
+        </div>
+        <h2 style="font-style: italic;">Supabase ships <code style="font-family: 'JetBrains Mono', monospace; font-size: 0.85em;">@supabase/server</code> — one auth SDK for every edge runtime<span class="dot">.</span></h2>
+        <div class="colset">
+          <p>
+            New package handles auth verification, client setup, request context, and CORS across Edge Functions, Vercel Functions, Cloudflare Workers, Deno, Bun, and Hono. The pitch: stop rewriting the same five middleware files per runtime.
+          </p>
+          <p>
+            Also in May: the Data API gets per-table and per-function toggles for PostgREST/GraphQL exposure (a real least-privilege win), Wrappers v0.6.0 adds OpenAPI and Clerk CRUD, and the Stripe Marketplace integration is GA.
+          </p>
+        </div>
+        <a class="read" href="https://supabase.com/changelog/45702-developer-update-may-2026">Read the May update &rarr;</a>
+      </article>
+
+      <!-- 09 · Midnight · Apple WWDC -->
+      <article class="spread midnight">
+        <div class="kicker">
+          <span>09 · Calendar</span>
+          <span class="sep">●</span>
+          <span>apple.com · WWDC June 8</span>
+        </div>
+        <h2>Apple's response window opens June 8<span class="dot">.</span></h2>
+        <p>
+          WWDC 2026 runs June 8–12. Apple's developer page now leads with "new tools, frameworks, and revised foundation model APIs" for on-device intelligence and "system integrations" — language that hasn't been there in prior years.
+        </p>
+        <p>
+          The Developer app already pushed a "Liquid Glass" UI refresh, widely read as a iOS 27 tell. Leaks point to macOS 27 with two more design changes still under wraps. The substantive question for senior engineers: will Apple finally give third-party access to the on-device model? Currently they're the only major platform without a real developer surface for their own LLM.
+        </p>
+        <a class="read" href="https://developer.apple.com/wwdc26/">Read the schedule &rarr;</a>
+      </article>
+
+      <!-- 10 · Midnight · Google Gemini Android race -->
+      <article class="spread midnight">
+        <div class="kicker">
+          <span>10 · Mobile</span>
+          <span class="sep">●</span>
+          <span>CNBC · May 12</span>
+        </div>
+        <h2>Google races Gemini into Android — to beat Apple's June reset<span class="dot">.</span></h2>
+        <p>
+          CNBC reports Google is moving up Gemini's Android-OS integration timeline specifically to land before WWDC. The internal framing: "AI reboot of the OS" is now a platform war, not a feature comparison, and whoever ships first defines the default behavior users learn.
+        </p>
+        <p>
+          Combined with Googlebook above, the strategy is no longer "AI as feature in app" — it's "AI as the runtime." Apple's keynote four weeks out is now the most-watched product event of 2026.
+        </p>
+        <a class="read" href="https://www.cnbc.com/2026/05/12/google-races-put-gemini-at-center-of-android-before-apples-ai-reboot.html">Read on CNBC &rarr;</a>
+      </article>
+
+      <!-- ── HN SECTION ── -->
+      <div class="section-head">
+        <div class="label">§ II · Hacker News · top 5 / 24h</div>
+        <div class="sub">what the front page filed overnight</div>
+      </div>
+      <div class="double-rule"></div>
+
+      <article class="spread hn-spread">
+        <div class="hn-head">
+          <h2 class="title">Front Page<span class="dot">.</span></h2>
+          <div class="kicker"><span>ranked by HN</span><span class="sep">●</span><span>fetched 06:55 CET</span></div>
+        </div>
+
+        <div class="hn-item">
+          <div class="hn-ord">01</div>
+          <div>
+            <h3>Deterministic Fully-Static Whole-Binary Translation Without Heuristics</h3>
+            <div class="stats">204 points <span class="dot">●</span> 49 comments <span class="dot">●</span> arxiv.org</div>
+            <p>An arXiv paper proposing a binary-translation pipeline that drops the usual mix of heuristics and dynamic recompilation in favor of a fully deterministic, static-only transform of the entire binary. Useful if you've ever debugged a QEMU mis-translation and wished the answer didn't depend on which path the dynamic translator happened to discover. Comment thread digs into recoverable jump tables and indirect branches.</p>
+            <div class="links">
+              <a href="https://arxiv.org/abs/2605.08419">Paper</a>
+              <a href="https://news.ycombinator.com/item?id=48117810">HN thread</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="hn-item">
+          <div class="hn-ord">02</div>
+          <div>
+            <h3>Restore full BambuNetwork support for Bambu Lab printers</h3>
+            <div class="stats">462 points <span class="dot">●</span> 201 comments <span class="dot">●</span> github.com</div>
+            <p>An OrcaSlicer fork from the new "FULU Foundation" that re-enables full network printing against Bambu hardware after Bambu Lab moved features into proprietary firmware. The thread reads as a real-time case study in what happens when a hardware vendor walls off a community-driven slicer — fork, reimplement, organize a foundation around it, repeat.</p>
+            <div class="links">
+              <a href="https://github.com/FULU-Foundation/OrcaSlicer-bambulab">Repo</a>
+              <a href="https://news.ycombinator.com/item?id=48115127">HN thread</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="hn-item">
+          <div class="hn-ord">03</div>
+          <div>
+            <h3>Googlebook</h3>
+            <div class="stats">800 points <span class="dot">●</span> 1,311 comments <span class="dot">●</span> googlebook.google</div>
+            <p>The HN take on the announcement covered above: Chromebook is gone, replaced by a Gemini-native Android-desktop laptop line with five OEM partners. The thread is overwhelmingly skeptical — comments revolve around whether "Magic Pointer" is a genuinely new affordance or another Bixby-tier marketing button, and whether shipping a desktop OS over Android is finally the right call after twelve years of false starts.</p>
+            <div class="links">
+              <a href="https://googlebook.google/">Site</a>
+              <a href="https://news.ycombinator.com/item?id=48111545">HN thread</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="hn-item">
+          <div class="hn-ord">04</div>
+          <div>
+            <h3>Needle: Gemini tool-calling distilled into a 26M model</h3>
+            <div class="stats">486 points <span class="dot">●</span> 154 comments <span class="dot">●</span> github.com</div>
+            <p>Cactus Compute distilled Gemini-3.1-Flash-Lite's function-calling behavior into a 26M-parameter "Simple Attention Network" — MLPs removed entirely, leaning on the tools list as external memory. Pretrained on 200B tokens across 16 TPU v6e in 27 hours, post-trained on 2B synthetic tool-call tokens in 45 minutes. On Cactus, 6000 toks/sec prefill, 1200 decode. MIT, weights on HF — the on-device agent dream just got plausible.</p>
+            <div class="links">
+              <a href="https://github.com/cactus-compute/needle">Repo</a>
+              <a href="https://news.ycombinator.com/item?id=48111896">HN thread</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="hn-item">
+          <div class="hn-ord">05</div>
+          <div>
+            <h3>SecurityBaseline.eu — auditing 3,000 EU gov sites</h3>
+            <div class="stats">168 points <span class="dot">●</span> 78 comments <span class="dot">●</span> internetcleanup.foundation</div>
+            <p>A new public dashboard from the Internet Cleanup Foundation: 3,000 European governmental sites set tracking cookies without consent, 1,070 exposed phpMyAdmin instances on 3,529 domains, and 99% of inbound government email lacks modern encryption. France leads on exposed phpMyAdmin (513), Slovakia on illegal trackers. Foundations notified ministries three months ahead so the numbers reflect post-warning state — which makes them worse, not better.</p>
+            <div class="links">
+              <a href="https://internetcleanup.foundation/2026/05/european-governments-3000-tracking-sites-1000-phpmyadmins-and-99pct-poorly-encrypted-email-introducing-securitybaseline-eu/">Report</a>
+              <a href="https://news.ycombinator.com/item?id=48118763">HN thread</a>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- ── ARCHITECTURE ── -->
+      <div class="section-head">
+        <div class="label">§ III · Architecture in the Wild</div>
+        <div class="sub">one piece worth the coffee</div>
+      </div>
+      <div class="double-rule"></div>
+
+      <article class="spread academic">
+        <p class="meta-line">Cloudflare Engineering · Esteban Carisimo &amp; Antonio Vicente · May 12, 2026</p>
+        <h2>When "idle" isn't idle: how a 2017 Linux kernel optimization became a QUIC death spiral<span class="dot">.</span></h2>
+        <p class="first">
+          Cloudflare's post-mortem describes a bug that lived in quiche — their userspace QUIC stack — for years before anyone noticed, then revealed itself only under a very specific combination: real packet loss, a connection that had already exited slow-start, and a congestion window collapsed to its minimum of two packets. The trigger came from a 2017 Linux kernel CUBIC patch that fixed an unrelated problem (cwnd inflation across application idle gaps) by shifting the epoch forward by the idle duration. When the fix was ported into quiche, a subtle bug travelled with it: at minimum cwnd, every two-packet send drained <code style="font-family: 'JetBrains Mono', monospace; font-size: 0.92em;">bytes_in_flight</code> to zero, which the next send-decision misread as "the application has been idle" — for a full RTT. The epoch then advanced into the future, locking the connection into a permanent recovery state where CUBIC, by design, refuses to grow.
+        </p>
+
+        <p class="pull">
+          "999 state transitions oscillating between recovery and congestion avoidance every ~14ms — cwnd locked at minimum despite zero packet loss."
+        </p>
+
+        <p>
+          The diagnostic detail is the part worth studying. Carisimo and Vicente reproduced it with a synthetic scenario — 30% random loss for two seconds, 10MB HTTP/3 download, 10-second timeout — and watched a 61% failure rate emerge from what looked like routine recovery behavior. The fix is three lines: track <code style="font-family: 'JetBrains Mono', monospace; font-size: 0.92em;">last_ack_time</code> alongside <code style="font-family: 'JetBrains Mono', monospace; font-size: 0.92em;">last_sent_time</code>, then compute the idle delta from <code style="font-family: 'JetBrains Mono', monospace; font-size: 0.92em;">max(last_ack_time, last_sent_time)</code>. After the patch the same scenario passes 100%, with cwnd climbing the expected CUBIC curve and downloads finishing in 4–5 seconds instead of timing out.
+        </p>
+
+        <p>
+          What makes this a senior-engineer read is how it inverts the usual postmortem shape: there is no shipped product outage, no rollback, no incident commander. It's a deep instrumentation story about a latent kernel-port hazard in a protocol stack that handles a large fraction of the world's HTTPS traffic. The lesson is the small one — kernel optimizations carry assumptions ("recovery start time is set during ACK processing") that get silently broken when you port them — and the large one: at the edges of a control-loop algorithm, your invariants live in implicit timestamps, and you only find out which ones during a 30%-loss test you should have been running all along.
+        </p>
+
+        <a class="read" href="https://blog.cloudflare.com/quic-death-spiral-fix/">Read on blog.cloudflare.com &rarr;</a>
+      </article>
+
+      <footer>
+        <span>Morning Edition · Vol. I · No. 20 · 2026-05-13</span>
+        <a href="../index.html">← Back to the newsstand</a>
+      </footer>
+    </div>
+  </body>
+</html>
