@@ -1,0 +1,560 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>The Local Turn · Morning Edition · July 3, 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,500;1,9..144,600;1,9..144,700;1,9..144,900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --ink: #14140f;
+        --paper: #ece3d0;
+        --paper-warm: #f2ebdb;
+        --muted: #7a7465;
+        --accent: #e24b4b;
+        --accent-2: #2f6f5e;
+        --gold: #c98a2b;
+      }
+      * { box-sizing: border-box; }
+      html, body { margin: 0; padding: 0; }
+      body {
+        background: var(--paper);
+        color: var(--ink);
+        font-family: "Inter", system-ui, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+        line-height: 1.6;
+      }
+      .serif { font-family: "Fraunces", Georgia, serif; }
+      .mono { font-family: "JetBrains Mono", ui-monospace, monospace; }
+      a { color: inherit; }
+      img { max-width: 100%; }
+
+      .wrap { max-width: 1180px; margin: 0 auto; padding: 0 1.5rem; }
+
+      /* ── Masthead ── */
+      .masthead {
+        border-bottom: 3px double var(--ink);
+        padding: 3rem 0 1.4rem;
+        margin-bottom: 0;
+      }
+      .kicker {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.72rem;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--muted);
+        display: flex; flex-wrap: wrap; gap: 0.9rem;
+        margin-bottom: 1.6rem;
+      }
+      .kicker .dot { color: var(--accent); }
+      .mast-title {
+        font-family: "Fraunces", serif;
+        font-weight: 900;
+        font-size: clamp(3rem, 10vw, 7.5rem);
+        line-height: 0.9;
+        letter-spacing: -0.04em;
+        margin: 0;
+      }
+      .mast-title .em { font-style: italic; color: var(--accent); }
+      .mast-title .em .p { color: var(--ink); font-style: normal; }
+      .mast-sub {
+        font-family: "Fraunces", serif;
+        font-style: italic;
+        font-size: clamp(1.15rem, 2.4vw, 1.7rem);
+        color: var(--muted);
+        max-width: 46ch;
+        margin: 1.5rem 0 0;
+        line-height: 1.4;
+      }
+      .mast-meta {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1.5rem;
+        padding: 1.6rem 0 0;
+        margin-top: 1.6rem;
+        border-top: 1.5px solid var(--ink);
+      }
+      .mast-meta .lbl {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.62rem; letter-spacing: 0.16em; text-transform: uppercase;
+        color: var(--muted); margin-bottom: 0.4rem;
+      }
+      .mast-meta .val { font-family: "Fraunces", serif; font-weight: 700; font-size: 1.05rem; }
+      .mast-meta .val.it { font-style: italic; font-weight: 400; }
+
+      /* ── Spread scaffolding ── */
+      .spread { padding: 5.5rem 0; border-bottom: 1px solid rgba(20,20,15,0.14); }
+      .eyebrow {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;
+        display: flex; align-items: center; gap: 0.8rem; flex-wrap: wrap;
+        margin-bottom: 1.6rem;
+      }
+      .ord {
+        font-family: "Fraunces", serif; font-style: italic; font-weight: 900;
+        line-height: 1;
+      }
+      .foryou {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 0.6rem; letter-spacing: 0.18em; font-weight: 600;
+        background: var(--accent); color: var(--paper-warm);
+        padding: 0.25rem 0.5rem; border-radius: 3px; text-transform: uppercase;
+      }
+      .h-lead {
+        font-family: "Fraunces", serif; font-weight: 900;
+        line-height: 0.98; letter-spacing: -0.03em; margin: 0 0 1.2rem;
+      }
+      .dek {
+        font-family: "Fraunces", serif; font-style: italic;
+        color: var(--muted); font-size: clamp(1.1rem, 2vw, 1.4rem);
+        line-height: 1.4; margin: 0 0 1.6rem; max-width: 40ch;
+      }
+      .body-col p { font-size: 1.06rem; line-height: 1.72; margin: 0 0 1.1rem; max-width: 68ch; }
+      .readmore {
+        display: inline-flex; align-items: center; gap: 0.5rem;
+        font-family: "JetBrains Mono", monospace; font-size: 0.72rem;
+        letter-spacing: 0.14em; text-transform: uppercase; text-decoration: none;
+        border-bottom: 1.5px solid currentColor; padding-bottom: 2px; margin-top: 0.6rem;
+      }
+      .src {
+        font-family: "JetBrains Mono", monospace; font-size: 0.7rem;
+        letter-spacing: 0.1em; color: var(--muted); margin-top: 1.4rem; word-break: break-word;
+      }
+
+      /* archetype: hero */
+      .a-hero { background: linear-gradient(135deg, #ecccc0 0%, #e9b7a3 55%, #d98f66 100%); color: #2a1810; }
+      .a-hero .eyebrow, .a-hero .ord { color: #7a2f14; }
+      .a-hero .dek { color: #7a3a20; }
+      .a-hero .h-lead { font-size: clamp(2.6rem, 6.5vw, 5rem); }
+      .a-hero .readmore { color: #7a2f14; }
+      .a-hero .src { color: #8a4a30; }
+
+      /* archetype: dark / midnight */
+      .a-dark { background: #12110f; color: #e7dfce; }
+      .a-dark .eyebrow { color: var(--accent); }
+      .a-dark .ord { color: rgba(231,223,206,0.28); }
+      .a-dark .dek { color: rgba(231,223,206,0.6); }
+      .a-dark .src { color: rgba(231,223,206,0.4); }
+      .a-dark .readmore { color: var(--accent); }
+      .a-dark .h-lead { font-size: clamp(2.6rem, 6.5vw, 5rem); }
+
+      /* archetype: midnight-space */
+      .a-space { background: radial-gradient(120% 90% at 80% 10%, #1c2440 0%, #0c0e1a 60%, #08080f 100%); color: #d8def0; }
+      .a-space .eyebrow { color: #8fb4ff; }
+      .a-space .ord { color: rgba(216,222,240,0.22); }
+      .a-space .dek { color: rgba(216,222,240,0.62); }
+      .a-space .src { color: rgba(216,222,240,0.4); }
+      .a-space .readmore { color: #8fb4ff; }
+      .a-space .h-lead { font-size: clamp(2.6rem, 6.5vw, 5rem); }
+
+      /* archetype: terminal */
+      .a-term { background: #0c0f0c; color: #b7f7c2; font-family: "JetBrains Mono", monospace; }
+      .a-term .eyebrow { color: #63d97a; }
+      .a-term .ord { color: rgba(99,217,122,0.3); font-family: "JetBrains Mono", monospace; font-style: normal; }
+      .a-term .h-lead { font-family: "JetBrains Mono", monospace; font-weight: 600; letter-spacing: -0.01em; font-size: clamp(2rem, 5vw, 3.4rem); color: #d8ffe0; }
+      .a-term .dek { font-family: "JetBrains Mono", monospace; font-style: normal; color: #6fbf82; font-size: 1rem; }
+      .a-term .body-col p { font-family: "JetBrains Mono", monospace; font-size: 0.92rem; line-height: 1.75; color: #9fe6ac; }
+      .a-term .prompt { color: #63d97a; }
+      .a-term .readmore { color: #63d97a; }
+      .a-term .src { color: #4f8a5c; }
+
+      /* archetype: rose alert */
+      .a-rose { background: #f6dcd8; color: #4a1512; }
+      .a-rose .eyebrow { color: var(--accent); }
+      .a-rose .ord { color: rgba(226,75,75,0.35); }
+      .a-rose .dek { color: #8a3a34; }
+      .a-rose .readmore { color: var(--accent); }
+      .a-rose .src { color: #9a544e; }
+      .a-rose .stamp {
+        display: inline-block; border: 2.5px solid var(--accent); color: var(--accent);
+        font-family: "JetBrains Mono", monospace; font-weight: 600;
+        font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase;
+        padding: 0.5rem 1rem; border-radius: 5px; transform: rotate(-3deg);
+        margin-bottom: 1.4rem;
+      }
+
+      /* archetype: academic drop-cap */
+      .a-acad { background: #efe9db; color: #1c1a12; }
+      .a-acad .eyebrow { color: var(--accent-2); }
+      .a-acad .ord { color: rgba(47,111,94,0.3); }
+      .a-acad .h-lead { font-weight: 700; }
+      .a-acad .dek { color: var(--muted); }
+      .a-acad .body-col.dropcap > p:first-of-type::first-letter {
+        font-family: "Fraunces", serif; font-weight: 900; float: left;
+        font-size: 5.2rem; line-height: 0.72; padding: 0.35rem 0.7rem 0 0; color: var(--accent-2);
+      }
+      .a-acad .readmore { color: var(--accent-2); }
+
+      /* archetype: newsprint */
+      .a-news { background: var(--paper-warm); color: var(--ink); }
+      .a-news .eyebrow { color: var(--accent); }
+      .a-news .ord { color: rgba(20,20,15,0.22); }
+      .a-news .dek { color: var(--muted); }
+      .a-news .readmore { color: var(--accent); }
+
+      /* archetype: big stat */
+      .a-stat { background: #16302a; color: #e3f0e6; }
+      .a-stat .eyebrow { color: #7fd6ad; }
+      .a-stat .ord { color: rgba(227,240,230,0.25); }
+      .a-stat .dek { color: rgba(227,240,230,0.62); }
+      .a-stat .bignum {
+        font-family: "Fraunces", serif; font-weight: 900; font-style: italic;
+        font-size: clamp(5rem, 16vw, 12rem); line-height: 0.85; color: #7fd6ad;
+        letter-spacing: -0.04em; margin: 0.5rem 0;
+      }
+      .a-stat .readmore { color: #7fd6ad; }
+      .a-stat .src { color: rgba(227,240,230,0.42); }
+
+      /* archetype: parchment / cream */
+      .a-cream { background: #e8dcc2; color: #211d12; }
+      .a-cream .eyebrow { color: var(--gold); }
+      .a-cream .ord { color: rgba(201,138,43,0.4); }
+      .a-cream .dek { color: var(--muted); }
+      .a-cream .readmore { color: var(--gold); }
+
+      .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+      @media (max-width: 820px) { .grid-2 { grid-template-columns: 1fr; gap: 2rem; } }
+
+      .pull {
+        font-family: "Fraunces", serif; font-style: italic; font-weight: 500;
+        font-size: clamp(1.5rem, 3vw, 2.2rem); line-height: 1.3;
+        border-left: 3px solid currentColor; padding-left: 1.4rem; margin: 2rem 0;
+        max-width: 24ch;
+      }
+
+      /* ── HN section ── */
+      .hn { background: #f4eeddff; color: var(--ink); }
+      .hn .sec-head {
+        display: flex; align-items: baseline; justify-content: space-between;
+        border-bottom: 3px double var(--ink); padding-bottom: 1rem; margin-bottom: 2.5rem; flex-wrap: wrap; gap: 0.5rem;
+      }
+      .hn .sec-title { font-family: "Fraunces", serif; font-weight: 900; font-size: clamp(2rem, 5vw, 3.2rem); letter-spacing: -0.02em; margin: 0; }
+      .hn .sec-note { font-family: "JetBrains Mono", monospace; font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
+      .hn-item { display: grid; grid-template-columns: auto 1fr; gap: 2rem; padding: 2.2rem 0; border-bottom: 1px solid rgba(20,20,15,0.15); }
+      .hn-item:last-child { border-bottom: none; }
+      .hn-ord { font-family: "Fraunces", serif; font-style: italic; font-weight: 900; font-size: clamp(2.6rem, 6vw, 4rem); color: var(--accent); line-height: 0.8; }
+      .hn-title { font-family: "Fraunces", serif; font-weight: 700; font-size: clamp(1.5rem, 3.2vw, 2.2rem); line-height: 1.08; letter-spacing: -0.015em; margin: 0 0 0.7rem; }
+      .hn-stats { font-family: "JetBrains Mono", monospace; font-size: 0.72rem; letter-spacing: 0.08em; color: var(--accent-2); margin-bottom: 0.8rem; }
+      .hn-sum { font-size: 1.02rem; line-height: 1.65; max-width: 70ch; margin: 0 0 0.8rem; }
+      .hn-link { font-family: "JetBrains Mono", monospace; font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; border-bottom: 1.5px solid var(--accent); color: var(--accent); padding-bottom: 2px; }
+      @media (max-width: 640px) { .hn-item { grid-template-columns: 1fr; gap: 0.6rem; } }
+
+      /* ── footer ── */
+      .colophon { padding: 4rem 0 5rem; }
+      .colophon .rule { border-top: 3px double var(--ink); padding-top: 1.4rem; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; font-family: "JetBrains Mono", monospace; font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+      .back { text-decoration: none; color: var(--accent); }
+
+      @media (max-width: 640px) {
+        .mast-meta { grid-template-columns: 1fr 1fr; }
+        .spread { padding: 4rem 0; }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ══ Masthead ══ -->
+    <header class="masthead">
+      <div class="wrap">
+        <div class="kicker">
+          <span>Morning Edition</span><span class="dot">●</span>
+          <span>Vol. I · No. 29</span><span class="dot">●</span>
+          <span>Friday · July 3, 2026</span><span class="dot">●</span>
+          <span>For Aziz</span>
+        </div>
+        <h1 class="mast-title">The Local <span class="em">Turn<span class="p">.</span></span></h1>
+        <p class="mast-sub">Trust is retreating to the edge — a coding agent banned for phoning home, a manifesto for the right to run your own weights, and a state that finally made your location un-sellable.</p>
+        <div class="mast-meta">
+          <div><div class="lbl">Curated</div><div class="val">12 spreads</div></div>
+          <div><div class="lbl">Window</div><div class="val it">Last 72 hours</div></div>
+          <div><div class="lbl">Sources</div><div class="val it">X · HN · Open web</div></div>
+          <div><div class="lbl">Anchor</div><div class="val it">Architecture</div></div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ══ 01 · Alibaba bans Claude Code — dark ══ -->
+    <section class="spread a-dark">
+      <div class="wrap">
+        <div class="eyebrow"><span class="ord" style="font-size:1.6rem;">01</span><span>The Sovereignty Reflex</span><span class="foryou">For You</span></div>
+        <div class="grid-2">
+          <div>
+            <h2 class="h-lead">Alibaba pulls Claude Code over an alleged phone-home.</h2>
+            <p class="dek">A reverse-engineering claim, a March “anti-abuse experiment,” and a July 10 internal deadline.</p>
+          </div>
+          <div class="body-col">
+            <p>Alibaba is reportedly moving to ban Anthropic's Claude Code from internal machines by <strong>July 10</strong>, redirecting engineers to its in-house Qoder tool. The trigger: a June 30 Reddit post claiming that since version 2.1.91 (April 2), Claude Code silently inspected users' proxy settings and system time zones, comparing them against a concealed list of identifiers tied to Chinese firms — Alibaba, Baidu, ByteDance among them.</p>
+            <p>Anthropic's account: the check was a March anti-abuse experiment aimed at account resellers and model distillation, and it will be removed in a future update. Note the backdrop — Anthropic accused entities linked to Alibaba's Qwen lab of distilling models across ~25,000 accounts. No third-party firm has yet confirmed the “backdoor.” The lesson for anyone shipping dev tooling: environment fingerprinting reads as espionage the moment it's discovered, regardless of intent.</p>
+            <a class="readmore" href="https://cybersecuritynews.com/alibaba-to-ban-claude-code/">Read the report →</a>
+            <div class="src">Reuters via cybersecuritynews.com · reuters.com/world/china (2026-07-03)</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ 02 · Right to Local Intelligence — cream ══ -->
+    <section class="spread a-cream">
+      <div class="wrap">
+        <div class="eyebrow"><span class="ord" style="font-size:1.6rem;">02</span><span>The Manifesto</span></div>
+        <div class="grid-2">
+          <div>
+            <h2 class="h-lead" style="font-size:clamp(2.4rem,5.5vw,4rem);">A “Right to Local Intelligence.”</h2>
+            <p class="dek">Before a statute makes your open weights something you need permission to run.</p>
+          </div>
+          <div class="body-col">
+            <p>righttointelligence.org is a fast-rising manifesto arguing for legal safe-harbor to <strong>own, modify, publish and locally execute</strong> open-weight models without a license. The fear it names is concrete: draft state laws that could put local AI behind a permit, effectively converting open models into a permissioned resource and handing regulatory capture to the frontier labs.</p>
+            <p>The HN thread splits predictably — supporters frame local inference as the only real defense against corporate surveillance and data extraction (and note Nvidia/Dell/Asus quietly benefit); skeptics ask which bill, exactly, is being fought, since the site names no specific legislation. Either way, it crystallizes the week's throughline: control is migrating from the cloud back to the device, and people want that codified before it's too late.</p>
+            <a class="readmore" href="https://righttointelligence.org/">Read the manifesto →</a>
+            <div class="src">righttointelligence.org · HN discussion 48768951</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ 03 · Figma Config 2026 — hero ══ -->
+    <section class="spread a-hero">
+      <div class="wrap">
+        <div class="eyebrow"><span class="ord" style="font-size:1.6rem;">03</span><span>Creative Software</span></div>
+        <h2 class="h-lead">Figma puts motion, code, and model-graphs on the canvas.</h2>
+        <p class="dek">Config 2026 turned the design surface into an executable, multi-model workspace.</p>
+        <div class="grid-2">
+          <div class="body-col">
+            <p>At Config 2026 (June 24) Figma shipped six headline features. <strong>Figma Motion</strong> adds a real animation timeline — keyframes, presets, easing — directly in Design, with the agent able to generate a starting motion pass. <strong>Code Layers</strong> put executable code on the canvas (waitlist, rolling out in July).</p>
+          </div>
+          <div class="body-col">
+            <p><strong>Weave</strong> graduates to the main canvas: a node-based surface where you wire models together, transform assets, and compare outputs — “working with model outputs like clay” instead of prompting for one result. Add generative shader fills, prompt-built <strong>generative plugins</strong>, and an upgraded agent with skills, connectors and team-visible chats. The design tool is becoming an orchestration tool.</p>
+            <a class="readmore" href="https://www.figma.com/blog/config-2026-recap/">Read the recap →</a>
+            <div class="src">figma.com/blog/config-2026-recap (2026-06-24)</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ 04 · Safari MCP server — terminal ══ -->
+    <section class="spread a-term">
+      <div class="wrap">
+        <div class="eyebrow"><span class="ord" style="font-size:1.4rem;">04</span><span>DEV TOOLS</span><span class="foryou">For You</span></div>
+        <h2 class="h-lead"><span class="prompt">$</span> claude mcp add safari-mcp-stp</h2>
+        <p class="dek"># WebKit ships an MCP server so agents can debug real Safari, not a description of it.</p>
+        <div class="body-col" style="max-width:74ch;">
+          <p>Safari Technology Preview 247 introduces a first-party <span class="prompt">Safari MCP server</span>: 15+ tools exposing DOM interaction, JS evaluation, screenshots, page content, console messages, and full network inspection (headers, timing, bodies), plus viewport/media emulation, tab management, accessibility checks and performance metrics.</p>
+          <p>The pitch is autonomy: “your agent can emulate what your users experience,” so it chases Safari-specific rendering, perf and a11y bugs without a human ferrying details back and forth. It runs <span class="prompt">locally</span>, makes no external network calls, and touches none of your personal Safari data. Install is one line against <span class="prompt">safaridriver --mcp</span>. Fits this issue's theme perfectly — the debugging loop moves on-device.</p>
+          <a class="readmore" href="https://webkit.org/blog/18136/introducing-the-safari-mcp-server-for-web-developers/">Read the WebKit post →</a>
+          <div class="src">webkit.org/blog/18136 · Safari Technology Preview 247</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ 05 · Podman v6 — newsprint ══ -->
+    <section class="spread a-news">
+      <div class="wrap">
+        <div class="eyebrow"><span class="ord" style="font-size:1.6rem;">05</span><span>Containers · Infra</span><span class="foryou">For You</span></div>
+        <div class="grid-2">
+          <div>
+            <h2 class="h-lead" style="font-size:clamp(2.4rem,5.5vw,4rem);">Podman 6.0 finishes the great networking swap.</h2>
+            <p class="dek">Out with slirp4netns and iptables; in with Netavark, Pasta and nftables.</p>
+          </div>
+          <div class="body-col">
+            <p>Released July 2, Podman v6.0.0 completes a long networking migration — legacy <strong>slirp4netns/iptables</strong> give way to <strong>Netavark, Pasta and nftables</strong> — and adds experimental Pasta rootless port-forwarding that preserves source IP on custom networks. Podman Machine gains multi-provider VM support and a <code>podman machine os update</code> command.</p>
+            <p>Quadlet keeps maturing: REST API support, better file tracking, expanded <code>.volume</code> units, and extra search paths for packagers. Docker API compatibility got another pass to smooth migrations. If you run rootless containers in CI or on a laptop, the source-IP-preserving path alone is worth the read.</p>
+            <a class="readmore" href="https://blog.podman.io/2026/07/introducing-podman-v6-0-0/">Read the release →</a>
+            <div class="src">blog.podman.io/2026/07/introducing-podman-v6-0-0 (2026-07-02)</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ 06 · LUKS regression — rose alert ══ -->
+    <section class="spread a-rose">
+      <div class="wrap">
+        <div class="eyebrow"><span class="ord" style="font-size:1.4rem;">06</span><span>Security</span><span class="foryou">For You</span></div>
+        <span class="stamp">Regression · verify your kernel</span>
+        <div class="grid-2">
+          <div>
+            <h2 class="h-lead" style="font-size:clamp(2.4rem,5.5vw,4rem);">Since Linux 6.9, LUKS suspend stopped wiping your keys.</h2>
+            <p class="dek">The one guarantee that made a suspended laptop safe to carry — quietly broken.</p>
+          </div>
+          <div class="body-col">
+            <p>The whole point of <code>cryptsetup luksSuspend</code> is to freeze I/O and flush the disk-encryption key out of RAM, so a suspended, encrypted laptop is worthless to a thief running a cold-boot attack. A newly surfaced report (Ingo Blechschmidt) finds that since <strong>Linux 6.9</strong>, that key wipe silently stopped happening — the key lingers in memory across suspend.</p>
+            <p>For a full-disk-encryption threat model built around “suspend before you cross a border,” this is the assumption collapsing underneath you. If you rely on LUKS suspend, treat suspended machines as if they hold live keys until you've confirmed behavior on your kernel — and watch the cryptsetup/kernel threads for a fix.</p>
+            <a class="readmore" href="https://news.ycombinator.com/item?id=48763035">Read the discussion →</a>
+            <div class="src">mathstodon.xyz/@iblech · HN 48763035</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ 07 · crustc — academic dropcap ══ -->
+    <section class="spread a-acad">
+      <div class="wrap">
+        <div class="eyebrow"><span class="ord" style="font-size:1.6rem;">07</span><span>Systems · Weird & Wonderful</span></div>
+        <h2 class="h-lead" style="font-size:clamp(2.4rem,5.5vw,3.8rem);">The entire Rust compiler, rendered as 46 million lines of C.</h2>
+        <p class="dek">A bootstrapping trick that lets Rust reach hardware LLVM never will.</p>
+        <div class="grid-2">
+          <div class="body-col dropcap">
+            <p>crustc is rustc 1.98.0-nightly transpiled into roughly <strong>46 million lines of C</strong> that compile with plain GCC and Make and produce a working compiler — one that can rebuild Rust's own standard library. The goal isn't novelty; it's reach. Obscure and legacy platforms often have a C compiler and nothing else, which has kept Rust permanently off them.</p>
+          </div>
+          <div class="body-col">
+            <p>Underneath sits <strong>cilly</strong>, a Rust-to-C backend that doesn't assume a fixed C dialect. Instead it emits “witness programs” to probe what a given compiler actually supports (thread-local storage, void-pointer round-tripping) and tailors output accordingly. The demo even compiled Rust for x86 Plan 9 while running on ARM64 Linux, shuttling work over TCP. A pragmatic answer to the oldest question in language bootstrapping: what do you build the compiler with, when you have nothing?</p>
+            <a class="readmore" href="https://github.com/FractalFir/crustc">Read on GitHub →</a>
+            <div class="src">github.com/FractalFir/crustc</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ 08 · Manticore ONNX — big stat ══ -->
+    <section class="spread a-stat">
+      <div class="wrap">
+        <div class="eyebrow"><span class="ord" style="font-size:1.4rem;">08</span><span>Search · Inference</span><span class="foryou">For You</span></div>
+        <div class="grid-2">
+          <div>
+            <div class="bignum">14×</div>
+            <p class="dek">faster embeddings — by doing the opposite of what you'd expect.</p>
+          </div>
+          <div class="body-col">
+            <h2 class="h-lead" style="font-size:clamp(1.8rem,4vw,2.6rem);">Batching made it slower.</h2>
+            <p>Manticore's old SentenceTransformers + Candle path was stuck at <strong>5–11 docs/sec</strong> no matter the config, CPU idling. The ONNX Runtime rebuild hit <strong>70–233 docs/sec</strong> — a ~14× average win — via a counterintuitive recipe: one shared session across threads, <strong>one document per call, no batching</strong>, intra-op spinning disabled (<code>with_intra_op_spinning(false)</code>), parallel tokenization at startup.</p>
+            <p>The insight worth stealing: on variable-length text, batching wasted compute padding short inputs to the longest in the batch, so single-doc calls won outright. And a spin-wait flag was burning cores for no work. Classic “measure, don't assume.”</p>
+            <a class="readmore" href="https://manticoresearch.com/blog/onnx-embeddings-speedup/">Read the writeup →</a>
+            <div class="src">manticoresearch.com/blog/onnx-embeddings-speedup · all-MiniLM-L12-v2</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ 09 · Immich 3.0 — parchment ══ -->
+    <section class="spread a-cream">
+      <div class="wrap">
+        <div class="eyebrow"><span class="ord" style="font-size:1.6rem;">09</span><span>Self-Hosted</span></div>
+        <div class="grid-2">
+          <div>
+            <h2 class="h-lead" style="font-size:clamp(2.4rem,5.5vw,4rem);">Immich 3.0 grows a workflow engine.</h2>
+            <p class="dek">The self-hosted Google Photos alternative gets automation, live transcoding — and 30+ breaking changes.</p>
+          </div>
+          <div class="body-col">
+            <p>Immich 3.0 lands non-destructive editing on mobile (crop, rotate, adjust), on-the-fly <strong>real-time video transcoding</strong> (no offline prep, per-client quality switching), mobile OCR, and a drag-and-drop <strong>Workflows</strong> engine (preview) that chains triggers, filters and actions with visual + JSON editors and shareable templates.</p>
+            <p>The upgrade isn't free: it drops <strong>pgvecto.rs</strong> in favor of VectorChord — migrate your vector store first — swaps class-validator for Zod, and carries 30+ breaking API changes (durations now in milliseconds, stricter OAuth, restructured errors). Mostly integrator-facing, but read the notes before you <code>docker compose pull</code>.</p>
+            <a class="readmore" href="https://github.com/immich-app/immich/discussions/29439">Read the release →</a>
+            <div class="src">github.com/immich-app/immich · discussions/29439</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ 10 · Gravitational wave catalog — space ══ -->
+    <section class="spread a-space">
+      <div class="wrap">
+        <div class="eyebrow"><span class="ord" style="font-size:1.6rem;">10</span><span>Weird Science</span></div>
+        <div class="grid-2">
+          <div>
+            <h2 class="h-lead">390 black-hole collisions, and counting.</h2>
+            <p class="dek">The largest gravitational-wave catalog ever released just added 161 mergers in one drop.</p>
+          </div>
+          <div class="body-col">
+            <p>The latest transient catalog adds <strong>161 new black-hole mergers</strong>, pushing the running total of gravitational-wave detections to <strong>390</strong>. A decade after the first LIGO chirp, catching a spacetime ripple from colliding black holes has gone from Nobel-winning singular event to routine, statistically dense population science.</p>
+            <p>Sharing the week's strange-cosmos beat: the ultra-energetic Amaterasu particle may be an atomic nucleus heavier than iron rather than a lone proton, and astronomers confirmed two “super-puff” planets — Jupiter-sized but less dense than cotton candy. The universe keeps refusing to be tidy.</p>
+            <a class="readmore" href="https://www.sciencedaily.com/news/space_time/astronomy/">Browse the astronomy wire →</a>
+            <div class="src">ScienceDaily · Space &amp; Time (June 2026)</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ 11 · HACKER NEWS SECTION ══ -->
+    <section class="spread hn">
+      <div class="wrap">
+        <div class="sec-head">
+          <h2 class="sec-title">From the Orange Site</h2>
+          <div class="sec-note">Hacker News · Top 5 · last 24h · Firebase API</div>
+        </div>
+
+        <div class="hn-item">
+          <div class="hn-ord">01</div>
+          <div>
+            <h3 class="hn-title">The Half-Baked Product</h3>
+            <div class="hn-stats">766 points · 216 comments</div>
+            <p class="hn-sum">A parable dressed as an oven company: a team ships candle modes and Ramadan modes while its core algorithm quietly fails 33% of the time, sales promises an impossible rotating base without asking engineering, and the one person who wants to fix the foundation leaves. The real subject is organizational — “when everything is urgent, nothing is,” and perpetual firefighting is how a product stays superficially complete and structurally broken. The gut-punch ending: the founder hires a replacement under identical conditions, having learned nothing.</p>
+            <a class="hn-link" href="https://news.ycombinator.com/item?id=48772388">Discuss on HN →</a>
+          </div>
+        </div>
+
+        <div class="hn-item">
+          <div class="hn-ord">02</div>
+          <div>
+            <h3 class="hn-title">Virginia bans the sale of precise geolocation data</h3>
+            <div class="hn-stats">915 points · 135 comments</div>
+            <p class="hn-sum">As of July 1, Virginia's S.B. 388 amends the Consumer Data Protection Act to prohibit selling geolocation data — defining “sale” as exchanging personal data for monetary consideration with a third party. It puts Virginia alongside Maryland and Oregon and rides a wider wave that includes a 2024 FTC data-broker settlement and California AG scrutiny of the location industry. For anyone building consumer apps, the location-data-broker business model is now illegal in a growing list of states, not merely frowned upon.</p>
+            <a class="hn-link" href="https://news.ycombinator.com/item?id=48767347">Discuss on HN →</a>
+          </div>
+        </div>
+
+        <div class="hn-item">
+          <div class="hn-ord">03</div>
+          <div>
+            <h3 class="hn-title">CarPlay Is Additive, You Dolts</h3>
+            <div class="hn-stats">451 points · 602 comments</div>
+            <p class="hn-sum">Casey Liss answers a Rivian software exec who justified skipping CarPlay by claiming it “takes over every pixel.” His rebuttal is technical and simple: modern CarPlay coexists with a carmaker's native UI (he shows it beside Volvo's), and it's opt-in — if your infotainment is genuinely better, drivers just won't launch it, so refusing to support it only shrinks your addressable market. The 600-comment thread is really a proxy war over who owns the dashboard: the automaker's software ambitions vs. the phone the driver already trusts.</p>
+            <a class="hn-link" href="https://news.ycombinator.com/item?id=48769397">Discuss on HN →</a>
+          </div>
+        </div>
+
+        <div class="hn-item">
+          <div class="hn-ord">04</div>
+          <div>
+            <h3 class="hn-title">Wordgard — a schema-based rich-text editor from ProseMirror's creator</h3>
+            <div class="hn-stats">125 points · 57 comments</div>
+            <p class="hn-sum">Marijn Haverbeke (ProseMirror) released Wordgard, an MIT-licensed, functional-style library for building in-browser editors where you control exactly what content is allowed via a document schema — tables, nested lists, captioned figures, collaborative editing, RTL and screen-reader support, all as swappable modular extensions. It's positioned as a cleaner foundation for demanding, customized editors rather than a drop-in WYSIWYG. Two flags worth noting: it advertises “0% AI,” and it accepts bug reports but declines pull requests.</p>
+            <a class="hn-link" href="https://news.ycombinator.com/item?id=48772573">Discuss on HN →</a>
+          </div>
+        </div>
+
+        <div class="hn-item">
+          <div class="hn-ord">05</div>
+          <div>
+            <h3 class="hn-title">An American Privacy Emergency</h3>
+            <div class="hn-stats">366 points · 112 comments</div>
+            <p class="hn-sum">A guest post (Cynthia Dwork, on Scott Aaronson's blog) sounds the alarm on Commerce directive DAO 216-26, which bars federal statistical agencies from using modern disclosure-avoidance — differential privacy and noise infusion — and rolls them back to 1970s coarsening and suppression. Dwork shows why that's not just retro but broken: her “brewery” example demonstrates that multiple coarsened statistics can be recombined with basic algebra to reconstruct confidential records, which noise infusion is specifically designed to prevent. The framing: a Census law that mandates both confidentiality and useful aggregates is being forced into an impossible choice for political ends.</p>
+            <a class="hn-link" href="https://news.ycombinator.com/item?id=48768992">Discuss on HN →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ 12 · ARCHITECTURE IN THE WILD ══ -->
+    <section class="spread a-acad" style="padding-top:6rem;padding-bottom:6.5rem;">
+      <div class="wrap">
+        <div class="eyebrow"><span class="ord" style="font-size:1.6rem;">✦</span><span>Architecture in the Wild</span><span style="color:var(--muted);">— the anchor read</span></div>
+        <h2 class="h-lead" style="font-size:clamp(2.6rem,6vw,4.6rem);max-width:16ch;">How Cloudflare built saga rollbacks for Workflows.</h2>
+        <p class="dek" style="max-width:52ch;">Cloudflare Blog · Vaishnav Kavitha, Mia Malden &amp; André Venceslau · June 25, 2026</p>
+        <div class="grid-2">
+          <div class="body-col dropcap">
+            <p>Durable execution engines promise that a multi-step workflow survives crashes, retries each step, and remembers its progress. What they historically don't give you is the <em>undo</em>: when step 4 fails terminally, the money already debited in step 1 stays debited. Cloudflare Workflows now closes that gap with the <strong>saga pattern</strong> — every forward step can register a compensating action, and when the workflow dies, those compensations fire in <strong>reverse step-start order</strong> to unwind the world.</p>
+            <p>The engineering interest is in the seams. Compensation only triggers on <em>terminal</em> workflow failure, not on errors your own code catches — a deliberate line that keeps rollback predictable. Ordering uses persisted step-<em>start</em> order reversed (not completion order), so parallel workflows still unwind deterministically. And every rollback handler must be idempotent, leaning on idempotency keys from payment providers so a retried compensation never double-credits.</p>
+          </div>
+          <div class="body-col">
+            <p class="pull">A <code>step.do()</code> already describes a durable unit of work that Workflows records, retries, and later shows in logs.</p>
+            <p>The API choice is the tell. Cloudflare rejected the fluent <code>step.do().rollback()</code> form because in Workers RPC a returned promise supports pipelining, which would make timing ambiguous for concurrent workflows; builder patterns felt too ceremonial. So rollback became plain metadata — <code>{ rollback: async ({ output }) =&gt; … }</code> — attached to the step. Recovery after an engine restart runs in <strong>replay mode</strong>: workflow code re-runs without re-executing completed step bodies, rebuilding only the rollback handler stubs from persisted history.</p>
+            <p>Why it matters to a senior engineer: this is distributed-transaction theory (sagas, compensations, idempotency, replay) delivered as a two-line ergonomic API — and a clean case study in how API surface constrains, and is constrained by, the runtime beneath it. Today it's sequential-only; parallel rollback, <code>waitForEvent</code>, and Python Workflows are on the roadmap.</p>
+            <a class="readmore" href="https://blog.cloudflare.com/rollbacks-for-workflows/">Read the full piece →</a>
+            <div class="src">blog.cloudflare.com/rollbacks-for-workflows (2026-06-25)</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ Colophon ══ -->
+    <footer class="colophon">
+      <div class="wrap">
+        <div class="rule">
+          <span>Morning Edition · Vol. I · No. 29 · July 3, 2026</span>
+          <a class="back" href="../index.html">← Back to the Newsstand</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
